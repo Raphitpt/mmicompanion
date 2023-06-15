@@ -30,6 +30,7 @@ require 'Helpers/debug.php';
 require 'Helpers/functions.php';
 
 
+
 // mettre en place le processus de connexion à la base de données
 // documentation php.net/manual/fr/pdo.construct.php
 try {

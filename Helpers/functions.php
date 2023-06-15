@@ -28,28 +28,7 @@ function head(string $title = ''): string
   <title>$title</title>
 </head>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-const currentPage = window.location.pathname;
-const iconhome = document.querySelector(".menulink_home img");
-const iconstat = document.querySelector(".menulink_stat img");
-const iconmap = document.querySelector(".menulink_map img");
-const iconvisit = document.querySelector(".menulink_visit img");
-const iconexit = document.querySelector(".menulink_exit img");
 
-if (currentPage.includes("index.php")) {
-iconhome.src = "./assets/svg/homeblue.svg";
-} else if  (currentPage.includes("visite_stats.php")) {
-iconstat.src = "./assets/svg/bar-chart-2blue.svg";
-} else if  (currentPage.includes("carte.php")) {
-iconmap.src = "./assets/svg/map-pinblue.svg";
-} else if  (currentPage.includes("visite_list.php")) {
-iconvisit.src = "./assets/svg/eyeblue.svg";
-} 
-
-});
-
-</script>
 HTML_HEAD;
 }
 
@@ -70,3 +49,4 @@ function isPostMethod(): bool
 {
     return  ($_SERVER['REQUEST_METHOD'] === 'POST') ;
 }
+
