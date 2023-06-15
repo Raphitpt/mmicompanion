@@ -26,6 +26,8 @@ function head(string $title = ''): string
  
   <link rel="stylesheet" href="./assets/css/style.css">
   <title>$title</title>
+  <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+    <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
 </head>
 
 
@@ -50,3 +52,43 @@ function isPostMethod(): bool
     return  ($_SERVER['REQUEST_METHOD'] === 'POST') ;
 }
 
+function calendar($group = ''){
+    $calendar_link = '';
+    if($group == "BUT1-TP1"){
+        $calendar_link ='http://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21314&projectId=13&calType=ical&nbWeeks=15';
+    }
+    if($group == "BUT1-TP2"){
+        $calendar_link ='';
+    }
+    if($group == "BUT1-TP3"){
+        $calendar_link ='';
+    }
+    if($group == "BUT1-TP4"){
+        $calendar_link ='';
+    }
+    if($group == "BUT2-TP1"){
+        $calendar_link ='';
+    }
+    if($group == "BUT2-TP2"){
+        $calendar_link ='';
+    }
+    if($group == "BUT2-TP3"){
+        $calendar_link ='';
+    }
+    if($group == "BUT2-TP4"){
+        $calendar_link ='';
+    }
+    if($group == "BUT3-TP1"){
+        $calendar_link ='';
+    }
+    if($group == "BUT3-TP2"){
+        $calendar_link ='';
+    }
+    if($group == "BUT3-TP3"){
+        $calendar_link ='';
+    }
+    if($group == "BUT3-TP4"){
+        $calendar_link ='';
+    }
+    return $calendar_link;
+}
