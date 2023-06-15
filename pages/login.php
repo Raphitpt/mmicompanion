@@ -2,9 +2,12 @@
 session_start();
 require '../bootstrap.php';
 
+use Firebase\JWT\JWT;
+
+$secret_key = $_ENV['SECRET_KEY'];
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
-    if(!empty($_POST['username']) && !empty($_POST['password'])){
+    if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $login = $_POST['username'];
         $password = md5($_POST['password']);
         $sql = "SELECT * FROM  users WHERE username = :login AND password = :password";
@@ -18,23 +21,40 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         if ($user) {
             unset($user['password']);
             $_SESSION['user'] = $user;
-            header('Location: ./index.php');
+            $payload = [
+                'user' => $user['username'],
+                'edu_group' => $user['edu_group'],
+                'edu_number' => $user['edu_number'],
+                'edu_mail' => $user['edu_mail'],
+            ];
+            $jwt = JWT::encode($payload, $secret_key, 'HS256');
+
+            // Envoi du JWT au client sous forme de réponse JSON
+            $response = array('jwt' => $jwt);
+            header('Content-Type: application/json');
+            echo json_encode($response);
             exit();
         } else {
-            $message = "Identifiant ou mot de passe incorrect";
+            $response = array('error' => 'Identifiant ou mot de passe incorrect');
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit();
         }
     } else {
-        $message = "Veuillez remplir tous les champs";
+        $response = array('error' => 'Veuillez remplir tous les champs');
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit();
     }
 }
-
 
 echo head("login");
 ?>
 <style>
-body {
+    body {
         background-color: #f1f1f1;
     }
+
     form {
         background-color: #ffffff;
         width: 300px;
@@ -42,12 +62,15 @@ body {
         padding: 20px;
         border: 1px solid #f1f1f1;
     }
-    input[type=text], input[type=password] {
+
+    input[type=text],
+    input[type=password] {
         width: 100%;
         padding: 10px;
         margin: 5px 0 20px 0;
         border: 1px solid #f1f1f1;
     }
+
     input[type=submit] {
         background-color: #4CAF50;
         color: #ffffff;
@@ -57,24 +80,29 @@ body {
         cursor: pointer;
         width: 100%;
     }
+
     input[type=submit]:hover {
         opacity: 0.8;
     }
+
     span {
         color: red;
     }
+
     label {
         color: #999;
         text-shadow: 0 1px 0 #fff;
         font-size: 14px;
         font-weight: bold;
     }
+
     select {
         width: 100%;
         padding: 10px;
         margin: 5px 0 20px 0;
         border: 1px solid #f1f1f1;
     }
+
     a {
         background-color: #4CAF50;
         color: #ffffff;
@@ -86,12 +114,50 @@ body {
         text-decoration: none;
     }
 </style>
+
 <body>
     <form method="POST">
-        <input type="text" name="username" class="form-control" placeholder="Username" required>
-        <input type="password" name="password" class="form-control" placeholder="Password" required>
+        <input type="text" name="username" class="form-control" placeholder="Username" id="username" required>
+        <input type="password" name="password" class="form-control" placeholder="Password" id="password" required>
         <input type="submit" value="Login" class="btn btn-primary">
         <a href="register.php" class="btn btn-secondary">Register</a>
         <a href="forgot.php" class="btn btn-secondary">Forgot password</a>
     </form>
+    <script>
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+
+            // Effectuez une requête AJAX vers le script "login.php" pour obtenir le JWT
+            // Assurez-vous d'ajuster l'URL et les paramètres de la requête AJAX selon votre configuration
+            let url = window.location.origin + '/mmicompanion/pages/login.php';
+
+            // Exemple d'utilisation de la bibliothèque jQuery pour la requête AJAX
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    username: username,
+                    password: password
+                },
+                success: function(response) {
+                    if (response.error) {
+                        // Afficher le message d'erreur dans le formulaire
+                        console.log(response.error);
+                    } else {
+                        // Stockage du JWT dans le localStorage
+                        localStorage.setItem('jwt', response.jwt);
+
+                        // Redirection vers la page d'accueil ou autre page sécurisée
+                        window.location.href = './index.php';
+                    }
+                },
+                error: function() {
+                    // Gérer les erreurs de connexion ici
+                }
+            });
+        });
+    </script>
 </body>

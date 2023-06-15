@@ -17,8 +17,10 @@
 //   - config.prod.php quand le site est placé chez un hébergeur
 // On détecte le local car l'IP de la machine est 127.0.0.1
 require __DIR__.'/vendor/autoload.php';
+
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
+
 if (($_SERVER['REMOTE_ADDR'] == '127.0.0.1' or $_SERVER['REMOTE_ADDR'] == '::1')) {
     require 'Config/config.local.php';
 } else {

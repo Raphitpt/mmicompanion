@@ -1,21 +1,41 @@
 {
+
 	"short_name": "PWA Ex.",
+
 	"name": "Progressive Web App Example",
+
 	"icons": [
+
 		{
-			"src": "/image/icon-192.png",
+
+			"src": "https://upload.wikimedia.org/wikipedia/commons/e/ea/GSoC-icon-192.png",
+
 			"type": "image/png",
+
 			"sizes": "192x192"
+
 		},
+
 		{
-			"src": "/image/icon-512.png",
+
+			"src": "https://www.shareicon.net/data/2015/03/17/8858_512x512_512x512.png",
+
 			"type": "image/png",
+
 			"sizes": "512x512"
+
 		}
+
 	],
-	"start_url": "/?source=pwa",
+
+	"start_url": "/mmicompanion/pages/index.php",
+
 	"background_color": "#3367D6",
-	"display": "standalone",
+
+	"display": "fullscreen",
+
 	"scope": "/",
+
 	"theme_color": "#3367D6"
+
 }

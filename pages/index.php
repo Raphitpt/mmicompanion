@@ -2,10 +2,6 @@
 session_start();
 require '../bootstrap.php';
 
-if (!isset($_SESSION['user'])) {
-  header('Location: ./login.php');
-  exit();
-}
 
 $cal_link = calendar($_SESSION['user']['edu_group']);
 
@@ -35,6 +31,31 @@ echo head('Index');
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
 <script>
+  let jwt = localStorage.getItem('jwt');
+
+  if (!jwt) {
+    // Rediriger vers la page de connexion si le JWT est manquant
+    window.location.href = './login.php';
+  } else {
+    // Vérifier la validité du JWT en l'envoyant au serveur pour validation
+    // Assurez-vous d'adapter l'URL et les paramètres de la requête AJAX selon votre configuration
+
+    // Exemple d'utilisation de la bibliothèque jQuery pour la requête AJAX
+    $.ajax({
+      url: '../assets/php/validate_token.php',
+      method: 'POST',
+      data: {
+        jwt: jwt
+      },
+      success: function(response) {
+        // Le JWT est valide, vous pouvez permettre l'accès à la page
+      },
+      error: function() {
+        // Le JWT est invalide ou a expiré, rediriger vers la page de connexion
+        window.location.href = './login.php';
+      }
+    });
+  }
   document.addEventListener("DOMContentLoaded", function() {
     const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link; ?>');
     var calendarEl = document.getElementById("calendar");
