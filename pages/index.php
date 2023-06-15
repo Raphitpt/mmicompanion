@@ -2,8 +2,13 @@
 session_start();
 require '../bootstrap.php';
 
+$jwt = $_COOKIE['jwt']; // Récupérez le JWT depuis la requête
+$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 
-$cal_link = calendar($_SESSION['user']['edu_group']);
+
+$users = decodeJWT($jwt, $secret_key);
+
+$cal_link = calendar($users['edu_group']);
 
 echo head('Index');
 ?>
@@ -18,7 +23,7 @@ echo head('Index');
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Bienvenue <?php var_dump($_SESSION['user']); ?></h1>
+        <h1>Bienvenue <?php var_dump($users['username']); ?></h1>
         <a href="./logout.php">Logout</a>
       </div>
     </div>

@@ -20,7 +20,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         if ($user) {
             unset($user['password']);
-            $_SESSION['user'] = $user;
+            // $_SESSION['user'] = $user;
             $payload = [
                 'user' => $user['username'],
                 'edu_group' => $user['edu_group'],
@@ -32,6 +32,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             // Envoi du JWT au client sous forme de réponse JSON
             $response = array('jwt' => $jwt);
             header('Content-Type: application/json');
+            setcookie('jwt', $jwt, time() + (86400 * 30), "/", "", false, true);
             echo json_encode($response);
             exit();
         } else {

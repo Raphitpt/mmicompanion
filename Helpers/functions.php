@@ -1,8 +1,11 @@
 <?php
 /*
+
     Fichier : /Helpers/functions.php
  */
-
+require __DIR__ . '/../vendor/autoload.php';
+use \Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 /**
  * Retourne le contenu HTML du bloc d'en tête d'une page.
  * Deux CSS sont automatiquement intégré :
@@ -93,3 +96,27 @@ function calendar($group = ''){
     }
     return $calendar_link;
 }
+function decodeJWT($jwt, $secret_key) {
+    try {
+        // Décoder le JWT avec la clé secrète
+
+        $decoded = JWT::decode($jwt, new Key($secret_key, 'HS256'));
+  
+        // Accéder aux valeurs du payload du JWT
+        $username = $decoded->user;
+        $edu_group = $decoded->edu_group;
+        $edu_number = $decoded->edu_number;
+        $edu_mail = $decoded->edu_mail;
+  
+        // Retourner les valeurs sous forme d'un tableau associatif
+        return array(
+            'username' => $username,
+            'edu_group' => $edu_group,
+            'edu_number' => $edu_number,
+            'edu_mail' => $edu_mail
+        );
+    } catch (Exception $e) {
+        // Gérer les erreurs de décodage du JWT ici
+        echo "Erreur de décodage du JWT : " . $e->getMessage();
+    }
+  }
