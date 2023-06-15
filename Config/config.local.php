@@ -1,7 +1,5 @@
 <?php
 
-/* Fichier : /config/config.local.php */
-
 // le nom de la base
 define('APP_DB_NAME', $_ENV['DB_NAME']);
 
@@ -12,4 +10,5 @@ define('APP_DB_HOST', $_ENV['DB_HOST']);
 define('APP_DB_USER', $_ENV['DB_USER']);
 
 // le mot de passe de l'utilisateur MYSQL
-define('APP_DB_PASSWORD', $_ENV['DB_PASS']);
+define('APP_DB_PASSWORD', $_ENV['DB_PASSWORD']);
+

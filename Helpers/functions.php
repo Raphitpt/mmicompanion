@@ -57,6 +57,7 @@ HTML_HEAD;
 /**
  * Retourne vrai si la méthode d'appel est GET.
  */
+
 function isGetMethod(): bool
 {
     return  ($_SERVER['REQUEST_METHOD'] === 'GET') ;
