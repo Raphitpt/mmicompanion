@@ -37,8 +37,7 @@ echo head('Index');
     // Rediriger vers la page de connexion si le JWT est manquant
     window.location.href = './login.php';
   } else {
-    // Vérifier la validité du JWT en l'envoyant au serveur pour validation
-    // Assurez-vous d'adapter l'URL et les paramètres de la requête AJAX selon votre configuration
+
 
     // Exemple d'utilisation de la bibliothèque jQuery pour la requête AJAX
     $.ajax({
