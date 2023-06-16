@@ -2,7 +2,11 @@
 session_start();
 require '../bootstrap.php';
 
-$jwt = $_COOKIE['jwt']; // Récupérez le JWT depuis la requête
+if(!isset($_COOKIE['jwt'])) {
+    header('Location: ./login.php');
+    exit;
+}
+$jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 
 
@@ -62,13 +66,13 @@ echo head('Index');
   }
   document.addEventListener("DOMContentLoaded", function() {
     const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link; ?>');
-    var calendarEl = document.getElementById("calendar");
+    let calendarEl = document.getElementById("calendar");
 
-    var calendar = new FullCalendar.Calendar(calendarEl, {
+    let calendar = new FullCalendar.Calendar(calendarEl, {
       locale: 'fr',
       initialView: "timeGridDay",
       headerToolbar: {
-        left: "prev, today",
+        left: "prev today",
         center: "title",
         right: "next",
       },
