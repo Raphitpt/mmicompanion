@@ -8,17 +8,7 @@
 
 		{
 
-			"src": "https://upload.wikimedia.org/wikipedia/commons/e/ea/GSoC-icon-192.png",
-
-			"type": "image/png",
-
-			"sizes": "192x192"
-
-		},
-
-		{
-
-			"src": "https://www.shareicon.net/data/2015/03/17/8858_512x512_512x512.png",
+			"src": "./splash_screens/icon.png",
 
 			"type": "image/png",
 
