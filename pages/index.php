@@ -128,26 +128,3 @@ https://unpkg.com/ical.js@1.5.0/build/ical.js
     
   });
 </script>
-<!-- 
-let calendarEl = document.getElementById("calendar");
-
-    let calendar = new FullCalendar.Calendar(calendarEl, {
-      locale: 'fr',
-      initialView: "timeGridDay",
-      headerToolbar: {
-        left: "prev today",
-        center: "title",
-        right: "next",
-      },
-      // plugins: [DayGridPlugin, iCalendarPlugin],
-      events: {
-        url: url1,
-        format: "ics",
-      },
-      slotMinTime: '08:00',
-      slotMaxTime: '18:30',
-      hiddenDays: [0, 6],
-      allDaySlot: false,
-    });
-
-    calendar.render(); -->
