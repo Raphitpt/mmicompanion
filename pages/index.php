@@ -3,7 +3,7 @@ session_start();
 require '../bootstrap.php';
 
 if (!isset($_COOKIE['jwt'])) {
-  header('Location: ./login.php');
+  header('Location: ./accueil.php');
   exit;
 }
 $jwt = $_COOKIE['jwt'];

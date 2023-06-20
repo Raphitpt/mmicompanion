@@ -10,5 +10,5 @@ if (isset($_COOKIE['jwt'])) {
     // Supprimer le JWT du localStorage
     localStorage.removeItem('jwt');
 
-    window.location.href = './login.php';
+    window.location.href = './accueil.php';
 </script>
