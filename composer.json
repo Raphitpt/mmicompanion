@@ -1,7 +1,0 @@
-{
-    "require": {
-        "vlucas/phpdotenv": "^5.5",
-        "firebase/php-jwt": "^6.7",
-        "minishlink/web-push": "^8.0"
-    }
-}
