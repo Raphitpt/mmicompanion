@@ -4,6 +4,17 @@
 
 	"name": "MMI Companion",
 
+	"shortcuts" : [
+		{
+		  "name": "Se connecter",
+		  "url": "/pages/login.php"
+		},
+		{
+		  "name": "S'inscrire",
+		  "url": "/pages/register.php"
+		}
+	  ],
+
 	"icons": [
 
 		{
