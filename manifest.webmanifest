@@ -2,7 +2,11 @@
 
 	"short_name": "MMI Companion",
 
-	"name": "L'application web de MMI Angoulême pour vous servir !",
+	"name": [{
+		"src": "./splash_screens/icon.png",
+		"type": "image/png",
+		"sizes": "512x512"
+	}],
 
 	"icons": [
 
