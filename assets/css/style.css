@@ -111,3 +111,11 @@
 .back_btn>img{
     width: 1.7rem;
 }
+#barre_register{
+    width: 15vw;
+    height: 0.2vh;
+    border-radius: 15px;
+    background-color: #004A5A;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+}

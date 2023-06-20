@@ -57,7 +57,7 @@ echo head("login");
     <main>
         <h1 class="login_title">SE CONNECTER</h1>
     <form method="POST" class="login_form">
-        <input type="text" name="username" placeholder="email ou pseudo" id="username" class="login_inpt"required>
+        <input type="text" name="username" placeholder="email ou pseudo" id="username" class="login_inpt" required>
         <input type="password" name="password" placeholder="mot de passe" id="password" class="login_inpt" required>
         <input type="submit" value="Se connecter" class="register_btn">
         <a href="forgot.php" class="login_btn">Mot de passe oublié ?</a>
