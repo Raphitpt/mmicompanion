@@ -60,3 +60,54 @@
     text-decoration: underline;
     color: #004A5A;
 }
+
+.login{
+    
+    background-color: #B9E0FF;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    height: 100vh;
+}
+.login>main{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.login_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login_inpt{
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 25px;
+    width: 65vw;
+    height: 4.5vh;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 2vh;
+}
+
+.login_inpt::placeholder{
+    color: rgba(50, 125, 142, 0.4);
+}
+.login_title{
+    color: #004A5A;
+    font-weight: 900;
+    font-size: 1.5rem;
+}
+.back_btn{
+    position: absolute;
+    top: 2vh;
+    left: 4vw;
+    font-size: 1.5rem;
+    color: #004A5A;
+    cursor: pointer;
+}
+.back_btn>img{
+    width: 1.7rem;
+}
