@@ -20,7 +20,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         if ($user) {
             unset($user['password']);
-            // $_SESSION['user'] = $user;
+
             $payload = [
                 'user' => $user['username'],
                 'edu_group' => $user['edu_group'],

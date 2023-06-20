@@ -15,6 +15,7 @@ $users = decodeJWT($jwt, $secret_key);
 $cal_link = calendar($users['edu_group']);
 
 echo head('Index');
+
 ?>
 <style>
   #calendar {
@@ -27,8 +28,10 @@ echo head('Index');
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Bienvenue <?php var_dump($users['username']); ?></h1>
+        <h1>Bienvenue <?php var_dump($users); ?></h1>
         <a href="./logout.php">Logout</a>
+        <p id="btn"></p>
+        <button id="sendNotificationButton">Envoyer une notification</button>
       </div>
     </div>
   </div>
@@ -43,6 +46,7 @@ https://unpkg.com/ical.js@1.5.0/build/ical.js
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script> -->
 <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
 <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+<script src="../assets/js/app.js"></script>
 <script>
   let jwt = localStorage.getItem('jwt');
 
@@ -68,6 +72,8 @@ https://unpkg.com/ical.js@1.5.0/build/ical.js
       }
     });
   }
+
+
 
   document.addEventListener("DOMContentLoaded", function() {
     const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link; ?>');
