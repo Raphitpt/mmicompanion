@@ -6,11 +6,6 @@ if (!isset($_COOKIE['jwt'])) {
   header('Location: ./accueil.php');
   exit;
 }
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-
-
-$users = decodeJWT($jwt, $secret_key);
 
 $cal_link = calendar($users['edu_group']);
 

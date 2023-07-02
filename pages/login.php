@@ -10,7 +10,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $login = $_POST['username'];
         $password = md5($_POST['password']);
-        $sql = "SELECT * FROM  users WHERE username = :login AND password = :password";
+        $sql = "SELECT * FROM  users WHERE pname = :login AND password = :password";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             'login' => $login,
@@ -22,9 +22,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             unset($user['password']);
 
             $payload = [
-                'user' => $user['username'],
+                'id_user' => $user['id_user'],
+                'user' => $user['pname'],
                 'edu_group' => $user['edu_group'],
-                'edu_number' => $user['edu_number'],
                 'edu_mail' => $user['edu_mail'],
             ];
             $jwt = JWT::encode($payload, $secret_key, 'HS256');

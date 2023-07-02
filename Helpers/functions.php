@@ -30,6 +30,7 @@ function head(string $title = ''): string
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <link href="../assets/css/style.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
+  <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -101,40 +102,40 @@ function calendar($group = '')
 {
     $calendar_link = '';
     if ($group == "BUT1-TP1") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24838&projectId=13&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21314&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT1-TP2") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21315&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT1-TP3") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21470&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT1-TP4") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24826&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT2-TP1") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24827&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT2-TP2") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24834&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT2-TP3") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24835&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT2-TP4") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24836&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT3-TP1") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2465&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT3-TP2") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2454&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT3-TP3") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2452&projectId=14&calType=ical&nbWeeks=15';
     }
     if ($group == "BUT3-TP4") {
-        $calendar_link = '';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2451&projectId=14&calType=ical&nbWeeks=15';
     }
     return $calendar_link;
 }
@@ -148,14 +149,14 @@ function decodeJWT($jwt, $secret_key)
         // Accéder aux valeurs du payload du JWT
         $username = $decoded->user;
         $edu_group = $decoded->edu_group;
-        $edu_number = $decoded->edu_number;
+        $id_user = $decoded->id_user;
         $edu_mail = $decoded->edu_mail;
 
         // Retourner les valeurs sous forme d'un tableau associatif
         return array(
             'username' => $username,
             'edu_group' => $edu_group,
-            'edu_number' => $edu_number,
+            'id_user' => $id_user,
             'edu_mail' => $edu_mail
         );
     } catch (Exception $e) {
