@@ -6,11 +6,19 @@ if (!isset($_COOKIE['jwt'])) {
   header('Location: ./accueil.php');
   exit;
 }
-
+$jwt = $_COOKIE['jwt'];
+$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
+$users = decodeJWT($jwt, $secret_key);
 $cal_link = calendar($users['edu_group']);
 
 echo head('Index');
-
+if(isset($_POST['submit'])){
+  $message = $_POST['message'];
+  $title = $_POST['title'];
+  $group = "";
+  sendNotification($message, $title, $group);
+  exit();
+}
 ?>
 <style>
   #calendar {
@@ -26,7 +34,12 @@ echo head('Index');
         <h1>Bienvenue <?php var_dump($users); ?></h1>
         <a href="./logout.php">Logout</a>
         <p id="btn"></p>
-        <button id="sendNotificationButton">Envoyer une notification</button>
+        <form method="POST">
+          <input type="text" name="message" placeholder="Message de la notif">
+          <input type="text" name="title" placeholder="Titre de la notif">
+          <input type="submit" name="submit" value="Ajouter">
+        </form>
+        <!-- <button id="sendNotificationButton">Envoyer une notification</button> -->
       </div>
     </div>
   </div>

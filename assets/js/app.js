@@ -55,23 +55,23 @@ function urlBase64ToUint8Array(base64String) {
       });
     }
   
-    const sendNotificationButton = document.getElementById('sendNotificationButton');
-    sendNotificationButton.addEventListener('click', () => {
-      fetch('../assets/php/send_notification.php', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        }
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('Notification envoyée avec succès:', data);
-        })
-        .catch(error => {
-          console.error('Erreur lors de l\'envoi de la notification:', error);
-        });
-    });
+    // const sendNotificationButton = document.getElementById('sendNotificationButton');
+    // sendNotificationButton.addEventListener('click', () => {
+    //   fetch('../assets/php/send_notification.php', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //       'Accept': 'application/json'
+    //     }
+    //   })
+    //     .then(response => response.json())
+    //     .then(data => {
+    //       console.log('Notification envoyée avec succès:', data);
+    //     })
+    //     .catch(error => {
+    //       console.error('Erreur lors de l\'envoi de la notification:', error);
+    //     });
+    // });
   
   }
   
