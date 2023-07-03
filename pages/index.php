@@ -12,9 +12,9 @@ $users = decodeJWT($jwt, $secret_key);
 $cal_link = calendar($users['edu_group']);
 
 echo head('Index');
-if(isset($_POST['submit'])){
-  $message = $_POST['message'];
-  $title = $_POST['title'];
+if(isset($_GET['submit'])){
+  $message = $_GET['message'];
+  $title = $_GET['title'];
   $group = "";
   sendNotification($message, $title, $group);
   exit();
@@ -34,7 +34,7 @@ if(isset($_POST['submit'])){
         <h1>Bienvenue <?php var_dump($users); ?></h1>
         <a href="./logout.php">Logout</a>
         <p id="btn"></p>
-        <form method="POST">
+        <form method="GET">
           <input type="text" name="message" placeholder="Message de la notif">
           <input type="text" name="title" placeholder="Titre de la notif">
           <input type="submit" name="submit" value="Ajouter">
