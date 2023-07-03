@@ -37,7 +37,7 @@ function urlBase64ToUint8Array(base64String) {
       if (!subscription) {
         subscription = await registration.pushManager.subscribe({
           userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array('BImxQ4VFicUl_vC4o6avB9SxWawqzu_MX_fFYRTNRvXMa9OroCI3wxESr8lVisqQJIDdFkNZSiMVOtPtTn1VUpY'),
+          applicationServerKey: urlBase64ToUint8Array('BMGOAIHOuUE_CGaXM58rtEOi_67LnOPcVJ-toCN7oU_QvL6kH_gbHC3kfrAfz8Fj_6Z-F4u9FEgMjeSv0t59FYU'),
         });
       }
   
