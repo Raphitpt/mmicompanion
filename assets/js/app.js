@@ -48,8 +48,8 @@ function urlBase64ToUint8Array(base64String) {
       await fetch("../assets/php/subscription.php", {
         method: "post",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(subscription),
       });
