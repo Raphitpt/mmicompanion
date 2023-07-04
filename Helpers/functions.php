@@ -29,6 +29,7 @@ function head(string $title = ''): string
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <link href="../assets/css/style.css" rel="stylesheet"">
+  <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
   <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -73,6 +74,7 @@ function head(string $title = ''): string
   <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
     <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
     <script src="../assets/js/auth.js"></script>
+    
 
 </head>
 
