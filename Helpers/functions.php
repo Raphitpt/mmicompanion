@@ -151,13 +151,15 @@ function decodeJWT($jwt, $secret_key)
         $edu_group = $decoded->edu_group;
         $id_user = $decoded->id_user;
         $edu_mail = $decoded->edu_mail;
+        $role = $decoded->role;
 
         // Retourner les valeurs sous forme d'un tableau associatif
         return array(
             'username' => $username,
             'edu_group' => $edu_group,
             'id_user' => $id_user,
-            'edu_mail' => $edu_mail
+            'edu_mail' => $edu_mail,
+            'role' => $role
         );
     } catch (Exception $e) {
         // Gérer les erreurs de décodage du JWT ici

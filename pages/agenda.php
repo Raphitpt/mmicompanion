@@ -1,63 +1,16 @@
 <?php
 session_start();
 require "../bootstrap.php";
-echo head("Agenda");
+
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 $users = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
 
-if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date']) && !empty($_POST['school_subject'])) {
-    $title = $_POST['title'];
-    $date = $_POST['date'];
-    $school_subject = $_POST['school_subject'];
-    $eval = $_POST['eval'];
-    $devoir_rendre = $_POST['devoir_rendre'];
-    $sql = "INSERT INTO agenda (title, date_finish, eval, devoir_rendre, id_user, id_subject) VALUES (:title, :date, :eval, :devoir_rendre, :id_user, :id_subject)";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute([
-        'title' => $title,
-        'date' => $date,
-        'id_user' => $users['id_user'],
-        'eval' => $eval,
-        'devoir_rendre' => $devoir_rendre,
-        'id_subject' => $school_subject
-    ]);
-    header('Location: ./agenda.php');
-    exit();
-}
 
-
-
-
-$sql_subject = "SELECT * FROM sch_subject";
-$stmt_subject = $dbh->prepare($sql_subject);
-$stmt_subject->execute();
-$subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
-
-
-
+echo head("Agenda");
 ?>
 <main>
-    <div class="agenda_add">
-        <form method="POST" action="">
-            <input type="text" name="title" placeholder="Titre de l'évènement">
-            <input type="date" name="date" placeholder="Date de l'évènement">
-            <label for="eval">Évaluation</label>
-            <input type="hidden" name="eval" value="0">
-            <input type="checkbox" name="eval" value="1">
-            <label for="devoir_rendre">Devoir à rendre</label>
-            <input type="hidden" name="devoir_rendre" value="0">
-            <input type="checkbox" name="devoir_rendre" value="1">
-            <select name="school_subject">
-                <?php
-                foreach ($subject as $subjects) {
-                    echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
-                }; ?>
-            </select>
-            <input type="submit" name="submit" value="Ajouter">
-        </form>
-    </div>
     <div class="agenda_list">
         <?php
         $sql_agenda = "SELECT a.*, s.name_subject AS subject_name 
@@ -66,11 +19,24 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
         WHERE a.id_user = :id_user 
         ORDER BY a.date_finish ASC";
         
+
         $stmt_agenda = $dbh->prepare($sql_agenda);
         $stmt_agenda->execute([
             'id_user' => $users['id_user']
         ]);
-        $agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+        $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+        $sql_eval = "SELECT a.*, s.name_subject AS subject_name
+        FROM agenda a
+        JOIN sch_subject s ON a.id_subject = s.id_subject
+        WHERE a.edu_group = :edu_group AND a.type = 'eval' OR a.type = 'devoir'
+        ORDER BY a.date_finish ASC";
+        $stmt_eval = $dbh->prepare($sql_eval);
+        $stmt_eval->execute([
+            'edu_group' => $users['edu_group']
+        ]);
+        $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
+        $agenda = array_merge($agenda_user, $eval);
+        
         // var_dump($agenda);
         $semaine = array(
             " Dimanche ", " Lundi ", " Mardi ", " Mercredi ", " Jeudi ",
@@ -101,10 +67,10 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
             foreach ($agendas as $agenda) {
                 echo "<div class='agenda_list_item'>";
                 echo "<h3>" . $agenda['title'] . "</h3>";
-                if ($agenda['eval'] == 1) {
+                if ($agenda['type'] == "eval") {
                     echo "<p>Évaluation</p>";
                 }
-                if ($agenda['devoir_rendre'] == 1) {
+                if ($agenda['type'] == "devoir") {
                     echo "<p>Devoir à rendre</p>";
                 }
                 if ($agenda['checked'] == 1){
