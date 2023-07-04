@@ -1,12 +1,14 @@
-<?php
+<?php 
 session_start();
-session_destroy();
+if (isset($_COOKIE['jwt'])) {
+    unset($_COOKIE['jwt']);
+    setcookie('jwt', '', time() - 3600, '/'); // empty value and old timestamp
+}
 ?>
 
 <script>
     // Supprimer le JWT du localStorage
     localStorage.removeItem('jwt');
 
-    // Redirection vers la page de déconnexion ou autre page appropriée
-    window.location.href = './login.php';
+    window.location.href = './accueil.php';
 </script>

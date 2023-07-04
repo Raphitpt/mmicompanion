@@ -1,25 +1,12 @@
-self.addEventListener("install", function(event) {
+self.addEventListener("install", () => {
+	self.skipWaiting();
+  });
+  
+  self.addEventListener("push", (event) => {
+	const data = event.data ? event.data.json() : {};
 	event.waitUntil(
-		caches.open("pwa").then(function(cache) {
-			return cache.addAll([
-				"/",
-			]);
-		})
-	);
-});
+    self.registration.showNotification(data.title, {
+      body: data.body,
 
-self.addEventListener("fetch", function(event) {
-	event.respondWith(
-		caches.open("pwa").then(function(cache) {
-			return cache.match(event.request).then(function(response) {
-				cache.addAll([event.request.url]);
-
-				if(response) {
-					return response;
-				}
-
-				return fetch(event.request);
-			});
-		})
-	);
-});
+    }));
+  });
