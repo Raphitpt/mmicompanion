@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.acc{
+    background-color: #B9E0FF;
+    font-family: 'Montserrat', sans-serif;
+}
+.acc>main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.acc_illu{
+    margin-top: 11vh;
+}
+.acc_illu>img{
+    width: 81vw;
+}
+.acc_text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.acc_text>h1{
+    font-size: 2rem;
+    font-weight: 900;
+    color: #004A5A;
+    margin-top: 3vh;
+}
+.acc_text>p{
+    text-align: center;
+    font-weight: 500;
+    color: #004A5A;
+    font-size: 0.7rem;
+}
+.acc_text>p>span{
+    font-weight: 600;
+}
+.acc_btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.register_btn{
+    background-color: #56B8D6;
+    color: #004A5A;
+    border: none;
+    border-radius: 25px;
+    padding: 1.5vh 15vw;
+    font-size: 1rem;
+    font-weight: 800;
+    margin-top: 3vh;
+    cursor: pointer;
+    text-decoration: none;
+}
+.login_btn{
+    margin-top: 2vh;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: underline;
+    color: #004A5A;
+}
+
+.login{
+    
+    background-color: #B9E0FF;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    height: 100vh;
+}
+.login>main{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.login_form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.login_inpt{
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 25px;
+    width: 65vw;
+    height: 4.5vh;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 2vh;
+}
+
+.login_inpt::placeholder{
+    color: rgba(50, 125, 142, 0.4);
+}
+.login_title{
+    color: #004A5A;
+    font-weight: 900;
+    font-size: 1.5rem;
+}
+.back_btn{
+    position: absolute;
+    top: 2vh;
+    left: 4vw;
+    font-size: 1.5rem;
+    color: #004A5A;
+    cursor: pointer;
+}
+.back_btn>img{
+    width: 1.7rem;
+}
+#barre_register{
+    width: 15vw;
+    height: 0.2vh;
+    border-radius: 15px;
+    background-color: #004A5A;
+    margin-top: 2vh;
+    margin-bottom: 1vh;
+}

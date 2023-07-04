@@ -10,7 +10,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $login = $_POST['username'];
         $password = md5($_POST['password']);
-        $sql = "SELECT * FROM  users WHERE username = :login AND password = :password";
+        $sql = "SELECT * FROM  users WHERE pname = :login AND password = :password";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             'login' => $login,
@@ -20,11 +20,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         if ($user) {
             unset($user['password']);
-            // $_SESSION['user'] = $user;
+
             $payload = [
-                'user' => $user['username'],
+                'id_user' => $user['id_user'],
+                'user' => $user['pname'],
                 'edu_group' => $user['edu_group'],
-                'edu_number' => $user['edu_number'],
                 'edu_mail' => $user['edu_mail'],
             ];
             $jwt = JWT::encode($payload, $secret_key, 'HS256');
@@ -51,79 +51,18 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
 echo head("login");
 ?>
-<style>
-    body {
-        background-color: #f1f1f1;
-    }
 
-    form {
-        background-color: #ffffff;
-        width: 300px;
-        margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #f1f1f1;
-    }
-
-    input[type=text],
-    input[type=password] {
-        width: 100%;
-        padding: 10px;
-        margin: 5px 0 20px 0;
-        border: 1px solid #f1f1f1;
-    }
-
-    input[type=submit] {
-        background-color: #4CAF50;
-        color: #ffffff;
-        padding: 10px;
-        margin: 5px 0 20px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    input[type=submit]:hover {
-        opacity: 0.8;
-    }
-
-    span {
-        color: red;
-    }
-
-    label {
-        color: #999;
-        text-shadow: 0 1px 0 #fff;
-        font-size: 14px;
-        font-weight: bold;
-    }
-
-    select {
-        width: 100%;
-        padding: 10px;
-        margin: 5px 0 20px 0;
-        border: 1px solid #f1f1f1;
-    }
-
-    a {
-        background-color: #4CAF50;
-        color: #ffffff;
-        padding: 10px;
-        margin: 5px 0 20px 0;
-        border: none;
-        cursor: pointer;
-        width: 100%;
-        text-decoration: none;
-    }
-</style>
-
-<body>
-    <form method="POST">
-        <input type="text" name="username" class="form-control" placeholder="Username" id="username" required>
-        <input type="password" name="password" class="form-control" placeholder="Password" id="password" required>
-        <input type="submit" value="Login" class="btn btn-primary">
-        <a href="register.php" class="btn btn-secondary">Register</a>
-        <a href="forgot.php" class="btn btn-secondary">Forgot password</a>
+<body class="login">
+    <a href="./accueil.php" class="back_btn"><img src="../assets/img/arrow.svg" alt="Retour"></a>
+    <main>
+        <h1 class="login_title">SE CONNECTER</h1>
+    <form method="POST" class="login_form">
+        <input type="text" name="username" placeholder="email ou pseudo" id="username" class="login_inpt" required>
+        <input type="password" name="password" placeholder="mot de passe" id="password" class="login_inpt" required>
+        <input type="submit" value="Se connecter" class="register_btn">
+        <a href="forgot.php" class="login_btn">Mot de passe oublié ?</a>
     </form>
+    </main>
     <script>
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
