@@ -25,6 +25,7 @@ echo head("Agenda");
             'id_user' => $users['id_user']
         ]);
         $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+        
         $sql_eval = "SELECT a.*, s.name_subject AS subject_name
         FROM agenda a
         JOIN sch_subject s ON a.id_subject = s.id_subject
@@ -36,7 +37,8 @@ echo head("Agenda");
         ]);
         $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
         $agenda = array_merge($agenda_user, $eval);
-        
+        $eval_cont = count($eval);
+        $agenda_cont = count($agenda);
         // var_dump($agenda);
         $semaine = array(
             " Dimanche ", " Lundi ", " Mardi ", " Mercredi ", " Jeudi ",
@@ -47,6 +49,26 @@ echo head("Agenda");
             " juillet ", " août ", " septembre ", " octobre ", " novembre ", " décembre "
         );
         $agendaByDate = []; // Tableau pour regrouper les éléments par date
+
+        echo "<h1>Agenda</h1>";
+        if ($agenda_cont == 0){
+            echo "<p>Aucune tache à faire</p>";
+        }
+        else if ($agenda_cont == 1) {
+            echo "<p>" . $agenda_cont . " tache à faire</p>";
+        }else{
+        echo "<p>" . $agenda_cont . " taches non faites</p>";
+        }
+
+        if ($eval_cont == 0){
+            echo "<p>Aucune évaluation prévue</p>";
+        }
+        else if ($eval_cont == 1) {
+            echo "<p>" . $eval_cont . " évaluation prévue</p>";
+        }else{
+            echo "<p>" . $eval_cont . " évaluations prévues</p>";
+        }
+
 
         foreach ($agenda as $agendas) {
             $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
