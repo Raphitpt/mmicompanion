@@ -26,6 +26,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 'user' => $user['pname'],
                 'edu_group' => $user['edu_group'],
                 'edu_mail' => $user['edu_mail'],
+                'role' => $user['role'],
             ];
             $jwt = JWT::encode($payload, $secret_key, 'HS256');
 

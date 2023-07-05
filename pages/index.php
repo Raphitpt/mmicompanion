@@ -24,7 +24,14 @@ if(isset($_GET['submit'])){
   #calendar {
     max-width: 900px;
     margin: 40px auto;
+    font-family: 'Montserrat', sans-serif;
+    width: 50vw;
+    height: 100%;
   }
+  .fc-timegrid-slot {
+    height: 30px !important
+}
+
 </style>
 
 <body>
@@ -111,16 +118,11 @@ if(isset($_GET['submit'])){
   <div id="calendar"></div>
 </body>
 
-<script src="../assets/js/script.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@5.11.5/main.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
 
-<!-- <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@5.11.5/main.min.css" rel="stylesheet" /> -->
-<script src="
-https://unpkg.com/ical.js@1.5.0/build/ical.js
-"></script>
-<!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script> -->
-<link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
-<script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
 <script src="../assets/js/app.js"></script>
 <script>
   let jwt = localStorage.getItem('jwt');
@@ -151,61 +153,30 @@ https://unpkg.com/ical.js@1.5.0/build/ical.js
 
 
   document.addEventListener("DOMContentLoaded", function() {
-    const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link; ?>');
+    const url1 = 'https://corsproxy.io/?' + encodeURIComponent('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics');
+    let calendarEl = document.getElementById("calendar");
 
-    let calendar = new tui.Calendar('#calendar', {
-        defaultView: 'day',
-         // e.g. true, false, or ['allday', 'time']
-        day:{
-          workweek: true,
-          hourStart: 8,
-          hourEnd: 18,
-
-        },
-        week: {
-    taskView: false,
-    scheduleView: ['time'],
-  },
-        template: {
-            monthDayname: function(dayname) {
-                return '<span class="calendar-week-dayname-name">' + dayname.label + '</span>';
-            }
-        }
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: 'fr',
+      eventMinHeight: 75,
+      height: 'auto',
+      initialView: "timeGridDay",
+      headerToolbar: {
+        left: "prev",
+        center: "title",
+        right: "today next",
+      },
+      // plugins: [DayGridPlugin, iCalendarPlugin],
+      events: {
+        url: url1,
+        format: "ics",
+      },
+      slotMinTime: '08:00',
+      slotMaxTime: '18:30',
+      hiddenDays: [0, 6],
+      allDaySlot: false,
     });
 
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url1, true); // Remplacez 'URL_VERS_VOTRE_FICHIER_ICS' par le lien correct vers votre fichier .ics
-    xhr.onload = function() {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            let icsData = xhr.responseText;
-
-            // Analyser les événements du fichier .ics
-            let jcalData = ICAL.parse(icsData);
-            let comp = new ICAL.Component(jcalData);
-            let veventList = comp.getAllSubcomponents('vevent');
-            
-            // Ajouter les événements au calendrier
-            let schedules = [];
-            for (let i = 0; i < veventList.length; i++) {
-                let vevent = veventList[i];
-                let summary = vevent.getFirstPropertyValue('summary');
-                let startDate = vevent.getFirstPropertyValue('dtstart').toJSDate();
-                let endDate = vevent.getFirstPropertyValue('dtend').toJSDate();
-              
-                schedules.push({
-                    calendarId: '1',
-                    id: String(i + 1),
-                    title: summary,
-                    start: startDate,
-                    end: endDate
-                });
-            }
-
-            calendar.clear(); // Effacer les événements existants
-            calendar.createEvents(schedules); // Ajouter les nouveaux événements
-        }
-    };
-    xhr.send();
-    
+    calendar.render();
   });
 </script>

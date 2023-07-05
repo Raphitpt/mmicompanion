@@ -265,9 +265,19 @@ a{
     margin-bottom: 1vh;
 }
 
+.fc-theme-standard .fc-scrollgrid{
+    border: none !important;
+}
 
-
-
-
-
-
+.fc-v-event{
+    background-color: #56B8D6 !important;
+    border: none !important;
+    border-radius: 15px !important;
+    color: #004A5A !important;
+    font-weight: 600 !important;
+    font-size: 0.8rem !important;
+    padding: 0.5vh 1vw !important;
+    margin-top: 0.5vh !important;
+    margin-bottom: 0.5vh !important;
+    margin-left: 0.5vw !important;
+}
