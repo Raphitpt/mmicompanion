@@ -16,7 +16,7 @@ a{
 
 .content_header{
     width: 100vw;
-    height: 110px;
+    height: 90px;
     flex-shrink: 0;
     border-radius: 0px 0px 34px 34px;
     background: var(--bleu-trs-clair-background, #B9E0FF);
@@ -61,7 +61,7 @@ a{
     display: flex;
     flex-direction: column;
     transform: translateX(-100%);
-    transition: transform 0.6s ease-out;
+    transition: transform 0.6s ease-in-out;
 }
 
 .burger_content_title-header{
@@ -108,6 +108,7 @@ a{
     align-items: center;
     padding: 10px 0;
     width: 200px;
+    z-index: 2;
     
 }
 
@@ -115,6 +116,7 @@ a{
     font-size: 20px;
     color: #004A5A;
     margin-right: 10px;
+    z-index: 2;
 }
 
 .burger_content_link-header p{
@@ -124,8 +126,19 @@ a{
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    position: relative;
+    z-index: 2;
 }
 
+.select_link-header{
+    border-radius: 19.5px;
+    width: 225px;
+    left: 15px;
+    height: 42px;
+    position: absolute;
+    background: var(--bleu-trs-clair-background, #B9E0FF);
+    z-index: 1;
+}
 
 
 

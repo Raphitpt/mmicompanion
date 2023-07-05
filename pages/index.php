@@ -35,6 +35,71 @@ if(isset($_GET['submit'])){
 </style>
 
 <body>
+<header>
+        <div class="content_header">
+            <div class="content_title-header">
+                <div class="burger-header">
+                    <i class="fi fi-br-bars-sort"></i>
+                </div>
+                <div style="width:20px"></div>
+                <h1>Agenda</h1>
+            </div>
+        </div>
+
+        <div class="burger_content-header">
+            <div style="height:60px"></div>
+            <div class="burger_content_title-header">
+                <img src="./../assets/img/mmicompanion.svg" alt="">
+                <h1>MMI Companion</h1>
+            </div>
+            <div class="burger_content_content-header">
+                <div class="burger_content_trait_header"></div>
+                <a href="./index.php">
+                    <div class="burger_content_link-header">
+                        <i class="fi fi-br-home"></i>
+                        <p>Vue d'ensemble</p>
+                        <div class="select_link-header"></div>
+                    </div>
+                </a>
+                <a href="./todolist.php">
+                    <div class="burger_content_link-header">
+                        <i class="fi fi-br-calendar"></i>
+                        <p>Agenda</p>
+                    </div>
+                </a>
+                <div class="burger_content_trait_header"></div>
+                <a href="./messages.php">
+                    <div class="burger_content_link-header">
+                        <i class="fi fi-br-comment-alt"></i>
+                        <p>Messages</p>
+                    </div>
+                </a>
+                <a href="./mail.php">
+                    <div class="burger_content_link-header">
+                        <i class="fi fi-br-envelope"></i>
+                        <p>Boite mail</p>
+                    </div>
+                </a>
+                <div class="burger_content_trait_header"></div>
+                <a href="./sante.php">
+                    <div class="burger_content_link-header">
+                        <i class="fi fi-br-doctor"></i>
+                        <p>Mon bien être</p>
+                    </div>
+                </a>
+                <a href="./profil.php">
+                    <div class="burger_content_link-header">
+                        <i class="fi fi-br-user"></i>
+                        <p>Mon profil</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+
+
+
   <div class="container">
     <div class="row">
       <div class="col-md-12">
