@@ -5,8 +5,7 @@
  */
 require __DIR__ . '/../vendor/autoload.php';
 
-use \Firebase\JWT\JWT;
-use Firebase\JWT\Key;
+
 
 /**
  * Retourne le contenu HTML du bloc d'en tête d'une page.
@@ -139,8 +138,11 @@ function calendar($group = '')
     }
     return $calendar_link;
 }
+use \Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 function decodeJWT($jwt, $secret_key)
 {
+
     try {
         // Décoder le JWT avec la clé secrète
 
