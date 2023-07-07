@@ -61,12 +61,10 @@ if(isset($_GET['submit'])){
                         <div class="select_link-header"></div>
                     </div>
                 </a>
-                <a href="./todolist.php">
-                    <div class="burger_content_link-header">
+                    <div class="burger_content_link-header" onclick="getDataFromAgenda()">
                         <i class="fi fi-br-calendar"></i>
                         <p>Agenda</p>
                     </div>
-                </a>
                 <div class="burger_content_trait_header"></div>
                 <a href="./messages.php">
                     <div class="burger_content_link-header">
@@ -114,8 +112,9 @@ if(isset($_GET['submit'])){
         <!-- <button id="sendNotificationButton">Envoyer une notification</button> -->
       </div>
     </div>
-  </div>
+  
   <div id="calendar"></div>
+  </div>
 </body>
 
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@5.11.5/main.min.css" rel="stylesheet" />
@@ -124,7 +123,9 @@ if(isset($_GET['submit'])){
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
 
 <script src="../assets/js/app.js"></script>
+<script src="../assets/js/script.js"></script>
 <script>
+
   let jwt = localStorage.getItem('jwt');
 
   if (!jwt) {
@@ -179,4 +180,5 @@ if(isset($_GET['submit'])){
 
     calendar.render();
   });
+
 </script>

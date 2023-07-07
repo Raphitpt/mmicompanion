@@ -1,3 +1,4 @@
+window.addEventListener('load', () => {
 function urlBase64ToUint8Array(base64String) {
     let padding = '='.repeat((4 - base64String.length % 4) % 4);
     let base64 = (base64String + padding)
@@ -76,3 +77,4 @@ function urlBase64ToUint8Array(base64String) {
   }
   
   main();
+});
