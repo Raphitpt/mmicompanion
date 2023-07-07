@@ -19,14 +19,15 @@ if(isset($_GET['submit'])){
   sendNotification($message, $title, $group);
   exit();
 }
+  $datetime = new DateTime('now', new DateTimeZone('Europe/Paris'));
+  $datetime_string = $datetime->format('c');
 ?>
 <style>
   #calendar {
-    max-width: 900px;
-    margin: 40px auto;
+    text-align: center;
     font-family: 'Montserrat', sans-serif;
-    width: 50vw;
-    height: 100%;
+    width: 90vw;
+    margin: 10px auto;
   }
   .fc-timegrid-slot {
     height: 30px !important
@@ -99,26 +100,12 @@ if(isset($_GET['submit'])){
 
 
   <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Bienvenue <?php var_dump($users); ?></h1>
-        <a href="./logout.php">Logout</a>
-        <p id="btn"></p>
-        <form method="GET">
-          <input type="text" name="message" placeholder="Message de la notif">
-          <input type="text" name="title" placeholder="Titre de la notif">
-          <input type="submit" name="submit" value="Ajouter">
-        </form>
-        <!-- <button id="sendNotificationButton">Envoyer une notification</button> -->
-      </div>
-    </div>
-  
   <div id="calendar"></div>
   </div>
 </body>
 
 <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@5.11.5/main.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
+<script src="./../assets/js/ical.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
 
@@ -159,9 +146,12 @@ if(isset($_GET['submit'])){
 
     let calendar = new FullCalendar.Calendar(calendarEl, {
       locale: 'fr',
+      timeZone: 'Europe/Paris',
       eventMinHeight: 75,
-      height: 'auto',
+      height: '50vh',
       initialView: "timeGridDay",
+      nowIndicator: true,
+      // now: <?php echo json_encode($datetime_string); ?>,
       headerToolbar: {
         left: "prev",
         center: "title",

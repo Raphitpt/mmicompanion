@@ -1,3 +1,9 @@
+
+  const burgerButton = document.querySelector('.burger-header');
+  const menu = document.querySelector('.burger_content-header');
+  const link = document.querySelectorAll('.burger_content_link-header');
+  const documentBody = document.body;
+
 // Fonction pour basculer l'état du menu
 function toggleMenu() {
   const isMenuOpen = menu.style.transform === 'translateX(0%)';
@@ -34,12 +40,6 @@ function getDataFromAgenda() {
   xhr.send();
 }
 
-window.addEventListener('DOMContentLoaded', function() {
-
-const burgerButton = document.querySelector('.burger-header');
-const menu = document.querySelector('.burger_content-header');
-const link = document.querySelectorAll('.burger_content_link-header');
-const documentBody = document.body;
 
 // Ajoutez un gestionnaire d'événement au clic sur le bouton burger
 burgerButton.addEventListener('click', (event) => {
@@ -63,5 +63,4 @@ link.forEach(function(link) {
     clickedDiv.appendChild(selectLink);
     toggleMenu();
   });
-});
 });
