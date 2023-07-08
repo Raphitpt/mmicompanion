@@ -142,128 +142,199 @@ a{
 
 
 
-/*  */
+/* ACCUEIL.PHP */
 
-
-.acc{
+.body-accueil{
     background-color: #B9E0FF;
     font-family: 'Montserrat', sans-serif;
+    height: 100vh;
 }
-.acc>main{
+
+.main-accueil{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
-.acc_illu{
-    margin-top: 11vh;
+
+.illustration-accueil{
+    display: flex;
+    justify-content: center;
 }
-.acc_illu>img{
-    width: 81vw;
+
+.illustration-accueil img{
+    width: 80%;
 }
-.acc_text{
+
+.title-accueil{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.acc_text>h1{
-    font-size: 2rem;
+
+.title-accueil h1{
+    font-size: 26px;
     font-weight: 900;
     color: #004A5A;
-    margin-top: 3vh;
 }
-.acc_text>p{
+
+.title-accueil p{
     text-align: center;
     font-weight: 500;
     color: #004A5A;
-    font-size: 0.7rem;
+    font-size: 10px;
+    padding: 0px 5px;
 }
-.acc_text>p>span{
+
+.title-accueil p span{
     font-weight: 600;
 }
-.acc_btn{
+.button-accueil{
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.register_btn{
+
+.button_register{
     background-color: #56B8D6;
     color: #004A5A;
     border: none;
     border-radius: 25px;
-    padding: 1.5vh 15vw;
-    font-size: 1rem;
+    padding: 10px 60px;
+    font-size: 13px;
     font-weight: 800;
-    margin-top: 3vh;
     cursor: pointer;
+    font-family: Montserrat;
     text-decoration: none;
 }
-.login_btn{
-    margin-top: 2vh;
+
+.button_login{
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 11px;
+    font-family: Montserrat;
     text-decoration: underline;
     color: #004A5A;
 }
 
-.login{
-    
+
+
+/* LOGIN.PHP */
+
+.body-login{
     background-color: #B9E0FF;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     height: 100vh;
 }
-.login>main{
-    position: relative;
+
+.main-login{
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 50%;
-    transform: translateY(-50%);
+    justify-content: center;
+    height: 100vh;
 }
-.login_form{
+
+.back_btn{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 30px;
+    transform: rotate(180deg);
+    color: var(--texte, #004A5A);
+    font-size: 20px;
+}
+
+
+.title-login{
+    color: #004A5A;
+    font-weight: 900;
+    font-size: 19px;
+    font-family: Montserrat;
+}
+
+
+.form-login{
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 70%;
 }
-.login_inpt{
+
+.input-login{
     background-color: #FFFFFF;
     border: none;
     border-radius: 25px;
-    width: 65vw;
-    height: 4.5vh;
-    font-size: 0.8rem;
+    padding: 15px 30px;
+    width: 100%;
+    font-family: Montserrat;
+    font-size: 11px;
     font-weight: 500;
-    margin-top: 2vh;
 }
 
-.login_inpt::placeholder{
+.input-login::placeholder{
     color: rgba(50, 125, 142, 0.4);
 }
-.login_title{
-    color: #004A5A;
-    font-weight: 900;
-    font-size: 1.5rem;
+
+.button_forget-login{
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
 }
-.back_btn{
-    position: absolute;
-    top: 2vh;
-    left: 4vw;
-    font-size: 1.5rem;
-    color: #004A5A;
-    cursor: pointer;
+
+.button_forget-login a{
+    display: flex;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
 }
-.back_btn>img{
-    width: 1.7rem;
+
+
+
+
+/* Register */
+
+.label_edu-register{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
 }
-#barre_register{
-    width: 15vw;
-    height: 0.2vh;
+
+.label_edu-register label{
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+
+.trait_register{
+    width: 20%;
+    height: 1px;
     border-radius: 15px;
     background-color: #004A5A;
-    margin-top: 2vh;
-    margin-bottom: 1vh;
+    margin: 30px 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .fc-theme-standard .fc-scrollgrid{
     border: none !important;
@@ -281,6 +352,12 @@ a{
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
 }
+
+
+
+
+
+
 
 
 

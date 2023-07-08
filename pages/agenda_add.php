@@ -147,7 +147,7 @@ echo head("Ajouter une tache");
                 </select>
                 <div style="height:25px"></div>
                 <div class="form_button-agenda">
-                    <a href="./agenda.php">Annuler</a>
+                    <a role="button href="./agenda.php">Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
                 

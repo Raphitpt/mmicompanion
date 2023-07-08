@@ -2,20 +2,23 @@
 session_start();
 require "../bootstrap.php";
 
-echo head("Accueil");
+echo head("MMI Companion - Accueil");
 ?>
-<body class="acc">
-    <main>
-        <div class="acc_illu">
+<body class="body-accueil">
+    <main class="main-accueil">
+        <div class="illustration-accueil">
             <img src="../assets/img/accueil.svg" alt="Illustration diverse">
         </div>
-        <div class="acc_text">
+        <div class="title-accueil">
             <h1>BIENVENUE</h1>
             <p>Ne perds plus le fil de tes études avec MMI Companion !</br> <span>Enregistre, organise, réussis !<span></p>
         </div>
-        <div class="acc_btn">
-            <a role="button" href="./register.php" class="register_btn">Créer un compte</a>
-            <a role="button" href="./login.php" class="login_btn">Se connecter</a>
+        <div style="height:30px"></div>
+        <div class="button-accueil">
+            <a role="button" href="./register.php" class="button_register">Créer un compte</a>
+            <div style="height:10px"></div>
+            <a role="button" href="./login.php" class="button_login">Se connecter</a>
         </div>
     </main>
 </body>
+</html>
