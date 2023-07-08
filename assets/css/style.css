@@ -513,6 +513,10 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
     position: relative;
     text-align: center;
+    background-image: url(./../img/calendar.svg);
+    background-repeat: no-repeat;
+    background-position: 20px; /* Positionnez l'image à droite et au centre */
+    background-size: 20px; /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
 .input_date-agenda_add[type="date"]::-webkit-calendar-picker-indicator {
@@ -543,7 +547,24 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     text-align: center;
-    appearance: none;
+    background-image: url(./../img/bookmark.svg);
+    background-repeat: no-repeat;
+    background-position: 20px; /* Positionnez l'image à droite et au centre */
+    background-size: 20px; /* Ajustez la taille de l'image de la flèche selon vos besoins */
+}
+
+.input_type-agenda_add{
+    background-image: url(./../img/bookmark.svg);
+    background-repeat: no-repeat;
+    background-position: 20px; /* Positionnez l'image à droite et au centre */
+    background-size: 20px; /* Ajustez la taille de l'image de la flèche selon vos besoins */
+}
+
+.input_school-agenda_add{
+    background-image: url(./../img/school.svg);
+    background-repeat: no-repeat;
+    background-position: 20px; /* Positionnez l'image à droite et au centre */
+    background-size: 20px; /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
 .form_button-agenda{

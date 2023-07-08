@@ -112,21 +112,17 @@ echo head("Ajouter une tache");
                 <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre">
                 <div class="trait_agenda_add"></div>
                 <label for="date" class="label-agenda_add">
-                    <i class="fi fi-br-calendar"></i>
-                    <div style="width:7px"></div>
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
                 <input type="date" name="date" class="input_date-agenda_add" placeholder="Ajouter une date">
                 <div style="height:15px"></div>
                 <label for="type" class="label-agenda_add">
-                    <i class="fi fi-br-book-bookmark"></i>
-                    <div style="width:7px"></div>
                     <h2>Type de tâche</h2>
                 </label>
                 <div style="height:5px"></div>
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
-                    <select name="type" class="input_select-agenda_add">
+                    <select name="type" class="input_select-agenda_add input_type-agenda_add">
                         <option value="eval">Évaluation</option>
                         <option value="devoir">Devoir à rendre</option>
                         <option value="3">Autre</option>
@@ -139,12 +135,10 @@ echo head("Ajouter une tache");
 
                 <div class="trait_agenda_add"></div>
                 <label for="type" class="label-agenda_add">
-                <i class="fi fi-br-graduation-cap"></i>
-                    <div style="width:7px"></div>
                     <h2>Ajouter une matière</h2>
                 </label>
                 <div style="height:5px"></div>
-                <select name="school_subject" class="input_select-agenda_add">
+                <select name="school_subject" class="input_select-agenda_add input_school-agenda_add">
                     <?php
                     foreach ($subject as $subjects) {
                         echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
@@ -153,7 +147,7 @@ echo head("Ajouter une tache");
                 </select>
                 <div style="height:25px"></div>
                 <div class="form_button-agenda">
-                    <a href="">Annuler</a>
+                    <a href="./agenda.php">Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
                 
