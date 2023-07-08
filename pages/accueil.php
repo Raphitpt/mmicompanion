@@ -11,7 +11,7 @@ echo head("MMI Companion - Accueil");
         </div>
         <div class="title-accueil">
             <h1>BIENVENUE</h1>
-            <p>Ne perds plus le fil de tes études avec MMI Companion !</br> <span>Enregistre, organise, réussis !<span></p>
+            <p>Ne perds plus le fil de tes études avec MMI Companion !</br> <span style="font-weight: 600;">Enregistre, organise, réussis !<span></p>
         </div>
         <div style="height:30px"></div>
         <div class="button-accueil">

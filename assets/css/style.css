@@ -225,6 +225,15 @@ a{
 
 
 
+
+
+
+
+
+
+
+
+
 /* ACCUEIL.PHP */
 
 .body-accueil{
@@ -270,9 +279,7 @@ a{
     padding: 0px 5px;
 }
 
-.title-accueil p span{
-    font-weight: 600;
-}
+
 .button-accueil{
     display: flex;
     flex-direction: column;
