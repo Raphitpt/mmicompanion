@@ -39,7 +39,7 @@ echo head("Ajouter une tache");
 <body class="body-agenda">
     <header>
         <div class="content_header">
-            <div class="content_title-header">
+            <div class="content_title-header" id="burger-header">
                 <div class="burger-header">
                     <i class="fi fi-br-bars-sort"></i>
                 </div>
@@ -48,7 +48,7 @@ echo head("Ajouter une tache");
             </div>
         </div>
 
-        <div class="burger_content-header">
+        <div class="burger_content-header" id="burger_content-header">
             <div style="height:60px"></div>
             <div class="burger_content_title-header">
                 <img src="./../assets/img/mmicompanion.svg" alt="">

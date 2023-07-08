@@ -1,6 +1,6 @@
 // Sélectionnez le bouton burger, le menu de navigation et le document
-const burgerButton = document.querySelector('.burger-header');
-const menu = document.querySelector('.burger_content-header');
+const burgerButton = document.querySelector('#burger-header');
+const menu = document.querySelector('#burger_content-header');
 const documentBody = document.body;
 
 // Ajoutez un gestionnaire d'événement au clic sur le bouton burger

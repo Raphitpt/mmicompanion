@@ -12,7 +12,7 @@ $users = decodeJWT($jwt, $secret_key);
 $cal_link = calendar($users['edu_group']);
 
 echo head('Index');
-if(isset($_GET['submit'])){
+if (isset($_GET['submit'])) {
   $message = $_GET['message'];
   $title = $_GET['title'];
   $group = "";
@@ -28,82 +28,90 @@ if(isset($_GET['submit'])){
     width: 50vw;
     height: 100%;
   }
+
   .fc-timegrid-slot {
     height: 30px !important
-}
-
+  }
 </style>
 
 <body>
-<header>
-        <div class="content_header">
-            <div class="content_title-header">
-                <div class="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Agenda</h1>
-            </div>
+  <header class="header-index">
+    <div class="content_header-index">
+
+      <div class="burger-header-index" id="burger-header">
+        <i class="fi fi-br-bars-sort"></i>
+      </div>
+
+      <div class="content-header-index">
+        <div class="content_title-header-index">
+          <h1>Salut <span style="font-weight:800"><?php echo "Arnaud" ?><span></h1>
+          <p>en ligne</p>
         </div>
-
-        <div class="burger_content-header">
-            <div style="height:60px"></div>
-            <div class="burger_content_title-header">
-                <img src="./../assets/img/mmicompanion.svg" alt="">
-                <h1>MMI Companion</h1>
-            </div>
-            <div class="burger_content_content-header">
-                <div class="burger_content_trait_header"></div>
-                <a href="./index.php">
-                    <div class="burger_content_link-header">
-                        <i class="fi fi-br-home"></i>
-                        <p>Vue d'ensemble</p>
-                        <div class="select_link-header"></div>
-                    </div>
-                </a>
-                <a href="./agenda.php">
-                    <div class="burger_content_link-header">
-                        <i class="fi fi-br-calendar"></i>
-                        <p>Agenda</p>
-                    </div>
-                </a>
-                <div class="burger_content_trait_header"></div>
-                <a href="./messages.php">
-                    <div class="burger_content_link-header">
-                        <i class="fi fi-br-comment-alt"></i>
-                        <p>Messages</p>
-                    </div>
-                </a>
-                <a href="./mail.php">
-                    <div class="burger_content_link-header">
-                        <i class="fi fi-br-envelope"></i>
-                        <p>Boite mail</p>
-                    </div>
-                </a>
-                <div class="burger_content_trait_header"></div>
-                <a href="./sante.php">
-                    <div class="burger_content_link-header">
-                        <i class="fi fi-br-doctor"></i>
-                        <p>Mon bien être</p>
-                    </div>
-                </a>
-                <a href="./profil.php">
-                    <div class="burger_content_link-header">
-                        <i class="fi fi-br-user"></i>
-                        <p>Mon profil</p>
-                    </div>
-                </a>
-            </div>
+        <div style="width:10px"></div>
+        <div class="content_img-header-index">
+          <img src="./../assets/img/profil-1.svg" alt="Photo de profil">
+          <div></div>
         </div>
-    </header>
+      </div>
+    </div>
 
-
-
+    <div class="burger_content-header" id="burger_content-header">
+      <div style="height:60px"></div>
+      <div class="burger_content_title-header">
+        <img src="./../assets/img/mmicompanion.svg" alt="">
+        <h1>MMI Companion</h1>
+      </div>
+      <div class="burger_content_content-header">
+        <div class="burger_content_trait_header"></div>
+        <a href="./index.php">
+          <div class="burger_content_link-header">
+            <i class="fi fi-br-home"></i>
+            <p>Vue d'ensemble</p>
+            <div class="select_link-header"></div>
+          </div>
+        </a>
+        <a href="./agenda.php">
+          <div class="burger_content_link-header">
+            <i class="fi fi-br-calendar"></i>
+            <p>Agenda</p>
+          </div>
+        </a>
+        <div class="burger_content_trait_header"></div>
+        <a href="./messages.php">
+          <div class="burger_content_link-header">
+            <i class="fi fi-br-comment-alt"></i>
+            <p>Messages</p>
+          </div>
+        </a>
+        <a href="./mail.php">
+          <div class="burger_content_link-header">
+            <i class="fi fi-br-envelope"></i>
+            <p>Boite mail</p>
+          </div>
+        </a>
+        <div class="burger_content_trait_header"></div>
+        <a href="./sante.php">
+          <div class="burger_content_link-header">
+            <i class="fi fi-br-doctor"></i>
+            <p>Mon bien être</p>
+          </div>
+        </a>
+        <a href="./profil.php">
+          <div class="burger_content_link-header">
+            <i class="fi fi-br-user"></i>
+            <p>Mon profil</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </header>
 
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <h1>Bienvenue <?php var_dump($users); ?></h1>
+        <h1>Bienvenue
+          <?php var_dump($users); ?>
+        </h1>
         <a href="./logout.php">Logout</a>
         <p id="btn"></p>
         <form method="GET">
@@ -140,10 +148,10 @@ if(isset($_GET['submit'])){
       data: {
         jwt: jwt
       },
-      success: function(response) {
+      success: function (response) {
         // Le JWT est valide, vous pouvez permettre l'accès à la page
       },
-      error: function() {
+      error: function () {
         // Le JWT est invalide ou a expiré, rediriger vers la page de connexion
         window.location.href = './login.php';
       }
@@ -152,7 +160,7 @@ if(isset($_GET['submit'])){
 
 
 
-  document.addEventListener("DOMContentLoaded", function() {
+  document.addEventListener("DOMContentLoaded", function () {
     const url1 = 'https://corsproxy.io/?' + encodeURIComponent('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics');
     let calendarEl = document.getElementById("calendar");
 
@@ -180,3 +188,5 @@ if(isset($_GET['submit'])){
     calendar.render();
   });
 </script>
+
+</html>
