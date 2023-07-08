@@ -36,9 +36,9 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 echo head("Agenda");
 ?>
 
-<body>
+<body class="body-agenda">
 
-<header>
+    <header>
         <div class="content_header">
             <div class="content_title-header">
                 <div class="burger-header">
@@ -62,9 +62,9 @@ echo head("Agenda");
                         <i class="fi fi-br-home"></i>
                         <p>Vue d'ensemble</p>
                     </div>
-                    
+
                 </a>
-                <a href="./todolist.php">
+                <a href="./agenda.php">
                     <div class="burger_content_link-header">
                         <i class="fi fi-br-calendar"></i>
                         <p>Agenda</p>
@@ -100,15 +100,15 @@ echo head("Agenda");
             </div>
         </div>
     </header>
-    
-    <main>
+
+    <main class="main-agenda">
         <div class="agenda_list">
             <?php
             $sql_agenda = "SELECT a.*, s.name_subject AS subject_name 
-        FROM agenda a 
-        JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user 
-        ORDER BY a.date_finish ASC";
+            FROM agenda a 
+            JOIN sch_subject s ON a.id_subject = s.id_subject 
+            WHERE a.id_user = :id_user 
+            ORDER BY a.date_finish ASC";
 
 
             $stmt_agenda = $dbh->prepare($sql_agenda);
@@ -118,10 +118,10 @@ echo head("Agenda");
             $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
             $sql_eval = "SELECT a.*, s.name_subject AS subject_name
-        FROM agenda a
-        JOIN sch_subject s ON a.id_subject = s.id_subject
-        WHERE a.edu_group = :edu_group AND a.type = 'eval' OR a.type = 'devoir'
-        ORDER BY a.date_finish ASC";
+            FROM agenda a
+            JOIN sch_subject s ON a.id_subject = s.id_subject
+            WHERE a.edu_group = :edu_group AND a.type = 'eval' OR a.type = 'devoir'
+            ORDER BY a.date_finish ASC";
             $stmt_eval = $dbh->prepare($sql_eval);
             $stmt_eval->execute([
                 'edu_group' => $users['edu_group']
@@ -155,60 +155,90 @@ echo head("Agenda");
                 " décembre "
             );
             $agendaByDate = []; // Tableau pour regrouper les éléments par date
-            
-            echo "<h1>Agenda</h1>";
-            if ($agenda_cont == 0) {
-                echo "<p>Aucune tache à faire</p>";
-            } else if ($agenda_cont == 1) {
-                echo "<p>" . $agenda_cont . " tache à faire</p>";
-            } else {
-                echo "<p>" . $agenda_cont . " taches non faites</p>";
-            }
-
-            if ($eval_cont == 0) {
-                echo "<p>Aucune évaluation prévue</p>";
-            } else if ($eval_cont == 1) {
-                echo "<p>" . $eval_cont . " évaluation prévue</p>";
-            } else {
-                echo "<p>" . $eval_cont . " évaluations prévues</p>";
-            }
-
-
-            foreach ($agenda as $agendas) {
-                $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
-                $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
-                $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
-            
-                // Ajoute l'élément à l'array correspondant à la date
-                if (!isset($agendaByDate[$formattedDateFr])) {
-                    $agendaByDate[$formattedDateFr] = [];
-                }
-                $agendaByDate[$formattedDateFr][] = $agendas;
-            }
-
-            // Parcours les éléments par date et les affiche
-            foreach ($agendaByDate as $date => $agendas) {
-                echo "<h2>$date</h2>";
-
-                foreach ($agendas as $agenda) {
-                    echo "<div class='agenda_list_item'>";
-                    echo "<h3>" . $agenda['title'] . "</h3>";
-                    if ($agenda['type'] == "eval") {
-                        echo "<p>Évaluation</p>";
-                    }
-                    if ($agenda['type'] == "devoir") {
-                        echo "<p>Devoir à rendre</p>";
-                    }
-                    if ($agenda['checked'] == 1) {
-                        echo "<input type='checkbox' name='checkbox' id='checkbox' checked>";
-                    } else {
-                        echo "<input type='checkbox' name='checkbox' id='checkbox'>";
-                    }
-                    echo "<p>" . $agenda['subject_name'] . "</p>";
-                    echo "</div>";
-                }
-            }
             ?>
+            <div style="height:30px"></div>
+            <div class="agenda_title-agenda">
+                <div class="agenda_title_flextop-agenda">
+                    <div class="agenda_title_flextopleft-agenda">
+                        <h1>L'agenda</h1>
+                        <div></div>
+                    </div>
+
+                    <div class="agenda_title_flextopright-agenda">
+                        <a href="./agenda_add.php">Ajouter</a>
+                    </div>
+                </div>
+                <div style="height:15px"></div>
+                <div class="agenda_title_flexbottom-agenda">
+                    <?php
+                    if ($agenda_cont == 0) {
+                        echo "<p>Aucune tache à faire</p>";
+                    } else if ($agenda_cont == 1) {
+                        echo "<p>" . $agenda_cont . " tâche à faire</p>";
+                    } else {
+                        echo "<p>" . $agenda_cont . " tâches non faites</p>";
+                    }
+
+                    if ($eval_cont == 0) {
+                        echo "<p>Aucune évaluation prévue</p>";
+                    } else if ($eval_cont == 1) {
+                        echo "<p>" . $eval_cont . " évaluation prévue</p>";
+                    } else {
+                        echo "<p>" . $eval_cont . " évaluations prévues</p>";
+                    }
+
+
+                    foreach ($agenda as $agendas) {
+                        $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
+                        $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
+                        $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
+                    
+                        // Ajoute l'élément à l'array correspondant à la date
+                        if (!isset($agendaByDate[$formattedDateFr])) {
+                            $agendaByDate[$formattedDateFr] = [];
+                        }
+                        $agendaByDate[$formattedDateFr][] = $agendas;
+                    }
+                    ?>
+                </div>
+            </div>
+            <div style="height:25px"></div>
+            <div class="agenda_content-agenda">
+                <?php
+                // Parcours les éléments par date et les affiche
+                foreach ($agendaByDate as $date => $agendas) {
+                    echo "<div class='agenda_content_list-agenda'>";
+                    echo "<h2>$date</h2>";
+                    echo "<div style='height:10px'></div>";
+
+                    foreach ($agendas as $agenda) {
+                        echo "<div class='agenda_content_list_item-agenda'>";
+                        echo "<div class='agenda_content_list_item_flextop-agenda'>";
+                        if ($agenda['checked'] == 1) {
+                            echo "<input type='checkbox' name='checkbox' id='checkbox' checked>";
+                        } else {
+                            echo "<input type='checkbox' name='checkbox' id='checkbox'>";
+                        }
+                        // if ($agenda['type'] == "eval") {
+                        //     echo "<h3>[Évaluation]" . $agenda['title'] . "</h3>";
+                        // }
+                        // if ($agenda['type'] == "devoir") {
+                        //     echo "<h3>".$agenda['title'] . "</h3>";
+                        // }
+                        echo "<div>";
+                        echo "<h3>".$agenda['title'] . "</h3>";
+                        echo "<p>" . $agenda['subject_name'] . "</p>";
+                        echo "</div>";
+                        echo "</div>";
+                        // echo "<div class='agenda_content_list_item_flexbottom-agenda'>";
+                        // echo "<p>" . $agenda['subject_name'] . "</p>";
+                        // echo "</div>";
+                        echo "</div>";
+                        echo "<div style='height:10px'></div>";
+                    }
+                }
+                ?>
+            </div>
         </div>
     </main>
     <script src="../assets/js/script.js"></script>

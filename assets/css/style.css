@@ -281,3 +281,141 @@ a{
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
 }
+
+
+
+
+
+
+/* AGENDA.PHP */
+
+.body-agenda{
+    background: #DDF0FF;
+}
+
+.main-agenda{
+    margin: 0 10vw;
+}
+
+.agenda_title_flextop-agenda{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agenda_title_flextopleft-agenda{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: end;
+    height: 100%;
+}
+
+.agenda_title_flextopleft-agenda h1{
+    color: var(--texte, #004A5A);
+    font-size: 19px;
+    font-family: Montserrat;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+.agenda_title_flextopleft-agenda div{
+    height:1.5px;
+    width:46px;
+    border-radius: 10px;
+    background: var(--texte, #004A5A);
+    margin-bottom: 3px;
+}
+
+.agenda_title_flextopright-agenda a{
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 800;
+    background: var(--bleu-moyen, #56B8D6);
+    border-radius: 18px;
+    padding: 6px 30px;
+}
+
+.agenda_title_flexbottom-agenda{
+    display: flex;
+    flex-direction: column;
+}
+
+.agenda_title_flexbottom-agenda p{
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 500;
+}
+
+
+
+.agenda_content-agenda{
+    border-radius: 20px;
+    background: #FFF;
+    padding: 20px;
+}
+
+
+.agenda_content_list-agenda h2{
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 500;
+}
+
+.agenda_content_list_item-agenda h3{
+    color: #252525;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.agenda_content_list_item_flextop-agenda{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
+.agenda_content_list_item_flextop-agenda input[type="checkbox"]{
+    appearance: none;
+  background-color: #fff;
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid currentColor;
+  display: grid;
+place-content: center;
+border-radius: 50px;
+margin-right: 10px;
+}
+
+input[type="checkbox"]:checked::before {
+    content: url(./../img/check-mark-icon.svg);
+    animation: zoom 0.15s ease;
+    transform: scale(0.11);
+    color: #004A5A;
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(0.11);
+    }
+}
+
+.agenda_content_list_item_flextop-agenda div p{
+    color: #AFAFAF;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+

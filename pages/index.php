@@ -61,7 +61,7 @@ if(isset($_GET['submit'])){
                         <div class="select_link-header"></div>
                     </div>
                 </a>
-                <a href="./todolist.php">
+                <a href="./agenda.php">
                     <div class="burger_content_link-header">
                         <i class="fi fi-br-calendar"></i>
                         <p>Agenda</p>
