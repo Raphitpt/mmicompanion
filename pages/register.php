@@ -62,18 +62,18 @@ echo head('Register');
             <div style="height:20px"></div>
             <input type="text" name="name" placeholder="nom" class="input-login" required>
             <div style="height:20px"></div>
+            <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern=".+@etu\.univ-poitiers\.fr"
+                class="input-login" required>
+            <div style="height:20px"></div>
             <input type="password" name="password" placeholder="mot de passe" class="input-login" required>
             <div style="height:20px"></div>
             <input type="password" name="confirm_password" placeholder="confirmer mot de passe" class="input-login"
                 required>
-            <div style="height:20px"></div>
-            <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern=".+@etu\.univ-poitiers\.fr"
-                class="input-login" required>
             <div class="trait_register"></div>
             <div class="label_edu-register">
                 <label for="edu_group">Choisissez votre classe :</label>
             </div>
-            
+
             <div style="height:10px"></div>
             <select name="edu_group1" class="input-login">
                 <option value="BUT1">BUT1</option>
