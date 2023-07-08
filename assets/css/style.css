@@ -109,6 +109,7 @@ a{
     padding: 10px 0;
     width: 200px;
     z-index: 2;
+    position: relative;
     
 }
 
@@ -126,14 +127,13 @@ a{
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    position: relative;
     z-index: 2;
 }
 
 .select_link-header{
     border-radius: 19.5px;
     width: 225px;
-    left: 15px;
+    right: 10px;
     height: 42px;
     position: absolute;
     background: var(--bleu-trs-clair-background, #B9E0FF);
