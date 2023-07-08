@@ -704,7 +704,8 @@ input[type="checkbox"]:checked::before {
 .input_select-agenda_add{
     border-radius: 30px;
     background: #ffffff;
-    padding: 10px 20%;
+    padding: 10px 0px;
+    padding-left: 0px;
     width: 80%;
     border:none;
     color: #252525;

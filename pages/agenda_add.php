@@ -128,7 +128,7 @@ echo head("Ajouter une tache");
                         <option value="3">Autre</option>
                     </select>
                 <?php }else{ ?>
-                    <select name="type">
+                    <select name="type" class="input_select-agenda_add input_type-agenda_add">
                         <option value="3">Autre</option>
                     </select>
                 <?php } ?>
@@ -147,7 +147,7 @@ echo head("Ajouter une tache");
                 </select>
                 <div style="height:25px"></div>
                 <div class="form_button-agenda">
-                    <a role="button href="./agenda.php">Annuler</a>
+                    <a role="button" href='./agenda.php'>Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
                 
