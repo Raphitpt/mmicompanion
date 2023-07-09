@@ -1,3 +1,6 @@
+
+// ANIMATION MENU BURGER
+
 // Sélectionnez le bouton burger, le menu de navigation et le document
 const burgerButton = document.querySelector('#burger-header');
 const menu = document.querySelector('#burger_content-header');
@@ -27,3 +30,5 @@ function toggleMenu() {
     menu.style.transform = 'translateX(0%)';
   }
 }
+
+

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pname']) && isset($_PO
     echo 'User created!';
     exit;
 }
-echo head('Register');
+echo head('MMI Companion - Register');
 ?>
 
 <body class="body-login">
@@ -58,40 +58,79 @@ echo head('Register');
         <h1 class="title-login">CRÉER UN COMPTE</h1>
         <div style="height:30px"></div>
         <form action="" method="post" class="form-login">
-            <input type="text" name="pname" placeholder="prénom" class="input-login" required>
-            <div style="height:20px"></div>
-            <input type="text" name="name" placeholder="nom" class="input-login" required>
-            <div style="height:20px"></div>
-            <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern=".+@etu\.univ-poitiers\.fr"
-                class="input-login" required>
-            <div style="height:20px"></div>
-            <input type="password" name="password" placeholder="mot de passe" class="input-login" required>
-            <div style="height:20px"></div>
-            <input type="password" name="confirm_password" placeholder="confirmer mot de passe" class="input-login"
-                required>
-            <div class="trait_register"></div>
-            <div class="label_edu-register">
-                <label for="edu_group">Choisissez votre classe :</label>
+            <div class="form_visibility1-register">
+                <input type="text" name="pname" placeholder="prénom" class="input-login" required>
+                <div style="height:20px"></div>
+                <input type="text" name="name" placeholder="nom" class="input-login" required>
+                <div style="height:20px"></div>
+                <input type="text" name="edu_mail" placeholder="adresse mail étudiante"
+                    pattern=".+@etu\.univ-poitiers\.fr" class="input-login" required>
+                <div style="height:20px"></div>
+                <input type="password" name="password" placeholder="mot de passe" class="input-login" required>
+                <div style="height:20px"></div>
+                <input type="password" name="confirm_password" placeholder="confirmer mot de passe" class="input-login"
+                    required>
+                <div class="trait_register"></div>
+                <div class="button_next-register">
+                    <p>Suivant</p>
+                    <div style="width:10px"></div>
+                    <i class="fi fi-br-arrow-alt-right"></i>
+                </div>
             </div>
 
-            <div style="height:10px"></div>
-            <select name="edu_group1" class="input-login">
-                <option value="BUT1">BUT1</option>
-                <option value="BUT2">BUT2</option>
-                <option value="BUT3">BUT3</option>
-            </select>
-            <div style="height:20px"></div>
-            <select name="edu_group2" class="input-login">
-                <option value="TP1">TP1</option>
-                <option value="TP2">TP2</option>
-                <option value="TP3">TP3</option>
-                <option value="TP4">TP4</option>
-
-            </select>
-            <div style="height:30px"></div>
-            <input type="submit" value="Créer mon compte" class="button_register">
+            <div class="form_visibility2-register">
+                <div class="label_edu-register">
+                    <label for="edu_group">Choisissez votre classe :</label>
+                </div>
+                <div style="height:10px"></div>
+                <select name="edu_group1" class="input-login">
+                    <option value="BUT1">BUT1</option>
+                    <option value="BUT2">BUT2</option>
+                    <option value="BUT3">BUT3</option>
+                </select>
+                <div style="height:20px"></div>
+                <select name="edu_group2" class="input-login">
+                    <option value="TP1">TP1</option>
+                    <option value="TP2">TP2</option>
+                    <option value="TP3">TP3</option>
+                    <option value="TP4">TP4</option>
+                </select>
+                <div style="height:30px"></div>
+                <input type="submit" value="Créer mon compte" class="button_register">
+                <div style="height:20px"></div>
+                <div class="button_before-register">
+                    <i class="fi fi-br-arrow-alt-right"></i>
+                    <div style="width:10px"></div>
+                    <p>Précédent</p>
+                </div>
+            </div>
         </form>
     </main>
+
+    <script>
+        // DOUBLE PAGE REGISTER.PHP
+
+        // Sélectionnez les éléments de la page
+        const nextBtn = document.querySelector('.button_next-register');
+        const prevBtn = document.querySelector('.button_before-register');
+        const form1 = document.querySelector('.form_visibility1-register');
+        const form2 = document.querySelector('.form_visibility2-register');
+
+        // Ajoutez un gestionnaire d'événement au clic sur le bouton suivant
+        nextBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            form1.style.display = 'none';
+            form2.style.display = 'flex';
+        });
+
+        // Ajoutez un gestionnaire d'événement au clic sur le bouton précédent
+        prevBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            form1.style.display = 'flex';
+            form2.style.display = 'none';
+        });
+    </script>
+
 </body>
 
 </html>

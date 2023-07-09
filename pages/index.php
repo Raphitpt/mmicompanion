@@ -130,7 +130,7 @@ if (isset($_GET['submit'])) {
 <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
-<script src="../assets/js/script.js"></script>
+<script src="../assets/js/menu-navigation.js"></script>
 <script src="../assets/js/app.js"></script>
 <script>
   let jwt = localStorage.getItem('jwt');

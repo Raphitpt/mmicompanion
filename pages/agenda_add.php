@@ -156,7 +156,7 @@ echo head("Ajouter une tache");
         </div>
 
     </main>
-    <script src="../assets/js/script.js"></script>
+    <script src="../assets/js/menu-navigation.js"></script>
 </body>
 
 </html>
