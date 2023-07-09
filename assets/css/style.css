@@ -646,7 +646,14 @@ a {
     font-weight: 500;
 }
 
-.agenda_content_list_item-agenda h3 {
+.agenda_content_list_item-agenda{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agenda_content_list_item_flexleft-agenda h3 {
     color: #252525;
     font-family: Montserrat;
     font-size: 14px;
@@ -655,13 +662,13 @@ a {
     line-height: normal;
 }
 
-.agenda_content_list_item_flextop-agenda {
+.agenda_content_list_item_flexleft-agenda {
     display: flex;
     flex-direction: row;
     align-items: start;
 }
 
-.agenda_content_list_item_flextop-agenda input[type="checkbox"] {
+.agenda_content_list_item_flexleft-agenda input[type="checkbox"] {
     appearance: none;
     background-color: #fff;
     width: 18px;
@@ -690,13 +697,17 @@ input[type="checkbox"]:checked::before {
     }
 }
 
-.agenda_content_list_item_flextop-agenda div p {
+.agenda_content_list_item_flexleft-agenda div p {
     color: #AFAFAF;
     font-family: Montserrat;
     font-size: 10px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.agenda_content_list_item_flexright-agenda i{
+    color: #CB0000;
 }
 
 

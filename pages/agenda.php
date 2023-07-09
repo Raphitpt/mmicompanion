@@ -217,7 +217,7 @@ echo head("Agenda");
 
                 foreach ($agendas as $agenda) {
                     echo "<div class='agenda_content_list_item-agenda'>";
-                    echo "<div class='agenda_content_list_item_flextop-agenda'>";
+                    echo "<div class='agenda_content_list_item_flexleft-agenda'>";
                     if ($agenda['checked'] == 1) {
                         echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
                     } else {
@@ -232,6 +232,10 @@ echo head("Agenda");
                     echo "<div>";
                     echo "<h3>" . $agenda['title'] . "</h3>";
                     echo "<p>" . $agenda['subject_name'] . "</p>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "<div class='agenda_content_list_item_flexright-agenda'>";
+                    echo "<i class='fi fi-br-trash'></i>";
                     echo "</div>";
                     echo "</div>";
                     // echo "<div class='agenda_content_list_item_flexbottom-agenda'>";
