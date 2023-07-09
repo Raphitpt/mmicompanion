@@ -460,7 +460,7 @@ a{
 .button_before-register p{
     color: var(--texte, #004A5A);
     font-family: Montserrat;
-    font-size: 15px;
+    font-size: 12px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -468,7 +468,7 @@ a{
 
 .button_before-register i{
     color: var(--texte, #004A5A);
-    font-size: 15px;
+    font-size: 12px;
     transform: translateY(-3px);
     transform: rotate(180deg);
 }

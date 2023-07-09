@@ -97,12 +97,6 @@ echo head('MMI Companion - Register');
                 </select>
                 <div style="height:30px"></div>
                 <input type="submit" value="Créer mon compte" class="button_register">
-                <div style="height:20px"></div>
-                <div class="button_before-register">
-                    <i class="fi fi-br-arrow-alt-right"></i>
-                    <div style="width:10px"></div>
-                    <p>Précédent</p>
-                </div>
             </div>
         </form>
     </main>
@@ -115,12 +109,20 @@ echo head('MMI Companion - Register');
         const prevBtn = document.querySelector('.button_before-register');
         const form1 = document.querySelector('.form_visibility1-register');
         const form2 = document.querySelector('.form_visibility2-register');
+        // Sélectionner l'élément <a> par sa classe
+        const lien = document.querySelector('.back_btn');
+
+        
+
 
         // Ajoutez un gestionnaire d'événement au clic sur le bouton suivant
         nextBtn.addEventListener('click', (event) => {
             event.preventDefault();
             form1.style.display = 'none';
             form2.style.display = 'flex';
+            // Changer le lien
+            lien.href = '';
+
         });
 
         // Ajoutez un gestionnaire d'événement au clic sur le bouton précédent
@@ -128,6 +130,7 @@ echo head('MMI Companion - Register');
             event.preventDefault();
             form1.style.display = 'flex';
             form2.style.display = 'none';
+            lien.href = './accueil.php';
         });
     </script>
 
