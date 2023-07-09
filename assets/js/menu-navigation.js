@@ -36,15 +36,15 @@ function toggleMenu() {
   }
 }
 
-link.forEach(function(link) {
-  link.addEventListener('click', function(event) {
-    event.stopPropagation();
-    const selectLink = document.querySelector('.select_link-header');
-    const clickedDiv = event.target.parentElement;
-    clickedDiv.appendChild(selectLink);
-    toggleMenu();
-  });
-});
+// link.forEach(function(link) {
+//   link.addEventListener('click', function(event) {
+//     event.stopPropagation();
+//     const selectLink = document.querySelector('.select_link-header');
+//     const clickedDiv = event.target.parentElement;
+//     clickedDiv.appendChild(selectLink);
+//     toggleMenu();
+//   });
+// });
 
 function getDataFromFile(x) {
   let xhr = new XMLHttpRequest();
