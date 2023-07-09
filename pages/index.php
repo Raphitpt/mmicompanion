@@ -168,6 +168,13 @@ if (isset($_GET['submit'])) {
 
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
+        buttonText: {
+          today: 'Aujourd\'hui',
+          month: 'Mois',
+          week: 'Semaine',
+          day: 'Jour',
+          list: 'Liste'
+        },
         eventMinHeight: 75,
         height: 'auto',
         initialView: "timeGridDay",
