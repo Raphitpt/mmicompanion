@@ -43,14 +43,19 @@ $stmt_agenda->execute([
 $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
 $sql_eval = "SELECT a.*, s.name_subject AS subject_name
-        FROM agenda a
-        JOIN sch_subject s ON a.id_subject = s.id_subject
-        WHERE a.edu_group = :edu_group AND a.type = 'eval' OR a.type = 'devoir'
-        ORDER BY a.date_finish ASC";
+FROM agenda a
+JOIN sch_subject s ON a.id_subject = s.id_subject
+WHERE a.edu_group = :edu_group 
+AND a.id_user != :id_user 
+AND (a.type = 'eval' OR a.type = 'devoir')
+ORDER BY a.date_finish ASC";
+
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
-    'edu_group' => $users['edu_group']
+'edu_group' => $users['edu_group'],
+'id_user' => $users['id_user']
 ]);
+
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 $agenda = array_merge($agenda_user, $eval);
 $eval_cont = count($eval);
@@ -156,5 +161,3 @@ $html .= '
 </main>
 ';
     echo $html;
-
-?>
