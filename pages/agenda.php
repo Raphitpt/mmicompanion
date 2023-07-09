@@ -160,7 +160,7 @@ echo head("Agenda");
             " décembre "
         );
         $agendaByDate = []; // Tableau pour regrouper les éléments par date
-        $tachesNonTermineesRestantes = 0;
+        $tachesNonTermineesRestantes = 0 - $eval_cont;
 
         foreach ($agenda as $agendas) {
             if ($agendas['checked'] != 1) {
