@@ -158,7 +158,7 @@ echo head("Agenda");
         <div style="height:30px"></div>
         <div class="agenda_title-agenda">
             <div class="agenda_title_flextop-agenda">
-                <div class="agenda_title_flextopleft-agenda">
+                <div class="title_trait">
                     <h1>L'agenda</h1>
                     <div></div>
                 </div>

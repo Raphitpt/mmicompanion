@@ -102,7 +102,7 @@ echo head("Ajouter une tache");
 
     <main class="main-agenda">
         <div style="height:30px"></div>
-        <div class="agenda_title-agenda_add">
+        <div class="title_trait">
             <h1>Ajouter une tâche</h1>
             <div></div>
         </div>
