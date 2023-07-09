@@ -123,7 +123,7 @@ $html .= "<p>" . $agenda_cont . " tâches non faites</p>";
         $agendaByDate[$formattedDateFr][] = $agendas;
     }
 
-    $html = '</div>
+    $html .= '</div>
     </div>
     <div style="height:25px"></div>
     <div class="agenda_content-agenda">';
