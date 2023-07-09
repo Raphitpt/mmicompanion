@@ -63,12 +63,10 @@ if (isset($_GET['submit'])) {
             <div class="select_link-header"></div>
           </div>
         </a>
-        <a href="./agenda.php">
-          <div class="burger_content_link-header">
+          <div class="burger_content_link-header" onclick="getDataFromFile('./test_agenda.php')">
             <i class="fi fi-br-calendar"></i>
             <p>Agenda</p>
           </div>
-        </a>
         <div class="burger_content_trait_header"></div>
         <a href="./messages.php">
           <div class="burger_content_link-header">
@@ -98,26 +96,7 @@ if (isset($_GET['submit'])) {
       </div>
     </div>
   </header>
-  <main class="main-index">
-
-
-    <!-- <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <h1>Bienvenue
-          <?php var_dump($users); ?>
-        </h1>
-        <a href="./logout.php">Logout</a>
-        <p id="btn"></p>
-        <form method="GET">
-          <input type="text" name="message" placeholder="Message de la notif">
-          <input type="text" name="title" placeholder="Titre de la notif">
-          <input type="submit" name="submit" value="Ajouter">
-        </form>
-        <button id="sendNotificationButton">Envoyer une notification</button>
-      </div>
-    </div>
-  </div> -->
+  <main class="container main-index">
     <div style="height:30px"></div>
     <div class="title_trait">
       <h1>L'emploi du temps</h1>

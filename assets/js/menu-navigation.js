@@ -37,12 +37,9 @@ function getDataFromFile(x) {
   xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
 
-      let response = JSON.parse(xhr.responseText);
+      let HTMLcontent = xhr.responseText;
 
-      let HTMLcontent = response.content_html;
-
-
-      console.log("HTML: " + HTMLcontent);
+     console.log("HTML: " + HTMLcontent);
 
       document.querySelector(".container").innerHTML = HTMLcontent;
     }
