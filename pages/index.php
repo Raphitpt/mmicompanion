@@ -11,8 +11,6 @@ $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 $users = decodeJWT($jwt, $secret_key);
 $cal_link = calendar($users['edu_group']);?>
 
-<link href="https://cdn.jsdelivr.net/npm/@fullcalendar/common@5.11.5/main.min.css" rel="stylesheet" />
-
 <?php echo head('MMI Companion | Accueil');
 
 if (isset($_GET['submit'])) {
