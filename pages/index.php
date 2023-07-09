@@ -176,7 +176,7 @@ if (isset($_GET['submit'])) {
           list: 'Liste'
         },
         eventMinHeight: 75,
-        height: 'auto',
+        height: '70vh',
         initialView: "timeGridDay",
         headerToolbar: {
           left: "prev",
