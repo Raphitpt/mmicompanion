@@ -196,7 +196,7 @@ echo head("Agenda");
                     $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
                     $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
                     $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
-
+                
                     // Ajoute l'élément à l'array correspondant à la date
                     if (!isset($agendaByDate[$formattedDateFr])) {
                         $agendaByDate[$formattedDateFr] = [];
@@ -218,29 +218,31 @@ echo head("Agenda");
                 foreach ($agendas as $agenda) {
                     echo "<div class='agenda_content_list_item-agenda'>";
                     echo "<div class='agenda_content_list_item_flexleft-agenda'>";
-                    if ($agenda['checked'] == 1) {
-                        echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
-                    } else {
-                        echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "''>";
+                    if ($agenda['type'] == "eval") {
+                        echo "<i class='fi fi-br-comment-info'></i>";
                     }
-                    // if ($agenda['type'] == "eval") {
-                    //     echo "<h3>[Évaluation]" . $agenda['title'] . "</h3>";
-                    // }
-                    // if ($agenda['type'] == "devoir") {
-                    //     echo "<h3>".$agenda['title'] . "</h3>";
-                    // }
+                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                        if ($agenda['checked'] == 1) {
+                            echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                        } else {
+                            echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "''>";
+                        }
+                    }
+
                     echo "<div>";
-                    echo "<h3>" . $agenda['title'] . "</h3>";
+                    if ($agenda['type'] == "eval") {
+                        echo "<h3>[Évaluation] " . $agenda['title'] . "</h3>";
+                    }
+                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                        echo "<h3>" . $agenda['title'] . "</h3>";
+                    }
+                    // echo "<h3>" . $agenda['title'] . "</h3>";
                     echo "<p>" . $agenda['subject_name'] . "</p>";
                     echo "</div>";
                     echo "</div>";
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
                     echo "<i class='fi fi-br-trash'></i>";
                     echo "</div>";
-                    echo "</div>";
-                    // echo "<div class='agenda_content_list_item_flexbottom-agenda'>";
-                    // echo "<p>" . $agenda['subject_name'] . "</p>";
-                    // echo "</div>";
                     echo "</div>";
                     echo "<div style='height:10px'></div>";
                 }
@@ -252,17 +254,17 @@ echo head("Agenda");
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
         // Coche une tâche
-        window.addEventListener("DOMContentLoaded", function() {
+        window.addEventListener("DOMContentLoaded", function () {
             let checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener("change", function() {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
                     let idAgenda = this.getAttribute("data-idAgenda");
                     let checkedValue = this.checked ? 1 : 0;
 
                     let xhr = new XMLHttpRequest();
                     xhr.open("POST", "./coche_agenda.php", true);
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function() {
+                    xhr.onreadystatechange = function () {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             console.log(xhr.responseText);
                         }

@@ -653,6 +653,11 @@ a {
     align-items: center;
 }
 
+.agenda_content_list_item_flexleft-agenda i{
+    margin-right: 10px;
+    color: #CB0000;
+}
+
 .agenda_content_list_item_flexleft-agenda h3 {
     color: #252525;
     font-family: Montserrat;
