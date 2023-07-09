@@ -63,10 +63,12 @@ if (isset($_GET['submit'])) {
             <div class="select_link-header"></div>
           </div>
         </a>
+        <a href="./agenda.php">
         <div class="burger_content_link-header" onclick="getDataFromFile('./test_agenda.php')">
           <i class="fi fi-br-calendar"></i>
           <p>Agenda</p>
         </div>
+        </a>
         <div class="burger_content_trait_header"></div>
         <a href="./messages.php">
           <div class="burger_content_link-header">

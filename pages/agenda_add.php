@@ -117,19 +117,19 @@ echo head("Ajouter une tache");
                 <div style="height:5px"></div>
                 <input type="date" name="date" class="input_date-agenda_add" placeholder="Ajouter une date">
                 <div style="height:15px"></div>
-                <label for="type" class="label-agenda_add">
+                <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
+                    <label for="type" class="label-agenda_add">
                     <h2>Type de tâche</h2>
                 </label>
                 <div style="height:5px"></div>
-                <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
                     <select name="type" class="input_select-agenda_add input_type-agenda_add">
                         <option value="eval">Évaluation</option>
                         <option value="devoir">Devoir à rendre</option>
-                        <option value="3">Autre</option>
+                        <option value="autre">Autre</option>
                     </select>
                 <?php }else{ ?>
-                    <select name="type" class="input_select-agenda_add input_type-agenda_add">
-                        <option value="3">Autre</option>
+                    <select name="type" class="input_select-agenda_add input_type-agenda_add" hidden>
+                        <option value="autre" selected>Autre</option>
                     </select>
                 <?php } ?>
 
