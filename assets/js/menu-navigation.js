@@ -4,6 +4,7 @@
 // Sélectionnez le bouton burger, le menu de navigation et le document
 const burgerButton = document.querySelector('#burger-header');
 const menu = document.querySelector('#burger_content-header');
+const link = document.querySelectorAll('.burger_content_link-header');
 const documentBody = document.body;
 
 // Ajoutez un gestionnaire d'événement au clic sur le bouton burger
@@ -30,6 +31,16 @@ function toggleMenu() {
     menu.style.transform = 'translateX(0%)';
   }
 }
+
+link.forEach(function(link) {
+  link.addEventListener('click', function(event) {
+    event.stopPropagation();
+    const selectLink = document.querySelector('.select_link-header');
+    const clickedDiv = event.target.parentElement;
+    clickedDiv.appendChild(selectLink);
+    toggleMenu();
+  });
+});
 
 function getDataFromFile(x) {
   let xhr = new XMLHttpRequest();
