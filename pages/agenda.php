@@ -160,6 +160,13 @@ echo head("Agenda");
             " décembre "
         );
         $agendaByDate = []; // Tableau pour regrouper les éléments par date
+        $tachesNonTermineesRestantes = 0;
+
+        foreach ($agenda as $agendas) {
+            if ($agendas['checked'] != 1) {
+                $tachesNonTermineesRestantes++;
+            }
+        }
         ?>
         <div style="height:30px"></div>
         <div class="agenda_title-agenda">
@@ -176,12 +183,14 @@ echo head("Agenda");
             <div style="height:15px"></div>
             <div class="agenda_title_flexbottom-agenda">
                 <?php
-                if ($agenda_cont == 0) {
-                    echo "<p>Aucune tache à faire</p>";
-                } else if ($agenda_cont == 1) {
-                    echo "<p>" . $agenda_cont . " tâche à faire</p>";
+                $tachesNonTerminees = 0;
+
+                if ($tachesNonTermineesRestantes == 0) {
+                    echo "<p id='compteTaches'>Aucune tache à faire</p>";
+                } else if ($tachesNonTermineesRestantes == 1) {
+                    echo "<p id='compteTaches'>" . $tachesNonTermineesRestantes . " tâche à faire</p>";
                 } else {
-                    echo "<p>" . $agenda_cont . " tâches non faites</p>";
+                    echo "<p id='compteTaches'>" . $tachesNonTermineesRestantes . " tâches non faites</p>";
                 }
 
                 if ($eval_cont == 0) {
@@ -237,7 +246,6 @@ echo head("Agenda");
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
                     echo "<i class='fi fi-br-trash'></i>";
                     echo "</div>";
-                    echo "</div>";
                     // echo "<div class='agenda_content_list_item_flexbottom-agenda'>";
                     // echo "<p>" . $agenda['subject_name'] . "</p>";
                     // echo "</div>";
@@ -251,10 +259,34 @@ echo head("Agenda");
     <div style="height:20px"></div>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
+        function updateCompteurTaches() {
+            const checkboxes = document.querySelectorAll(".checkbox");
+            let compteur = <?php echo $tachesNonTermineesRestantes; ?>; // Valeur initiale du compteur
+
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener("change", function() {
+                    if (this.checked) {
+                        compteur--; // Décrémenter le compteur si la tâche est cochée
+                    } else {
+                        compteur++; // Incrémenter le compteur si la tâche est décochée
+                    }
+                    // Mettre à jour l'affichage du compteur
+                    if (compteur === 0) {
+                        document.getElementById("compteTaches").textContent = "Aucune tâche à faire";
+                    } else if (compteur === 1) {
+                        document.getElementById("compteTaches").textContent = compteur + " tâche à faire";
+                    } else {
+                        document.getElementById("compteTaches").textContent = compteur + " tâches à faire";
+                    }
+                });
+            });
+        }
         window.addEventListener("DOMContentLoaded", function() {
+            updateCompteurTaches();
             let checkboxes = document.querySelectorAll(".checkbox");
             checkboxes.forEach(function(checkbox) {
                 checkbox.addEventListener("change", function() {
+
                     let idAgenda = this.getAttribute("data-idAgenda");
                     let checkedValue = this.checked ? 1 : 0;
 
