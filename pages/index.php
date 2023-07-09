@@ -190,8 +190,8 @@ if (isset($_GET['submit'])) {
         },
 
         eventDidMount: function(arg) {
-          var eventTitle = arg.event.title;
-          var eventColor = eventColors[eventTitle];
+          let eventTitle = arg.event.title;
+          let eventColor = eventColors[eventTitle];
 
           if (eventColor) {
             arg.el.style.backgroundColor = eventColor;
@@ -201,15 +201,15 @@ if (isset($_GET['submit'])) {
 
       // Fonction pour générer une couleur aléatoire
       function generateRandomColor() {
-        var letters = '0123456789ABCDEF';
-        var color = '#';
-        for (var i = 0; i < 6; i++) {
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
           color += letters[Math.floor(Math.random() * 16)];
         }
         return color;
       }
       calendar.getEvents().forEach(function(event) {
-        var eventTitle = event.title;
+        let eventTitle = event.title;
 
         if (!eventColors[eventTitle]) {
           eventColors[eventTitle] = generateRandomColor();
