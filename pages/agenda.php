@@ -251,6 +251,7 @@ echo head("Agenda");
     <div style="height:20px"></div>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
+        // Coche une tâche
         window.addEventListener("DOMContentLoaded", function() {
             let checkboxes = document.querySelectorAll(".checkbox");
             checkboxes.forEach(function(checkbox) {
