@@ -2,6 +2,12 @@
 session_start();
 require "../bootstrap.php";
 
+
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./accueil.php');
+    exit;
+}
+
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 $users = decodeJWT($jwt, $secret_key);
@@ -128,7 +134,6 @@ echo head("Agenda");
         $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
         $agenda = array_merge($agenda_user, $eval);
         $eval_cont = count($eval);
-        $devoir_cont = count($devoir);
         $agenda_cont = count($agenda);
 
         $semaine = array(
@@ -186,14 +191,6 @@ echo head("Agenda");
                 } else {
                     echo "<p>" . $eval_cont . " évaluations prévues</p>";
                 }
-                if ($devoir_cont == 0) {
-                    echo "<p>Aucun devoir prévu</p>";
-                } else if ($devoir_cont == 1) {
-                    echo "<p>" . $devoir_cont . " devoir prévu</p>";
-                } else {
-                    echo "<p>" . $devoir_cont . " devoirs prévus</p>";
-                }
-
 
                 foreach ($agenda as $agendas) {
                     $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
