@@ -9,7 +9,7 @@ if (!isset($_COOKIE['jwt'])) {
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 $users = decodeJWT($jwt, $secret_key);
-$cal_link = calendar($users['edu_group']);?>
+$cal_link = calendar($users['edu_group']); ?>
 
 <?php echo head('MMI Companion | Accueil');
 
@@ -63,10 +63,10 @@ if (isset($_GET['submit'])) {
             <div class="select_link-header"></div>
           </div>
         </a>
-          <div class="burger_content_link-header" onclick="getDataFromFile('./test_agenda.php')">
-            <i class="fi fi-br-calendar"></i>
-            <p>Agenda</p>
-          </div>
+        <div class="burger_content_link-header" onclick="getDataFromFile('./test_agenda.php')">
+          <i class="fi fi-br-calendar"></i>
+          <p>Agenda</p>
+        </div>
         <div class="burger_content_trait_header"></div>
         <a href="./messages.php">
           <div class="burger_content_link-header">
@@ -105,7 +105,7 @@ if (isset($_GET['submit'])) {
     <div style="height:15px"></div>
     <div id="calendar"></div>
   </main>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
@@ -127,10 +127,10 @@ if (isset($_GET['submit'])) {
         data: {
           jwt: jwt
         },
-        success: function (response) {
+        success: function(response) {
           // Le JWT est valide, vous pouvez permettre l'accès à la page
         },
-        error: function () {
+        error: function() {
           // Le JWT est invalide ou a expiré, rediriger vers la page de connexion
           window.location.href = './login.php';
         }
@@ -139,7 +139,7 @@ if (isset($_GET['submit'])) {
 
 
 
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", function() {
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics');
       let calendarEl = document.getElementById("calendar");
 
@@ -164,6 +164,24 @@ if (isset($_GET['submit'])) {
         events: {
           url: url1,
           format: "ics",
+        },
+        eventContent: function(arg) {
+          let eventLocation = arg.event.extendedProps.location;
+          let eventDescription = arg.event.extendedProps.description;
+
+          let eventContent = '<div class="fc-title">' + arg.event.title + '</div>';
+
+          if (eventDescription) {
+            eventContent += '<div class="fc-description">' + eventDescription + '</div>';
+          }
+
+          if (eventLocation) {
+            eventContent += '<div class="fc-location">' + eventLocation + '</div>';
+          }
+
+          return {
+            html: eventContent
+          };
         },
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
