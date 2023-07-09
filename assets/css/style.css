@@ -11,6 +11,11 @@ a {
     color: inherit;
 }
 
+
+.no-scroll {
+    overflow: hidden;
+  }
+
 /* HEADER */
 
 .content_header {
@@ -861,3 +866,9 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
     border: none;
 }
+
+
+
+
+
+  

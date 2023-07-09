@@ -11,6 +11,8 @@ const documentBody = document.body;
 burgerButton.addEventListener('click', (event) => {
   event.stopPropagation(); // Empêche la propagation de l'événement de clic
   toggleMenu();
+
+  documentBody.classList.add('no-scroll');
 });
 
 // Ajoutez un gestionnaire d'événement au clic sur le document
@@ -18,6 +20,7 @@ document.addEventListener('click', (event) => {
   // Fermez le menu si l'élément cliqué est à l'extérieur
   if (!menu.contains(event.target)) {
     menu.style.transform = 'translateX(-100%)';
+    documentBody.classList.remove('no-scroll');
   }
 });
 
@@ -27,6 +30,7 @@ function toggleMenu() {
 
   if (isMenuOpen) {
     menu.style.transform = 'translateX(-100%)';
+    documentBody.classList.remove('no-scroll');
   } else {
     menu.style.transform = 'translateX(0%)';
   }
