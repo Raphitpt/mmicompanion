@@ -96,6 +96,7 @@ if (isset($_GET['submit'])) {
       </div>
     </div>
   </header>
+  
   <main class="container main-index">
     <div style="height:30px"></div>
     <div class="title_trait">
