@@ -35,7 +35,7 @@ if (isset($_GET['submit'])) {
       <div class="content-header-index">
         <div class="content_title-header-index">
           <h1>Salut <span style="font-weight:800">
-              <?php echo "Arnaud" ?><span></h1>
+              <?php echo ucfirst($users['pname']) ?><span></h1>
           <p>en ligne</p>
         </div>
         <div style="width:10px"></div>
@@ -64,7 +64,7 @@ if (isset($_GET['submit'])) {
           </div>
         </a>
         <a href="./agenda.php">
-        <div class="burger_content_link-header" onclick="getDataFromFile('./test_agenda.php')">
+        <div class="burger_content_link-header">
           <i class="fi fi-br-calendar"></i>
           <p>Agenda</p>
         </div>
