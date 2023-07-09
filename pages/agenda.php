@@ -119,22 +119,24 @@ echo head("Agenda");
             'id_user' => $users['id_user']
         ]);
         $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-
-        $sql_eval = "SELECT a.*, s.name_subject AS subject_name
-FROM agenda a
-JOIN sch_subject s ON a.id_subject = s.id_subject
-WHERE a.edu_group = :edu_group 
-AND (a.type = 'eval' OR a.type = 'devoir')
-ORDER BY a.date_finish ASC";
-
+// Recupére les évaluations
+        $sql_eval = "SELECT a.*, s.name_subject AS subject_name FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC";
         $stmt_eval = $dbh->prepare($sql_eval);
         $stmt_eval->execute([
             'edu_group' => $users['edu_group']
         ]);
-
+// Recupére les devoirs à rendre 
+        $sql_devoir = "SELECT a.*, s.name_subject AS subject_name FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' ORDER BY a.date_finish ASC";
+        $stmt_devoir = $dbh->prepare($sql_eval);
+        $stmt_devoir->execute([
+            'edu_group' => $users['edu_group']
+        ]);
+        $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
         $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
         $agenda = array_merge($agenda_user, $eval);
+        $agenda = array_merge($agenda, $devoir);
         $eval_cont = count($eval);
+        $devoir_cont = count($devoir);
         $agenda_cont = count($agenda);
 
         $semaine = array(
@@ -191,6 +193,13 @@ ORDER BY a.date_finish ASC";
                     echo "<p>" . $eval_cont . " évaluation prévue</p>";
                 } else {
                     echo "<p>" . $eval_cont . " évaluations prévues</p>";
+                }
+                if ($devoir_cont == 0) {
+                    echo "<p>Aucun devoir prévu</p>";
+                } else if ($devoir_cont == 1) {
+                    echo "<p>" . $devoir_cont . " devoir prévu</p>";
+                } else {
+                    echo "<p>" . $devoir_cont . " devoirs prévus</p>";
                 }
 
 
