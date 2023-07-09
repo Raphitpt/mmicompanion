@@ -580,7 +580,11 @@ a {
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
 }
-
+.no-event {
+    background-image: url(path/to/image.jpg);
+    background-size: cover;
+    /* autres styles personnalisés */
+  }
 
 
 
