@@ -142,7 +142,7 @@ if (isset($_GET['submit'])) {
     document.addEventListener("DOMContentLoaded", function() {
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics');
       let calendarEl = document.getElementById("calendar");
-
+      var eventColors = {};
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
         buttonText: {
@@ -152,6 +152,10 @@ if (isset($_GET['submit'])) {
           day: 'Jour',
           list: 'Liste'
         },
+        slotMinTime: '08:00',
+        slotMaxTime: '18:30',
+        hiddenDays: [0, 6],
+        allDaySlot: false,
         eventMinHeight: 75,
         height: '70vh',
         initialView: "timeGridDay",
@@ -183,10 +187,31 @@ if (isset($_GET['submit'])) {
             html: eventContent
           };
         },
-        slotMinTime: '08:00',
-        slotMaxTime: '18:30',
-        hiddenDays: [0, 6],
-        allDaySlot: false,
+        eventDidMount: function(arg) {
+          var eventTitle = arg.event.title;
+          var eventColor = eventColors[eventTitle];
+
+          if (eventColor) {
+            arg.el.style.backgroundColor = eventColor;
+          }
+        }
+      });
+
+      // Fonction pour générer une couleur aléatoire
+      function generateRandomColor() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+          color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+      }
+      calendar.getEvents().forEach(function(event) {
+        var eventTitle = event.title;
+
+        if (!eventColors[eventTitle]) {
+          eventColors[eventTitle] = generateRandomColor();
+        }
       });
 
       calendar.render();

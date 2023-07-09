@@ -564,7 +564,7 @@ a {
 }
 
 .fc-v-event {
-    background-color: #56B8D6 !important;
+    /* background-color: #56B8D6 !important; */
     border: none !important;
     border-radius: 15px !important;
     color: #004A5A !important;
