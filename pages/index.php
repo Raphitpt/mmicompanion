@@ -44,14 +44,17 @@ if (isset($_GET['submit'])) {
 
       <div class="content-header-index">
         <div class="content_title-header-index">
-          <h1>Salut <span style="font-weight:800"><?php echo "Arnaud" ?><span></h1>
+          <h1>Salut <span style="font-weight:800">
+              <?php echo "Arnaud" ?><span></h1>
           <p>en ligne</p>
         </div>
         <div style="width:10px"></div>
-        <div class="content_img-header-index">
-          <img src="./../assets/img/profil-1.svg" alt="Photo de profil">
-          <div></div>
-        </div>
+        <a href="./profil.php">
+          <div class="content_img-header-index">
+            <img src="./../assets/img/profil-1.svg" alt="Photo de profil">
+            <div></div>
+          </div>
+        </a>
       </div>
     </div>
 

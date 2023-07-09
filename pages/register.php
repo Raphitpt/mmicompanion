@@ -112,9 +112,6 @@ echo head('MMI Companion - Register');
         // Sélectionner l'élément <a> par sa classe
         const lien = document.querySelector('.back_btn');
 
-        
-
-
         // Ajoutez un gestionnaire d'événement au clic sur le bouton suivant
         nextBtn.addEventListener('click', (event) => {
             event.preventDefault();
