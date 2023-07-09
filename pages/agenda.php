@@ -125,16 +125,8 @@ echo head("Agenda");
         $stmt_eval->execute([
             'edu_group' => $users['edu_group']
         ]);
-// Recupére les devoirs à rendre 
-        $sql_devoir = "SELECT a.*, s.name_subject AS subject_name FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' ORDER BY a.date_finish ASC";
-        $stmt_devoir = $dbh->prepare($sql_eval);
-        $stmt_devoir->execute([
-            'edu_group' => $users['edu_group']
-        ]);
-        $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
         $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
         $agenda = array_merge($agenda_user, $eval);
-        $agenda = array_merge($agenda, $devoir);
         $eval_cont = count($eval);
         $devoir_cont = count($devoir);
         $agenda_cont = count($agenda);
