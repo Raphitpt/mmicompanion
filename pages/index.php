@@ -161,6 +161,7 @@ if (isset($_GET['submit'])) {
         allDaySlot: false,
         eventMinHeight: 75,
         height: '70vh',
+        nowIndicator: true,
         initialView: "timeGridDay",
         headerToolbar: {
           left: "prev",
