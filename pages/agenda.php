@@ -125,7 +125,7 @@ echo head("Agenda");
             'id_user' => $users['id_user']
         ]);
         $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-// Recupére les évaluations
+        // Recupére les évaluations
         $sql_eval = "SELECT a.*, s.name_subject AS subject_name FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC";
         $stmt_eval = $dbh->prepare($sql_eval);
         $stmt_eval->execute([
@@ -219,9 +219,9 @@ echo head("Agenda");
                     echo "<div class='agenda_content_list_item-agenda'>";
                     echo "<div class='agenda_content_list_item_flextop-agenda'>";
                     if ($agenda['checked'] == 1) {
-                        echo "<input type='checkbox' name='checkbox' id='checkbox' checked>";
+                        echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
                     } else {
-                        echo "<input type='checkbox' name='checkbox' id='checkbox'>";
+                        echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "''>";
                     }
                     // if ($agenda['type'] == "eval") {
                     //     echo "<h3>[Évaluation]" . $agenda['title'] . "</h3>";
@@ -246,6 +246,27 @@ echo head("Agenda");
     </main>
     <div style="height:20px"></div>
     <script src="../assets/js/menu-navigation.js"></script>
+    <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            let checkboxes = document.querySelectorAll(".checkbox");
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener("change", function() {
+                    let idAgenda = this.getAttribute("data-idAgenda");
+                    let checkedValue = this.checked ? 1 : 0;
+
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("POST", "./coche_agenda.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            console.log(xhr.responseText);
+                        }
+                    };
+                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue));
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
