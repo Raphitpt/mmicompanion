@@ -236,10 +236,10 @@ echo head("Agenda");
 
                     echo "<div>";
                     if ($agenda['type'] == "eval") {
-                        echo "<h3>[Évaluation] " . $agenda['title'] . "</h3>";
+                        echo "<h3 class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</h3>";
                     }
                     if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                        echo "<h3>" . $agenda['title'] . "</h3>";
+                        echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
                     }
                     echo "<div class='agenda_content_subject-agenda'>";
                     echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
@@ -267,8 +267,8 @@ echo head("Agenda");
             const checkboxes = document.querySelectorAll(".checkbox");
             let compteur = <?php echo $tachesNonTermineesRestantes; ?>; // Valeur initiale du compteur
 
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener("change", function() {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
                     if (this.checked) {
                         compteur--; // Décrémenter le compteur si la tâche est cochée
                     } else {
@@ -285,11 +285,11 @@ echo head("Agenda");
                 });
             });
         }
-        window.addEventListener("DOMContentLoaded", function() {
+        window.addEventListener("DOMContentLoaded", function () {
             updateCompteurTaches();
             let checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener("change", function() {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
 
                     let idAgenda = this.getAttribute("data-idAgenda");
                     let checkedValue = this.checked ? 1 : 0;
@@ -306,6 +306,31 @@ echo head("Agenda");
                 });
             });
         });
+
+        // Vérification que la case à cocher est cochée ou non
+        // Si le case est cochée, on barre le nom de la tâche et inversement
+
+        function handleCheckboxChange() {
+            let checkbox = this;
+            let heading = checkbox.parentNode.querySelector(".title_subject-agenda");
+
+            if (checkbox.checked) {
+                heading.style.textDecoration = "line-through";
+            } else {
+                heading.style.textDecoration = "none";
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", function () {
+            let checkboxes = document.querySelectorAll(".checkbox");
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", handleCheckboxChange);
+
+                // Vérification initiale de l'état de la case à cocher
+                handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
+            });
+        });
+
     </script>
 </body>
 
