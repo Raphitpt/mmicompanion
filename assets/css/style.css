@@ -631,7 +631,6 @@ a {
 }
 
 
-
 .agenda_content-agenda {
     border-radius: 20px;
     background: #FFF;
@@ -704,6 +703,12 @@ input[type="checkbox"]:checked::before {
     }
 }
 
+.agenda_content_subject-agenda{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 .agenda_content_list_item_flexleft-agenda div p {
     color: #AFAFAF;
     font-family: Montserrat;
@@ -711,6 +716,14 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.circle_subject-agenda{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #464646;
 }
 
 .agenda_content_list_item_flexright-agenda i{

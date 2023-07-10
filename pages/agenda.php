@@ -109,12 +109,8 @@ echo head("Agenda");
 
     <main class="main-agenda">
         <?php
-        $sql_subject = "SELECT * FROM sch_subject";
-        $stmt_subject = $dbh->prepare($sql_subject);
-        $stmt_subject->execute();
-        $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
-        $sql_agenda = "SELECT a.*, s.name_subject AS subject_name 
+        $sql_agenda = "SELECT a.*, s.*
         FROM agenda a 
         JOIN sch_subject s ON a.id_subject = s.id_subject 
         WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir'
@@ -126,7 +122,7 @@ echo head("Agenda");
         ]);
         $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
         // Recupére les évaluations
-        $sql_eval = "SELECT a.*, s.name_subject AS subject_name FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC";
+        $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC";
         $stmt_eval = $dbh->prepare($sql_eval);
         $stmt_eval->execute([
             'edu_group' => $users['edu_group']
@@ -245,8 +241,10 @@ echo head("Agenda");
                     if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
                         echo "<h3>" . $agenda['title'] . "</h3>";
                     }
-                    // echo "<h3>" . $agenda['title'] . "</h3>";
-                    echo "<p>" . $agenda['subject_name'] . "</p>";
+                    echo "<div class='agenda_content_subject-agenda'>";
+                    echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
+                    echo "<p>" . $agenda['name_subject'] . "</p>";
+                    echo "</div>";
                     echo "</div>";
                     echo "</div>";
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
