@@ -10,7 +10,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $login = $_POST['username'];
         $password = md5($_POST['password']);
-        $sql = "SELECT * FROM  users WHERE pname = :login AND password = :password";
+        $sql = "SELECT * FROM  users WHERE pname = :login OR edu_mail = :login AND password = :password";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             'login' => $login,
@@ -23,7 +23,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
             $payload = [
                 'id_user' => $user['id_user'],
-                'user' => $user['pname'],
+                'pname' => $user['pname'],
+                'name' => $user['name'],
                 'edu_group' => $user['edu_group'],
                 'edu_mail' => $user['edu_mail'],
                 'role' => $user['role'],
@@ -50,22 +51,30 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     }
 }
 
-echo head("login");
+echo head("MMI Companion | Connexion");
 ?>
 
-<body class="login">
-    <a href="./accueil.php" class="back_btn"><img src="../assets/img/arrow.svg" alt="Retour"></a>
-    <main>
-        <h1 class="login_title">SE CONNECTER</h1>
-    <form method="POST" class="login_form">
-        <input type="text" name="username" placeholder="email ou pseudo" id="username" class="login_inpt" required>
-        <input type="password" name="password" placeholder="mot de passe" id="password" class="login_inpt" required>
-        <input type="submit" value="Se connecter" class="register_btn">
-        <a href="forgot.php" class="login_btn">Mot de passe oublié ?</a>
-    </form>
+<body class="body-login">
+    <a href="./accueil.php" class="back_btn">
+        <i class="fi fi-br-arrow-alt-right"></i>
+    </a>
+    <main class="main-login">
+        <h1 class="title-login">SE CONNECTER</h1>
+        <div style="height:30px"></div>
+        <form method="POST" class="form-login">
+            <input type="text" name="username" placeholder="email ou pseudo" id="username" class="input-login" required>
+            <div style="height:20px"></div>
+            <input type="password" name="password" placeholder="mot de passe" id="password" class="input-login"
+                required>
+            <div class="button_forget-login">
+                <a href="./forgot.php" class="button_forget-login">Mot de passe oublié ?</a>
+            </div>
+            <div style="height:30px"></div>
+            <input type="submit" value="Se connecter" class="button_register">
+        </form>
     </main>
     <script>
-        document.querySelector('form').addEventListener('submit', function(e) {
+        document.querySelector('form').addEventListener('submit', function (e) {
             e.preventDefault();
 
             let username = document.getElementById('username').value;
@@ -83,7 +92,7 @@ echo head("login");
                     username: username,
                     password: password
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.error) {
                         // Afficher le message d'erreur dans le formulaire
                         console.log(response.error);
@@ -95,10 +104,12 @@ echo head("login");
                         window.location.href = './index.php';
                     }
                 },
-                error: function() {
+                error: function () {
                     // Gérer les erreurs de connexion ici
                 }
             });
         });
     </script>
 </body>
+
+</html>

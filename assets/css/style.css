@@ -1,20 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-a{
+a {
     text-decoration: none;
     color: inherit;
 }
 
+
+.no-scroll {
+    overflow: hidden;
+  }
+
 /* HEADER */
 
-
-.content_header{
+.content_header {
     width: 100vw;
     height: 90px;
     flex-shrink: 0;
@@ -22,7 +26,9 @@ a{
     background: var(--bleu-trs-clair-background, #B9E0FF);
 }
 
-.content_title-header{
+/* HEADER ALL */
+
+.content_title-header {
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -31,13 +37,13 @@ a{
     height: 100%;
 }
 
-.content_title-header .burger-header i{
+.content_title-header .burger-header i {
     font-size: 30px;
     flex-shrink: 0;
     color: #004A5A;
 }
 
-.content_title-header h1{
+.content_title-header h1 {
     color: var(--texte, #004A5A);
     font-size: 19px;
     font-family: Montserrat;
@@ -46,10 +52,92 @@ a{
     line-height: normal;
 }
 
+
+/* HEADER INDEX.PHP */
+
+.header-index {
+    width: 100vw;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 0px 0px 34px 34px;
+    background: var(--bleu-trs-clair-background, #B9E0FF);
+}
+
+.content_header-index {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 10vw;
+    height: 100%;
+}
+
+.burger-header-index i {
+    font-size: 30px;
+    flex-shrink: 0;
+    color: #004A5A;
+}
+
+.content-header-index {
+    display: flex;
+    align-items: center;
+}
+
+.content_title-header-index {
+    display: flex;
+    flex-direction: column;
+}
+
+.content_title-header-index h1 {
+    color: var(--texte, #004A5A);
+    text-align: right;
+    font-family: Montserrat;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.content_title-header-index p {
+    color: var(--texte, #004A5A);
+    text-align: right;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.content_img-header-index {
+    position: relative;
+}
+
+.content_img-header-index img {
+    width: 50px;
+    height: auto;
+    flex-shrink: 0;
+
+}
+
+.content_img-header-index div {
+    height: 10px;
+    width: 10px;
+    background-color: #05E200;
+    border-radius: 50%;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+
+
+
+
+
 /* MENU DE NAVIGATION */
 
 
-.burger_content-header{
+.burger_content-header {
     position: absolute;
     top: 0px;
     left: 0;
@@ -64,19 +152,19 @@ a{
     transition: transform 0.6s ease-in-out;
 }
 
-.burger_content_title-header{
+.burger_content_title-header {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.burger_content_title-header img{
+.burger_content_title-header img {
     width: auto;
     height: 30px;
 }
 
-.burger_content_title-header h1{
+.burger_content_title-header h1 {
     color: var(--bleu-moyen, #56B8D6);
     text-align: right;
     font-size: 20px;
@@ -86,7 +174,7 @@ a{
     line-height: normal;
 }
 
-.burger_content_content-header{
+.burger_content_content-header {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,45 +183,45 @@ a{
     text-align: left;
 }
 
-.burger_content_trait_header{
+.burger_content_trait_header {
     width: 198px;
     height: 0.5px;
     background: #56B8D6;
     margin: 20px 0;
 }
 
-.burger_content_link-header{
+.burger_content_link-header {
     display: flex;
     flex-direction: row;
     align-items: center;
     padding: 10px 0;
     width: 200px;
     z-index: 2;
-    
+    position: relative;
+
 }
 
-.burger_content_link-header i{
+.burger_content_link-header i {
     font-size: 20px;
     color: #004A5A;
     margin-right: 10px;
     z-index: 2;
 }
 
-.burger_content_link-header p{
+.burger_content_link-header p {
     color: var(--texte, #004A5A);
     font-size: 13px;
     font-family: Montserrat;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    position: relative;
     z-index: 2;
 }
 
-.select_link-header{
+.select_link-header {
     border-radius: 19.5px;
     width: 225px;
-    left: 15px;
+    right: 10px;
     height: 42px;
     position: absolute;
     background: var(--bleu-trs-clair-background, #B9E0FF);
@@ -142,135 +230,346 @@ a{
 
 
 
-/*  */
 
 
-.acc{
+
+
+
+
+
+
+
+/* ACCUEIL.PHP */
+
+.body-accueil {
     background-color: #B9E0FF;
     font-family: 'Montserrat', sans-serif;
+    height: 100vh;
 }
-.acc>main{
+
+.main-accueil {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
 }
-.acc_illu{
-    margin-top: 11vh;
+
+.illustration-accueil {
+    display: flex;
+    justify-content: center;
 }
-.acc_illu>img{
-    width: 81vw;
+
+.illustration-accueil img {
+    width: 80%;
 }
-.acc_text{
+
+.title-accueil {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.acc_text>h1{
-    font-size: 2rem;
+
+.title-accueil h1 {
+    font-size: 26px;
     font-weight: 900;
     color: #004A5A;
-    margin-top: 3vh;
 }
-.acc_text>p{
+
+.title-accueil p {
     text-align: center;
     font-weight: 500;
     color: #004A5A;
-    font-size: 0.7rem;
+    font-size: 10px;
+    padding: 0px 5px;
 }
-.acc_text>p>span{
-    font-weight: 600;
-}
-.acc_btn{
+
+
+.button-accueil {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.register_btn{
+
+.button_register {
     background-color: #56B8D6;
     color: #004A5A;
     border: none;
     border-radius: 25px;
-    padding: 1.5vh 15vw;
-    font-size: 1rem;
+    padding: 10px 60px;
+    font-size: 13px;
     font-weight: 800;
-    margin-top: 3vh;
     cursor: pointer;
+    font-family: Montserrat;
     text-decoration: none;
 }
-.login_btn{
-    margin-top: 2vh;
+
+.button_login {
     font-weight: 700;
-    font-size: 0.9rem;
+    font-size: 11px;
+    font-family: Montserrat;
     text-decoration: underline;
     color: #004A5A;
 }
 
-.login{
-    
+
+
+/* LOGIN.PHP */
+
+.body-login {
     background-color: #B9E0FF;
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     height: 100vh;
 }
-.login>main{
-    position: relative;
+
+.main-login {
     display: flex;
     flex-direction: column;
     align-items: center;
-    top: 50%;
-    transform: translateY(-50%);
+    justify-content: center;
+    height: 100vh;
 }
-.login_form{
+
+.back_btn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 30px;
+    transform: rotate(180deg);
+    color: var(--texte, #004A5A);
+    font-size: 20px;
+}
+
+
+.title-login {
+    color: #004A5A;
+    font-weight: 900;
+    font-size: 19px;
+    font-family: Montserrat;
+}
+
+
+.form-login {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 70%;
 }
-.login_inpt{
+
+.input-login {
     background-color: #FFFFFF;
     border: none;
     border-radius: 25px;
-    width: 65vw;
-    height: 4.5vh;
-    font-size: 0.8rem;
+    padding: 15px 30px;
+    width: 100%;
+    font-family: Montserrat;
+    font-size: 11px;
     font-weight: 500;
-    margin-top: 2vh;
 }
 
-.login_inpt::placeholder{
+.input-login::placeholder {
     color: rgba(50, 125, 142, 0.4);
 }
-.login_title{
-    color: #004A5A;
-    font-weight: 900;
-    font-size: 1.5rem;
-}
-.back_btn{
-    position: absolute;
-    top: 2vh;
-    left: 4vw;
-    font-size: 1.5rem;
-    color: #004A5A;
-    cursor: pointer;
-}
-.back_btn>img{
-    width: 1.7rem;
-}
-#barre_register{
-    width: 15vw;
-    height: 0.2vh;
-    border-radius: 15px;
-    background-color: #004A5A;
-    margin-top: 2vh;
-    margin-bottom: 1vh;
+
+.button_forget-login {
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
 }
 
-.fc-theme-standard .fc-scrollgrid{
+.button_forget-login a {
+    display: flex;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+}
+
+
+
+
+/* REGISTER.PHP */
+
+.form_visibility1-register {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_visibility2-register {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_next-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_next-register p {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.button_next-register i {
+    color: var(--texte, #004A5A);
+    font-size: 15px;
+    transform: translateY(3px);
+}
+
+
+.label_edu-register {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+}
+
+.label_edu-register label {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.trait_register {
+    width: 20%;
+    height: 1px;
+    border-radius: 15px;
+    background-color: #004A5A;
+    margin: 30px 0;
+}
+
+
+
+.button_before-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_before-register p {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.button_before-register i {
+    color: var(--texte, #004A5A);
+    font-size: 12px;
+    transform: translateY(-3px);
+    transform: rotate(180deg);
+}
+
+
+
+
+
+
+
+/* INDEX.PHP */
+
+.body-index {
+    background-color: #DDF0FF;
+    height: 100vh;
+}
+
+.main-index {
+    margin: 0 10vw;
+}
+
+
+.title_trait {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+
+.title_trait h1 {
+    color: var(--texte, #004A5A);
+    font-size: 19px;
+    font-family: Montserrat;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+.title_trait div {
+    height: 1.5px;
+    width: 46px;
+    border-radius: 10px;
+    background: var(--texte, #004A5A);
+    margin-bottom: 3px;
+}
+
+
+#calendar {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.fc-toolbar-title{
+    color: #004A5A !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    font-family: Montserrat !important;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
+.fc-toolbar-chunk{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+
+.fc .fc-button {
+    background-color: transparent !important;
+    border: none !important;
+    color: #004A5A !important;
+    font-size: 11px;
+}
+
+
+.fc-direction-ltr .fc-toolbar>*>:not(:first-child) {
+    margin-left: 0px;
+}
+
+.fc-timegrid-slot {
+    height: 30px !important
+}
+
+.fc-theme-standard .fc-scrollgrid {
     border: none !important;
 }
 
-.fc-v-event{
-    background-color: #56B8D6 !important;
+.fc-v-event {
+    /* background-color: #56B8D6 !important; */
     border: none !important;
     border-radius: 15px !important;
     color: #004A5A !important;
@@ -281,3 +580,330 @@ a{
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
 }
+.no-event {
+    background-image: url(path/to/image.jpg);
+    background-size: cover;
+    /* autres styles personnalisés */
+  }
+
+
+
+
+
+
+/* AGENDA.PHP */
+
+.body-agenda {
+    background: #DDF0FF;
+}
+
+.main-agenda {
+    margin: 0 10vw;
+}
+
+.agenda_title_flextop-agenda {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agenda_title_flextopright-agenda a {
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 800;
+    background: var(--bleu-moyen, #56B8D6);
+    border-radius: 18px;
+    padding: 6px 30px;
+}
+
+.agenda_title_flexbottom-agenda {
+    display: flex;
+    flex-direction: column;
+}
+
+.agenda_title_flexbottom-agenda p {
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 500;
+}
+
+
+.agenda_content-agenda {
+    border-radius: 20px;
+    background: #FFF;
+    padding: 20px;
+}
+
+
+.agenda_content_list-agenda h2 {
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 500;
+}
+
+.agenda_content_list_item-agenda{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.agenda_content_list_item_flexleft-agenda i{
+    margin-right: 10px;
+    color: #CB0000;
+}
+
+.agenda_content_list_item_flexleft-agenda h3 {
+    color: #252525;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    width: 50vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.agenda_content_list_item_flexleft-agenda {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
+.agenda_content_list_item_flexleft-agenda input[type="checkbox"] {
+    appearance: none;
+    background-color: #fff;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid currentColor;
+    display: grid;
+    place-content: center;
+    border-radius: 50px;
+    margin-right: 10px;
+}
+
+input[type="checkbox"]:checked::before {
+    content: url(./../img/check-mark-icon.svg);
+    animation: zoom 0.15s ease;
+    transform: scale(0.11);
+    color: #004A5A;
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(0.11);
+    }
+}
+
+.agenda_content_subject-agenda{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.agenda_content_list_item_flexleft-agenda div p {
+    color: #AFAFAF;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.circle_subject-agenda{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: #464646;
+}
+
+.agenda_content_list_item_flexright-agenda i{
+    color: #CB0000;
+}
+
+
+
+
+/* AGENDA_ADD.PHP */
+
+.form-agenda_add {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.trait_agenda_add {
+    background: #C2C2C2;
+    width: 80%;
+    height: 0.5px;
+    margin: 20px auto;
+}
+
+
+.input_title-agenda_add {
+    border-radius: 30px;
+    background: #FFF;
+    padding: 15px 30px;
+    width: 100%;
+    border: none;
+    color: #252525;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.label-agenda_add {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.label-agenda_add i {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.label-agenda_add h2 {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+
+.input_date-agenda_add {
+    border-radius: 30px;
+    background: #ffffff;
+    padding: 10px 20%;
+    width: 80%;
+    border: none;
+    color: #252525;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    position: relative;
+    text-align: center;
+    background-image: url(./../img/calendar.svg);
+    background-repeat: no-repeat;
+    background-position: 20px;
+    /* Positionnez l'image à droite et au centre */
+    background-size: 20px;
+    /* Ajustez la taille de l'image de la flèche selon vos besoins */
+}
+
+.input_date-agenda_add[type="date"]::-webkit-calendar-picker-indicator {
+    background-position: right;
+    background-size: auto;
+    cursor: pointer;
+    position: absolute;
+    height: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    width: auto;
+    opacity: 0;
+}
+
+
+.input_select-agenda_add {
+    border-radius: 30px;
+    background: #ffffff;
+    padding: 10px 0px;
+    padding-left: 0px;
+    width: 80%;
+    border: none;
+    color: #252525;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: center;
+    background-image: url(./../img/bookmark.svg);
+    background-repeat: no-repeat;
+    background-position: 20px;
+    /* Positionnez l'image à droite et au centre */
+    background-size: 20px;
+    /* Ajustez la taille de l'image de la flèche selon vos besoins */
+}
+
+.input_type-agenda_add {
+    background-image: url(./../img/bookmark.svg);
+    background-repeat: no-repeat;
+    background-position: 20px;
+    /* Positionnez l'image à droite et au centre */
+    background-size: 20px;
+    /* Ajustez la taille de l'image de la flèche selon vos besoins */
+}
+
+.input_school-agenda_add {
+    background-image: url(./../img/school.svg);
+    background-repeat: no-repeat;
+    background-position: 20px;
+    /* Positionnez l'image à droite et au centre */
+    background-size: 20px;
+    /* Ajustez la taille de l'image de la flèche selon vos besoins */
+}
+
+.form_button-agenda {
+    display: flex;
+    gap: 20px;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.form_button-agenda a {
+    border-radius: 18px;
+    background: var(--bleu-trs-clair-background, #B9E0FF);
+    padding: 10px 40px;
+    color: #004A5A;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.form_button-agenda input[type="submit"] {
+    border-radius: 18px;
+    background: var(--bleu-moyen, #56B8D6);
+    padding: 10px 40px;
+    color: #004A5A;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    border: none;
+}
+
+
+
+
+
+  
