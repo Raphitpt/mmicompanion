@@ -33,7 +33,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 $sql_agenda = "SELECT a.*, s.name_subject AS subject_name 
         FROM agenda a 
         JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir'
+        WHERE a.id_user = :id_user 
         ORDER BY a.date_finish ASC";
 
 $stmt_agenda = $dbh->prepare($sql_agenda);
@@ -43,17 +43,14 @@ $stmt_agenda->execute([
 $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
 $sql_eval = "SELECT a.*, s.name_subject AS subject_name
-FROM agenda a
-JOIN sch_subject s ON a.id_subject = s.id_subject
-WHERE a.edu_group = :edu_group 
-AND (a.type = 'eval' OR a.type = 'devoir')
-ORDER BY a.date_finish ASC";
-
+        FROM agenda a
+        JOIN sch_subject s ON a.id_subject = s.id_subject
+        WHERE a.edu_group = :edu_group AND a.type = 'eval' OR a.type = 'devoir'
+        ORDER BY a.date_finish ASC";
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
-'edu_group' => $users['edu_group']
+    'edu_group' => $users['edu_group']
 ]);
-
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 $agenda = array_merge($agenda_user, $eval);
 $eval_cont = count($eval);
@@ -83,7 +80,6 @@ $mois = array(
     " décembre "
 );
 $agendaByDate = [];
-$html = '';
 $html .= '
     <div style="height:30px"></div>
     <div class="agenda_title-agenda">
@@ -126,7 +122,7 @@ $html .= "<p>" . $agenda_cont . " tâches non faites</p>";
         $agendaByDate[$formattedDateFr][] = $agendas;
     }
 
-    $html .= '</div>
+    $html = '        </div>
     </div>
     <div style="height:25px"></div>
     <div class="agenda_content-agenda">';
@@ -159,3 +155,5 @@ $html .= '
 </main>
 ';
     echo $html;
+
+?>
