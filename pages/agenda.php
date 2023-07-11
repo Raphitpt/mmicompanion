@@ -2,6 +2,12 @@
 session_start();
 require "../bootstrap.php";
 
+
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./accueil.php');
+    exit;
+}
+
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 $users = decodeJWT($jwt, $secret_key);
@@ -36,12 +42,12 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 echo head("Agenda");
 ?>
 
-<body>
+<body class="body-agenda">
 
-<header>
+    <header>
         <div class="content_header">
             <div class="content_title-header">
-                <div class="burger-header">
+                <div class="burger-header" id="burger-header">
                     <i class="fi fi-br-bars-sort"></i>
                 </div>
                 <div style="width:20px"></div>
@@ -49,7 +55,7 @@ echo head("Agenda");
             </div>
         </div>
 
-        <div class="burger_content-header">
+        <div class="burger_content-header" id="burger_content-header">
             <div style="height:60px"></div>
             <div class="burger_content_title-header">
                 <img src="./../assets/img/mmicompanion.svg" alt="">
@@ -62,9 +68,9 @@ echo head("Agenda");
                         <i class="fi fi-br-home"></i>
                         <p>Vue d'ensemble</p>
                     </div>
-                    
+
                 </a>
-                <a href="./todolist.php">
+                <a href="./agenda.php">
                     <div class="burger_content_link-header">
                         <i class="fi fi-br-calendar"></i>
                         <p>Agenda</p>
@@ -100,118 +106,232 @@ echo head("Agenda");
             </div>
         </div>
     </header>
-    
-    <main>
-        <div class="agenda_list">
-            <?php
-            $sql_agenda = "SELECT a.*, s.name_subject AS subject_name 
+
+    <main class="main-agenda">
+        <?php
+
+        $sql_agenda = "SELECT a.*, s.*
         FROM agenda a 
         JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user 
+        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir'
         ORDER BY a.date_finish ASC";
 
+        $stmt_agenda = $dbh->prepare($sql_agenda);
+        $stmt_agenda->execute([
+            'id_user' => $users['id_user']
+        ]);
+        $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+        // Recupére les évaluations
+        $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC";
+        $stmt_eval = $dbh->prepare($sql_eval);
+        $stmt_eval->execute([
+            'edu_group' => $users['edu_group']
+        ]);
+        $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
+        $agenda = array_merge($agenda_user, $eval);
+        $eval_cont = count($eval);
+        $agenda_cont = count($agenda);
 
-            $stmt_agenda = $dbh->prepare($sql_agenda);
-            $stmt_agenda->execute([
-                'id_user' => $users['id_user']
-            ]);
-            $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+        $semaine = array(
+            " Dimanche ",
+            " Lundi ",
+            " Mardi ",
+            " Mercredi ",
+            " Jeudi ",
+            " vendredi ",
+            " samedi "
+        );
+        $mois = array(
+            1 => " janvier ",
+            " février ",
+            " mars ",
+            " avril ",
+            " mai ",
+            " juin ",
+            " juillet ",
+            " août ",
+            " septembre ",
+            " octobre ",
+            " novembre ",
+            " décembre "
+        );
+        $agendaByDate = []; // Tableau pour regrouper les éléments par date
+        $tachesNonTermineesRestantes = 0 - $eval_cont;
 
-            $sql_eval = "SELECT a.*, s.name_subject AS subject_name
-        FROM agenda a
-        JOIN sch_subject s ON a.id_subject = s.id_subject
-        WHERE a.edu_group = :edu_group AND a.type = 'eval' OR a.type = 'devoir'
-        ORDER BY a.date_finish ASC";
-            $stmt_eval = $dbh->prepare($sql_eval);
-            $stmt_eval->execute([
-                'edu_group' => $users['edu_group']
-            ]);
-            $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
-            $agenda = array_merge($agenda_user, $eval);
-            $eval_cont = count($eval);
-            $agenda_cont = count($agenda);
-            // var_dump($agenda);
-            $semaine = array(
-                " Dimanche ",
-                " Lundi ",
-                " Mardi ",
-                " Mercredi ",
-                " Jeudi ",
-                " vendredi ",
-                " samedi "
-            );
-            $mois = array(
-                1 => " janvier ",
-                " février ",
-                " mars ",
-                " avril ",
-                " mai ",
-                " juin ",
-                " juillet ",
-                " août ",
-                " septembre ",
-                " octobre ",
-                " novembre ",
-                " décembre "
-            );
-            $agendaByDate = []; // Tableau pour regrouper les éléments par date
-            
-            echo "<h1>Agenda</h1>";
-            if ($agenda_cont == 0) {
-                echo "<p>Aucune tache à faire</p>";
-            } else if ($agenda_cont == 1) {
-                echo "<p>" . $agenda_cont . " tache à faire</p>";
-            } else {
-                echo "<p>" . $agenda_cont . " taches non faites</p>";
+        foreach ($agenda as $agendas) {
+            if ($agendas['checked'] != 1) {
+                $tachesNonTermineesRestantes++;
             }
+        }
+        ?>
+        <div style="height:30px"></div>
+        <div class="agenda_title-agenda">
+            <div class="agenda_title_flextop-agenda">
+                <div class="title_trait">
+                    <h1>L'agenda</h1>
+                    <div></div>
+                </div>
 
-            if ($eval_cont == 0) {
-                echo "<p>Aucune évaluation prévue</p>";
-            } else if ($eval_cont == 1) {
-                echo "<p>" . $eval_cont . " évaluation prévue</p>";
-            } else {
-                echo "<p>" . $eval_cont . " évaluations prévues</p>";
-            }
+                <div class="agenda_title_flextopright-agenda">
+                    <a href="./agenda_add.php">Ajouter</a>
+                </div>
+            </div>
+            <div style="height:15px"></div>
+            <div class="agenda_title_flexbottom-agenda">
+                <?php
+                $tachesNonTerminees = 0;
 
-
-            foreach ($agenda as $agendas) {
-                $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
-                $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
-                $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
-            
-                // Ajoute l'élément à l'array correspondant à la date
-                if (!isset($agendaByDate[$formattedDateFr])) {
-                    $agendaByDate[$formattedDateFr] = [];
+                if ($tachesNonTermineesRestantes == 0) {
+                    echo "<p id='compteTaches'>Aucune tache à faire</p>";
+                } else if ($tachesNonTermineesRestantes == 1) {
+                    echo "<p id='compteTaches'>" . $tachesNonTermineesRestantes . " tâche à faire</p>";
+                } else {
+                    echo "<p id='compteTaches'>" . $tachesNonTermineesRestantes . " tâches non faites</p>";
                 }
-                $agendaByDate[$formattedDateFr][] = $agendas;
-            }
 
+                if ($eval_cont == 0) {
+                    echo "<p>Aucune évaluation prévue</p>";
+                } else if ($eval_cont == 1) {
+                    echo "<p>" . $eval_cont . " évaluation prévue</p>";
+                } else {
+                    echo "<p>" . $eval_cont . " évaluations prévues</p>";
+                }
+
+                foreach ($agenda as $agendas) {
+                    $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
+                    $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
+                    $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
+                
+                    // Ajoute l'élément à l'array correspondant à la date
+                    if (!isset($agendaByDate[$formattedDateFr])) {
+                        $agendaByDate[$formattedDateFr] = [];
+                    }
+                    $agendaByDate[$formattedDateFr][] = $agendas;
+                }
+                ?>
+            </div>
+        </div>
+        <div style="height:25px"></div>
+        <div class="agenda_content-agenda">
+            <?php
             // Parcours les éléments par date et les affiche
             foreach ($agendaByDate as $date => $agendas) {
+                echo "<div class='agenda_content_list-agenda'>";
                 echo "<h2>$date</h2>";
+                echo "<div style='height:10px'></div>";
 
                 foreach ($agendas as $agenda) {
-                    echo "<div class='agenda_list_item'>";
-                    echo "<h3>" . $agenda['title'] . "</h3>";
+                    echo "<div class='agenda_content_list_item-agenda'>";
+                    echo "<div class='agenda_content_list_item_flexleft-agenda'>";
                     if ($agenda['type'] == "eval") {
-                        echo "<p>Évaluation</p>";
+                        echo "<i class='fi fi-br-comment-info'></i>";
                     }
-                    if ($agenda['type'] == "devoir") {
-                        echo "<p>Devoir à rendre</p>";
+                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                        if ($agenda['checked'] == 1) {
+                            echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                        } else {
+                            echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "''>";
+                        }
                     }
-                    if ($agenda['checked'] == 1) {
-                        echo "<input type='checkbox' name='checkbox' id='checkbox' checked>";
-                    } else {
-                        echo "<input type='checkbox' name='checkbox' id='checkbox'>";
+
+                    echo "<div>";
+                    if ($agenda['type'] == "eval") {
+                        echo "<h3 class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</h3>";
                     }
-                    echo "<p>" . $agenda['subject_name'] . "</p>";
+                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                        echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
+                    }
+                    echo "<div class='agenda_content_subject-agenda'>";
+                    echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
+                    echo "<p>" . $agenda['name_subject'] . "</p>";
                     echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "<div class='agenda_content_list_item_flexright-agenda'>";
+                    echo "<i class='fi fi-br-trash'></i>";
+                    echo "</div>";
+                    // echo "<div class='agenda_content_list_item_flexbottom-agenda'>";
+                    // echo "<p>" . $agenda['subject_name'] . "</p>";
+                    // echo "</div>";
+                    echo "</div>";
+                    echo "<div style='height:10px'></div>";
                 }
             }
             ?>
         </div>
     </main>
-    <script src="../assets/js/script.js"></script>
+    <div style="height:20px"></div>
+    <script src="../assets/js/menu-navigation.js"></script>
+    <script>
+        function updateCompteurTaches() {
+            const checkboxes = document.querySelectorAll(".checkbox");
+            let compteur = <?php echo $tachesNonTermineesRestantes; ?>; // Valeur initiale du compteur
+
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
+                    if (this.checked) {
+                        compteur--; // Décrémenter le compteur si la tâche est cochée
+                    } else {
+                        compteur++; // Incrémenter le compteur si la tâche est décochée
+                    }
+                    // Mettre à jour l'affichage du compteur
+                    if (compteur === 0) {
+                        document.getElementById("compteTaches").textContent = "Aucune tâche à faire";
+                    } else if (compteur === 1) {
+                        document.getElementById("compteTaches").textContent = compteur + " tâche à faire";
+                    } else {
+                        document.getElementById("compteTaches").textContent = compteur + " tâches à faire";
+                    }
+                });
+            });
+        }
+        window.addEventListener("DOMContentLoaded", function () {
+            updateCompteurTaches();
+            let checkboxes = document.querySelectorAll(".checkbox");
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", function () {
+
+                    let idAgenda = this.getAttribute("data-idAgenda");
+                    let checkedValue = this.checked ? 1 : 0;
+
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("POST", "./coche_agenda.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            console.log(xhr.responseText);
+                        }
+                    };
+                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue));
+                });
+            });
+        });
+
+        // Vérification que la case à cocher est cochée ou non
+        // Si le case est cochée, on barre le nom de la tâche et inversement
+
+        function handleCheckboxChange() {
+            let checkbox = this;
+            let heading = checkbox.parentNode.querySelector(".title_subject-agenda");
+
+            if (checkbox.checked) {
+                heading.style.textDecoration = "line-through";
+            } else {
+                heading.style.textDecoration = "none";
+            }
+        }
+
+        window.addEventListener("DOMContentLoaded", function () {
+            let checkboxes = document.querySelectorAll(".checkbox");
+            checkboxes.forEach(function (checkbox) {
+                checkbox.addEventListener("change", handleCheckboxChange);
+
+                // Vérification initiale de l'état de la case à cocher
+                handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
+            });
+        });
+
+    </script>
 </body>
 
 </html>

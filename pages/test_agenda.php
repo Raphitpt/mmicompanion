@@ -80,15 +80,38 @@ $mois = array(
     " décembre "
 );
 $agendaByDate = [];
+$html .= '
+    <div style="height:30px"></div>
+    <div class="agenda_title-agenda">
+        <div class="agenda_title_flextop-agenda">
+            <div class="title_trait">
+                <h1>L\'agenda</h1>
+                <div></div>
+            </div>
 
-if ($agenda_cont == 0) {
-    echo json_encode([
-        'status' => 'success',
-        'message' => 'Aucune tache à faire',
-        'eval_count' => $eval_cont,
-        'agenda_count' => $agenda_cont
-    ]);
-} else {
+            <div class="agenda_title_flextopright-agenda">
+                <a href="./agenda_add.php">Ajouter</a>
+            </div>
+        </div>
+        <div style="height:15px"></div>
+        <div class="agenda_title_flexbottom-agenda">';
+
+            if ($agenda_cont == 0) {
+                $html .= "<p>Aucune tache à faire</p>";
+            } else if ($agenda_cont == 1) {
+                $html .= "<p>" . $agenda_cont . " tâche à faire</p>";
+            } else {
+$html .= "<p>" . $agenda_cont . " tâches non faites</p>";
+            }
+
+            if ($eval_cont == 0) {
+                $html .= "<p>Aucune évaluation prévue</p>";
+            } else if ($eval_cont == 1) {
+                $html .= "<p>" . $eval_cont . " évaluation prévue</p>";
+            } else {
+                $html .= "<p>" . $eval_cont . " évaluations prévues</p>";
+            }
+
     foreach ($agenda as $agendas) {
         $date = strtotime($agendas['date_finish']);
         $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
@@ -99,34 +122,38 @@ if ($agenda_cont == 0) {
         $agendaByDate[$formattedDateFr][] = $agendas;
     }
 
-    $agendaHTML = '';
+    $html = '        </div>
+    </div>
+    <div style="height:25px"></div>
+    <div class="agenda_content-agenda">';
+
     foreach ($agendaByDate as $date => $agendas) {
-        $agendaHTML .= "<h2>$date</h2>";
+                $html .= '<div class="agenda_content_list-agenda">';
+        $html .= '<h2>' . $date . '</h2>';
+        $html .= '<div style="height:10px"></div>';
 
         foreach ($agendas as $agenda) {
-            $agendaHTML .= "<div class='agenda_list_item'>";
-            $agendaHTML .= "<h3>" . $agenda['title'] . "</h3>";
-            if ($agenda['type'] == "eval") {
-                $agendaHTML .= "<p>Évaluation</p>";
-            }
-            if ($agenda['type'] == "devoir") {
-                $agendaHTML .= "<p>Devoir à rendre</p>";
-            }
+                        $html .= '<div class="agenda_content_list_item-agenda">';
+            $html .= '<div class="agenda_content_list_item_flextop-agenda">';
             if ($agenda['checked'] == 1) {
-                $agendaHTML .= "<input type='checkbox' name='checkbox' id='checkbox' checked>";
+                $html .= '<input type="checkbox" name="checkbox" id="checkbox" checked>';
             } else {
-                $agendaHTML .= "<input type='checkbox' name='checkbox' id='checkbox'>";
+                $html .= '<input type="checkbox" name="checkbox" id="checkbox">';
             }
-            $agendaHTML .= "<p>" . $agenda['subject_name'] . "</p>";
-            $agendaHTML .= "</div>";
+            $html .= '<div>';
+            $html .= '<h3>' . $agenda['title'] . '</h3>';
+            $html .= '<p>' . $agenda['subject_name'] . '</p>';
+            $html .= '</div>';
+            $html .= '</div>';
+            $html .= '</div>';
+            $html .= '<div style="height:10px"></div>';
         }
+        $html .= '</div>';
     }
+$html .= '
+    </div>
+</main>
+';
+    echo $html;
 
-    echo json_encode([
-        'status' => 'success',
-        'agenda_html' => $agendaHTML,
-        'eval_count' => $eval_cont,
-        'agenda_count' => $agenda_cont
-    ]);
-}
 ?>

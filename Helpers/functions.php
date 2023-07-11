@@ -151,7 +151,8 @@ function decodeJWT($jwt, $secret_key)
         $decoded = JWT::decode($jwt, new Key($secret_key, 'HS256'));
 
         // Accéder aux valeurs du payload du JWT
-        $username = $decoded->user;
+        $pname = $decoded->pname;
+        $name = $decoded->name;
         $edu_group = $decoded->edu_group;
         $id_user = $decoded->id_user;
         $edu_mail = $decoded->edu_mail;
@@ -159,8 +160,9 @@ function decodeJWT($jwt, $secret_key)
 
         // Retourner les valeurs sous forme d'un tableau associatif
         return array(
-            'username' => $username,
             'edu_group' => $edu_group,
+            'pname' => $pname,
+            'name' => $name,
             'id_user' => $id_user,
             'edu_mail' => $edu_mail,
             'role' => $role
