@@ -933,6 +933,14 @@ input[type="checkbox"]:checked::before {
 }
 
 
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 5px;
+}
+
+
 
 
 
