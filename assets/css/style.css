@@ -848,6 +848,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 30px;
     background: #ffffff;
     padding: 10px 0px;
+    padding-left: 50px;
     width: 80%;
     border: none;
     color: #252525;
@@ -855,7 +856,6 @@ input[type="checkbox"]:checked::before {
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    text-align: -webkit-center;
     background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
     background-position: 20px;
@@ -863,6 +863,9 @@ input[type="checkbox"]:checked::before {
     background-size: 20px;
     /* Adjust the size of the arrow image as needed */
 }
+
+
+
 
 
 
