@@ -864,11 +864,12 @@ input[type="checkbox"]:checked::before {
     /* Positionnez l'image à droite et au centre */
     background-size: 20px;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
+    direction: ltr;
 }
 
 .input_select-agenda_add option{
     text-align: right;
-    direction: ltr;
+    
 }
 
 
