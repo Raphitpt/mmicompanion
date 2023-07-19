@@ -864,6 +864,14 @@ input[type="checkbox"]:checked::before {
     background-size: 20px;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
+  
+  ::-webkit-input-placeholder {
+    text-align: center;
+  }
+  
+  :-moz-placeholder {
+    text-align: center;
+  }
 
 
 .input_type-agenda_add {
