@@ -35,8 +35,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
 echo head("Ajouter une tache");
 ?>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 <body class="body-agenda">
     <header>
         <div class="content_header">
@@ -142,12 +141,6 @@ echo head("Ajouter une tache");
                     <h2>Ajouter une matière</h2>
                 </label>
                 <div style="height:5px"></div>
-                <select class="form-select" aria-label="Default select example">
-  <option selected>Open this select menu</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
-</select>
                 <select name="school_subject" class="input_select-agenda_add input_school-agenda_add">
                     <?php
                     foreach ($subject as $subjects) {
