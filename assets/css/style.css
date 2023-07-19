@@ -862,14 +862,7 @@ input[type="checkbox"]:checked::before {
     /* Position the image to the right and center */
     background-size: 20px;
     /* Adjust the size of the arrow image as needed */
-    display: block;
-height: 60px;
-margin-left: 10%;
-margin-right: 10%;
-margin-top: 10px;
-min-height: 60px;
-width: 220px; /* width of 200px plus the 20px for the text indent */
-text-indent: 20px;
+
 }
 
 
