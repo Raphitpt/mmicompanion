@@ -872,6 +872,7 @@ input[type="checkbox"]:checked::before {
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
+
 .input_type-agenda_add {
     background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
@@ -889,6 +890,8 @@ input[type="checkbox"]:checked::before {
     background-size: 20px;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
+
+
 
 .form_button-agenda {
     display: -webkit-box;
@@ -933,9 +936,6 @@ input[type="checkbox"]:checked::before {
 }
 
 
-option{
-    text-align: center;
-}
 
 
 
