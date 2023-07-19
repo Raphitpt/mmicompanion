@@ -868,6 +868,7 @@ input[type="checkbox"]:checked::before {
 
 .input_select-agenda_add option{
     text-align: right;
+    direction: ltr;
 }
 
 
