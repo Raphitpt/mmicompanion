@@ -848,6 +848,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 30px;
     background: #ffffff;
     padding: 10px 0px; 
+    padding-left: 50%;
     /* text-indent: 25vw; */
     width: 80%;
     border: none;
@@ -864,13 +865,13 @@ input[type="checkbox"]:checked::before {
     /* Positionnez l'image à droite et au centre */
     background-size: 20px;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
-    direction: ltr;
-}
 
+}
+/* 
 .input_select-agenda_add option{
     text-align: right;
     
-}
+} */
 
 
 .input_type-agenda_add {
