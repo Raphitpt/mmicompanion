@@ -74,7 +74,6 @@ echo head("Profil");
                     <div class="burger_content_link-header">
                         <i class="fi fi-br-calendar"></i>
                         <p>Agenda</p>
-                        
                     </div>
                 </a>
                 <div class="burger_content_trait_header"></div>
@@ -115,3 +114,5 @@ echo head("Profil");
 
     </main>
     <script src="../assets/js/menu-navigation.js"></script>
+</body>
+</html>
