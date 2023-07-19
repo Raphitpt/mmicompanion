@@ -110,3 +110,5 @@ echo head("Profil");
 
     </main>
     <script src="../assets/js/menu-navigation.js"></script>
+</body>
+</html>
