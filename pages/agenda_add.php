@@ -115,7 +115,7 @@ echo head("Ajouter une tache");
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <input type="date" name="date" class="input_date-agenda_add" placeholder="Ajouter une date">
+                <input type="date" name="date" class="input_date-agenda_add">
                 <div style="height:15px"></div>
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
                     <label for="type" class="label-agenda_add">
