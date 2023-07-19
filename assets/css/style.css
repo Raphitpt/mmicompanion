@@ -863,6 +863,9 @@ input[type="checkbox"]:checked::before {
     background-size: 20px;
     /* Adjust the size of the arrow image as needed */
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    direction: rtl;
 
 }
 
