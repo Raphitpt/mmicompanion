@@ -848,7 +848,6 @@ input[type="checkbox"]:checked::before {
     border-radius: 30px;
     background: #ffffff;
     padding: 10px 0px; 
-    text-indent: 25vw;
     width: 80%;
     border: none;
     color: #252525;
