@@ -848,6 +848,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 30px;
     background: #ffffff;
     padding: 10px 0px; 
+    /* text-indent: 25vw; */
     width: 80%;
     border: none;
     color: #252525;
@@ -855,16 +856,18 @@ input[type="checkbox"]:checked::before {
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
+    line-height: normal;
+    text-align: -webkit-center;
     background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
     background-position: 20px;
     /* Positionnez l'image à droite et au centre */
     background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
-}
-
-.input_select-agenda_add option{
+    padding: 4px 20px 3px 10px;
     text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+    /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
 
