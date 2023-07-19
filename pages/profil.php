@@ -74,7 +74,6 @@ echo head("Profil");
                     <div class="burger_content_link-header">
                         <i class="fi fi-br-calendar"></i>
                         <p>Agenda</p>
-                        <div class="select_link-header"></div>
                     </div>
                 </a>
                 <div class="burger_content_trait_header"></div>
