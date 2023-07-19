@@ -107,7 +107,11 @@ echo head("Profil");
             </div>
         </div>
     </header>
-    <main>
+    <main class="main-profil">
+    <div class="profile-picture-wrapper">
+    <img id="preview" class="profile-picture" src="placeholder.jpg" alt="Photo de profil">
+    <input id="profile-picture-input" class="profile-picture-input" type="file" onchange="updatePreview(event)">
+  </div>
 
     </main>
     <script src="../assets/js/menu-navigation.js"></script>
