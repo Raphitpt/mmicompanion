@@ -820,7 +820,7 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     position: relative;
-    text-align :left !important;
+    text-align: center;
     background-image: url(./../img/calendar.svg);
     background-repeat: no-repeat;
     background-position: 20px;
@@ -864,6 +864,10 @@ input[type="checkbox"]:checked::before {
     /* Adjust the size of the arrow image as needed */
     appearance: none;
 
+}
+
+.input_select-agenda_add option{
+    transform: translateX(50%);
 }
 
 
