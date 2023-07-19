@@ -51,7 +51,7 @@ echo head("Profil");
                     <i class="fi fi-br-bars-sort"></i>
                 </div>
                 <div style="width:20px"></div>
-                <h1>Profil</h1>
+                <h1>Compte</h1>
             </div>
         </div>
 
@@ -74,7 +74,7 @@ echo head("Profil");
                     <div class="burger_content_link-header">
                         <i class="fi fi-br-calendar"></i>
                         <p>Agenda</p>
-                        <div class="select_link-header"></div>
+                        
                     </div>
                 </a>
                 <div class="burger_content_trait_header"></div>
@@ -101,8 +101,13 @@ echo head("Profil");
                     <div class="burger_content_link-header">
                         <i class="fi fi-br-user"></i>
                         <p>Mon profil</p>
+                        <div class="select_link-header"></div>
                     </div>
                 </a>
             </div>
         </div>
     </header>
+    <main>
+
+    </main>
+    <script src="../assets/js/menu-navigation.js"></script>
