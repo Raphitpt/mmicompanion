@@ -810,7 +810,8 @@ input[type="checkbox"]:checked::before {
 .input_date-agenda_add {
     border-radius: 30px;
     background: #ffffff;
-    padding: 10px 20%;
+    padding: 10px 0;
+    text-indent: 35px;
     width: 80%;
     border: none;
     color: #252525;
@@ -820,7 +821,6 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     position: relative;
-    text-align: center;
     background-image: url(./../img/calendar.svg);
     background-repeat: no-repeat;
     background-position: 20px;
