@@ -34,7 +34,7 @@ if (isset($_GET['submit'])) {
 
       <div class="content-header-index">
         <div class="content_title-header-index">
-          <h1>Salut coco <span style="font-weight:800">
+          <h1>Salut <span style="font-weight:800">
               <?php echo ucfirst($users['pname']) ?><span></h1>
           <p>en ligne</p>
         </div>
