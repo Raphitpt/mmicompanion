@@ -117,7 +117,7 @@ echo head("Ajouter une tache");
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <input type="date" name="date" class="input_date-agenda_add" value="2023-07-19" placeholder="yyyy-mm-dd">
+                <input type="date" name="date" class="input_date-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd">
 
                 <div style="height:15px"></div>
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
