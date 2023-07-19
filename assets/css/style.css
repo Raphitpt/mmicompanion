@@ -826,7 +826,6 @@ input[type="checkbox"]:checked::before {
     background-position: 20px;
     /* Positionnez l'image à droite et au centre */
     background-size: 20px;
-    direction: rtl;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
@@ -866,7 +865,7 @@ input[type="checkbox"]:checked::before {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    direction: rtl;
+    text-indent: 70px;
 
 }
 
