@@ -864,7 +864,8 @@ input[type="checkbox"]:checked::before {
 }
 
 .input_select-agenda_add option{
-    text-align: center;
+    text-align: -moz-center;
+text-align: -webkit-center;
 }
 
 
