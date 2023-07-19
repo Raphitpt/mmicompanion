@@ -826,6 +826,7 @@ input[type="checkbox"]:checked::before {
     background-position: 20px;
     /* Positionnez l'image à droite et au centre */
     background-size: 20px;
+    direction: rtl;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
@@ -848,7 +849,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 30px;
     background: #ffffff;
     padding: 10px 0px;
-    text-indent: 70px;
+    /* text-indent: 70px; */
     width: 80%;
     border: none;
     color: #252525;
@@ -863,6 +864,9 @@ input[type="checkbox"]:checked::before {
     background-size: 20px;
     /* Adjust the size of the arrow image as needed */
     appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    direction: rtl;
 
 }
 
