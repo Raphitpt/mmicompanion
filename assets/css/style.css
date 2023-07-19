@@ -856,7 +856,7 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 500;
     /* line-height: normal; */
-    text-align: -webkit-center;
+    text-align: center;
     background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
     background-position: 20px;
