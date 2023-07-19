@@ -109,13 +109,16 @@ echo head("Ajouter une tache");
         <div style="height:25px"></div>
         <div class="agenda-agenda_add">
             <form class="form-agenda_add" method="POST" action="">
+
                 <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre">
                 <div class="trait_agenda_add"></div>
+
                 <label for="date" class="label-agenda_add">
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <input type="date" name="date" class="input_date-agenda_add" value="bibou">
+                <input type="date" name="date" class="input_date-agenda_add" value="2023-07-19" placeholder="yyyy-mm-dd">
+
                 <div style="height:15px"></div>
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
                     <label for="type" class="label-agenda_add">

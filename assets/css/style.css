@@ -735,12 +735,6 @@ input[type="checkbox"]:checked::before {
 
 /* AGENDA_ADD.PHP */
 
-/*
-* Prefixed by:
-* PostCSS: v7.0.29,
-* Autoprefixer: v9.7.6
-* Browsers: last 4 version
-*/
 
 .form-agenda_add {
     display: -webkit-box;
