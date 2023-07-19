@@ -814,7 +814,7 @@ input[type="checkbox"]:checked::before {
 
 
 .input_date-agenda_add {
-    /* border-radius: 30px;
+    border-radius: 30px;
     background: #ffffff;
     padding: 10px 20%;
     width: 80%;
@@ -826,16 +826,16 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     position: relative;
-    text-align: center; */
-    /* background-image: url(./../img/calendar.svg);
+    text-align: center;
+    background-image: url(./../img/calendar.svg);
     background-repeat: no-repeat;
-    background-position: 20px; */
+    background-position: 20px;
     /* Positionnez l'image à droite et au centre */
-    /* background-size: 20px; */
+    background-size: 20px;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
-/* .input_date-agenda_add[type="date"]::-webkit-calendar-picker-indicator {
+.input_date-agenda_add[type="date"]::-webkit-calendar-picker-indicator {
     background-position: right;
     background-size: auto;
     cursor: pointer;
@@ -847,7 +847,7 @@ input[type="checkbox"]:checked::before {
     top: 0;
     width: auto;
     opacity: 0;
-} */
+}
 
 
 .input_select-agenda_add {
