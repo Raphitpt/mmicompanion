@@ -820,6 +820,7 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     position: relative;
+    text-align: left;
     background-image: url(./../img/calendar.svg);
     background-repeat: no-repeat;
     background-position: 20px;
