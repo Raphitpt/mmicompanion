@@ -868,7 +868,7 @@ input[type="checkbox"]:checked::before {
 }
 
 .input_select-agenda_add option{
-    transform: translateX(50%);
+    padding-left: 50%;
     
 }
 
