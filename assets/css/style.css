@@ -855,14 +855,16 @@ input[type="checkbox"]:checked::before {
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    /* line-height: normal; */
-    text-align: center;
     background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
     background-position: 20px;
     /* Positionnez l'image à droite et au centre */
     background-size: 20px;
     /* Ajustez la taille de l'image de la flèche selon vos besoins */
+}
+
+.input_select-agenda_add option{
+    text-align: center;
 }
 
 
