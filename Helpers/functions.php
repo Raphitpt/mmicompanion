@@ -72,7 +72,6 @@ function head(string $title = ''): string
   <title>$title</title>
   <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
     <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
-    <script src="../assets/js/auth.js"></script>
     
 
 </head>
