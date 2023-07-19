@@ -870,10 +870,6 @@ input[type="checkbox"]:checked::before {
 
 }
 
-.input_select-agenda_add option{
-    transform: translateX(50%);
-}
-
 
 .input_type-agenda_add {
     background-image: url(./../img/bookmark.svg);
