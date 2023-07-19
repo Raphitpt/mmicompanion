@@ -848,6 +848,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 30px;
     background: #ffffff;
     padding: 10px 0px; 
+    /* text-indent: 25vw; */
     width: 80%;
     border: none;
     color: #252525;
@@ -855,6 +856,8 @@ input[type="checkbox"]:checked::before {
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
+    line-height: normal;
+    text-align: -webkit-center;
     background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
     background-position: 20px;
