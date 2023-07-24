@@ -13,25 +13,6 @@ $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 $users = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
 
-if (isset($_POST['profile-picture'])) {
-        // Récupérer les informations du fichier téléchargé
-    $uploadedFile = $_FILES['profile-picture'];
-    $fileName = $uploadedFile['name'];
-    $fileTempPath = $uploadedFile['tmp_name'];
-
-    // Déplacer le fichier téléchargé vers un emplacement permanent
-    $destinationPath = 'uploads/' . $fileName;
-    move_uploaded_file($fileTempPath, $destinationPath);
-
-    $sql = "UPDATE users SET pp_link = :profile_picture WHERE id_user = :id_user";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute([
-        'profile_picture' => $destinationPath,
-        'id_user' => $users['id_user']
-    ]);
-    header('Location: ./profil.php');
-    exit();
-}
 
 $pp_original = "SELECT pp_link FROM users WHERE id_user = :id_user";
 $stmt_pp_original = $dbh->prepare($pp_original);
@@ -40,33 +21,27 @@ $stmt_pp_original->execute([
 ]);
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
+if (isset($_POST['password'])) {
+    $password = strip_tags($_POST['password']);
+    $old_password = strip_tags($_POST['old_password']);
+    $confirm_password = strip_tags($_POST['confirm_password']);
+    if ($password != $confirm_password) {
+        echo "Les mots de passe ne correspondent pas!";
+        exit;
+    }
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $sql = "UPDATE users SET password = :password WHERE id_user = :id_user AND password = :old_password";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([
+        'password' => $password,
+        'old_password' => $old_password,
+        'id_user' => $users['id_user']
+    ]);
+    exit;
+}
+
 echo head("Profil");
 ?>
-  <style>
-    .profile-picture-wrapper {
-      width: 150px;
-      height: 150px;
-      position: relative;
-      overflow: hidden;
-      border-radius: 50%;
-    }
-
-    .profile-picture {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .profile-picture-input {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-  </style>
 <body class="body-agenda">
 
     <header>
@@ -132,30 +107,56 @@ echo head("Profil");
         </div>
     </header>
     <main class="main-profil">
-    <form action="" method="post" enctype="multipart/form-data">
-    <div class="profile-picture-wrapper">
-      <img id="preview" class="profile-picture" src="<?php echo $pp_original ?>" alt="Photo de profil">
-      <input id="profile-picture-input" class="profile-picture-input" type="file" name="profile-picture" onchange="updatePreview(event)">
-    </div>
-    <input type="submit" value="Télécharger">
-  </form>
-
-  </div>
-
+        <div class="profile-picture-wrapper">
+            <img id="preview" class="profile-picture" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
+            <input id="profile-picture-input" class="profile-picture-input" type="file" name="profile-picture">
+        </div>
+        <div class="profile_form">
+            <label for="name">Prénom</label>
+            <input type="text" name="name" id="name" value="<?php echo ucfirst($users['pname']) ?>" disabled>
+            <label for="mail">Email</label>
+            <input type="text" name="mail" id="mail" value="<?php echo $users['edu_mail'] ?>" disabled>
+            <form method="POST">
+            <label for="password">Mot de passe</label>
+            <input type="password" name="password" id="old_password" placeholder="Ancien mot de passe" required>
+            <input type="password" name="password" id="password" placeholder="Nouveau mot de passe" required>
+            <input type="password" name="password" id="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
+            <input type="submit" value="Modifier le mot de passe">
+            </form>
+            <a role="button" href="./logout.php" class="button_logout">Se déconnecter</a>
+        </div>
     </main>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
-        function updatePreview(event) {
-      let input = event.target;
-      let reader = new FileReader();
+          document.addEventListener('DOMContentLoaded', () => {
+    let input = document.getElementById('profile-picture-input');
 
-      reader.onload = function() {
-        let preview = document.getElementById('preview');
-        preview.src = reader.result;
+    input.addEventListener('change', (event) => {
+      let file = event.target.files[0];
+      let formData = new FormData();
+      formData.append('profile-picture', file);
+
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', 'update-profile-picture.php', true);
+
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // Le téléchargement a réussi, mettez à jour l'image de profil si nécessaire
+          let response = JSON.parse(xhr.responseText);
+          if (response.success) {
+            let preview = document.getElementById('preview');
+            preview.src = response.profilePictureUrl;
+          }
+        } else {
+          // Une erreur s'est produite lors du téléchargement
+          console.error('Erreur lors de l\'envoi de l\'image');
+        }
       };
 
-      reader.readAsDataURL(input.files[0]);
-    }
+      xhr.send(formData);
+    });
+  });
     </script>
 </body>
+
 </html>
