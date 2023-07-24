@@ -126,36 +126,49 @@ echo head("Profil");
             <a role="button" href="./logout.php" class="button_logout">Se déconnecter</a>
         </div>
     </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
-          document.addEventListener('DOMContentLoaded', () => {
-    let input = document.getElementById('profile-picture-input');
+    document.addEventListener('DOMContentLoaded', () => {
+      let input = document.getElementById('profile-picture-input');
 
-    input.addEventListener('change', (event) => {
-      let file = event.target.files[0];
-      let formData = new FormData();
-      formData.append('profile-picture', file);
+      input.addEventListener('change', (event) => {
+        let file = event.target.files[0];
+        
+        new Compressor(file, {
+          quality: 0.6, // Réglez la qualité souhaitée ici (0.1 - 1)
+          maxWidth: 400, // Définissez la largeur maximale souhaitée ici
+          maxHeight: 400, // Définissez la hauteur maximale souhaitée ici
+          success(result) {
+            let formData = new FormData();
+            formData.append('profile-picture', result);
 
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', 'update-profile-picture.php', true);
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', 'update-profile-picture.php', true);
 
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          // Le téléchargement a réussi, mettez à jour l'image de profil si nécessaire
-          let response = JSON.parse(xhr.responseText);
-          if (response.success) {
-            let preview = document.getElementById('preview');
-            preview.src = response.profilePictureUrl;
-          }
-        } else {
-          // Une erreur s'est produite lors du téléchargement
-          console.error('Erreur lors de l\'envoi de l\'image');
-        }
-      };
+            xhr.onload = () => {
+              if (xhr.status === 200) {
+                // Le téléchargement a réussi, mettez à jour l'image de profil si nécessaire
+                let response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                  let preview = document.getElementById('preview');
+                  preview.src = response.profilePictureUrl;
+                }
+              } else {
+                // Une erreur s'est produite lors du téléchargement
+                console.error('Erreur lors de l\'envoi de l\'image');
+              }
+            };
 
-      xhr.send(formData);
+            xhr.send(formData);
+          },
+          error(err) {
+            // Gérer les erreurs de compression ici
+            console.error('Erreur lors de la compression de l\'image : ', err.message);
+          },
+        });
+      });
     });
-  });
     </script>
 </body>
 
