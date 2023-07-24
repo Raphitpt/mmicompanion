@@ -9,16 +9,17 @@ $secret_key = $_ENV['SECRET_KEY'];
 if (isset($_POST['username']) && isset($_POST['password'])) {
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
         $login = $_POST['username'];
-        $password = md5($_POST['password']);
-        $sql = "SELECT * FROM  users WHERE pname = :login OR edu_mail = :login AND password = :password";
+        $password = $_POST['password'];
+
+        $sql = "SELECT * FROM users WHERE pname = :login OR edu_mail = :login";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             'login' => $login,
-            'password' => $password
         ]);
+
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
+        if ($user && password_verify($password, $user['password'])) {
             unset($user['password']);
 
             $payload = [
@@ -29,6 +30,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 'edu_mail' => $user['edu_mail'],
                 'role' => $user['role'],
             ];
+
             $jwt = JWT::encode($payload, $secret_key, 'HS256');
 
             // Envoi du JWT au client sous forme de réponse JSON

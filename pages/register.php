@@ -31,13 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pname']) && isset($_PO
         exit;
     }
 
-
+    $hash_password = password_hash($password, PASSWORD_DEFAULT);
+    
     $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group) VALUES (:pname, :name, :pass, :edu_mail, :edu_group)";
     $stmt = $dbh->prepare($sql_register);
     $stmt->execute([
         ':pname' => $pname,
         ':name' => $name,
-        ':pass' => md5($password),
+        ':pass' => $hash_password,
         ':edu_number' => $edu_number,
         ':edu_mail' => $edu_mail,
         ':edu_group' => $edu_group,

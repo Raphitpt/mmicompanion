@@ -21,6 +21,13 @@ if (isset($_GET['submit'])) {
   exit();
 }
 
+$pp_original = "SELECT pp_link FROM users WHERE id_user = :id_user";
+$stmt_pp_original = $dbh->prepare($pp_original);
+$stmt_pp_original->execute([
+    'id_user' => $users['id_user']
+]);
+$pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -41,8 +48,10 @@ if (isset($_GET['submit'])) {
         <div style="width:10px"></div>
         <a href="./profil.php">
           <div class="content_img-header-index">
-            <img src="./../assets/img/profil-1.svg" alt="Photo de profil">
-            <div></div>
+            <div class="rounded-img">
+            <img src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
+          </div>
+            <div class="green_circle"></div>
           </div>
         </a>
       </div>
