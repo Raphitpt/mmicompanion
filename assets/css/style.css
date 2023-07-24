@@ -242,7 +242,12 @@ main{
     z-index: 1;
 }
 
-
+.logout{
+    color: #D65656 !important;
+}
+.logout>p{
+    color: #D65656 !important;
+}
 
 
 

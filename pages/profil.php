@@ -103,6 +103,13 @@ echo head("Profil");
                         <div class="select_link-header"></div>
                     </div>
                 </a>
+                <div class="burger_content_trait_header"></div>
+                <a href="./logout.php">
+                    <div class="burger_content_link-header logout">
+                        <i class="fi fi-br-delete-user logout"></i>
+                        <p>Se déconnecter</p>
+                    </div>
+                </a>
             </div>
         </div>
     </header>

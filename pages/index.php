@@ -104,6 +104,13 @@ $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
             <p>Mon profil</p>
           </div>
         </a>
+        <div class="burger_content_trait_header"></div>
+                <a href="./logout.php">
+                    <div class="burger_content_link-header logout">
+                        <i class="fi fi-br-delete-user logout"></i>
+                        <p>Se déconnecter</p>
+                    </div>
+                </a>
       </div>
     </div>
   </header>

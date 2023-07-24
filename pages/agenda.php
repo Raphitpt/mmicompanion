@@ -103,6 +103,13 @@ echo head("Agenda");
                         <p>Mon profil</p>
                     </div>
                 </a>
+                <div class="burger_content_trait_header"></div>
+                <a href="./logout.php">
+                    <div class="burger_content_link-header logout">
+                        <i class="fi fi-br-delete-user logout"></i>
+                        <p>Se déconnecter</p>
+                    </div>
+                </a>
             </div>
         </div>
     </header>
@@ -114,7 +121,7 @@ echo head("Agenda");
         FROM agenda a 
         JOIN sch_subject s ON a.id_subject = s.id_subject 
         WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir'
-        ORDER BY a.date_finish ASC";
+        ORDER BY a.date_finish ASC, a.title ASC";
 
         $stmt_agenda = $dbh->prepare($sql_agenda);
         $stmt_agenda->execute([
@@ -122,7 +129,7 @@ echo head("Agenda");
         ]);
         $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
         // Recupére les évaluations
-        $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC";
+        $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC, a.title ASC";
         $stmt_eval = $dbh->prepare($sql_eval);
         $stmt_eval->execute([
             'edu_group' => $users['edu_group']
