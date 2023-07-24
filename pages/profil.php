@@ -141,7 +141,7 @@ echo head("Profil");
           maxHeight: 400, // Définissez la hauteur maximale souhaitée ici
           success(result) {
             let formData = new FormData();
-            formData.append('profile-picture', result);
+            formData.append('profile-picture', result, result.name);
 
             let xhr = new XMLHttpRequest();
             xhr.open('POST', 'update-profile-picture.php', true);
