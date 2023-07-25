@@ -225,7 +225,7 @@ echo head("MMI Companion - Agenda");
             // Si il n'y a pas d'évènements dans l'agenda, afficher un message
             if (empty($agendaByDate)) {
                 echo "<div class='agenda_content_list-agenda'>";
-                echo "<h2>Aucune tâche à faire</h2>";
+                echo "<h2>Aucune tâche de prévu</h2>";
                 echo "</div>";
             }
 
