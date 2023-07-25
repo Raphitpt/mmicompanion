@@ -39,7 +39,7 @@ $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
-echo head("Agenda");
+echo head("MMI Companion - Agenda");
 ?>
 
 <body class="body-agenda">
@@ -221,6 +221,14 @@ echo head("Agenda");
         <div style="height:25px"></div>
         <div class="agenda_content-agenda">
             <?php
+
+            // Si il n'y a pas d'évènements dans l'agenda, afficher un message
+            if (empty($agendaByDate)) {
+                echo "<div class='agenda_content_list-agenda'>";
+                echo "<h2>Aucune tâche à faire</h2>";
+                echo "</div>";
+            }
+
             // Parcours les éléments par date et les affiche
             foreach ($agendaByDate as $date => $agendas) {
                 echo "<div class='agenda_content_list-agenda'>";
