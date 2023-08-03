@@ -117,7 +117,7 @@ echo head("MMI Companion - Profil");
     <main class="main-profil">
         <div class="profil_picture-profil">
             <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
-            <input id="profil_picture-input" class="profil-picture-input" type="file" name="profil-picture">
+            <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
         <div class="profil_form-profil">
             <div class="profil_form-disabled">
@@ -154,7 +154,7 @@ echo head("MMI Companion - Profil");
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-      let input = document.getElementById('profil_picture-input');
+      let input = document.querySelector('#profil_picture-input');
 
       input.addEventListener('change', (event) => {
         let file = event.target.files[0];

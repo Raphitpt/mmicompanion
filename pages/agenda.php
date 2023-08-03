@@ -145,8 +145,8 @@ echo head("MMI Companion - Agenda");
             " Mardi ",
             " Mercredi ",
             " Jeudi ",
-            " vendredi ",
-            " samedi "
+            " Vendredi ",
+            " Samedi "
         );
         $mois = array(
             1 => " janvier ",
