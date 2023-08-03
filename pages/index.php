@@ -115,14 +115,28 @@ $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
     </div>
   </header>
 
-  <main class="container main-index">
+  <main class="main-index">
     <div style="height:30px"></div>
-    <div class="title_trait">
-      <h1>L'emploi du temps</h1>
-      <div></div>
-    </div>
-    <div style="height:15px"></div>
-    <div id="calendar"></div>
+    <section class="section_calendar-index">
+      <div class="title_trait">
+        <h1>L'emploi du temps</h1>
+        <div></div>
+      </div>
+      <div style="height:15px"></div>
+      <div id="calendar"></div>
+    </section>
+
+    <div style="height:30px"></div>
+
+    <section class="section_agenda-index">
+        <div class="title_trait">
+          <h1>L'agenda</h1>
+          <div></div>
+        </div>
+
+        
+    </section>
+    
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>

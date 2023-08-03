@@ -46,21 +46,21 @@ function toggleMenu() {
 //   });
 // });
 
-function getDataFromFile(x) {
-  let xhr = new XMLHttpRequest();
+// function getDataFromFile(x) {
+//   let xhr = new XMLHttpRequest();
 
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4 && xhr.status === 200) {
+//   xhr.onreadystatechange = function() {
+//     if (xhr.readyState === 4 && xhr.status === 200) {
 
-      let HTMLcontent = xhr.responseText;
+//       let HTMLcontent = xhr.responseText;
 
-     console.log("HTML: " + HTMLcontent);
+//      console.log("HTML: " + HTMLcontent);
 
-      document.querySelector(".container").innerHTML = HTMLcontent;
-    }
-  };
-  xhr.open("POST", x, true);
-  xhr.send();
-}
+//       document.querySelector(".container").innerHTML = HTMLcontent;
+//     }
+//   };
+//   xhr.open("POST", x, true);
+//   xhr.send();
+// }
 
 

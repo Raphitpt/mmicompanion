@@ -394,7 +394,7 @@ main{
 }
 
 .input-login::placeholder {
-    color: rgba(50, 125, 142, 0.4);
+    color: #858585;
 }
 
 .button_forget-login {
