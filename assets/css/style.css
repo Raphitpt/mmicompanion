@@ -20,10 +20,14 @@ main{
     touch-action: manipulation
 }
 
-
 .no-scroll {
     overflow: hidden;
-  }
+}
+
+.body-all {
+    background-color: #B9E0FF;
+    height: 100vh;
+}
 
 /* HEADER */
 
@@ -259,12 +263,6 @@ main{
 
 
 /* ACCUEIL.PHP */
-
-.body-accueil {
-    background-color: #B9E0FF;
-    font-family: 'Montserrat', sans-serif;
-    height: 100vh;
-}
 
 .main-accueil {
     display: flex;

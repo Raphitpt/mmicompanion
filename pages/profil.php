@@ -42,7 +42,7 @@ if (isset($_POST['password'])) {
 
 echo head("Profil");
 ?>
-<body class="body-agenda">
+<body class="body-all">
 
     <header>
         <div class="content_header">
@@ -113,6 +113,7 @@ echo head("Profil");
             </div>
         </div>
     </header>
+    
     <main class="main-profil">
         <div class="profile-picture-wrapper">
             <img id="preview" class="profile-picture" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
@@ -133,6 +134,7 @@ echo head("Profil");
             <a role="button" href="./logout.php" class="button_logout">Se déconnecter</a>
         </div>
     </main>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>

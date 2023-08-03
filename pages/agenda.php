@@ -42,7 +42,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 echo head("MMI Companion - Agenda");
 ?>
 
-<body class="body-agenda">
+<body class="body-all">
 
     <header>
         <div class="content_header">

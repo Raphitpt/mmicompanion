@@ -36,7 +36,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 echo head("Ajouter une tache");
 ?>
 
-<body class="body-agenda">
+<body class="body-all">
     <header>
         <div class="content_header">
             <div class="content_title-header" id="burger-header">
