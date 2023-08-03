@@ -25,7 +25,7 @@ main{
 }
 
 .body-all {
-    background-color: #B9E0FF;
+    background-color: #DDF0FF;
     height: 100vh;
 }
 
@@ -961,22 +961,15 @@ input[type="checkbox"]:checked::before {
 /* PROFIL.PHP */
 
 .main-profil{
-    margin: auto 10vw;
+    margin: 0px 10vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-family: 'Montserrat', sans-serif;
 }
-.profile_form, .profile_form>form{
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    width: 100%;
-}
-.profile-picture-wrapper{
-    margin: 5vh 5vw;
+
+.profil_picture-profil{
+    margin: 40px;
     width: 100px;
     height: 100px;
     position: relative;
@@ -984,13 +977,13 @@ input[type="checkbox"]:checked::before {
     border-radius: 50%;
 }
 
-.profile-picture {
+.profil_picture-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.profile-picture-input {
+.profil_picture-input {
     position: absolute;
     top: 0;
     left: 0;
@@ -999,71 +992,135 @@ input[type="checkbox"]:checked::before {
     opacity: 0;
     cursor: pointer;
 }
-.profile_form>label, .profile_form>form>label{
-    display: block;
-    color: #004A5A;
-    font-size: 0.875rem;
-    text-align: left;
-    font-family: Montserrat;
-    font-weight: 600;
-    margin: 10px 0;
-}
-.profile_form input, .profile_form>form input{
-    height: 40px;
-    border-radius: 0.6875rem;
-    background: #FFF;
-    color: #4a4a4a;
-    font-family: Montserrat;
-    font-size: 0.8rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    border: none;
-    padding-left: 20px;
-    margin-bottom: 15px;
-}
-.profile_form input::placeholder, .profile_form>form input::placeholder{
-    color: #858585;
-    font-family: Montserrat;
-    font-size: 0.8rem;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
+
+.profil_form-profil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
 }
 
-.profile_form input:disabled, .profile_form>form input:disabled{
-    background: #f3f3f3;
-    color: #686868;
+.profil_form-disabled{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
 }
-.profile_form>form>input[type="submit"]{
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 0;
-    border-radius: 18px;
-    background: var(--bleu-moyen, #56B8D6);
-    padding: 10px 40px;
+
+.profil_form-input_disabled{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.profil_form-input_disabled label{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
     color: #004A5A;
-    text-align: center;
+}
+
+.profil_form-input_disabled input{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #3e3e3e;
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: #d6d6d6;
+    padding: 0px 20px;
+}
+
+.trait-profil{
+    width: 50%;
+    height: 1px;
+    background-color: #004A5A;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.profil_form-password{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.profil_form-input_password{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.profil_form-input_password label{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: #004A5A;
+}
+
+.profil_form-input_password input[type="password"]{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #858585;
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: #fefefe;
+    padding: 0px 20px;
+}
+
+.profil_form-password input[type="submit"]{
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
+    color: #004A5A;
+    width: 70%;
+    height: 40px;
+    border-radius: 15px;
     border: none;
+    background-color: #56B8D6;
+    padding: 0px 20px;
 }
-.button_logout{
-    margin: 3vh auto;
-    width: 80%;
-    height: 5vh;
-    border-radius: 1.125rem;
-    background: #D65656;
+
+.profil_form-button_logout{
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: #D65656;
+    width: 70%;
+    height: 40px;
     color: #F8F8F8;
     text-align: center;
     font-family: Montserrat;
-    font-size: 0.75rem;
+    font-size: 12px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;

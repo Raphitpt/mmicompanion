@@ -40,7 +40,7 @@ if (isset($_POST['password'])) {
     exit;
 }
 
-echo head("Profil");
+echo head("MMI Companion - Profil");
 ?>
 <body class="body-all">
 
@@ -115,31 +115,46 @@ echo head("Profil");
     </header>
     
     <main class="main-profil">
-        <div class="profile-picture-wrapper">
-            <img id="preview" class="profile-picture" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
-            <input id="profile-picture-input" class="profile-picture-input" type="file" name="profile-picture">
+        <div class="profil_picture-profil">
+            <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
+            <input id="profil_picture-input" class="profil-picture-input" type="file" name="profil-picture">
         </div>
-        <div class="profile_form">
-            <label for="name">Prénom</label>
-            <input type="text" name="name" id="name" value="<?php echo ucfirst($users['pname']) ?>" disabled>
-            <label for="mail">Email</label>
-            <input type="text" name="mail" id="mail" value="<?php echo $users['edu_mail'] ?>" disabled>
-            <form method="POST">
-            <label for="password">Mot de passe</label>
-            <input type="password" name="password" id="old_password" placeholder="Ancien mot de passe" required>
-            <input type="password" name="password" id="password" placeholder="Nouveau mot de passe" required>
-            <input type="password" name="password" id="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
-            <input type="submit" value="Modifier le mot de passe">
+        <div class="profil_form-profil">
+            <div class="profil_form-disabled">
+                <div class="profil_form-input_disabled">
+                    <label for="name">Prénom</label>
+                    <input type="text" name="name" id="name" value="<?php echo ucfirst($users['pname']) ?>" disabled>
+                </div>
+                <div class="profil_form-input_disabled">
+                    <label for="mail">Email</label>
+                    <input type="text" name="mail" id="mail" value="<?php echo $users['edu_mail'] ?>" disabled>
+                </div>
+            </div>
+
+            <div class="trait-profil"></div>
+            
+            <form method="POST" class="profil_form-password">
+                <div class="profil_form-input_password">
+                    <label for="password">Modifier mon mot de passe :</label>
+                    <input type="password" name="password" id="old_password" placeholder="Ancien mot de passe" required>
+                    <input type="password" name="password" id="password" placeholder="Nouveau mot de passe" required>
+                    <input type="password" name="password" id="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
+                </div>
+                <input type="submit" value="Modifier">          
             </form>
-            <a role="button" href="./logout.php" class="button_logout">Se déconnecter</a>
+
+            <div class="trait-profil"></div>
+
+            <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
         </div>
+        <div style="height:30px"></div>
     </main>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
-      let input = document.getElementById('profile-picture-input');
+      let input = document.getElementById('profil_picture-input');
 
       input.addEventListener('change', (event) => {
         let file = event.target.files[0];
@@ -150,10 +165,10 @@ echo head("Profil");
           maxHeight: 400, // Définissez la hauteur maximale souhaitée ici
           success(result) {
             let formData = new FormData();
-            formData.append('profile-picture', result, result.name);
+            formData.append('profil-picture', result, result.name);
 
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', 'update-profile-picture.php', true);
+            xhr.open('POST', 'update-profil-picture.php', true);
 
             xhr.onload = () => {
               if (xhr.status === 200) {
@@ -161,7 +176,7 @@ echo head("Profil");
                 let response = JSON.parse(xhr.responseText);
                 if (response.success) {
                   let preview = document.getElementById('preview');
-                  preview.src = response.profilePictureUrl;
+                  preview.src = response.profilPictureUrl;
                 }
               } else {
                 // Une erreur s'est produite lors du téléchargement
