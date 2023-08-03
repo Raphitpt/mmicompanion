@@ -33,7 +33,7 @@ $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
 
-echo head("Ajouter une tache");
+echo head("MMI Companion - Agenda");
 ?>
 
 <body class="body-all">
