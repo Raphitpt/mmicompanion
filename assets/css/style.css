@@ -247,10 +247,10 @@ main{
 }
 
 .logout{
-    color: #D65656 !important;
+    color: #D65656;
 }
-.logout>p{
-    color: #D65656 !important;
+.logout p{
+    color: #D65656;
 }
 
 
@@ -263,6 +263,11 @@ main{
 
 
 /* ACCUEIL.PHP */
+
+.body-accueil{
+    background-color: #B9E0FF;
+    height: 100vh;
+}
 
 .main-accueil {
     display: flex;
@@ -291,6 +296,7 @@ main{
     font-size: 26px;
     font-weight: 900;
     color: #004A5A;
+    font-family: Montserrat;
 }
 
 .title-accueil p {
@@ -299,6 +305,7 @@ main{
     color: #004A5A;
     font-size: 10px;
     padding: 0px 5px;
+    font-family: Montserrat;
 }
 
 
