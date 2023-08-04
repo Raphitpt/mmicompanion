@@ -106,7 +106,6 @@ echo head('MMI Companion - Register');
 
         // Sélectionnez les éléments de la page
         const nextBtn = document.querySelector('.button_next-register');
-        const prevBtn = document.querySelector('.button_before-register');
         const form1 = document.querySelector('.form_visibility1-register');
         const form2 = document.querySelector('.form_visibility2-register');
         // Sélectionner l'élément <a> par sa classe
@@ -119,16 +118,8 @@ echo head('MMI Companion - Register');
             form2.style.display = 'flex';
             // Changer le lien
             lien.href = '';
-
         });
 
-        // Ajoutez un gestionnaire d'événement au clic sur le bouton précédent
-        prevBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            form1.style.display = 'flex';
-            form2.style.display = 'none';
-            lien.href = './accueil.php';
-        });
     </script>
 
 </body>
