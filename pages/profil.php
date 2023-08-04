@@ -153,6 +153,7 @@ echo head("MMI Companion - Profil");
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
+        
     document.addEventListener('DOMContentLoaded', () => {
       let input = document.querySelector('#profil_picture-input');
 
@@ -175,7 +176,7 @@ echo head("MMI Companion - Profil");
                 // Le téléchargement a réussi, mettez à jour l'image de profil si nécessaire
                 let response = JSON.parse(xhr.responseText);
                 if (response.success) {
-                  let preview = document.getElementById('preview');
+                  let preview = document.querySelector('#preview');
                   preview.src = response.profilPictureUrl;
                 }
               } else {
