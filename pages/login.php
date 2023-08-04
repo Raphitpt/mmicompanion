@@ -64,7 +64,7 @@ echo head("MMI Companion | Connexion");
         <h1 class="title-login">SE CONNECTER</h1>
         <div style="height:30px"></div>
         <form method="POST" class="form-login">
-            <input type="text" name="username" placeholder="email ou pseudo" id="username" class="input-login" required>
+            <input type="text" name="username" placeholder="prénom ou email" id="username" class="input-login" required>
             <div style="height:20px"></div>
             <input type="password" name="password" placeholder="mot de passe" id="password" class="input-login"
                 required>
