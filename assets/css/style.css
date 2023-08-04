@@ -427,7 +427,7 @@ main{
 
 /* REGISTER.PHP */
 
-.form_visibility1-register {
+.form-register {
     width: 100%;
     display: flex;
     flex-direction: column;

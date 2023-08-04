@@ -67,7 +67,7 @@ echo head('MMI Companion - Register');
         <h1 class="title-login">CRÉER UN COMPTE</h1>
         <div style="height:30px"></div>
         <form action="" method="post" class="form-login">
-            <div class="form_visibility1-register">
+            <div class="form-register">
                 <input type="text" name="pname" placeholder="prénom" class="input-login" required>
                 <div style="height:20px"></div>
                 <input type="text" name="name" placeholder="nom" class="input-login" required>
@@ -111,7 +111,7 @@ echo head('MMI Companion - Register');
 
         // Sélectionnez les éléments de la page
         const nextBtn = document.querySelector('.button_next-register');
-        const form1 = document.querySelector('.form_visibility1-register');
+        const form1 = document.querySelector('.form-register');
         const form2 = document.querySelector('.form_visibility2-register');
         // Sélectionner l'élément <a> par sa classe
         const lien = document.querySelector('.back_btn');
