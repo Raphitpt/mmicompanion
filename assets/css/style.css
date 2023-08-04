@@ -29,6 +29,8 @@ main{
     height: 100vh;
 }
 
+
+
 /* HEADER */
 
 .content_header {
@@ -246,10 +248,12 @@ main{
     z-index: 1;
 }
 
-.logout{
+
+.logout-header i{
     color: #D65656;
 }
-.logout p{
+
+.logout-header p{
     color: #D65656;
 }
 
@@ -409,6 +413,13 @@ main{
     color: var(--texte, #004A5A);
     font-family: Montserrat;
     font-size: 12px;
+}
+
+.error_message-login{
+    color: #D65656;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 
