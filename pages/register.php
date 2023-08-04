@@ -24,32 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             exit;
         }
 
-        // check if email or edu_num or username already exist in database
+        // Vérifier si l'utilisateur existe déjà dans la base de données sinon créer son compte
         $sql_check = "SELECT * FROM users WHERE edu_mail = :edu_mail";
         $stmt = $dbh->prepare($sql_check);
         $stmt->execute([
             ':edu_mail' => $edu_mail,
         ]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($user) {
+        if (!empty($user)) {
             $error_message = "L'utilisateur existe déjà.";
+        } else{
+            $hash_password = password_hash($password, PASSWORD_DEFAULT);
+
+            $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group) VALUES (:pname, :name, :pass, :edu_mail, :edu_group)";
+            $stmt = $dbh->prepare($sql_register);
+            $stmt->execute([
+                ':pname' => $pname,
+                ':name' => $name,
+                ':pass' => $hash_password,
+                ':edu_mail' => $edu_mail,
+                ':edu_group' => $edu_group,
+            ]);
+
+            header('Location: ./login.php');
             exit;
         }
-
-        $hash_password = password_hash($password, PASSWORD_DEFAULT);
-
-        $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group) VALUES (:pname, :name, :pass, :edu_mail, :edu_group)";
-        $stmt = $dbh->prepare($sql_register);
-        $stmt->execute([
-            ':pname' => $pname,
-            ':name' => $name,
-            ':pass' => $hash_password,
-            ':edu_mail' => $edu_mail,
-            ':edu_group' => $edu_group,
-        ]);
-
-        header('Location: ./login.php');
-        exit;
 
     }  else {
         $error_message = "Veuillez remplir tous les champs.";
