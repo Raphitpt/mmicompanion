@@ -106,38 +106,10 @@ echo head('MMI Companion - Register');
         </form>
     </main>
 
-    <script>
-        // DOUBLE PAGE REGISTER.PHP
-
-        // Sélectionnez les éléments de la page
-        const nextBtn = document.querySelector('.button_next-register');
-        const form1 = document.querySelector('.form-register');
-        const form2 = document.querySelector('.form_visibility2-register');
-        // Sélectionner l'élément <a> par sa classe
-        const lien = document.querySelector('.back_btn');
-
-        // Sélection des inputs de la page
-        const inputPname = document.querySelector('input[name="pname"]');
-        const inputName = document.querySelector('input[name="name"]');
-        const inputMail = document.querySelector('input[name="edu_mail"]');
-        const inputPassword = document.querySelector('input[name="password"]');
-        const inputConfirmPassword = document.querySelector('input[name="confirm_password"]');
-
-        // Ajoutez un gestionnaire d'événement au clic sur le bouton suivant
-        // nextBtn.addEventListener('click', (event) => {
-        //     if (inputPname.value == '' || inputName.value == '' || inputMail.value == '' || inputPassword.value == '' || inputConfirmPassword.value == '') {
-        //         document.querySelector('.error_message-login').innerHTML = "Veuillez remplir tous les champs !";
-        //     } else {
-        //         event.preventDefault();
-        //         form1.style.display = 'none';
-        //         form2.style.display = 'flex';
-        //         // Changer le lien
-        //         lien.href = '';
-        //     }
-        // });
-
-    </script>
 
 </body>
+
+<script>
+</script>
 
 </html>
