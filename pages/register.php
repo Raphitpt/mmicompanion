@@ -63,19 +63,19 @@ echo head('MMI Companion - Register');
                 <div style="height:20px"></div>
                 <input type="text" name="name" placeholder="nom" class="input-login" required>
                 <div style="height:20px"></div>
-                <input type="text" name="edu_mail" placeholder="adresse mail étudiante"
-                    pattern=".+@etu\.univ-poitiers\.fr" class="input-login" required>
+                <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern=".+@etu\.univ-poitiers\.fr" class="input-login" required>
                 <div style="height:20px"></div>
                 <input type="password" name="password" placeholder="mot de passe" class="input-login" required>
                 <div style="height:20px"></div>
-                <input type="password" name="confirm_password" placeholder="confirmer mot de passe" class="input-login"
-                    required>
+                <input type="password" name="confirm_password" placeholder="confirmer mot de passe" class="input-login" required>
                 <div class="trait_register"></div>
                 <div class="button_next-register">
                     <p>Suivant</p>
                     <div style="width:10px"></div>
                     <i class="fi fi-br-arrow-alt-right"></i>
                 </div>
+                <div style="height:15px"></div>
+                <div class="error_message-login"></div>
             </div>
 
             <div class="form_visibility2-register">
@@ -111,13 +111,24 @@ echo head('MMI Companion - Register');
         // Sélectionner l'élément <a> par sa classe
         const lien = document.querySelector('.back_btn');
 
+        // Sélection des inputs de la page
+        const inputPname = document.querySelector('input[name="pname"]');
+        const inputName = document.querySelector('input[name="name"]');
+        const inputMail = document.querySelector('input[name="edu_mail"]');
+        const inputPassword = document.querySelector('input[name="password"]');
+        const inputConfirmPassword = document.querySelector('input[name="confirm_password"]');
+
         // Ajoutez un gestionnaire d'événement au clic sur le bouton suivant
         nextBtn.addEventListener('click', (event) => {
-            event.preventDefault();
-            form1.style.display = 'none';
-            form2.style.display = 'flex';
-            // Changer le lien
-            lien.href = '';
+            if (inputPname.value == '' || inputName.value == '' || inputMail.value == '' || inputPassword.value == '' || inputConfirmPassword.value == '') {
+                document.querySelector('.error_message-login').innerHTML = "Veuillez remplir tous les champs !";
+            } else {
+                event.preventDefault();
+                form1.style.display = 'none';
+                form2.style.display = 'flex';
+                // Changer le lien
+                lien.href = '';
+            }
         });
 
     </script>
