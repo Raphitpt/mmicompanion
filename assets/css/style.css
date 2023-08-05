@@ -266,12 +266,160 @@ main{
 
 
 
+
+
 /* ACCUEIL.PHP */
+
+/* Page de Bienvenue */
 
 .body-accueil{
     background-color: #B9E0FF;
     height: 100vh;
 }
+
+.main-welcome{
+    height: 100vh;
+    margin: 0px 10vw;
+}
+
+.form-welcome{
+    height: 100vh;
+}
+
+.welcome_page1-index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.title_content_welcome_page1-index{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+}
+
+.title_content_welcome_page1-index h1{
+    color: var(--texte, #004A5A);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.title_content_welcome_page1-index img{
+    width: 21px;
+    height: auto;
+}
+
+.title_welcome_page1-index p{
+    color: var(--texte, #004A5A);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.trait_title_welcome-index{
+    width: 50vw;
+    height: 0.5px;
+    background: #004A5A;
+    border-radius: 20px;
+}
+
+.content_welcome_page1-index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.content_welcome_page1-index p{
+    color: var(--texte, #004A5A);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.content_welcome_questions_page1-index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.content_welcome_questions_content_page1-index{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.content_welcome_questions_content_page1-index label{
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.content_welcome_questions_content_page1-index select{
+    width: 100%;
+    height: 42px;
+    border-radius: 19.5px;
+    border: none;
+    outline: none;
+    text-align: center;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 0px 20px;
+}
+
+.trait_content_welcome-index{
+    width: 20vw;
+    height: 0.5px;
+    background: #004A5A;
+    border-radius: 20px;
+}
+
+.button_welcome_page1-index{
+    color: #004A5A;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: center;
+    border: none;
+    width: 120px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #56B8D6;
+}
+
+
+
+/* ------------- */
 
 .main-accueil {
     display: flex;

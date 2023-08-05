@@ -34,34 +34,43 @@ echo head('MMI Companion | Accueil');
 <body class="body-index">
   <?php 
     if ($user_data['edu_group'] == 'indefined') { ?>
-      <main>
-        <div class="content_index">
-          <div class="content_title_index">
-            <h1>Salut <span style="font-weight:800"> <?php echo ucfirst($user['pname']) ?><span></h1>
-            <p>Bienvenue sur MMI Companion</p>
+      <main class="main-welcome">
+        <form action="" method="post" class="form-welcome">
+          <div class="welcome_page1-index">
+              <div class="title_welcome_page1-index">
+                <div class="title_content_welcome_page1-index">
+                  <h1>Bonjour <?php echo $user['pname'] ?></h1>
+                  <img src="./../assets/img/hello_emoji.png" alt="Emoji d'une main qui fait bonjour">
+                </div>
+                <p>Bienvenue sur MMI Companion</p>
+              </div>
+              <div class="trait_title_welcome-index"></div>
+              <div class="content_welcome_page1-index">
+                <p>Pour commencer, nous avons besoin de quelques informations en plus :</p>
+                <div class="content_welcome_questions_page1-index">
+                  <div class="content_welcome_questions_content_page1-index">
+                    <label for="annee">En quelle année rentres-tu ?</label>
+                    <select name="annee" id="annee">
+                      <option value="BUT1">BUT 1</option>
+                      <option value="BUT2">BUT 2</option>
+                      <option value="BUT3">BUT 3</option>
+                    </select>
+                  </div>
+                  <div class="content_welcome_questions_content_page1-index">
+                    <label for="tp">Quel est ton TP ?</label>
+                    <select name="tp" id="tp">
+                      <option value="TP1">TP1</option>
+                      <option value="TP2">TP2</option>
+                      <option value="TP3">TP3</option>
+                      <option value="TP4">TP4</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="trait_content_welcome-index"></div>
+                <button id="button_page1" class="button_welcome_page1-index">Valider</button>
+              </div>
           </div>
-          <div style="height:20px"></div>
-          <div class="content_content_index">
-            <div class="content_content_title_index">
-              <p>Pour commencer, nous avons besoin de savoir en quelle année es-tu ?</p>
-            </div>
-            <div class="content_content_content_index">
-              <form action="" method="post">
-                <select name="group" id="group">
-                  <option value="indefined">Choisis ta classe</option>
-                  <option value="mmi1">MMI 1</option>
-                  <option value="mmi2">MMI 2</option>
-                  <option value="mmi3">MMI 3</option>
-                  <option value="tc1">TC 1</option>
-                  <option value="tc2">TC 2</option>
-                  <option value="tc3">TC 3</option>
-                </select>
-                <input type="submit" name="submit" value="Valider">
-              </form>
-            </div>
-          </div>
-        </div>
-
+        </form>
 
 
       </main>
