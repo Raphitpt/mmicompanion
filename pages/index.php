@@ -8,10 +8,8 @@ if (!isset($_COOKIE['jwt'])) {
 }
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$users = decodeJWT($jwt, $secret_key);
-$cal_link = calendar($users['edu_group']); ?>
-
-<?php echo head('MMI Companion | Accueil');
+$user = decodeJWT($jwt, $secret_key);
+$cal_link = calendar($user['edu_group']);
 
 if (isset($_GET['submit'])) {
   $message = $_GET['message'];
@@ -21,17 +19,58 @@ if (isset($_GET['submit'])) {
   exit();
 }
 
-$pp_original = "SELECT pp_link FROM users WHERE id_user = :id_user";
-$stmt_pp_original = $dbh->prepare($pp_original);
-$stmt_pp_original->execute([
-    'id_user' => $users['id_user']
+$user_data = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_data);
+$stmt->execute([
+    'id_user' => $user['id_user']
 ]);
-$pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
+$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+echo head('MMI Companion | Accueil');
 ?>
 
 
 <body class="body-index">
+  <?php 
+    if ($user_data['edu_group'] == 'indefined') { ?>
+      <main>
+        <div class="content_index">
+          <div class="content_title_index">
+            <h1>Salut <span style="font-weight:800"> <?php echo ucfirst($user['pname']) ?><span></h1>
+            <p>Bienvenue sur MMI Companion</p>
+          </div>
+          <div style="height:20px"></div>
+          <div class="content_content_index">
+            <div class="content_content_title_index">
+              <p>Pour commencer, nous avons besoin de savoir en quelle année es-tu ?</p>
+            </div>
+            <div class="content_content_content_index">
+              <form action="" method="post">
+                <select name="group" id="group">
+                  <option value="indefined">Choisis ta classe</option>
+                  <option value="mmi1">MMI 1</option>
+                  <option value="mmi2">MMI 2</option>
+                  <option value="mmi3">MMI 3</option>
+                  <option value="tc1">TC 1</option>
+                  <option value="tc2">TC 2</option>
+                  <option value="tc3">TC 3</option>
+                </select>
+                <input type="submit" name="submit" value="Valider">
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+      </main>
+    <?php } 
+    
+    else {
+  ?>
+
+
   <header class="header-index">
     <div class="content_header-index">
 
@@ -42,14 +81,14 @@ $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
       <div class="content-header-index">
         <div class="content_title-header-index">
           <h1>Salut <span style="font-weight:800">
-              <?php echo ucfirst($users['pname']) ?><span></h1>
+              <?php echo ucfirst($user['pname']) ?><span></h1>
           <p>en ligne</p>
         </div>
         <div style="width:10px"></div>
         <a href="./profil.php">
           <div class="content_img-header-index">
             <div class="rounded-img">
-            <img src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
+            <img src="<?php echo $user_data['pp_link'] ?>" alt="Photo de profil">
           </div>
             <div class="green_circle"></div>
           </div>
@@ -138,6 +177,8 @@ $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
     </section>
     
   </main>
+
+</body>
 
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
@@ -252,6 +293,7 @@ $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
       calendar.render();
     });
   </script>
-</body>
-
+  <?php 
+    }
+  ?>
 </html>

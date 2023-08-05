@@ -78,7 +78,7 @@ echo head("MMI Companion | Connexion");
         </form>
     </main>
     <script>
-        document.querySelector('form').addEventListener('submit', function (e) {
+        document.querySelector('.form-login').addEventListener('submit', function (e) {
             e.preventDefault();
 
             let username = document.querySelector('#username').value;
