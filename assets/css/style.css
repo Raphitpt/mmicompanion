@@ -16,7 +16,7 @@ body {
     touch-action: manipulation
 }
 
-main{
+main {
     touch-action: manipulation
 }
 
@@ -126,13 +126,15 @@ main{
 .content_img-header-index {
     position: relative;
 }
-.rounded-img{
+
+.rounded-img {
     width: 50px;
     height: 50px;
     position: relative;
     overflow: hidden;
     border-radius: 50%;
 }
+
 .rounded-img img {
     width: 100%;
     height: 100%;
@@ -249,11 +251,11 @@ main{
 }
 
 
-.logout-header i{
+.logout-header i {
     color: #D65656;
 }
 
-.logout-header p{
+.logout-header p {
     color: #D65656;
 }
 
@@ -272,21 +274,23 @@ main{
 
 /* Page de Bienvenue */
 
-.body-accueil{
+.body-accueil {
     background-color: #B9E0FF;
     height: 100vh;
 }
 
-.main-welcome{
+.main-welcome {
     height: 100vh;
     margin: 0px 10vw;
 }
 
-.form-welcome{
+.form-welcome {
     height: 100vh;
 }
 
-.welcome_page1-index{
+/* Page 1 */
+
+.welcome_page1-index {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -295,14 +299,14 @@ main{
     height: 100vh;
 }
 
-.title_content_welcome_page1-index{
+.title_content_welcome_page1-index {
     display: flex;
     align-items: center;
     justify-content: start;
     gap: 5px;
 }
 
-.title_content_welcome_page1-index h1{
+.title_content_welcome_page1-index h1 {
     color: var(--texte, #004A5A);
     text-align: center;
     font-family: Montserrat;
@@ -312,12 +316,12 @@ main{
     line-height: normal;
 }
 
-.title_content_welcome_page1-index img{
+.title_content_welcome_page1-index img {
     width: 21px;
     height: auto;
 }
 
-.title_welcome_page1-index p{
+.title_welcome_page1-index p {
     color: var(--texte, #004A5A);
     text-align: center;
     font-family: Montserrat;
@@ -327,14 +331,14 @@ main{
     line-height: normal;
 }
 
-.trait_title_welcome-index{
+.trait_title_welcome-index {
     width: 50vw;
     height: 0.5px;
     background: #004A5A;
     border-radius: 20px;
 }
 
-.content_welcome_page1-index{
+.content_welcome_page1-index {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -342,7 +346,7 @@ main{
     gap: 20px;
 }
 
-.content_welcome_page1-index p{
+.content_welcome_page1-index p {
     color: var(--texte, #004A5A);
     text-align: center;
     font-family: Montserrat;
@@ -352,7 +356,7 @@ main{
     line-height: normal;
 }
 
-.content_welcome_questions_page1-index{
+.content_welcome_questions_page1-index {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -360,7 +364,7 @@ main{
     gap: 10px;
 }
 
-.content_welcome_questions_content_page1-index{
+.content_welcome_questions_content_page1-index {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -369,7 +373,7 @@ main{
     width: 100%;
 }
 
-.content_welcome_questions_content_page1-index label{
+.content_welcome_questions_content_page1-index label {
     color: var(--texte, #004A5A);
     font-family: Montserrat;
     font-size: 13px;
@@ -378,7 +382,7 @@ main{
     line-height: normal;
 }
 
-.content_welcome_questions_content_page1-index select{
+.content_welcome_questions_content_page1-index select {
     width: 100%;
     height: 42px;
     border-radius: 19.5px;
@@ -394,14 +398,17 @@ main{
     padding: 0px 20px;
 }
 
-.trait_content_welcome-index{
+.trait_content_welcome-index {
     width: 20vw;
     height: 0.5px;
     background: #004A5A;
     border-radius: 20px;
 }
 
-.button_welcome_page1-index{
+.button_welcome-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #004A5A;
     font-family: Montserrat;
     font-size: 12px;
@@ -416,6 +423,116 @@ main{
     border-radius: 20px;
     background: #56B8D6;
 }
+
+/* Page 2 */
+
+.welcome_page2-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.title_welcome_page2-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.title_content_welcome_page2-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.title_content_welcome_page2-index i {
+    width: 22px;
+    height: auto;
+    color: var(--texte, #004A5A);
+}
+
+.title_content_welcome_page2-index h1 {
+    color: var(--texte, #004A5A);
+    text-align: left;
+    font-family: Montserrat;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.title_welcome_page2-index p {
+    position: relative;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-left: 15px;
+}
+
+.title_welcome_page2-index p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #004A5A;
+}
+
+.content_welcome_page2-index{
+    border-radius: 40px;
+    background: var(--bleu-moyen, #56B8D6);
+}
+
+.content_welcome_page2-index ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 40px 50px;
+}
+
+.content_welcome_page2-index ul li {
+    color: #004A5A;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+.welcome_page3-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.title_welcome_page3-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+
+
+
+
+
 
 
 
@@ -563,7 +680,7 @@ main{
     font-size: 12px;
 }
 
-.error_message-login{
+.error_message-login {
     color: #D65656;
     font-family: Montserrat;
     font-size: 12px;
@@ -712,7 +829,7 @@ main{
     padding: 20px;
 }
 
-.fc-toolbar-title{
+.fc-toolbar-title {
     color: #004A5A !important;
     font-weight: 600 !important;
     font-size: 15px !important;
@@ -724,7 +841,7 @@ main{
     max-width: 200px;
 }
 
-.fc-toolbar-chunk{
+.fc-toolbar-chunk {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -763,11 +880,12 @@ main{
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
 }
+
 .no-event {
     background-image: url(path/to/image.jpg);
     background-size: cover;
     /* autres styles personnalisés */
-  }
+}
 
 
 
@@ -828,14 +946,14 @@ main{
     font-weight: 500;
 }
 
-.agenda_content_list_item-agenda{
+.agenda_content_list_item-agenda {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.agenda_content_list_item_flexleft-agenda i{
+.agenda_content_list_item_flexleft-agenda i {
     margin-right: 10px;
     color: #CB0000;
 }
@@ -886,7 +1004,7 @@ input[type="checkbox"]:checked::before {
     }
 }
 
-.agenda_content_subject-agenda{
+.agenda_content_subject-agenda {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -901,7 +1019,7 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
 }
 
-.circle_subject-agenda{
+.circle_subject-agenda {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -909,7 +1027,7 @@ input[type="checkbox"]:checked::before {
     background-color: #464646;
 }
 
-.agenda_content_list_item_flexright-agenda i{
+.agenda_content_list_item_flexright-agenda i {
     color: #CB0000;
 }
 
@@ -925,14 +1043,14 @@ input[type="checkbox"]:checked::before {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 
@@ -965,11 +1083,11 @@ input[type="checkbox"]:checked::before {
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 .label-agenda_add i {
@@ -1080,11 +1198,11 @@ input[type="checkbox"]:checked::before {
     gap: 20px;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     margin-top: 20px;
 }
 
@@ -1126,7 +1244,7 @@ input[type="checkbox"]:checked::before {
 
 /* PROFIL.PHP */
 
-.main-profil{
+.main-profil {
     margin: 0px 10vw;
     display: flex;
     flex-direction: column;
@@ -1134,7 +1252,7 @@ input[type="checkbox"]:checked::before {
     justify-content: center;
 }
 
-.profil_picture-profil{
+.profil_picture-profil {
     margin: 40px;
     width: 100px;
     height: 100px;
@@ -1159,7 +1277,7 @@ input[type="checkbox"]:checked::before {
     cursor: pointer;
 }
 
-.profil_form-profil{
+.profil_form-profil {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1168,7 +1286,7 @@ input[type="checkbox"]:checked::before {
     gap: 20px;
 }
 
-.profil_form-disabled{
+.profil_form-disabled {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1177,7 +1295,7 @@ input[type="checkbox"]:checked::before {
     width: 100%;
 }
 
-.profil_form-input_disabled{
+.profil_form-input_disabled {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -1186,7 +1304,7 @@ input[type="checkbox"]:checked::before {
     width: 100%;
 }
 
-.profil_form-input_disabled label{
+.profil_form-input_disabled label {
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -1195,7 +1313,7 @@ input[type="checkbox"]:checked::before {
     color: #004A5A;
 }
 
-.profil_form-input_disabled input{
+.profil_form-input_disabled input {
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -1210,7 +1328,7 @@ input[type="checkbox"]:checked::before {
     padding: 0px 20px;
 }
 
-.trait-profil{
+.trait-profil {
     width: 50%;
     height: 1px;
     background-color: #004A5A;
@@ -1218,7 +1336,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 20px;
 }
 
-.profil_form-password{
+.profil_form-password {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1227,7 +1345,7 @@ input[type="checkbox"]:checked::before {
     width: 100%;
 }
 
-.profil_form-input_password{
+.profil_form-input_password {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -1236,7 +1354,7 @@ input[type="checkbox"]:checked::before {
     width: 100%;
 }
 
-.profil_form-input_password label{
+.profil_form-input_password label {
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -1245,7 +1363,7 @@ input[type="checkbox"]:checked::before {
     color: #004A5A;
 }
 
-.profil_form-input_password input[type="password"]{
+.profil_form-input_password input[type="password"] {
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -1260,7 +1378,7 @@ input[type="checkbox"]:checked::before {
     padding: 0px 20px;
 }
 
-.profil_form-password input[type="submit"]{
+.profil_form-password input[type="submit"] {
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -1275,7 +1393,7 @@ input[type="checkbox"]:checked::before {
     padding: 0px 20px;
 }
 
-.profil_form-button_logout{
+.profil_form-button_logout {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1291,6 +1409,3 @@ input[type="checkbox"]:checked::before {
     font-weight: 800;
     line-height: normal;
 }
-
-
-  

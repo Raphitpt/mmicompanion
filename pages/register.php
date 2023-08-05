@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $name = strip_tags($_POST['name']);
         $password = strip_tags($_POST['password']);
         $edu_mail = strip_tags($_POST['edu_mail']);
-        $edu_group = "indefined";
+        $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 
         if ($password != $confirm_password) {

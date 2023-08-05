@@ -26,6 +26,19 @@ $stmt->execute([
 ]);
 $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+if (isset($_POST['annee']) && isset($_POST['tp'])) {
+  $annee = $_POST['annee'];
+  $tp = $_POST['tp'];
+  $update_user = "UPDATE users SET edu_group = :edu_group WHERE id_user = :id_user";
+  $stmt = $dbh->prepare($update_user);
+  $stmt->execute([
+      'edu_group' => $annee . "-" . $tp,
+      'id_user' => $user['id_user']
+  ]);
+  header('Location: ./index.php');
+  exit();
+}
+
 
 echo head('MMI Companion | Accueil');
 ?>
@@ -33,10 +46,13 @@ echo head('MMI Companion | Accueil');
 
 <body class="body-index">
   <?php 
-    if ($user_data['edu_group'] == 'indefined') { ?>
+    if ($user_data['edu_group'] == 'undefined' || $user_data['edu_group'] == '') { ?>
       <main class="main-welcome">
         <form action="" method="post" class="form-welcome">
-          <div class="welcome_page1-index">
+          <section class="welcome_page1-index">
+              <a href="./logout.php" class="back_btn">
+                  <i class="fi fi-br-arrow-alt-right"></i>
+              </a>
               <div class="title_welcome_page1-index">
                 <div class="title_content_welcome_page1-index">
                   <h1>Bonjour <?php echo $user['pname'] ?></h1>
@@ -67,13 +83,91 @@ echo head('MMI Companion | Accueil');
                   </div>
                 </div>
                 <div class="trait_content_welcome-index"></div>
-                <button id="button_page1" class="button_welcome_page1-index">Valider</button>
+                <div id="button_page1-validate" class="button_welcome-index">Valider</div>
               </div>
-          </div>
+          </section>
+
+          <section class="welcome_page2-index">
+              <div class="back_btn" id="button_page2-back">
+                  <i class="fi fi-br-arrow-alt-right"></i>
+              </div>
+              <div class="title_welcome_page2-index">
+                <div class="title_content_welcome_page2-index">
+                  <i class="fi fi-br-download"></i>
+                  <h1>Installe MMI Companion</h1>
+                </div>
+                <p>Pour ton information, il est possible d’ajouter MMI Companion sur ta page d’accueil comme une vraie application.</p>
+              </div>
+              <div class="content_welcome_page2-index">
+                <ul>
+                  <li>
+                    <span style="font-weight:700">Étape 1 : </span><br />
+                    Dans votre navigateur web, cliquez sur l’icône avec les 3 petits points.
+                  </li>
+                  <li>
+                    <span style="font-weight:700">Étape 2 : </span><br />
+                    Cliquez sur « Ajouter à l’écran d’accueil » ou « Installer l'application ».
+                  </li>
+                  <li>
+                  <span style="font-weight:700">MMI Companion</span> est maintenant installée sur votre page d'accueil ! Vous pouvez y accéder plus simplement et rapidement.
+                  </li>
+                </ul>
+              </div>
+              <div class="trait_content_welcome-index"></div>
+              <div id="button_page2-validate" class="button_welcome-index">Valider</div>
+          </section>
+
+          <section class="welcome_page3-index">
+              <div class="back_btn" id="button_page3-back">
+                  <i class="fi fi-br-arrow-alt-right"></i>
+              </div>
+              <div class="title_welcome_page2-index">
+                <div class="title_content_welcome_page2-index">
+                  <h1>Bienvenue sur MMI Companion</h1>
+                </div>
+                <p>Je te laisse découvrir l’application et nous restons disponible pour répondre à tes questions à cette adresse mail : <span style="font-weight:700">arnaud.graciet@etu.univ-poitiers.fr</span></p>
+              </div>
+              <div class="trait_content_welcome-index"></div>
+              <input type="submit" id="button_page3-validate" class="button_welcome-index" value="C'est parti !">
+          </section>
         </form>
 
 
       </main>
+
+    </body>
+
+    <script>
+
+      const button_page1_validate = document.querySelector('#button_page1-validate');
+      const button_page2_validate = document.querySelector('#button_page2-validate');
+      const button_page2_back = document.querySelector('#button_page2-back');
+      const button_page3_back = document.querySelector('#button_page3-back');
+      const welcome_page1 = document.querySelector('.welcome_page1-index');
+      const welcome_page2 = document.querySelector('.welcome_page2-index');
+      const welcome_page3 = document.querySelector('.welcome_page3-index');
+
+      button_page1_validate.addEventListener('click', () => {
+        welcome_page1.style.display = 'none';
+        welcome_page2.style.display = 'flex';
+      })
+
+      button_page2_validate.addEventListener('click', () => {
+        welcome_page2.style.display = 'none';
+        welcome_page3.style.display = 'flex';
+      })
+
+      button_page2_back.addEventListener('click', () => {
+        welcome_page1.style.display = 'flex';
+        welcome_page2.style.display = 'none';
+      })
+
+      button_page3_back.addEventListener('click', () => {
+        welcome_page2.style.display = 'flex';
+        welcome_page3.style.display = 'none';
+      })
+
+    </script>
     <?php } 
     
     else {
