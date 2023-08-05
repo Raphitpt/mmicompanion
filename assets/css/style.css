@@ -1393,6 +1393,20 @@ input[type="checkbox"]:checked::before {
     padding: 0px 20px;
 }
 
+.success_password-profil{
+    color: #83d656;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.error_password-profil{
+    color: #D65656;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
 .profil_form-button_logout {
     display: flex;
     align-items: center;

@@ -21,26 +21,8 @@ $stmt_pp_original->execute([
 ]);
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
-if (isset($_POST['password'])) {
-    $password = strip_tags($_POST['password']);
-    $old_password = strip_tags($_POST['old_password']);
-    $confirm_password = strip_tags($_POST['confirm_password']);
-    if ($password != $confirm_password) {
-        echo "Les mots de passe ne correspondent pas!";
-        exit;
-    }
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "UPDATE users SET password = :password WHERE id_user = :id_user AND password = :old_password";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute([
-        'password' => $password,
-        'old_password' => $old_password,
-        'id_user' => $users['id_user']
-    ]);
-    exit;
-}
-
 echo head("MMI Companion - Profil");
+
 ?>
 <body class="body-all">
 
@@ -133,14 +115,33 @@ echo head("MMI Companion - Profil");
 
             <div class="trait-profil"></div>
             
-            <form method="POST" class="profil_form-password">
+            <form method="POST" class="profil_form-password" action="./update_password.php">
                 <div class="profil_form-input_password">
                     <label for="password">Modifier mon mot de passe :</label>
-                    <input type="password" name="password" id="old_password" placeholder="Ancien mot de passe" required>
+                    <input type="password" name="old_password" id="old_password" placeholder="Ancien mot de passe" required>
                     <input type="password" name="password" id="password" placeholder="Nouveau mot de passe" required>
-                    <input type="password" name="password" id="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
+                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
                 </div>
-                <input type="submit" value="Modifier">          
+                <input type="submit" value="Modifier">
+                <!-- On vérifie si le contenu du message est un succès ou une erreur afin d'adapter la couleur du message en CSS -->
+                <?php 
+                if (!empty($_SESSION['success_password'])) {?>
+                    <div class="success_password-profil">
+                        <?php echo $_SESSION['success_password']; 
+                        // On vide la variable de session pour pas laisser le message lors du prochain chargement de page
+                        $_SESSION['success_password']=""; 
+                        ?>
+                    </div>  
+                <?php } ?>
+                <?php if (!empty($_SESSION['error_password'])) {?>
+                    <div class="error_password-profil">
+                        <?php echo $_SESSION['error_password']; 
+                        // On vide la variable de session pour pas laisser le message lors du prochain chargement de page
+                        $_SESSION['error_password']=""; 
+                        ?>
+                    </div>  
+                <?php } ?>
+                      
             </form>
 
             <div class="trait-profil"></div>
