@@ -427,7 +427,7 @@ main {
 /* Page 2 */
 
 .welcome_page2-index {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -509,9 +509,11 @@ main {
     line-height: normal;
 }
 
+/* Page 3 */
+
 
 .welcome_page3-index {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
