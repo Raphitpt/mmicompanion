@@ -105,14 +105,14 @@ echo head('MMI Companion | Accueil');
                 <ul>
                   <li>
                     <span style="font-weight:700">Étape 1 : </span><br />
-                    Dans votre navigateur web, cliquez sur l’icône avec les 3 petits points.
+                    Dans ton navigateur web, clique sur l’icône avec les 3 petits points.
                   </li>
                   <li>
                     <span style="font-weight:700">Étape 2 : </span><br />
-                    Cliquez sur « Ajouter à l’écran d’accueil » ou « Installer l'application ».
+                    Clique sur « Ajouter à l’écran d’accueil » ou « Installer l'application ».
                   </li>
                   <li>
-                  <span style="font-weight:700">MMI Companion</span> est maintenant installée sur votre page d'accueil ! Vous pouvez y accéder plus simplement et rapidement.
+                  <span style="font-weight:700">MMI Companion</span> est maintenant installée sur ta page d'accueil ! Tu peux y accéder plus simplement et rapidement.
                   </li>
                 </ul>
               </div>
