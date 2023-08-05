@@ -26,6 +26,7 @@ $stmt->execute([
 ]);
 $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// On récupère les données du formulaire du tutoriel piur ajouter l'année et le tp de l'utilisateur à la base de données
 if (isset($_POST['annee']) && isset($_POST['tp'])) {
   $annee = $_POST['annee'];
   $tp = $_POST['tp'];
@@ -45,6 +46,8 @@ echo head('MMI Companion | Accueil');
 
 
 <body class="body-index">
+
+  <!-- Mise en place du tutoriel -->
   <?php 
     if ($user_data['edu_group'] == 'undefined' || $user_data['edu_group'] == '') { ?>
       <main class="main-welcome">
