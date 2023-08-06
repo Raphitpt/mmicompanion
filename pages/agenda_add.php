@@ -1,12 +1,22 @@
+<!-- Script pour la gestion d'ajout d'une tache dans l'agenda -->
+
 <?php
 session_start();
 require "../bootstrap.php";
 
+// La on récupère le cookie que l'on à crée à la connection
+// --------------------
 $jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
+$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
 $users = decodeJWT($jwt, $secret_key);
-setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
+setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
+// --------------------
+// Fin de la récupération du cookie
 
+
+// On vérifie si le formulaire est rempli et si oui on ajoute la tache dans la base de donnée
+// On appelle certaines variable du cookie pour les ajouter dans la base de donnée
+// --------------------
 if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date']) && !empty($_POST['school_subject'])) {
     $title = $_POST['title'];
     $date = $_POST['date'];
@@ -25,18 +35,25 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     header('Location: ./agenda.php');
     exit();
 }
+// --------------------
+// Fin de la vérification du formulaire
 
 
+// Petit bout de code pour récupérer les matières dans la base de donnée et les utiliser dans le select du formulaire
+// --------------------
 $sql_subject = "SELECT * FROM sch_subject";
 $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
+// --------------------
+// Fin de la récupération des matières
 
-
+// Obligatoire pour afficher la page
 echo head("MMI Companion - Agenda");
 ?>
 
 <body class="body-all">
+    <!-- Menu de navigation -->
     <header>
         <div class="content_header">
             <div class="content_title-header" id="burger-header">
@@ -106,7 +123,8 @@ echo head("MMI Companion - Agenda");
             </div>
         </div>
     </header>
-
+    <!-- Fin du menu de navigation -->
+    <!-- Corps de la page -->
     <main class="main-agenda">
         <div style="height:30px"></div>
         <div class="title_trait">
@@ -115,7 +133,8 @@ echo head("MMI Companion - Agenda");
         </div>
         <div style="height:25px"></div>
         <div class="agenda-agenda_add">
-            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)">
+            <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
+            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)"> 
 
                 <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre" required>
                 <div class="trait_agenda_add"></div>
@@ -127,6 +146,7 @@ echo head("MMI Companion - Agenda");
                 <input type="date" name="date" class="input_date-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" required>
 
                 <div style="height:15px"></div>
+                <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
                     <label for="type" class="label-agenda_add">
                     <h2>Type de tâche</h2>
