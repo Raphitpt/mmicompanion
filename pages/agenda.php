@@ -39,10 +39,10 @@ $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
-echo head("Agenda");
+echo head("MMI Companion - Agenda");
 ?>
 
-<body class="body-agenda">
+<body class="body-all">
 
     <header>
         <div class="content_header">
@@ -105,8 +105,8 @@ echo head("Agenda");
                 </a>
                 <div class="burger_content_trait_header"></div>
                 <a href="./logout.php">
-                    <div class="burger_content_link-header logout">
-                        <i class="fi fi-br-delete-user logout"></i>
+                    <div class="burger_content_link-header logout-header">
+                        <i class="fi fi-br-delete-user"></i>
                         <p>Se déconnecter</p>
                     </div>
                 </a>
@@ -145,8 +145,8 @@ echo head("Agenda");
             " Mardi ",
             " Mercredi ",
             " Jeudi ",
-            " vendredi ",
-            " samedi "
+            " Vendredi ",
+            " Samedi "
         );
         $mois = array(
             1 => " janvier ",
@@ -221,6 +221,14 @@ echo head("Agenda");
         <div style="height:25px"></div>
         <div class="agenda_content-agenda">
             <?php
+
+            // Si il n'y a pas d'évènements dans l'agenda, afficher un message
+            if (empty($agendaByDate)) {
+                echo "<div class='agenda_content_list-agenda'>";
+                echo "<h2>Aucune tâche de prévu</h2>";
+                echo "</div>";
+            }
+
             // Parcours les éléments par date et les affiche
             foreach ($agendaByDate as $date => $agendas) {
                 echo "<div class='agenda_content_list-agenda'>";

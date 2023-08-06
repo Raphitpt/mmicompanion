@@ -64,7 +64,7 @@ echo head("MMI Companion | Connexion");
         <h1 class="title-login">SE CONNECTER</h1>
         <div style="height:30px"></div>
         <form method="POST" class="form-login">
-            <input type="text" name="username" placeholder="email ou pseudo" id="username" class="input-login" required>
+            <input type="text" name="username" placeholder="prénom ou email" id="username" class="input-login" required>
             <div style="height:20px"></div>
             <input type="password" name="password" placeholder="mot de passe" id="password" class="input-login"
                 required>
@@ -73,14 +73,16 @@ echo head("MMI Companion | Connexion");
             </div>
             <div style="height:30px"></div>
             <input type="submit" value="Se connecter" class="button_register">
+            <div style="height:15px"></div>
+            <div class="error_message-login"></div>
         </form>
     </main>
     <script>
-        document.querySelector('form').addEventListener('submit', function (e) {
+        document.querySelector('.form-login').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            let username = document.getElementById('username').value;
-            let password = document.getElementById('password').value;
+            let username = document.querySelector('#username').value;
+            let password = document.querySelector('#password').value;
 
             // Effectuez une requête AJAX vers le script "login.php" pour obtenir le JWT
             // Assurez-vous d'ajuster l'URL et les paramètres de la requête AJAX selon votre configuration
@@ -96,8 +98,10 @@ echo head("MMI Companion | Connexion");
                 },
                 success: function (response) {
                     if (response.error) {
-                        // Afficher le message d'erreur dans le formulaire
+                        // Afficher le message d'erreur dans la console
                         console.log(response.error);
+                        // Afficher le message d'erreur dans la page
+                        document.querySelector('.error_message-login').innerHTML = response.error;
                     } else {
                         // Stockage du JWT dans le localStorage
                         localStorage.setItem('jwt', response.jwt);

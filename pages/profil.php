@@ -21,28 +21,10 @@ $stmt_pp_original->execute([
 ]);
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
-if (isset($_POST['password'])) {
-    $password = strip_tags($_POST['password']);
-    $old_password = strip_tags($_POST['old_password']);
-    $confirm_password = strip_tags($_POST['confirm_password']);
-    if ($password != $confirm_password) {
-        echo "Les mots de passe ne correspondent pas!";
-        exit;
-    }
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $sql = "UPDATE users SET password = :password WHERE id_user = :id_user AND password = :old_password";
-    $stmt = $dbh->prepare($sql);
-    $stmt->execute([
-        'password' => $password,
-        'old_password' => $old_password,
-        'id_user' => $users['id_user']
-    ]);
-    exit;
-}
+echo head("MMI Companion - Profil");
 
-echo head("Profil");
 ?>
-<body class="body-agenda">
+<body class="body-all">
 
     <header>
         <div class="content_header">
@@ -105,41 +87,76 @@ echo head("Profil");
                 </a>
                 <div class="burger_content_trait_header"></div>
                 <a href="./logout.php">
-                    <div class="burger_content_link-header logout">
-                        <i class="fi fi-br-delete-user logout"></i>
+                    <div class="burger_content_link-header logout-header">
+                        <i class="fi fi-br-delete-user"></i>
                         <p>Se déconnecter</p>
                     </div>
                 </a>
             </div>
         </div>
     </header>
+    
     <main class="main-profil">
-        <div class="profile-picture-wrapper">
-            <img id="preview" class="profile-picture" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
-            <input id="profile-picture-input" class="profile-picture-input" type="file" name="profile-picture">
+        <div class="profil_picture-profil">
+            <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
+            <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
+        </div>
+        <div class="profil_form-profil">
+            <div class="profil_form-disabled">
+                <div class="profil_form-input_disabled">
+                    <label for="name">Prénom</label>
+                    <input type="text" name="name" id="name" value="<?php echo ucfirst($users['pname']) ?>" disabled>
+                </div>
+                <div class="profil_form-input_disabled">
+                    <label for="mail">Email</label>
+                    <input type="text" name="mail" id="mail" value="<?php echo $users['edu_mail'] ?>" disabled>
+                </div>
+            </div>
+
+            <div class="trait-profil"></div>
             
-        </div>
-        <p class="score">Score : <?php echo $pp_original['score'];?></p>
-        <div class="profile_form">
-            <label for="name">Prénom</label>
-            <input type="text" name="name" id="name" value="<?php echo ucfirst($users['pname']) ?>" disabled>
-            <label for="mail">Email</label>
-            <input type="text" name="mail" id="mail" value="<?php echo $users['edu_mail'] ?>" disabled>
-            <form method="POST">
-            <label for="password">Mot de passe</label>
-            <input type="password" name="password" id="old_password" placeholder="Ancien mot de passe" required>
-            <input type="password" name="password" id="password" placeholder="Nouveau mot de passe" required>
-            <input type="password" name="password" id="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
-            <input type="submit" value="Modifier le mot de passe">
+            <form method="POST" class="profil_form-password" action="./update_password.php">
+                <div class="profil_form-input_password">
+                    <label for="password">Modifier mon mot de passe :</label>
+                    <input type="password" name="old_password" id="old_password" placeholder="Ancien mot de passe" required>
+                    <input type="password" name="password" id="password" placeholder="Nouveau mot de passe" required>
+                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
+                </div>
+                <input type="submit" value="Modifier">
+                <!-- On vérifie si le contenu du message est un succès ou une erreur afin d'adapter la couleur du message en CSS -->
+                <?php 
+                if (!empty($_SESSION['success_password'])) {?>
+                    <div class="success_password-profil">
+                        <?php echo $_SESSION['success_password']; 
+                        // On vide la variable de session pour pas laisser le message lors du prochain chargement de page
+                        $_SESSION['success_password']=""; 
+                        ?>
+                    </div>  
+                <?php } ?>
+                <?php if (!empty($_SESSION['error_password'])) {?>
+                    <div class="error_password-profil">
+                        <?php echo $_SESSION['error_password']; 
+                        // On vide la variable de session pour pas laisser le message lors du prochain chargement de page
+                        $_SESSION['error_password']=""; 
+                        ?>
+                    </div>  
+                <?php } ?>
+                      
             </form>
-            <a role="button" href="./logout.php" class="button_logout">Se déconnecter</a>
+
+            <div class="trait-profil"></div>
+
+            <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
         </div>
+        <div style="height:30px"></div>
     </main>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
+        
     document.addEventListener('DOMContentLoaded', () => {
-      let input = document.getElementById('profile-picture-input');
+      let input = document.querySelector('#profil_picture-input');
 
       input.addEventListener('change', (event) => {
         let file = event.target.files[0];
@@ -150,18 +167,18 @@ echo head("Profil");
           maxHeight: 400, // Définissez la hauteur maximale souhaitée ici
           success(result) {
             let formData = new FormData();
-            formData.append('profile-picture', result, result.name);
+            formData.append('profil-picture', result, result.name);
 
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', 'update-profile-picture.php', true);
+            xhr.open('POST', 'update-profil-picture.php', true);
 
             xhr.onload = () => {
               if (xhr.status === 200) {
                 // Le téléchargement a réussi, mettez à jour l'image de profil si nécessaire
                 let response = JSON.parse(xhr.responseText);
                 if (response.success) {
-                  let preview = document.getElementById('preview');
-                  preview.src = response.profilePictureUrl;
+                  let preview = document.querySelector('#preview');
+                  preview.src = response.profilPictureUrl;
                 }
               } else {
                 // Une erreur s'est produite lors du téléchargement

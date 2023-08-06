@@ -33,10 +33,10 @@ $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
 
-echo head("Ajouter une tache");
+echo head("MMI Companion - Agenda");
 ?>
 
-<body class="body-agenda">
+<body class="body-all">
     <header>
         <div class="content_header">
             <div class="content_title-header" id="burger-header">
@@ -98,8 +98,8 @@ echo head("Ajouter une tache");
                 </a>
                 <div class="burger_content_trait_header"></div>
                 <a href="./logout.php">
-                    <div class="burger_content_link-header logout">
-                        <i class="fi fi-br-delete-user logout"></i>
+                    <div class="burger_content_link-header logout-header">
+                        <i class="fi fi-br-delete-user"></i>
                         <p>Se déconnecter</p>
                     </div>
                 </a>
