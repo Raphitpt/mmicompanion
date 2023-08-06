@@ -14,7 +14,7 @@ $users = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
 
 
-$pp_original = "SELECT pp_link FROM users WHERE id_user = :id_user";
+$pp_original = "SELECT pp_link, score FROM users WHERE id_user = :id_user";
 $stmt_pp_original = $dbh->prepare($pp_original);
 $stmt_pp_original->execute([
     'id_user' => $users['id_user']
@@ -117,7 +117,9 @@ echo head("Profil");
         <div class="profile-picture-wrapper">
             <img id="preview" class="profile-picture" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
             <input id="profile-picture-input" class="profile-picture-input" type="file" name="profile-picture">
+            
         </div>
+        <p class="score">Score : <?php echo $pp_original['score'];?></p>
         <div class="profile_form">
             <label for="name">Prénom</label>
             <input type="text" name="name" id="name" value="<?php echo ucfirst($users['pname']) ?>" disabled>

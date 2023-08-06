@@ -237,7 +237,7 @@ echo head("Agenda");
                         if ($agenda['checked'] == 1) {
                             echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
                         } else {
-                            echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "''>";
+                            echo "<input type='checkbox' name='checkbox' class='checkbox' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
                         }
                     }
 

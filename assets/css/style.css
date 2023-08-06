@@ -249,6 +249,12 @@ main{
     color: #D65656 !important;
 }
 
+.score{
+    color: #004A5A !important;
+    margin-top: -3vh;
+    font-weight: 800;
+}
+
 
 
 

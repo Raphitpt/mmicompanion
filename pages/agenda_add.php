@@ -115,16 +115,16 @@ echo head("Ajouter une tache");
         </div>
         <div style="height:25px"></div>
         <div class="agenda-agenda_add">
-            <form class="form-agenda_add" method="POST" action="">
+            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)">
 
-                <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre">
+                <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre" required>
                 <div class="trait_agenda_add"></div>
 
                 <label for="date" class="label-agenda_add">
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <input type="date" name="date" class="input_date-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd">
+                <input type="date" name="date" class="input_date-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" required>
 
                 <div style="height:15px"></div>
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
@@ -132,7 +132,7 @@ echo head("Ajouter une tache");
                     <h2>Type de tâche</h2>
                 </label>
                 <div style="height:5px"></div>
-                    <select name="type" class="input_select-agenda_add input_type-agenda_add">
+                    <select name="type" class="input_select-agenda_add input_type-agenda_add" required>
                         <option value="eval">Évaluation</option>
                         <option value="devoir">Devoir à rendre</option>
                         <option value="autre">Autre</option>
@@ -148,7 +148,7 @@ echo head("Ajouter une tache");
                     <h2>Ajouter une matière</h2>
                 </label>
                 <div style="height:5px"></div>
-                <select name="school_subject" class="input_select-agenda_add input_school-agenda_add">
+                <select name="school_subject" class="input_select-agenda_add input_school-agenda_add" required>
                     <?php
                     foreach ($subject as $subjects) {
                         echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
