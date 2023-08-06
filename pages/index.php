@@ -1,24 +1,27 @@
+<!-- Fichier index.php qui gère tout, ne pas cassez SVP 😂 -->
 <?php
 session_start();
 require '../bootstrap.php';
 
+// si le cookie n'existe pas, on redirige vers la page d'accueil
 if (!isset($_COOKIE['jwt'])) {
   header('Location: ./accueil.php');
   exit;
 }
+
+// La on récupère le cookie que l'on à crée à la connection, voir login.php et fonction.php
+// --------------------
 $jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$user = decodeJWT($jwt, $secret_key);
+$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
+$users = decodeJWT($jwt, $secret_key);
+setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
+// --------------------
+// Fin de la récupération du cookie
+
+// On récupère les données de l'utilisateur pour l'EDT
 $cal_link = calendar($user['edu_group']);
 
-if (isset($_GET['submit'])) {
-  $message = $_GET['message'];
-  $title = $_GET['title'];
-  $group = "";
-  sendNotification($message, $title, $group);
-  exit();
-}
-
+// Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
 $user_data = "SELECT * FROM users WHERE id_user = :id_user";
 $stmt = $dbh->prepare($user_data);
 $stmt->execute([
@@ -26,7 +29,7 @@ $stmt->execute([
 ]);
 $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// On récupère les données du formulaire du tutoriel piur ajouter l'année et le tp de l'utilisateur à la base de données
+// On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
 if (isset($_POST['annee']) && isset($_POST['tp'])) {
   $annee = $_POST['annee'];
   $tp = $_POST['tp'];
@@ -292,37 +295,11 @@ echo head('MMI Companion | Accueil');
   <script src="../assets/js/menu-navigation.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
-    let jwt = localStorage.getItem('jwt');
-
-    if (!jwt) {
-      // Rediriger vers la page de connexion si le JWT est manquant
-      window.location.href = './login.php';
-    } else {
-
-
-      // Exemple d'utilisation de la bibliothèque jQuery pour la requête AJAX
-      $.ajax({
-        url: '../assets/php/validate_token.php',
-        method: 'POST',
-        data: {
-          jwt: jwt
-        },
-        success: function(response) {
-          // Le JWT est valide, vous pouvez permettre l'accès à la page
-        },
-        error: function() {
-          // Le JWT est invalide ou a expiré, rediriger vers la page de connexion
-          window.location.href = './login.php';
-        }
-      });
-    }
-
-
-
     document.addEventListener("DOMContentLoaded", function() {
+      // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics');
       let calendarEl = document.getElementById("calendar");
-      var eventColors = {};
+      let eventColors = {};
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
         buttonText: {

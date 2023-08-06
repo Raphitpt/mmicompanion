@@ -2,26 +2,29 @@
 session_start();
 require '../bootstrap.php';
 
+// On initialise la bibliothèque Firebase JWT pour PHP avec Composer et on y ajoute la clé secrète qui est dans le fichier .env (ne pas push le fichier .env sur GitHub)
 use Firebase\JWT\JWT;
-
 $secret_key = $_ENV['SECRET_KEY'];
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
+    // On vérifie si les champs sont remplis
     if (!empty($_POST['username']) && !empty($_POST['password'])) {
+        // On récupère les données du formulaire et on les compare avec la base de donnée
         $login = $_POST['username'];
         $password = $_POST['password'];
-
         $sql = "SELECT * FROM users WHERE pname = :login OR edu_mail = :login";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             'login' => $login,
         ]);
-
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Si le mot de passe est bon on crée le JWT et on le renvoie au client, par mesure de sécurité on ne renvoie pas le mot de passe dans le cookie
+        // On utilise la fonction password_verify() pour comparer le mot de passe en clair avec le mot de passe hashé, le MD5 est déconseillé
         if ($user && password_verify($password, $user['password'])) {
             unset($user['password']);
 
+            // Si on veut ajouter un champs dans le cookie il faut l'ajouter dans le tableau ci-dessous puis dans le fichier function.php
             $payload = [
                 'id_user' => $user['id_user'],
                 'pname' => $user['pname'],
@@ -30,13 +33,17 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 'edu_mail' => $user['edu_mail'],
                 'role' => $user['role'],
             ];
-
+            // La on encode le JWT avec la clé secrète qui est dans le fichier .env, ne pas toucher
             $jwt = JWT::encode($payload, $secret_key, 'HS256');
 
             // Envoi du JWT au client sous forme de réponse JSON
+            // Le cookie s'appelle jwt mais il peut se nommer différemment
             $response = array('jwt' => $jwt);
             header('Content-Type: application/json');
+            // le cookie est valable 30 jours mais il peut être valable plus ou moins longtemps
+            // Pour plus d'info, voir le detail de la fonction setcookie() sur le site de PHP
             setcookie('jwt', $jwt, time() + (86400 * 30), "/", "", false, true);
+            // On renvoie la réponse au client
             echo json_encode($response);
             exit();
         } else {

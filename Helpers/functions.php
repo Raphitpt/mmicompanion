@@ -139,14 +139,20 @@ function calendar($group = '')
     }
     return $calendar_link;
 }
+// on initialise la bibliothèque Firebase JWT pour PHP avec Composer et on y ajoute la clé secrète qui est dans le fichier .env
 use \Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+
+// La c'est la fonction qui décode le JWT, oui le cookie est encodé pour plus de sécurité,
+// Il faut que le tableau ci-dessous soit identique à celui du fichier login.php, sinon on perd des données
+// Si on ajoute un champs dans le cookie il faut l'ajouter dans le tableau ci-dessous puis dans le fichier login.php
+// La clé secrète est dans le fichier .env, ne pas toucher
 function decodeJWT($jwt, $secret_key)
 {
 
     try {
         // Décoder le JWT avec la clé secrète
-
+        
         $decoded = JWT::decode($jwt, new Key($secret_key, 'HS256'));
 
         // Accéder aux valeurs du payload du JWT

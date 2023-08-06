@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         if (!empty($user)) {
             $error_message = "L'utilisateur existe déjà.";
         } else{
+            // On hash le mot de passe pour plus de sécurité, le MD5 est déconseillé, on laisse l'agorithme par défaut, ça évite les failles de sécurité
             $hash_password = password_hash($password, PASSWORD_DEFAULT);
 
             $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group) VALUES (:pname, :name, :pass, :edu_mail, :edu_group)";
@@ -82,27 +83,6 @@ echo head('MMI Companion - Register');
                 <div style="height:15px"></div>
                 <div class="error_message-login"><?php echo $error_message ?></div>
             </div>
-
-            <!-- <div class="form_visibility2-register">
-                <div class="label_edu-register">
-                    <label for="edu_group">Choisissez votre classe :</label>
-                </div>
-                <div style="height:10px"></div>
-                <select name="edu_group1" class="input-login">
-                    <option value="BUT1">BUT1</option>
-                    <option value="BUT2">BUT2</option>
-                    <option value="BUT3">BUT3</option>
-                </select>
-                <div style="height:20px"></div>
-                <select name="edu_group2" class="input-login">
-                    <option value="TP1">TP1</option>
-                    <option value="TP2">TP2</option>
-                    <option value="TP3">TP3</option>
-                    <option value="TP4">TP4</option>
-                </select>
-                <div style="height:30px"></div>
-                <input type="submit" value="Créer mon compte" class="button_register">
-            </div> -->
         </form>
     </main>
 

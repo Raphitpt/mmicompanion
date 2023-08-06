@@ -13,7 +13,7 @@ $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
 $users = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
 
-
+// Recupération du lien de la photo de profil en base de donnée, en local ça ne fonctionnera pas, il faut quel soit en ligne, sauf si l'ajout de la photo et en local
 $pp_original = "SELECT pp_link, score FROM users WHERE id_user = :id_user";
 $stmt_pp_original = $dbh->prepare($pp_original);
 $stmt_pp_original->execute([
@@ -160,7 +160,7 @@ echo head("MMI Companion - Profil");
 
       input.addEventListener('change', (event) => {
         let file = event.target.files[0];
-        
+        // On compresse la photo en js en utilisant la bibliothèque CompressorJS, parce que bon, on a pas la fibre non plus
         new Compressor(file, {
           quality: 0.6, // Réglez la qualité souhaitée ici (0.1 - 1)
           maxWidth: 400, // Définissez la largeur maximale souhaitée ici

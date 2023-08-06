@@ -18,37 +18,83 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 // --------------------
 // Fin de la récupération du cookie
 
-// if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date']) && !empty($_POST['school_subject'])) {
-//     $title = $_POST['title'];
-//     $date = $_POST['date'];
-//     $school_subject = $_POST['school_subject'];
-//     $eval = $_POST['eval'];
-//     $devoir_rendre = $_POST['devoir_rendre'];
-//     $sql = "INSERT INTO agenda (title, date_finish, eval, devoir_rendre, id_user, id_subject) VALUES (:title, :date, :eval, :devoir_rendre, :id_user, :id_subject)";
-//     $stmt = $dbh->prepare($sql);
-//     $stmt->execute([
-//         'title' => $title,
-//         'date' => $date,
-//         'id_user' => $users['id_user'],
-//         'eval' => $eval,
-//         'devoir_rendre' => $devoir_rendre,
-//         'id_subject' => $school_subject
-//     ]);
-//     header('Location: ./agenda.php');
-//     exit();
-// }
+// Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
+// --------------------
+$sql_agenda = "SELECT a.*, s.*
+        FROM agenda a 
+        JOIN sch_subject s ON a.id_subject = s.id_subject 
+        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir'
+        ORDER BY a.date_finish ASC, a.title ASC";
+
+$stmt_agenda = $dbh->prepare($sql_agenda);
+$stmt_agenda->execute([
+    'id_user' => $users['id_user']
+]);
+$agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+// --------------------
+// Fin de la récupération des taches
+
+// Requetes pour récupérer les évaluations de son TP
+// --------------------
+$sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC, a.title ASC";
+$stmt_eval = $dbh->prepare($sql_eval);
+$stmt_eval->execute([
+    'edu_group' => $users['edu_group']
+]);
+$eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
+// --------------------
+// Fin de la récupération des évaluations
+
+// Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
+$agenda = array_merge($agenda_user, $eval);
+$eval_cont = count($eval);
+$agenda_cont = count($agenda);
 
 
-// $sql_subject = "SELECT * FROM sch_subject";
-// $stmt_subject = $dbh->prepare($sql_subject);
-// $stmt_subject->execute();
-// $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
+// Tableaux pour traduire les dates en français
+// --------------------
+$semaine = array(
+    " Dimanche ",
+    " Lundi ",
+    " Mardi ",
+    " Mercredi ",
+    " Jeudi ",
+    " Vendredi ",
+    " Samedi "
+);
+$mois = array(
+    1 => " janvier ",
+    " février ",
+    " mars ",
+    " avril ",
+    " mai ",
+    " juin ",
+    " juillet ",
+    " août ",
+    " septembre ",
+    " octobre ",
+    " novembre ",
+    " décembre "
+);
+// --------------------
+// Fin des tableaux pour traduire les dates en français
 
+// Tableau pour regrouper les éléments par date
+$agendaByDate = [];
+$tachesNonTermineesRestantes = 0 - $eval_cont;
+
+foreach ($agenda as $agendas) {
+    if ($agendas['checked'] != 1) {
+        $tachesNonTermineesRestantes++;
+    }
+}
+
+// Obligatoire pour afficher la page
 echo head("MMI Companion - Agenda");
 ?>
 
 <body class="body-all">
-
+    <!-- Menu de navigation -->
     <header>
         <div class="content_header">
             <div class="content_title-header">
@@ -119,63 +165,8 @@ echo head("MMI Companion - Agenda");
         </div>
     </header>
 
+    <!-- Corps de la page -->
     <main class="main-agenda">
-        <?php
-
-        $sql_agenda = "SELECT a.*, s.*
-        FROM agenda a 
-        JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir'
-        ORDER BY a.date_finish ASC, a.title ASC";
-
-        $stmt_agenda = $dbh->prepare($sql_agenda);
-        $stmt_agenda->execute([
-            'id_user' => $users['id_user']
-        ]);
-        $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-        // Recupére les évaluations
-        $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC, a.title ASC";
-        $stmt_eval = $dbh->prepare($sql_eval);
-        $stmt_eval->execute([
-            'edu_group' => $users['edu_group']
-        ]);
-        $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
-        $agenda = array_merge($agenda_user, $eval);
-        $eval_cont = count($eval);
-        $agenda_cont = count($agenda);
-
-        $semaine = array(
-            " Dimanche ",
-            " Lundi ",
-            " Mardi ",
-            " Mercredi ",
-            " Jeudi ",
-            " Vendredi ",
-            " Samedi "
-        );
-        $mois = array(
-            1 => " janvier ",
-            " février ",
-            " mars ",
-            " avril ",
-            " mai ",
-            " juin ",
-            " juillet ",
-            " août ",
-            " septembre ",
-            " octobre ",
-            " novembre ",
-            " décembre "
-        );
-        $agendaByDate = []; // Tableau pour regrouper les éléments par date
-        $tachesNonTermineesRestantes = 0 - $eval_cont;
-
-        foreach ($agenda as $agendas) {
-            if ($agendas['checked'] != 1) {
-                $tachesNonTermineesRestantes++;
-            }
-        }
-        ?>
         <div style="height:30px"></div>
         <div class="agenda_title-agenda">
             <div class="agenda_title_flextop-agenda">
@@ -191,8 +182,11 @@ echo head("MMI Companion - Agenda");
             <div style="height:15px"></div>
             <div class="agenda_title_flexbottom-agenda">
                 <?php
+                // Systeme de compteur de taches non terminées ou terminées
+                // On compte le nombre d'occurences de taches non terminées
+                // Cette variable est aussi utile pour savoir si la tache est checked ou pas
+                // Ca incrémente la valeur si on coche ou pas en js
                 $tachesNonTerminees = 0;
-
                 if ($tachesNonTermineesRestantes == 0) {
                     echo "<p id='compteTaches'>Aucune tache à faire</p>";
                 } else if ($tachesNonTermineesRestantes == 1) {
@@ -209,11 +203,13 @@ echo head("MMI Companion - Agenda");
                     echo "<p>" . $eval_cont . " évaluations prévues</p>";
                 }
 
+                // Gère l'affichage des taches en affichant la date en français qui correspond à la date finale de la tache
+                // Elle ajoute la date en français au tableau $agendaByDate qui repertorie toute les taches
                 foreach ($agenda as $agendas) {
                     $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
                     $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
                     $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
-                
+
                     // Ajoute l'élément à l'array correspondant à la date
                     if (!isset($agendaByDate[$formattedDateFr])) {
                         $agendaByDate[$formattedDateFr] = [];
@@ -270,9 +266,6 @@ echo head("MMI Companion - Agenda");
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
                     echo "<i class='fi fi-br-trash'></i>";
                     echo "</div>";
-                    // echo "<div class='agenda_content_list_item_flexbottom-agenda'>";
-                    // echo "<p>" . $agenda['subject_name'] . "</p>";
-                    // echo "</div>";
                     echo "</div>";
                     echo "<div style='height:10px'></div>";
                 }
@@ -283,12 +276,13 @@ echo head("MMI Companion - Agenda");
     <div style="height:20px"></div>
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
+        // Fonction pour mettre à jour le compteur de tâches
         function updateCompteurTaches() {
             const checkboxes = document.querySelectorAll(".checkbox");
             let compteur = <?php echo $tachesNonTermineesRestantes; ?>; // Valeur initiale du compteur
 
-            checkboxes.forEach(function (checkbox) {
-                checkbox.addEventListener("change", function () {
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener("change", function() {
                     if (this.checked) {
                         compteur--; // Décrémenter le compteur si la tâche est cochée
                     } else {
@@ -305,11 +299,14 @@ echo head("MMI Companion - Agenda");
                 });
             });
         }
-        window.addEventListener("DOMContentLoaded", function () {
+
+        window.addEventListener("DOMContentLoaded", function() {
+            // On appel la fonction
             updateCompteurTaches();
             let checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach(function (checkbox) {
-                checkbox.addEventListener("change", function () {
+            checkboxes.forEach(function(checkbox) {
+                // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
+                checkbox.addEventListener("change", function() {
 
                     let idAgenda = this.getAttribute("data-idAgenda");
                     let checkedValue = this.checked ? 1 : 0;
@@ -317,7 +314,7 @@ echo head("MMI Companion - Agenda");
                     let xhr = new XMLHttpRequest();
                     xhr.open("POST", "./coche_agenda.php", true);
                     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function () {
+                    xhr.onreadystatechange = function() {
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             console.log(xhr.responseText);
                         }
@@ -341,16 +338,15 @@ echo head("MMI Companion - Agenda");
             }
         }
 
-        window.addEventListener("DOMContentLoaded", function () {
+        window.addEventListener("DOMContentLoaded", function() {
             let checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach(function (checkbox) {
+            checkboxes.forEach(function(checkbox) {
                 checkbox.addEventListener("change", handleCheckboxChange);
 
                 // Vérification initiale de l'état de la case à cocher
                 handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
             });
         });
-
     </script>
 </body>
 
