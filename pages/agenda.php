@@ -23,7 +23,7 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 $sql_agenda = "SELECT a.*, s.*
         FROM agenda a 
         JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir'
+        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir' AND a.date_finish >= CURDATE()
         ORDER BY a.date_finish ASC, a.title ASC";
 
 $stmt_agenda = $dbh->prepare($sql_agenda);
@@ -36,7 +36,7 @@ $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
 // Requetes pour récupérer les évaluations de son TP
 // --------------------
-$sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' ORDER BY a.date_finish ASC, a.title ASC";
+$sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
     'edu_group' => $users['edu_group']
@@ -264,7 +264,12 @@ echo head("MMI Companion - Agenda");
                     echo "</div>";
                     echo "</div>";
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
-                    echo "<i class='fi fi-br-trash'></i>";
+                    if($agenda['type'] == "eval" && $users['role'] = "etudiant"){
+                        echo "<a href='agenda_del.php/?id_user=".$users['id_user']."&'><i class='fi fi-br-trash' hidden></i></a>";
+                    } else {
+                        echo "<i class='fi fi-br-trash'></i>";
+                    }
+
                     echo "</div>";
                     echo "</div>";
                     echo "<div style='height:10px'></div>";
