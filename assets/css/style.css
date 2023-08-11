@@ -285,6 +285,330 @@ main {
     height: 100vh;
 }
 
+
+.main-accueil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.illustration-accueil {
+    display: flex;
+    justify-content: center;
+}
+
+.illustration-accueil img {
+    width: 80%;
+}
+
+.title-accueil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title-accueil h1 {
+    font-size: 26px;
+    font-weight: 900;
+    color: #004A5A;
+    font-family: Montserrat;
+}
+
+.title-accueil p {
+    text-align: center;
+    font-weight: 500;
+    color: #004A5A;
+    font-size: 10px;
+    padding: 0px 5px;
+    font-family: Montserrat;
+}
+
+
+.button-accueil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.button_register {
+    background-color: #56B8D6;
+    color: #004A5A;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 60px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: Montserrat;
+    text-decoration: none;
+}
+
+.button_login {
+    font-weight: 700;
+    font-size: 11px;
+    font-family: Montserrat;
+    text-decoration: underline;
+    color: #004A5A;
+}
+
+
+
+
+
+
+/* LOGIN.PHP */
+
+.body-login {
+    background-color: #B9E0FF;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    height: 100vh;
+}
+
+.main-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.back_btn {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 30px;
+    transform: rotate(180deg);
+    color: var(--texte, #004A5A);
+    font-size: 20px;
+}
+
+
+.title-login {
+    color: #004A5A;
+    font-weight: 900;
+    font-size: 19px;
+    font-family: Montserrat;
+}
+
+
+.form-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 70%;
+}
+
+.input-login {
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 25px;
+    padding: 15px 30px;
+    width: 100%;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.input-login::placeholder {
+    color: #858585;
+}
+
+.button_forget-login {
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+.button_forget-login a {
+    display: flex;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+}
+
+.error_message-login {
+    color: #D65656;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
+
+
+/* REGISTER.PHP */
+
+.form-register {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_visibility2-register {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_next-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_next-register p {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.button_next-register i {
+    color: var(--texte, #004A5A);
+    font-size: 15px;
+    transform: translateY(3px);
+}
+
+
+.label_edu-register {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+}
+
+.label_edu-register label {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.trait_register {
+    width: 20%;
+    height: 1px;
+    border-radius: 15px;
+    background-color: #004A5A;
+    margin: 30px 0;
+}
+
+
+
+.button_before-register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_before-register p {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.button_before-register i {
+    color: var(--texte, #004A5A);
+    font-size: 12px;
+    transform: translateY(-3px);
+    transform: rotate(180deg);
+}
+
+
+
+
+/* MAIL.PHP */
+
+
+.body-mail {
+    background-color: #B9E0FF;
+    height: 100vh;
+}
+
+
+.main-mail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.illustration-mail {
+    display: flex;
+    justify-content: center;
+}
+
+.illustration-mail img {
+    width: 80%;
+}
+
+.title-mail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.title-mail h1 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #004A5A;
+    font-family: Montserrat;
+}
+
+.title-mail p {
+    text-align: center;
+    font-weight: 500;
+    color: #004A5A;
+    font-size: 11px;
+    padding: 0px 5px;
+    font-family: Montserrat;
+    width: 70%;
+}
+
+.trait-mail {
+    width: 15%;
+    height: 1px;
+    border-radius: 15px;
+    background-color: #004A5A;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------- */
+
+
+
+/* INDEX.PHP */
+
+/* Tutoriel - Page de bienvenue */
+
+
 .main-welcome {
     height: 100vh;
     margin: 0px 10vw;
@@ -542,260 +866,7 @@ main {
 
 
 
-
-
-/* ------------- */
-
-.main-accueil {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.illustration-accueil {
-    display: flex;
-    justify-content: center;
-}
-
-.illustration-accueil img {
-    width: 80%;
-}
-
-.title-accueil {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.title-accueil h1 {
-    font-size: 26px;
-    font-weight: 900;
-    color: #004A5A;
-    font-family: Montserrat;
-}
-
-.title-accueil p {
-    text-align: center;
-    font-weight: 500;
-    color: #004A5A;
-    font-size: 10px;
-    padding: 0px 5px;
-    font-family: Montserrat;
-}
-
-
-.button-accueil {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.button_register {
-    background-color: #56B8D6;
-    color: #004A5A;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 60px;
-    font-size: 13px;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: Montserrat;
-    text-decoration: none;
-}
-
-.button_login {
-    font-weight: 700;
-    font-size: 11px;
-    font-family: Montserrat;
-    text-decoration: underline;
-    color: #004A5A;
-}
-
-
-
-
-
-
-/* LOGIN.PHP */
-
-.body-login {
-    background-color: #B9E0FF;
-    font-family: 'Montserrat', sans-serif;
-    box-sizing: border-box;
-    height: 100vh;
-}
-
-.main-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.back_btn {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    padding: 30px;
-    transform: rotate(180deg);
-    color: var(--texte, #004A5A);
-    font-size: 20px;
-}
-
-
-.title-login {
-    color: #004A5A;
-    font-weight: 900;
-    font-size: 19px;
-    font-family: Montserrat;
-}
-
-
-.form-login {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 70%;
-}
-
-.input-login {
-    background-color: #FFFFFF;
-    border: none;
-    border-radius: 25px;
-    padding: 15px 30px;
-    width: 100%;
-    font-family: Montserrat;
-    font-size: 11px;
-    font-weight: 500;
-}
-
-.input-login::placeholder {
-    color: #858585;
-}
-
-.button_forget-login {
-    margin-top: 5px;
-    width: 100%;
-    display: flex;
-    justify-content: end;
-}
-
-.button_forget-login a {
-    display: flex;
-    color: var(--texte, #004A5A);
-    font-family: Montserrat;
-    font-size: 12px;
-}
-
-.error_message-login {
-    color: #D65656;
-    font-family: Montserrat;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-
-
-
-/* REGISTER.PHP */
-
-.form-register {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.form_visibility2-register {
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.button_next-register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.button_next-register p {
-    color: var(--texte, #004A5A);
-    font-family: Montserrat;
-    font-size: 15px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-.button_next-register i {
-    color: var(--texte, #004A5A);
-    font-size: 15px;
-    transform: translateY(3px);
-}
-
-
-.label_edu-register {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    width: 100%;
-}
-
-.label_edu-register label {
-    color: var(--texte, #004A5A);
-    font-family: Montserrat;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-.trait_register {
-    width: 20%;
-    height: 1px;
-    border-radius: 15px;
-    background-color: #004A5A;
-    margin: 30px 0;
-}
-
-
-
-.button_before-register {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.button_before-register p {
-    color: var(--texte, #004A5A);
-    font-family: Montserrat;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-}
-
-.button_before-register i {
-    color: var(--texte, #004A5A);
-    font-size: 12px;
-    transform: translateY(-3px);
-    transform: rotate(180deg);
-}
-
-
-
-
-
-
-
-/* INDEX.PHP */
+/* ---------- */
 
 .body-index {
     background-color: #DDF0FF;
