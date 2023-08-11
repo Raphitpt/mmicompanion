@@ -1117,13 +1117,25 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
 }
 
-
-
-.input_date-agenda_add {
-    border-radius: 30px;
+.container_input-agenda_add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #ffffff;
-    padding: 10px 20px;
+    border-radius: 30px;
     width: 80%;
+}
+
+.container_input-agenda_add i{
+    color: #004A5A;
+    padding: 10px;
+    font-size: 15px;
+    transform: translateY(2px);
+}
+
+.input-agenda_add {
+    background-color: #ffffff00;
+    padding: 10px 20px;
     border: none;
     color: #252525;
     font-family: Montserrat;
@@ -1131,7 +1143,7 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    position: relative;
+    -webkit-appearance: none;
     /* background-image: url(./../img/calendar.svg);
     background-repeat: no-repeat;
     background-position: 20px;
@@ -1139,29 +1151,8 @@ input[type="checkbox"]:checked::before {
 }
 
 
-.input_select-agenda_add {
-    border-radius: 30px;
-    background: #ffffff;
-    padding: 10px 20px;
-    /* text-indent: 70px; */
-    width: 80%;
-    border: none;
-    color: #252525;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    /* background-image: url(./../img/bookmark.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    background-size: 20px;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    text-indent: 70px; */
 
-}
+
 
 
 /* .input_type-agenda_add {

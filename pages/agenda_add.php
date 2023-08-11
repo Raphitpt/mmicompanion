@@ -143,7 +143,11 @@ echo head("MMI Companion - Agenda");
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <input type="date" name="date" class="input_date-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
+                <div class="container_input-agenda_add">
+                    <i class="fi fi-br-calendar"></i>
+                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
+                </div>
+                
 
                 <div style="height:15px"></div>
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
@@ -152,29 +156,36 @@ echo head("MMI Companion - Agenda");
                     <h2>Type de tâche</h2>
                 </label>
                 <div style="height:5px"></div>
-                    <select name="type" class="input_select-agenda_add input_type-agenda_add" required>
+                <div class="container_input-agenda_add">
+                    <i class="fi fi-br-list"></i>
+                    <select name="type" class="input_select-agenda_add input-agenda_add" required>
                         <option value="eval">Évaluation</option>
                         <option value="devoir">Devoir à rendre</option>
                         <option value="autre">Autre</option>
                     </select>
                 <?php }else{ ?>
-                    <select name="type" class="input_select-agenda_add input_type-agenda_add" hidden>
+                    <select name="type" class="input_select-agenda_add input-agenda_add" hidden>
                         <option value="autre" selected>Autre</option>
                     </select>
                 <?php } ?>
+                </div>
 
                 <div class="trait_agenda_add"></div>
                 <label for="type" class="label-agenda_add">
                     <h2>Ajouter une matière</h2>
                 </label>
                 <div style="height:5px"></div>
-                <select name="school_subject" class="input_select-agenda_add input_school-agenda_add" required>
-                    <?php
-                    foreach ($subject as $subjects) {
-                        echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
-                    }
-                    ; ?>
-                </select>
+                <div class="container_input-agenda_add">
+                    <i class="fi fi-br-graduation-cap"></i>
+                    <select name="school_subject" class="input_select-agenda_add input-agenda_add" required>
+                        <?php
+                        foreach ($subject as $subjects) {
+                            echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
+                        }
+                        ; ?>
+                    </select>
+                </div>
+                
                 <div style="height:25px"></div>
                 <div class="form_button-agenda">
                     <a role="button" href='./agenda.php'>Annuler</a>
