@@ -589,6 +589,16 @@ main {
     background-color: #004A5A;
 }
 
+.button-accueil p {
+    margin-top: 10px;
+    color: #004A5A;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: Montserrat;
+    width: 70%;
+    text-align: center;
+}
+
 
 
 

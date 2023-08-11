@@ -1,4 +1,5 @@
 <?php
+
 /*
 
     Fichier : /Helpers/functions.php
@@ -268,10 +269,11 @@ function send_activation_email(string $email, string $activation_code)
             'X-Mailer:PHP/'.phpversion();
 
     // send the email
+    $_SESSION['mail_message'] = "";
     if (mail($email, $subject, nl2br($message), $headers)) {
-        echo "Email sent successfully!";
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
     } else {
-        echo "Email sending failed.";
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
         error_log("Error sending activation email to $email");
     }
 }

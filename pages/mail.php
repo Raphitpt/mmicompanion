@@ -53,11 +53,13 @@ echo head("MMI Companion - Vérification du mail");
         if ($sql_code['active'] == 0) {?>
             <div class="button-accueil">
                 <button role="button" class="button_register" onclick="sendMail('<?php echo $sql_code['edu_mail']?>','<?php echo $sql_code['verification_code_mail']?>')">Renvoyer un mail</button>
+                <p><?php echo $_SESSION['mail_message']; ?></p>
             </div>
         <?php } 
         else { ?>
             <div class="button-accueil">
                 <a role="button" href="./login.php" class="button_register">Se connecter</a>
+                <p>Ton mail vient d'être vérifié, tu peux maintenant te connecter.</p>
             </div>
         <?php }
         ?>
