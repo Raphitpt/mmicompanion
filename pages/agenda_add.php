@@ -20,7 +20,11 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date']) && !empty($_POST['school_subject'])) {
     $title = $_POST['title'];
     $date = $_POST['date'];
-    $type = $_POST['type'];
+    if (isset($_POST['type'])) {
+        $type = $_POST['type'];
+    } else {
+        $type = "Autre";
+    }
     $school_subject = $_POST['school_subject'];
     $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group)";
     $stmt = $dbh->prepare($sql);
