@@ -50,9 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 ':edu_group' => $edu_group,
                 ':activation_code' => $activation_code
             ]);
-            send_activation_email($edu_mail, $activation_code);
-            
-            header('Location: ./login.php');
+            $data = array(
+                'mail_user' => $edu_mail,
+                'id_user' => $user['id_user'],
+                'activation_code' => $activation_code
+            );
+            $_SESSION['post_data'] = $data;
+            header('Location: ./mail.php');
             exit;
         }
 
@@ -94,7 +98,5 @@ echo head('MMI Companion - Register');
 
 </body>
 
-<script>
-</script>
 
 </html>

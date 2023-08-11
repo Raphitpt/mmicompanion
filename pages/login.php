@@ -26,10 +26,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         if ($user && password_verify($password, $user['password'])) {
             unset($user['password']);
+            // On vérifie si le compte est activé par mail
             if ($user && $user['active'] == 0) {
                 $response = array('active' => false);
                 $response['mailUser'] = $user['edu_mail'];
                 $response['idUser'] = $user['id_user'];
+                $response['activationCode'] = $user['verification_code_mail'];
                 header('Content-Type: application/json');
                 echo json_encode($response);
                 exit();
@@ -139,6 +141,12 @@ echo head("MMI Companion | Connexion");
                             idUserInput.value = response.idUser;
                             form.appendChild(idUserInput);
 
+                            let activationCodeInput = document.createElement('input');
+                            activationCodeInput.type = 'hidden';
+                            activationCodeInput.name = 'activation_code';
+                            activationCodeInput.value = response.activationCode;
+                            form.appendChild(activationCodeInput);
+                            
                             // Ajouter le formulaire à la page et le soumettre
                             document.body.appendChild(form);
                             form.submit();

@@ -8,24 +8,24 @@
 session_start();
 require "../bootstrap.php";
 
-// si le cookie n'existe pas, on redirige vers la page d'accueil
-// if (!isset($_COOKIE['jwt'])) {
-//     header('Location: ./accueil.php');
-//     exit;
-//   }
-  
-// La on récupère le cookie que l'on à crée à la connection, voir login.php et fonction.php
-// --------------------
-// $jwt = $_COOKIE['jwt'];
-// $secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-// $user = decodeJWT($jwt, $secret_key);
-// setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
-// // --------------------
-// Fin de la récupération du cookie
-  
-// On récupère les données de l'utilisateur pour le mail
-$mail_user = $_POST['mail_user'];
-$id_user = $_POST['id_user'];
+
+
+if (isset($_SESSION['post_data'])) {
+    // Récupérer les données depuis la session
+    $mail_user = $_SESSION['post_data']['mail_user'];
+    $id_user = $_SESSION['post_data']['id_user'];
+    $activation_code = $_SESSION['post_data']['activation_code'];
+    send_activation_email($mail_user, $activation_code);
+
+} else if(isset($_POST['mail_user']) && isset($_POST['id_user']) && isset($_POST['activation_code'])) {
+    // Récupérer les données depuis le formulaire
+    $mail_user = $_POST['mail_user'];
+    $id_user = $_POST['id_user'];
+    $activation_code = $_POST['activation_code'];
+    send_activation_email($mail_user, $activation_code);
+}
+
+
 
 // SQL INSTRUCTIONS
 $sql = "SELECT * FROM users WHERE id_user = :id_user AND edu_mail = :edu_mail";
