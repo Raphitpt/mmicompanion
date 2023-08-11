@@ -71,13 +71,26 @@ echo head("MMI Companion - Vérification du mail");
     </main>
 </body>
 <script>
-    function sendMail (x, y){
-        // on appel le fichier php send mail
+function sendMail(x, y) {
+    let encodedEmail = encodeURIComponent(x);
+    let encodedCode = encodeURIComponent(y);
 
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', './send_mail.php?mail_user='+x+'&verif_code='+y);
+    xhr.open('POST', `./send_mail.php?mail_user=${encodedEmail}&verif_code=${encodedCode}`);
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                // Requête réussie, le mail a probablement été envoyé
+                console.log("Mail request sent successfully");
+            } else {
+                // Il y a eu un problème avec la requête
+                console.error("Mail request failed");
+            }
+        }
+    };
+    
     xhr.send();
-
-    }
+}
 </script>
 </html>
