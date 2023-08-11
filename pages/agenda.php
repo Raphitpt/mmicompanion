@@ -265,9 +265,9 @@ echo head("MMI Companion - Agenda");
                     echo "</div>";
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
                     if($agenda['type'] == "eval" && $users['role'] = "etudiant"){
-                        echo "<a href='agenda_del.php/?id_user=".$users['id_user']."&'><i class='fi fi-br-trash' hidden></i></a>";
+                        echo "<i class='fi fi-br-trash' hidden></i>";
                     } else {
-                        echo "<i class='fi fi-br-trash'></i>";
+                        echo "<a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash'></i></a>";
                     }
 
                     echo "</div>";
