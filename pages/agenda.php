@@ -267,7 +267,7 @@ echo head("MMI Companion - Agenda");
                     if($agenda['type'] == "eval" && $users['role'] = "etudiant"){
                         echo "<i class='fi fi-br-trash' hidden></i>";
                     } else {
-                        echo "<a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash'></i></a>";
+                        echo "<a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash'></i></a><a href='agenda_edit.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil'></i></a>";
                     }
 
                     echo "</div>";
