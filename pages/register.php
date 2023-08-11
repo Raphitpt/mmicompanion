@@ -52,7 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             ]);
             $data = array(
                 'mail_user' => $edu_mail,
-                'id_user' => $user['id_user'],
                 'activation_code' => $activation_code
             );
             $_SESSION['post_data'] = $data;

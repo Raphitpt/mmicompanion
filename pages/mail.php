@@ -13,29 +13,25 @@ require "../bootstrap.php";
 if (isset($_SESSION['post_data'])) {
     // Récupérer les données depuis la session
     $mail_user = $_SESSION['post_data']['mail_user'];
-    $id_user = $_SESSION['post_data']['id_user'];
     $activation_code = $_SESSION['post_data']['activation_code'];
     send_activation_email($mail_user, $activation_code);
 
 } else if(isset($_POST['mail_user']) && isset($_POST['id_user']) && isset($_POST['activation_code'])) {
     // Récupérer les données depuis le formulaire
     $mail_user = $_POST['mail_user'];
-    $id_user = $_POST['id_user'];
     $activation_code = $_POST['activation_code'];
     send_activation_email($mail_user, $activation_code);
 }
 
-
-
 // SQL INSTRUCTIONS
-$sql = "SELECT * FROM users WHERE id_user = :id_user AND edu_mail = :edu_mail";
-$stmt_sql = $dbh->prepare($sql);
-$stmt_sql->execute([
-    'id_user' => $id_user,
-    'edu_mail' => $mail_user
+$sql = "SELECT * FROM users WHERE edu_mail = :edu_mail";
+$stmt = $dbh->prepare($sql);
+$stmt->execute([
+    'edu_mail' => $mail_user,
 ]);
-$sql_code = $stmt_sql->fetch(PDO::FETCH_ASSOC);
+$sql_code = $stmt->fetch(PDO::FETCH_ASSOC);
 // dd($sql_code);
+
 
 
 
@@ -54,9 +50,9 @@ echo head("MMI Companion - Vérification du mail");
         <div class="trait-mail"></div>
         <div style="height:20px"></div>
         <?php 
-        if ($sql['active'] == 0) {?>
+        if ($sql_code['active'] == 0) {?>
             <div class="button-accueil">
-                <button role="button" class="button_register" onclick="sendMail('<?php echo $sql['edu_mail']?>','<?php echo $sql['verification_code_mail']?>')">Renvoyer un mail</button>
+                <button role="button" class="button_register" onclick="sendMail('<?php echo $sql_code['edu_mail']?>','<?php echo $sql_code['verification_code_mail']?>')">Renvoyer un mail</button>
             </div>
         <?php } 
         else { ?>
