@@ -29,6 +29,10 @@ $stmt->execute([
 ]);
 $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+if ($user_data['active'] == 0) {
+  header('Location: ./mail.php');
+}
+
 // On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
 if (isset($_POST['annee']) && isset($_POST['tp'])) {
   $annee = $_POST['annee'];

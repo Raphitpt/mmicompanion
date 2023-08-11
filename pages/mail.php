@@ -8,6 +8,21 @@
 session_start();
 require "../bootstrap.php";
 
+// si le cookie n'existe pas, on redirige vers la page d'accueil
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./accueil.php');
+    exit;
+  }
+  
+// La on récupère le cookie que l'on à crée à la connection, voir login.php et fonction.php
+// --------------------
+$jwt = $_COOKIE['jwt'];
+$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
+$user = decodeJWT($jwt, $secret_key);
+setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
+// --------------------
+// Fin de la récupération du cookie
+  
 // On récupère les données de l'utilisateur pour le mail
 $mail_user = $user['edu_mail'];
 $id_user = $user['id_user'];
@@ -56,26 +71,13 @@ echo head("MMI Companion - Vérification du mail");
     </main>
 </body>
 <script>
-function sendMail(x, y) {
-    let encodedEmail = encodeURIComponent(x);
-    let encodedCode = encodeURIComponent(y);
+    function sendMail (x, y){
+        // on appel le fichier php send mail
 
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', `./send_mail.php?mail_user=${encodedEmail}&verif_code=${encodedCode}`);
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Requête réussie, le mail a probablement été envoyé
-                console.log("Mail request sent successfully");
-            } else {
-                // Il y a eu un problème avec la requête
-                console.error("Mail request failed");
-            }
-        }
-    };
-    
+    xhr.open('POST', './send_mail.php?mail_user='+x+'&verif_code='+y);
     xhr.send();
-}
+
+    }
 </script>
 </html>
