@@ -37,7 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             // On hash le mot de passe pour plus de sécurité, le MD5 est déconseillé, on laisse l'agorithme par défaut, ça évite les failles de sécurité
             $hash_password = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group) VALUES (:pname, :name, :pass, :edu_mail, :edu_group)";
+            // On génère un code d'activation pour l'utilisateur
+            $activation_code = generate_activation_code();
+
+            $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code)";
             $stmt = $dbh->prepare($sql_register);
             $stmt->execute([
                 ':pname' => $pname,
@@ -45,8 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 ':pass' => $hash_password,
                 ':edu_mail' => $edu_mail,
                 ':edu_group' => $edu_group,
+                ':activation_code' => $activation_code
             ]);
-
+            send_activation_email($edu_mail, $activation_code);
+            
             header('Location: ./login.php');
             exit;
         }
