@@ -44,7 +44,7 @@ echo head("MMI Companion - Vérification du mail");
         </div>
         <div class="title-mail">
             <h1>Vérifie tes mails</h1>
-            <p>Un mail vient d’être envoyé à <span style="font-weight: 600;"><?php echo $mail_user; ?></span> pour vérifier votre adresse et activer votre compte.</p>
+            <p>Un mail vient d’être envoyé à <span style="font-weight: 600;"><?php echo $mail_user; ?></span> pour vérifier ton adresse mail et activer ton compte.</p>
         </div>
         <div style="height:20px"></div>
         <div class="trait-mail"></div>
