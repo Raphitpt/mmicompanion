@@ -54,7 +54,7 @@ echo head("MMI Companion - Vérification du mail");
         <div class="trait-mail"></div>
         <div style="height:20px"></div>
         <?php 
-        if ($sql['active'] === 0) {?>
+        if ($sql['active'] == "0") {?>
             <div class="button-accueil">
                 <button role="button" class="button_register" onclick="sendMail('<?php echo $sql['edu_mail']?>','<?php echo $sql['verification_code_mail']?>')">Renvoyer un mail</button>
             </div>
