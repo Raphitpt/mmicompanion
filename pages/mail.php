@@ -75,22 +75,23 @@ function sendMail(x, y) {
     let encodedEmail = encodeURIComponent(x);
     let encodedCode = encodeURIComponent(y);
 
-    let xhr = new XMLHttpRequest();
-    xhr.open('POST', `./send_mail.php?mail_user=${encodedEmail}&verif_code=${encodedCode}`);
-    
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-                // Requête réussie, le mail a probablement été envoyé
-                console.log("Mail request sent successfully");
-            } else {
-                // Il y a eu un problème avec la requête
-                console.error("Mail request failed");
-            }
+    fetch('./send_mail.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `mail_user=${encodedEmail}&verif_code=${encodedCode}`,
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log("Mail request sent successfully");
+        } else {
+            console.error("Mail request failed");
         }
-    };
-    
-    xhr.send();
+    })
+    .catch(error => {
+        console.error("An error occurred:", error);
+    });
 }
 </script>
 </html>
