@@ -149,26 +149,23 @@ echo head("MMI Companion - Agenda");
                 </div>
                 
 
-                <div style="height:15px"></div>
+                
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
+                    <div style="height:15px"></div>
                     <label for="type" class="label-agenda_add">
-                    <h2>Type de tâche</h2>
-                </label>
-                <div style="height:5px"></div>
-                <div class="container_input-agenda_add">
-                    <i class="fi fi-br-list"></i>
-                    <select name="type" class="input_select-agenda_add input-agenda_add" required>
-                        <option value="eval">Évaluation</option>
-                        <option value="devoir">Devoir à rendre</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                <?php }else{ ?>
-                    <select name="type" class="input_select-agenda_add input-agenda_add" hidden>
-                        <option value="autre" selected>Autre</option>
-                    </select>
+                        <h2>Type de tâche</h2>
+                    </label>
+                    <div style="height:5px"></div>
+                    <div class="container_input-agenda_add">
+                        <i class="fi fi-br-list"></i>
+                        <select name="type" class="input_select-agenda_add input-agenda_add" required>
+                            <option value="eval">Évaluation</option>
+                            <option value="devoir">Devoir à rendre</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
                 <?php } ?>
-                </div>
 
                 <div class="trait_agenda_add"></div>
                 <label for="type" class="label-agenda_add">
@@ -191,7 +188,6 @@ echo head("MMI Companion - Agenda");
                     <a role="button" href='./agenda.php'>Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
-                
                 
             </form>
         </div>
