@@ -14,6 +14,20 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 // Fin de la récupération du cookie
 
 
+// On récupère les données passées en GET
+// --------------------
+$id_user = $_GET['id_user'];
+$id_task = $_GET['id_task'];
+
+// On récupère les données de la tache
+$sql_task = "SELECT * FROM agenda INNER JOIN sch_subject ON agenda.id_subject = sch_subject.id_subject WHERE id_task = :id_task AND id_user = :id_user";
+$stmt_task = $dbh->prepare($sql_task);
+$stmt_task->execute([
+    'id_task' => $id_task,
+    'id_user' => $id_user
+]);
+$task = $stmt_task->fetch(PDO::FETCH_ASSOC);
+
 // On vérifie si le formulaire est rempli et si oui on ajoute la tache dans la base de donnée
 // On appelle certaines variable du cookie pour les ajouter dans la base de donnée
 // --------------------
@@ -26,7 +40,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         $type = "autre";
     }
     $school_subject = $_POST['school_subject'];
-    $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group)";
+    $sql = "UPDATE agenda SET title=:title, date_finish=:date, type=:type, id_user=:id_user, id_subject=:id_subject, edu_group=:edu_group WHERE id_task=:id_agenda";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'title' => $title,
@@ -34,7 +48,8 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'id_user' => $users['id_user'],
         'type' => $type,
         'id_subject' => $school_subject,
-        'edu_group' => $users['edu_group']
+        'edu_group' => $users['edu_group'],
+        'id_agenda' => $id_task
     ]);
     header('Location: ./agenda.php');
     exit();
@@ -140,7 +155,7 @@ echo head("MMI Companion - Agenda");
             <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
             <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)"> 
 
-                <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre" required>
+                <input type="text" name="title" class="input_title-agenda_add" value="<?php echo $task['title'] ?>" required>
                 <div class="trait_agenda_add"></div>
 
                 <label for="date" class="label-agenda_add">
@@ -149,7 +164,7 @@ echo head("MMI Companion - Agenda");
                 <div style="height:5px"></div>
                 <div class="container_input-agenda_add">
                     <i class="fi fi-br-calendar"></i>
-                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
+                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo $task['date_finish'] ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
                 </div>
                 
 
@@ -164,9 +179,9 @@ echo head("MMI Companion - Agenda");
                     <div class="container_input-agenda_add">
                         <i class="fi fi-br-list"></i>
                         <select name="type" class="input_select-agenda_add input-agenda_add" required>
-                            <option value="eval">Évaluation</option>
-                            <option value="devoir">Devoir à rendre</option>
-                            <option value="autre">Autre</option>
+                            <option value="eval" <?php if (htmlspecialchars($task['type']) == 'eval') echo 'selected'; ?>>Évaluation</option>
+                            <option value="devoir" <?php if (htmlspecialchars($task['type']) == 'devoir') echo 'selected'; ?>>Devoir à rendre</option>
+                            <option value="autre" <?php if (htmlspecialchars($task['type']) == 'autre') echo 'selected'; ?>>Autre</option>
                         </select>
                     </div>
                 <?php } ?>
@@ -179,9 +194,13 @@ echo head("MMI Companion - Agenda");
                 <div class="container_input-agenda_add">
                     <i class="fi fi-br-graduation-cap"></i>
                     <select name="school_subject" class="input_select-agenda_add input-agenda_add" required>
+                        <option value="<?php echo $task['id_subject'] ?>" selected><?php echo $task['name_subject'] ?></option>
                         <?php
                         foreach ($subject as $subjects) {
-                            echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
+                            if ($subjects['name_subject'] != $task['name_subject']) {
+                                echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
+                            }
+                            
                         }
                         ; ?>
                     </select>

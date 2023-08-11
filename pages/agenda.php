@@ -269,7 +269,7 @@ echo head("MMI Companion - Agenda");
                         echo "<i class='fi fi-br-trash red' hidden></i>";
                     } 
                     else {
-                        echo "<a href='agenda_edit.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
+                        echo "<a href='agenda_edit.php?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
                     }
 
                     echo "</div>";

@@ -21,7 +21,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         // Si le mot de passe est bon on crée le JWT et on le renvoie au client, par mesure de sécurité on ne renvoie pas le mot de passe dans le cookie
         // On utilise la fonction password_verify() pour comparer le mot de passe en clair avec le mot de passe hashé, le MD5 est déconseillé
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user && password_verify($password, $user['password']) && $user['active'] == 1) {
             unset($user['password']);
 
             // Si on veut ajouter un champs dans le cookie il faut l'ajouter dans le tableau ci-dessous puis dans le fichier function.php
@@ -46,7 +46,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             // On renvoie la réponse au client
             echo json_encode($response);
             exit();
-        } else {
+        } else if($user && $user['active'] == 0){
+            header ('Location: ./mail.php');
+        } else{
             $response = array('error' => 'Identifiant ou mot de passe incorrect');
             header('Content-Type: application/json');
             echo json_encode($response);
