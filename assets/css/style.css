@@ -615,6 +615,9 @@ main {
 
 
 
+
+
+
 /* LOGIN.PHP */
 
 .body-login {
@@ -1119,7 +1122,7 @@ input[type="checkbox"]:checked::before {
 .input_date-agenda_add {
     border-radius: 30px;
     background: #ffffff;
-    padding: 10px 0;
+    padding: 10px 20px;
     width: 80%;
     border: none;
     color: #252525;
@@ -1129,34 +1132,17 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     position: relative;
-    text-align: center;
-    background-image: url(./../img/calendar.svg);
+    /* background-image: url(./../img/calendar.svg);
     background-repeat: no-repeat;
     background-position: 20px;
-    /* Positionnez l'image à droite et au centre */
-    background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
-}
-
-.input_date-agenda_add[type="date"]::-webkit-calendar-picker-indicator {
-    background-position: right;
-    background-size: auto;
-    cursor: pointer;
-    position: absolute;
-    height: 100%;
-    /* bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0; */
-    width: auto;
-    opacity: 0;
+    background-size: 20px; */
 }
 
 
 .input_select-agenda_add {
     border-radius: 30px;
     background: #ffffff;
-    padding: 10px 0px;
+    padding: 10px 20px;
     /* text-indent: 70px; */
     width: 80%;
     border: none;
@@ -1165,37 +1151,32 @@ input[type="checkbox"]:checked::before {
     font-size: 14px;
     font-style: normal;
     font-weight: 500;
-    background-image: url(./../img/bookmark.svg);
+    line-height: normal;
+    /* background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
     background-position: 20px;
-    /* Position the image to the right and center */
     background-size: 20px;
-    /* Adjust the size of the arrow image as needed */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    text-indent: 70px;
+    text-indent: 70px; */
 
 }
 
 
-.input_type-agenda_add {
+/* .input_type-agenda_add {
     background-image: url(./../img/bookmark.svg);
     background-repeat: no-repeat;
     background-position: 20px;
-    /* Positionnez l'image à droite et au centre */
     background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
 }
 
 .input_school-agenda_add {
     background-image: url(./../img/school.svg);
     background-repeat: no-repeat;
     background-position: 20px;
-    /* Positionnez l'image à droite et au centre */
     background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
-}
+} */
 
 
 
