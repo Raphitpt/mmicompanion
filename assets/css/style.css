@@ -1144,30 +1144,8 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     -webkit-appearance: none;
-    /* background-image: url(./../img/calendar.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    background-size: 20px; */
 }
 
-
-
-
-
-
-/* .input_type-agenda_add {
-    background-image: url(./../img/bookmark.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    background-size: 20px;
-}
-
-.input_school-agenda_add {
-    background-image: url(./../img/school.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    background-size: 20px;
-} */
 
 
 
