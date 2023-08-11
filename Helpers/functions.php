@@ -246,7 +246,7 @@ function generate_activation_code(): string
 
 const APP_URL = 'http://localhost/mmicompanion/pages';
 const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
-function send_activation_email(string $email, string $activation_code): void
+function send_activation_email(string $email, string $activation_code)
 {
     // create the activation link
     $activation_link = APP_URL . "/verify_mail.php?email=$email&activation_code=$activation_code";
@@ -268,6 +268,10 @@ function send_activation_email(string $email, string $activation_code): void
             'X-Mailer:PHP/'.phpversion();
 
     // send the email
-    mail($email, $subject, nl2br($message), $headers);
-
+    if (mail($email, $subject, nl2br($message), $headers)) {
+        echo "Email sent successfully!";
+    } else {
+        echo "Email sending failed.";
+        error_log("Error sending activation email to $email");
+    }
 }
