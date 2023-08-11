@@ -35,7 +35,7 @@ $stmt_sql->execute([
     'edu_mail' => $mail_user
 ]);
 $sql_code = $stmt_sql->fetch(PDO::FETCH_ASSOC);
-// dd($sql_code);
+dd($sql_code);
 
 
 
