@@ -1038,7 +1038,16 @@ input[type="checkbox"]:checked::before {
     background-color: #464646;
 }
 
-.agenda_content_list_item_flexright-agenda i {
+.agenda_content_list_item_flexright-agenda{
+    display: flex;
+    gap: 10px;
+}
+
+.agenda_content_list_item_flexright-agenda i.blue {
+    color: #005fcb;
+}
+
+.agenda_content_list_item_flexright-agenda i.red {
     color: #CB0000;
 }
 
