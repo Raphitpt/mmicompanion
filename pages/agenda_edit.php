@@ -20,7 +20,11 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date']) && !empty($_POST['school_subject'])) {
     $title = $_POST['title'];
     $date = $_POST['date'];
-    $type = $_POST['type'];
+    if (isset($_POST['type'])) {
+        $type = $_POST['type'];
+    } else {
+        $type = "autre";
+    }
     $school_subject = $_POST['school_subject'];
     $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group)";
     $stmt = $dbh->prepare($sql);
@@ -143,24 +147,28 @@ echo head("MMI Companion - Agenda");
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <input type="date" name="date" class="input_date-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
+                <div class="container_input-agenda_add">
+                    <i class="fi fi-br-calendar"></i>
+                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
+                </div>
+                
 
-                <div style="height:15px"></div>
+                
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
                 <?php if ($users['role'] == "chef" || $users['role'] == "admin") { ?>
+                    <div style="height:15px"></div>
                     <label for="type" class="label-agenda_add">
-                    <h2>Type de tâche</h2>
-                </label>
-                <div style="height:5px"></div>
-                    <select name="type" class="input_select-agenda_add input_type-agenda_add" required>
-                        <option value="eval">Évaluation</option>
-                        <option value="devoir">Devoir à rendre</option>
-                        <option value="autre">Autre</option>
-                    </select>
-                <?php }else{ ?>
-                    <select name="type" class="input_select-agenda_add input_type-agenda_add" hidden>
-                        <option value="autre" selected>Autre</option>
-                    </select>
+                        <h2>Type de tâche</h2>
+                    </label>
+                    <div style="height:5px"></div>
+                    <div class="container_input-agenda_add">
+                        <i class="fi fi-br-list"></i>
+                        <select name="type" class="input_select-agenda_add input-agenda_add" required>
+                            <option value="eval">Évaluation</option>
+                            <option value="devoir">Devoir à rendre</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </div>
                 <?php } ?>
 
                 <div class="trait_agenda_add"></div>
@@ -168,19 +176,22 @@ echo head("MMI Companion - Agenda");
                     <h2>Ajouter une matière</h2>
                 </label>
                 <div style="height:5px"></div>
-                <select name="school_subject" class="input_select-agenda_add input_school-agenda_add" required>
-                    <?php
-                    foreach ($subject as $subjects) {
-                        echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
-                    }
-                    ; ?>
-                </select>
+                <div class="container_input-agenda_add">
+                    <i class="fi fi-br-graduation-cap"></i>
+                    <select name="school_subject" class="input_select-agenda_add input-agenda_add" required>
+                        <?php
+                        foreach ($subject as $subjects) {
+                            echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
+                        }
+                        ; ?>
+                    </select>
+                </div>
+                
                 <div style="height:25px"></div>
                 <div class="form_button-agenda">
                     <a role="button" href='./agenda.php'>Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
-                
                 
             </form>
         </div>
