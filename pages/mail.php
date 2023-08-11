@@ -28,14 +28,14 @@ $mail_user = $user['edu_mail'];
 $id_user = $user['id_user'];
 
 // SQL INSTRUCTIONS
-$sql = "SELECT * FROM users WHERE id_user = :id_user and edu_mail = :mail_user";
+$sql = "SELECT * FROM users WHERE id_user = :id_user AND edu_mail = :edu_mail";
 $stmt_sql = $dbh->prepare($sql);
 $stmt_sql->execute([
     'id_user' => $id_user,
     'edu_mail' => $mail_user
 ]);
 $sql = $stmt_sql->fetch(PDO::FETCH_ASSOC);
-dd($sql);
+// dd($sql);
 
 
 
@@ -53,10 +53,31 @@ echo head("MMI Companion - Vérification du mail");
         <div style="height:20px"></div>
         <div class="trait-mail"></div>
         <div style="height:20px"></div>
-
-        <div class="button-accueil">
-            <a role="button" href="./register.php" class="button_register">Renvoyer un mail</a>
-        </div>
+        <?php 
+        if ($sql['active'] == 0) {?>
+            <div class="button-accueil">
+                <button role="button" class="button_register" onclick="sendMail('<?php echo $sql['edu_mail']?>','<?php echo $sql['verification_code_mail']?>')">Renvoyer un mail</button>
+            </div>
+        <?php } 
+        else { ?>
+            <div class="button-accueil">
+                <a role="button" href="./login.php" class="button_register">Se connecter</a>
+            </div>
+        <?php }
+        ?>
+        
+        
+        
     </main>
 </body>
+<script>
+    function sendMail (x, y){
+        // on appel le fichier php send mail
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', './send_mail.php?mail_user='+x+'&verif_code='+y);
+    xhr.send();
+
+    }
+</script>
 </html>
