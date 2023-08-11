@@ -249,19 +249,25 @@ const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
 function send_activation_email(string $email, string $activation_code): void
 {
     // create the activation link
-    $activation_link = APP_URL . "/activate.php?email=$email&activation_code=$activation_code";
+    $activation_link = APP_URL . "/verify_mail.php?email=$email&activation_code=$activation_code";
 
     // set email subject & body
-    $subject = 'Please activate your account';
+    $subject = 'Active ton compte dès maintenant !';
     $message = <<<MESSAGE
             Hi,
             Please click the following link to activate your account:
             $activation_link
             MESSAGE;
     // email header
-    $header = "From:" . SENDER_EMAIL_ADDRESS;
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <'.SENDER_EMAIL_ADDRESS.'>' . "\r\n" .
+            'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
+            'Content-Type: text/plain; charset="utf-8"; DelSp="Yes"; format=flowed '."\r\n" .
+            'Content-Disposition: inline'. "\r\n" .
+            'Content-Transfer-Encoding: 7bit'." \r\n" .
+            'X-Mailer:PHP/'.phpversion();
 
     // send the email
-    mail($email, $subject, nl2br($message), $header);
+    mail($email, $subject, nl2br($message), $headers);
 
 }
