@@ -4,6 +4,7 @@ require '../bootstrap.php';
 
 // On initialise la bibliothèque Firebase JWT pour PHP avec Composer et on y ajoute la clé secrète qui est dans le fichier .env (ne pas push le fichier .env sur GitHub)
 use Firebase\JWT\JWT;
+
 $secret_key = $_ENV['SECRET_KEY'];
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
@@ -21,9 +22,18 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
 
         // Si le mot de passe est bon on crée le JWT et on le renvoie au client, par mesure de sécurité on ne renvoie pas le mot de passe dans le cookie
         // On utilise la fonction password_verify() pour comparer le mot de passe en clair avec le mot de passe hashé, le MD5 est déconseillé
+
+
         if ($user && password_verify($password, $user['password'])) {
             unset($user['password']);
-
+            if ($user && $user['active'] == 0) {
+                $response = array('active' => false);
+                $response['mailUser'] = $user['edu_mail'];
+                $response['idUser'] = $user['id_user'];
+                header('Content-Type: application/json');
+                echo json_encode($response);
+                exit();
+            }
             // Si on veut ajouter un champs dans le cookie il faut l'ajouter dans le tableau ci-dessous puis dans le fichier function.php
             $payload = [
                 'id_user' => $user['id_user'],
@@ -110,11 +120,35 @@ echo head("MMI Companion | Connexion");
                         // Afficher le message d'erreur dans la page
                         document.querySelector('.error_message-login').innerHTML = response.error;
                     } else {
-                        // Stockage du JWT dans le localStorage
-                        localStorage.setItem('jwt', response.jwt);
+                        if (response.active === false) {  // Vérification si active est égal à false
+                            // Créer un formulaire dynamique
+                            let form = document.createElement('form');
+                            form.method = 'post';
+                            form.action = './mail.php';
 
-                        // Redirection vers la page d'accueil ou autre page sécurisée
-                        window.location.href = './index.php';
+                            // Créer des champs cachés pour les données
+                            let mailUserInput = document.createElement('input');
+                            mailUserInput.type = 'hidden';
+                            mailUserInput.name = 'mail_user';
+                            mailUserInput.value = response.mailUser;
+                            form.appendChild(mailUserInput);
+
+                            let idUserInput = document.createElement('input');
+                            idUserInput.type = 'hidden';
+                            idUserInput.name = 'id_user';
+                            idUserInput.value = response.idUser;
+                            form.appendChild(idUserInput);
+
+                            // Ajouter le formulaire à la page et le soumettre
+                            document.body.appendChild(form);
+                            form.submit();
+                        } else {
+                            // Stockage du JWT dans le localStorage
+                            localStorage.setItem('jwt', response.jwt);
+
+                            // Redirection vers la page d'accueil ou autre page sécurisée
+                            window.location.href = './index.php';
+                        }
                     }
                 },
                 error: function () {
