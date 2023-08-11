@@ -916,7 +916,7 @@ main {
 .agenda_title_flextop-agenda {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 
@@ -975,7 +975,7 @@ main {
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
-    width: 50vw;
+    width: 40vw;
     overflow: hidden;
     text-overflow: ellipsis;
 }
@@ -1040,7 +1040,11 @@ input[type="checkbox"]:checked::before {
 
 .agenda_content_list_item_flexright-agenda{
     display: flex;
-    gap: 10px;
+    gap: 30px;
+}
+
+.agenda_content_list_item_flexright-agenda i{
+    font-size: 17px;
 }
 
 .agenda_content_list_item_flexright-agenda i.blue {
