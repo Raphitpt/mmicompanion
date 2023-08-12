@@ -18,11 +18,11 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
         $stmt->execute([
             'edu_mail' => $edu_mail
         ]);
-        header('Location: ../login.php');
+        header('Location: ./mail.php');
         exit();
     }
     else{
-        header('Location: ../login.php');
+        header('Location: ./mail.php');
         exit();
     }
 }
