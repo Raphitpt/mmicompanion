@@ -27,7 +27,7 @@ echo head("Mot de passe oublié");
 if (isset($_POST['email'])){
     $pass_code = generate_activation_code();
     $email = $_POST['email'];
-    $sql = "UPDATE users SET verification_code_password = :pass_code WHERE edu_mail = :email";
+    $sql = "UPDATE users SET verification_code_pass = :pass_code WHERE edu_mail = :email";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'pass_code' => $pass_code,
