@@ -289,7 +289,6 @@ function send_reset_password(string $email, string $activation_code)
             Salut,
             Clique sur le lien pour changer ton mot de passe :
             $activation_link
-            Ce n'est pas toi ? Alors contacte nous le plus vite possible !
             MESSAGE;
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -300,12 +299,12 @@ function send_reset_password(string $email, string $activation_code)
             'Content-Transfer-Encoding: 7bit'." \r\n" .
             'X-Mailer:PHP/'.phpversion();
 
-    // // send the email
-    // $_SESSION['mail_message'] = "";
-    // if (mail($email, $subject, nl2br($message), $headers)) {
-    //     $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
-    // } else {
-    //     $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
-    //     error_log("Error sending activation email to $email");
-    // }
+    // send the email
+    $_SESSION['mail_message'] = "";
+    if (mail($email, $subject, nl2br($message), $headers)) {
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } else {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
 }
