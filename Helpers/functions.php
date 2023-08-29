@@ -277,3 +277,35 @@ function send_activation_email(string $email, string $activation_code)
         error_log("Error sending activation email to $email");
     }
 }
+
+function send_reset_password(string $email, string $activation_code)
+{
+    // create the activation link
+    $activation_link = APP_URL . "/reset_pass.php?email=$email&activation_code=$activation_code";
+
+    // set email subject & body
+    $subject = 'Réinitialise ton mot de passe dès maintenant !';
+    $message = <<<MESSAGE
+            Salut,
+            Clique sur le lien pour changer ton mot de passe :
+            $activation_link
+            Ce n'est pas toi ? Alors contacte nous le plus vite possible !
+            MESSAGE;
+    // email header
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <'.SENDER_EMAIL_ADDRESS.'>' . "\r\n" .
+            'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
+            'Content-Type: text/plain; charset="utf-8"; DelSp="Yes"; format=flowed '."\r\n" .
+            'Content-Disposition: inline'. "\r\n" .
+            'Content-Transfer-Encoding: 7bit'." \r\n" .
+            'X-Mailer:PHP/'.phpversion();
+
+    // // send the email
+    // $_SESSION['mail_message'] = "";
+    // if (mail($email, $subject, nl2br($message), $headers)) {
+    //     $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    // } else {
+    //     $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+    //     error_log("Error sending activation email to $email");
+    // }
+}
