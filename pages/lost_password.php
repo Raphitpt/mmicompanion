@@ -10,7 +10,7 @@ echo head("Mot de passe oublié");
             <div class="col-12">
                 <h1 class="title-login">Mot de passe oublié</h1>
                 <div style="height:30px"></div>
-                <form method="POST" class="form-login" onsubmit=sendMail()>
+                <form method="POST" class="form-login">
                     <input type="text" name="email" placeholder="email" id="email"
                         class="input-login" required>
                     <div style="height:20px"></div>
