@@ -309,7 +309,7 @@ echo head('MMI Companion | Accueil');
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
-      const url1 = 'https://corsproxy.io/?' + encodeURIComponent('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics');
+      const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.getElementById("calendar");
       let eventColors = {};
       let calendar = new FullCalendar.Calendar(calendarEl, {
@@ -340,13 +340,16 @@ echo head('MMI Companion | Accueil');
           format: "ics",
         },
         eventContent: function(arg) {
+          
           let eventLocation = arg.event.extendedProps.location;
           let eventDescription = arg.event.extendedProps.description;
-
+          let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
+          // arg.event.setProp('backgroundColor', 'green');
+          let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
           let eventContent = '<div class="fc-title">' + arg.event.title + '</div>';
 
           if (eventDescription) {
-            eventContent += '<div class="fc-description">' + eventDescription + '</div>';
+            eventContent += '<div class="fc-description">' + test + '</div>';
           }
 
           if (eventLocation) {
@@ -387,6 +390,7 @@ echo head('MMI Companion | Accueil');
 
       calendar.render();
     });
+
   </script>
   <?php 
     }
