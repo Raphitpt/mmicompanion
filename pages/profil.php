@@ -98,6 +98,9 @@ echo head("MMI Companion - Profil");
     
     <main class="main-profil">
         <div class="profil_picture-profil">
+            <div class="edit_profil_picture-img" id="edit_profil_picture">
+                <i class="fi fi-br-pencil"></i>
+            </div>
             <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
             <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
@@ -157,6 +160,14 @@ echo head("MMI Companion - Profil");
         
     document.addEventListener('DOMContentLoaded', () => {
       let input = document.querySelector('#profil_picture-input');
+      let editButton = document.querySelector('#edit_profil_picture');
+
+
+      // Ajoutez un gestionnaire d'événements clic à l'élément editButton
+        editButton.addEventListener('click', () => {
+            // Déclenchez le clic sur le champ de fichier lorsque l'élément editButton est cliqué
+            input.click();
+        });
 
       input.addEventListener('change', (event) => {
         let file = event.target.files[0];
