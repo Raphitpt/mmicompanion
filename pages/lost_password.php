@@ -4,10 +4,7 @@ session_start();
 require "../bootstrap.php";
 echo head("MMI Companion | Mot de passe oublié");
 
-if (isset($_SESSION['mail_message'])) {
-    echo "<script>alert('" . addslashes($_SESSION['mail_message']) . "')</script>";
-    unset($_SESSION['mail_message']);
-}
+
 
 ?>
 
@@ -21,6 +18,10 @@ if (isset($_SESSION['mail_message'])) {
         </div>
         <h1 class="title-login">Mot de passe oublié</h1>
         <div style="height:30px"></div>
+        <?php if(isset($_SESSION['mail_message'])) { ?>
+            <div class="success_message-login"><?php echo $_SESSION['mail_message']; ?></div>
+            <div style="height:15px"></div>
+        <?php } else { ?>
         <form method="POST" class="form-login" action="./send_password.php">
             <input type="text" name="email" placeholder="email" id="email" class="input-login" required>
             <div style="height:20px"></div>
@@ -28,6 +29,7 @@ if (isset($_SESSION['mail_message'])) {
             <div style="height:15px"></div>
             <div class="error_message-login"></div>
         </form>
+        <?php } ?>
     </main>
 </body>
 
