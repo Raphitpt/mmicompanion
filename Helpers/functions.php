@@ -401,123 +401,52 @@ function send_reset_password(string $email, string $activation_code)
     $subject = 'Réinitialise ton mot de passe dès maintenant !';
     $message = <<<HTML
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en" style="margin: 0; padding: 0; box-sizing: border-box;">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Email</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-        /* Reset default browser styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        /* Set a background color */
-        body {
-            background-color: #f2f2f2;
-        }
-        
-        /* Center the content */
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #B9E0FF;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        /* Style the heading */
-        h1 {
-            color: var(--Bleu-moyen, #56B8D6);
-            font-family: Montserrat;
-font-size: 1.6rem;
-font-style: normal;
-font-weight: 800;
-line-height: normal;
-        }
-        p{
-            color: var(--Texte, #004A5A);
-            font-family: Montserrat;
-font-size: 1.2rem;
-font-style: normal;
-font-weight: 500;
-line-height: normal;
-text-align: center;
-        }
-        
-        /* Style the table */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ccc;
-        }
-        
-        th {
-            background-color: #f2f2f2;
-        }
-        
-        /* Style the button */
-        .button {
-            background-color: #56B8D6;
-    color: #004A5A;
-    border: none;
-    border-radius: 25px;
-    padding: 10px 60px;
-    font-size: 13px;
-    font-weight: 800;
-    cursor: pointer;
-    font-family: Montserrat;
-    text-decoration: none;
-    
-        }
-        
-        .button:hover {
-            background-color: #458ea4;
-        }
-        .logo{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-           
-        }
-    </style>
+.button:hover {
+  background-color: #458ea4;
+}
+</style>
 </head>
-<body>
-    <div class="container">
-        <div class="logo">
-            <img src="./assets/img/mmicompanion.svg" alt="logo mmi">
-            <h1>MMI Companion</h1>
+<body style="margin: 0; padding: 0; box-sizing: border-box; background-color: #f2f2f2;">
+    <div class="container" style="box-sizing: border-box; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #B9E0FF; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <div class="logo" style="margin: 0; padding: 0; box-sizing: border-box; text-align: center; margin-bottom: 20px;">
+            <img src="https://dev.mmi-companion.fr/mmicompanion/assets/img/mmicompanion.svg" alt="logo mmi" style="margin: 0; padding: 0; box-sizing: border-box; max-width: 80%;">
+            <h1 style="margin: 0; padding: 0; box-sizing: border-box; color: #56B8D6; font-family: Montserrat, sans-serif; font-size: 1.6rem; font-weight: 800;">MMI Companion</h1>
         </div>
-        <table>
-            <tbody>
-                <img src="./assets/img/verif_mail.svg" style="width: 80%;" alt="email">
-                <p>
-                    Bonjour, <br><br>
-                    Merci de confirmer votre email en cliquant sur le lien ci-dessous.
-                </p>
+
+        <table style="margin: 0; padding: 0; box-sizing: border-box; width: 100%; border-collapse: collapse; margin-bottom: 20px;" width="100%">
+            <tbody style="margin: 0; padding: 0; box-sizing: border-box;">
+                <tr style="margin: 0; padding: 0; box-sizing: border-box;">
+                    <td style="margin: 0; box-sizing: border-box; padding: 10px; text-align: left; border-bottom: 1px solid #ccc;" align="left">
+                        <img src="https://dev.mmi-companion.fr/mmicompanion/assets/img/verif_mail.svg" style="margin: 0; padding: 0; box-sizing: border-box; width: 100%;" alt="email">
+                    </td>
+                </tr>
+                <tr style="margin: 0; padding: 0; box-sizing: border-box;">
+                    <td style="margin: 0; box-sizing: border-box; padding: 10px; text-align: left; border-bottom: 1px solid #ccc;" align="left">
+                        <p style="margin: 0; padding: 0; box-sizing: border-box; color: #004A5A; font-family: Montserrat, sans-serif; font-size: 1.2rem; font-weight: 500; text-align: center;">
+                            Bonjour, <br style="margin: 0; padding: 0; box-sizing: border-box;"><br style="margin: 0; padding: 0; box-sizing: border-box;">
+                            Merci de confirmer votre email en cliquant sur le lien ci-dessous.
+                        </p>
+                    </td>
+                </tr>
+                <tr style="margin: 0; padding: 0; box-sizing: border-box;">
+                    <td style="margin: 0; box-sizing: border-box; padding: 10px; text-align: left; border-bottom: 1px solid #ccc;" align="left">
+                        <a href="$activation_link" class="button" style="margin: 0; box-sizing: border-box; background-color: #56B8D6; color: #004A5A; border: none; border-radius: 25px; padding: 10px 60px; font-size: 13px; font-weight: 800; cursor: pointer; font-family: Montserrat, sans-serif; text-decoration: none; display: block; width: 100%; text-align: center;">Confirmer votre email</a>
+                    </td>
+                </tr>
             </tbody>
         </table>
-        <table><a href="$activation_link" class="button">Confirmer votre email</a></table>
     </div>
 </body>
 </html>
+
 HTML;
 
     // email header
