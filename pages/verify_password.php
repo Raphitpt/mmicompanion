@@ -47,6 +47,8 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
 } else {
     header('Location: ./login.php');
     exit();
-}; }
+}; 
+
+}
 
 ?>

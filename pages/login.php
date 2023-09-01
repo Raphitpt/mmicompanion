@@ -13,7 +13,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         // On récupère les données du formulaire et on les compare avec la base de donnée
         $login = $_POST['username'];
         $password = $_POST['password'];
-        $sql = "SELECT * FROM users WHERE pname = :login OR edu_mail = :login";
+        $sql = "SELECT * FROM users WHERE edu_mail = :login";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             'login' => $login,
@@ -83,7 +83,7 @@ echo head("MMI Companion | Connexion");
         <h1 class="title-login">SE CONNECTER</h1>
         <div style="height:30px"></div>
         <form method="POST" class="form-login">
-            <input type="text" name="username" placeholder="prénom ou email" id="username" class="input-login" required>
+            <input type="text" name="username" placeholder="email" id="username" class="input-login" required>
             <div style="height:20px"></div>
             <input type="password" name="password" placeholder="mot de passe" id="password" class="input-login"
                 required>
