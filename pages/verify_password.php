@@ -2,6 +2,8 @@
 session_start();
 require '../bootstrap.php';
 
+echo head("MMI Companion | Reset mot de passe");
+
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET['activation_code'])){
     $activation_code = $_GET['activation_code'];
     $edu_mail = $_GET['email'];
@@ -14,7 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
     $user = $stmt_code->fetch(PDO::FETCH_ASSOC);
     if($user['verification_code_pass'] == $activation_code && $activation_code != null && $edu_mail != null && $activation_code != "" && $activation_code != 0) { 
 
-echo head("MMI Companion | Reset mot de passe");
+
 
 ?>
 
