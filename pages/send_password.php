@@ -19,6 +19,7 @@ if (isset($_POST['submit'])) {
             header('Location: ./lost_password.php');
         } else {
             $_SESSION['mail_message'] = "L'email $email n'est pas enregistré dans notre base de données.";
+            header('Location: ./lost_password.php');
         }
 
     }
