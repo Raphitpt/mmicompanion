@@ -206,62 +206,8 @@ echo head('MMI Companion | Accueil');
       </div>
     </div>
 
-    <div class="burger_content-header" id="burger_content-header">
-      <div style="height:60px"></div>
-      <div class="burger_content_title-header">
-        <img src="./../assets/img/mmicompanion.svg" alt="">
-        <h1>MMI Companion</h1>
-      </div>
-      <div class="burger_content_content-header">
-        <div class="burger_content_trait_header"></div>
-        <a href="./index.php">
-          <div class="burger_content_link-header">
-            <i class="fi fi-br-home"></i>
-            <p>Vue d'ensemble</p>
-            <div class="select_link-header"></div>
-          </div>
-        </a>
-        <a href="./agenda.php">
-        <div class="burger_content_link-header">
-          <i class="fi fi-br-calendar"></i>
-          <p>Agenda</p>
-        </div>
-        </a>
-        <div class="burger_content_trait_header"></div>
-        <a href="./messages.php">
-          <div class="burger_content_link-header">
-            <i class="fi fi-br-comment-alt"></i>
-            <p>Messages</p>
-          </div>
-        </a>
-        <a href="./mail.php">
-          <div class="burger_content_link-header">
-            <i class="fi fi-br-envelope"></i>
-            <p>Boite mail</p>
-          </div>
-        </a>
-        <div class="burger_content_trait_header"></div>
-        <a href="./sante.php">
-          <div class="burger_content_link-header">
-            <i class="fi fi-br-doctor"></i>
-            <p>Mon bien être</p>
-          </div>
-        </a>
-        <a href="./profil.php">
-          <div class="burger_content_link-header">
-            <i class="fi fi-br-user"></i>
-            <p>Mon profil</p>
-          </div>
-        </a>
-        <div class="burger_content_trait_header"></div>
-          <a href="./logout.php">
-            <div class="burger_content_link-header logout-header">
-                <i class="fi fi-br-delete-user"></i>
-                <p>Se déconnecter</p>
-            </div>
-          </a>
-      </div>
-    </div>
+    <?php generateBurgerMenuContent() ?>
+    
   </header>
 
   <main class="main-index">
@@ -307,6 +253,11 @@ echo head('MMI Companion | Accueil');
   <script src="../assets/js/menu-navigation.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
+
+    // Faire apparaître le background dans le menu burger
+    let select_background_profil = document.querySelector('#select_background_index-header');
+    select_background_profil.classList.add('select_link-header');
+
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
