@@ -84,7 +84,8 @@ HTML_HEAD;
 
 
 
-function generateBurgerMenuContent() {
+function generateBurgerMenuContent()
+{
     // Le code HTML du menu burger
     $menuHtmlFinal = '
     <div class="burger_content-header" id="burger_content-header">
@@ -265,7 +266,7 @@ function decodeJWT($jwt, $secret_key)
 
     try {
         // Décoder le JWT avec la clé secrète
-        
+
         $decoded = JWT::decode($jwt, new Key($secret_key, 'HS256'));
 
         // Accéder aux valeurs du payload du JWT
@@ -294,8 +295,9 @@ function decodeJWT($jwt, $secret_key)
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-function sendNotification($message, $body, $group) {
-    $dbh = new PDO('mysql:host='.$_ENV['DB_HOST'].';dbname='.$_ENV['DB_NAME'].'', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
+function sendNotification($message, $body, $group)
+{
+    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
     // Assuming you already have a valid $dbh connection to your database
     if ($group != null) {
         $query = "SELECT s.* FROM subscriptions s
@@ -304,7 +306,7 @@ function sendNotification($message, $body, $group) {
         $stmt = $dbh->prepare($query);
         $stmt->execute(['group' => $group]);
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }else{
+    } else {
         $query = "SELECT * FROM subscriptions";
         $stmt = $dbh->query($query);
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -373,12 +375,12 @@ function send_activation_email(string $email, string $activation_code)
             MESSAGE;
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'From: MMI Companion <'.SENDER_EMAIL_ADDRESS.'>' . "\r\n" .
-            'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
-            'Content-Type: text/plain; charset="utf-8"; DelSp="Yes"; format=flowed '."\r\n" .
-            'Content-Disposition: inline'. "\r\n" .
-            'Content-Transfer-Encoding: 7bit'." \r\n" .
-            'X-Mailer:PHP/'.phpversion();
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To:' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/plain; charset="utf-8"; DelSp="Yes"; format=flowed ' . "\r\n" .
+        'Content-Disposition: inline' . "\r\n" .
+        'Content-Transfer-Encoding: 7bit' . " \r\n" .
+        'X-Mailer:PHP/' . phpversion();
 
     // send the email
     $_SESSION['mail_message'] = "";
@@ -397,19 +399,133 @@ function send_reset_password(string $email, string $activation_code)
 
     // set email subject & body
     $subject = 'Réinitialise ton mot de passe dès maintenant !';
-    $message = <<<MESSAGE
-            Salut,
-            Clique sur le lien pour changer ton mot de passe :
-            $activation_link
-            MESSAGE;
+    $message = <<<HTML
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Email</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        /* Reset default browser styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Set a background color */
+        body {
+            background-color: #f2f2f2;
+        }
+        
+        /* Center the content */
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #B9E0FF;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Style the heading */
+        h1 {
+            color: var(--Bleu-moyen, #56B8D6);
+            font-family: Montserrat;
+font-size: 1.6rem;
+font-style: normal;
+font-weight: 800;
+line-height: normal;
+        }
+        p{
+            color: var(--Texte, #004A5A);
+            font-family: Montserrat;
+font-size: 1.2rem;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+text-align: center;
+        }
+        
+        /* Style the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        /* Style the button */
+        .button {
+            background-color: #56B8D6;
+    color: #004A5A;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 60px;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: Montserrat;
+    text-decoration: none;
+    
+        }
+        
+        .button:hover {
+            background-color: #458ea4;
+        }
+        .logo{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="./assets/img/mmicompanion.svg" alt="logo mmi">
+            <h1>MMI Companion</h1>
+        </div>
+        <table>
+            <tbody>
+                <img src="./assets/img/verif_mail.svg" style="width: 80%;" alt="email">
+                <p>
+                    Bonjour, <br><br>
+                    Merci de confirmer votre email en cliquant sur le lien ci-dessous.
+                </p>
+            </tbody>
+        </table>
+        <table><a href="$activation_link" class="button">Confirmer votre email</a></table>
+    </div>
+</body>
+</html>
+HTML;
+
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'From: MMI Companion <'.SENDER_EMAIL_ADDRESS.'>' . "\r\n" .
-            'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
-            'Content-Type: text/plain; charset="utf-8"; DelSp="Yes"; format=flowed '."\r\n" .
-            'Content-Disposition: inline'. "\r\n" .
-            'Content-Transfer-Encoding: 7bit'." \r\n" .
-            'X-Mailer:PHP/'.phpversion();
+                'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
+                'Content-Type: text/html; charset="utf-8"'."\r\n" .
+                'X-Mailer: PHP/'.phpversion();
 
     // send the email
     $_SESSION['mail_message'] = "";
