@@ -17,11 +17,12 @@ echo head("MMI Companion | Mot de passe oublié");
             <img src="../assets/img/forgot_password.svg" alt="Illustration diverse">
         </div>
         <h1 class="title-login">Mot de passe oublié</h1>
-        <div style="height:30px"></div>
+        <div style="height:15px"></div>
         <?php if(isset($_SESSION['mail_message'])) { ?>
             <div class="success_message-lost_password"><?php echo $_SESSION['mail_message']; ?></div>
             <div style="height:15px"></div>
         <?php } else { ?>
+        <div style="height:30px"></div>
         <form method="POST" class="form-login" action="./send_password.php">
             <input type="text" name="email" placeholder="email" id="email" class="input-login" required>
             <div style="height:20px"></div>
