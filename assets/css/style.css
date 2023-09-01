@@ -294,12 +294,12 @@ main {
     height: 100vh;
 }
 
-.illustration-accueil {
+.illustration-login {
     display: flex;
     justify-content: center;
 }
 
-.illustration-accueil img {
+.illustration-login img {
     width: 80%;
 }
 
@@ -532,6 +532,17 @@ main {
 
 
 
+/* RESET_PASSWORD.PHP */
+
+
+
+
+
+
+
+
+
+
 /* MAIL.PHP */
 
 
@@ -547,15 +558,6 @@ main {
     align-items: center;
     justify-content: center;
     height: 100vh;
-}
-
-.illustration-mail {
-    display: flex;
-    justify-content: center;
-}
-
-.illustration-mail img {
-    width: 80%;
 }
 
 .title-mail {
