@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
         'edu_mail' => $edu_mail,
     ]);
     $user = $stmt_code->fetch(PDO::FETCH_ASSOC);
-    if($user['verification_code_mail'] == $activation_code){
+    if($user['verification_code_mail'] == $activation_code && $activation_code != null && $edu_mail != null && $activation_code != "" && $activation_code != 0){
         $sql = "UPDATE users SET verification_code_mail = NULL, active = 1 WHERE edu_mail = :edu_mail";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
