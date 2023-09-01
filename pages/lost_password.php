@@ -19,7 +19,7 @@ echo head("MMI Companion | Mot de passe oublié");
         <h1 class="title-login">Mot de passe oublié</h1>
         <div style="height:30px"></div>
         <?php if(isset($_SESSION['mail_message'])) { ?>
-            <div class="success_message-login"><?php echo $_SESSION['mail_message']; ?></div>
+            <div class="success_message-lost_password"><?php echo $_SESSION['mail_message']; ?></div>
             <div style="height:15px"></div>
         <?php } else { ?>
         <form method="POST" class="form-login" action="./send_password.php">

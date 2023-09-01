@@ -532,13 +532,16 @@ main {
 
 
 
-/* RESET_PASSWORD.PHP */
+/* LOST_PASSWORD.PHP */
 
-
-
-
-
-
+.success_message-lost_password {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    width: 80%;
+    text-align: center;
+}
 
 
 
