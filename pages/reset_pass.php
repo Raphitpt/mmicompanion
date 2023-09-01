@@ -7,6 +7,8 @@ if(isset($_POST['submit'])){
         $password = $_POST['password'];
         $password_confirm = $_POST['password_confirm'];
         $edu_mail = $_POST['mail_user'];
+        $_SESSION['mail_user'] = $edu_mail;
+        $_SESSION['activation_code'] = $_POST['activation_code'];
         if($password == $password_confirm){
             $password = password_hash($password, PASSWORD_DEFAULT);
             
@@ -21,14 +23,18 @@ if(isset($_POST['submit'])){
             exit();
         }
         else{
-            header('Location: ./verify_password.php');
-            $_SESSION['erreur'] = "Les mots de passe ne correspondent pas !";
+            header('Location: ./verify_password.php?email='.$_SESSION['mail_user'].'&activation_code='.$_SESSION['activation_code'].'');
+            $_SESSION['erreur_password'] = "Les mots de passe ne correspondent pas !";
+            unset($_SESSION['mail_user']);
+            unset($_SESSION['activation_code']);
             exit();
         }
     }
     else {
-        header('Location: ./verify_password.php');
-        $_SESSION['erreur'] = "Veuillez remplir tous les champs du formulaire.";
+        header('Location: ./verify_password.php?email='.$_SESSION['mail_user'].'&activation_code='.$_SESSION['activation_code'].'');
+        $_SESSION['erreur_password'] = "Veuillez remplir tous les champs du formulaire.";
+        unset($_SESSION['mail_user']);
+        unset($_SESSION['activation_code']);
         exit();
     }
 }
