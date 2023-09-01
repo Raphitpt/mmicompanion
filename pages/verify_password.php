@@ -2,6 +2,8 @@
 session_start();
 require '../bootstrap.php';
 
+echo head("MMI Companion | Reset mot de passe");
+
 if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET['activation_code'])){
     $activation_code = $_GET['activation_code'];
     $edu_mail = $_GET['email'];
@@ -14,20 +16,32 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
     $user = $stmt_code->fetch(PDO::FETCH_ASSOC);
     if($user['verification_code_pass'] == $activation_code && $activation_code != null && $edu_mail != null && $activation_code != "" && $activation_code != 0) { 
 
+
+
 ?>
 
 <body class="body-login">
+    <a href="./login.php" class="back_btn">
+        <i class="fi fi-br-arrow-alt-right"></i>
+    </a>  
     <main class="main-login">
-        <form method="POST" action="reset_pass.php">
+        <h1 class="title-login">Nouveau mot de passe</h1>
+        <div style="height:30px"></div>
+        <form method="POST" class="form-login" action="reset_pass.php">
             <input type="hidden" name="mail_user" value="<?php echo $edu_mail; ?>">
             <input type="password" name="password" class="input-login"  placeholder="nouveau mot de passe">
+            <div style="height:20px"></div>
             <input type="password" name="password_confirm" class="input-login"  placeholder="confirmer le mot de passe">
+            <div style="height:30px"></div>
             <input type="submit" name="submit" class="button_register" value="valider">
         </form>
     </main>
 </body>
+
+</html>
         
-<?php } else {
+<?php 
+} else {
     header('Location: ./login.php');
     exit();
 }; }

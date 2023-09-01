@@ -2,7 +2,7 @@
 session_start();
 
 require "../bootstrap.php";
-echo head("MMI Companion - Mot de passe oublié");
+echo head("MMI Companion | Mot de passe oublié");
 
 if (isset($_SESSION['mail_message'])) {
     echo "<script>alert('" . addslashes($_SESSION['mail_message']) . "')</script>";
