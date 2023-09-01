@@ -19,9 +19,9 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
     <main class="main-login">
         <form method="POST">
             <input type="hidden" name="mail_user" value="<?php echo $edu_mail; ?>">
-            <input type="password" name="password" placeholder="Nouveau mot de passe">
-            <input type="password" name="password_confirm" placeholder="Confirmer le mot de passe">
-            <input type="submit" name="submit" value="Valider">
+            <input type="password" name="password" class="input-login"  placeholder="nouveau mot de passe">
+            <input type="password" name="password_confirm" class="input-login"  placeholder="confirmer le mot de passe">
+            <input type="submit" name="submit" class="button_register" value="valider">
         </form>
     </main>
 </body>
