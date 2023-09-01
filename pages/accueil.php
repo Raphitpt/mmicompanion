@@ -12,7 +12,7 @@ echo head("MMI Companion - Accueil");
 ?>
 <body class="body-accueil">
     <main class="main-accueil">
-        <div class="illustration-accueil">
+        <div class="illustration-login">
             <img src="../assets/img/accueil.svg" alt="Illustration diverse">
         </div>
         <div class="title-accueil">

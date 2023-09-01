@@ -88,7 +88,7 @@ echo head("MMI Companion | Connexion");
             <input type="password" name="password" placeholder="mot de passe" id="password" class="input-login"
                 required>
             <div class="button_forget-login">
-                <a href="./lost_password.php" class="button_forget-login">Mot de passe oublié ?</a>
+                <p><a href="./lost_password.php" class="button_forget-login">Mot de passe oublié ?</a></p>
             </div>
             <div style="height:30px"></div>
             <input type="submit" value="Se connecter" class="button_register">

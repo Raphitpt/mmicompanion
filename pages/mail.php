@@ -39,7 +39,7 @@ echo head("MMI Companion - Vérification du mail");
 ?>
 <body class="body-mail">
     <main class="main-mail">
-        <div class="illustration-mail">
+        <div class="illustration-login">
             <img src="../assets/img/verif_mail.svg" alt="Illustration diverse">
         </div>
         <div class="title-mail">
