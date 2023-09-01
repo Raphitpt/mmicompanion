@@ -393,7 +393,7 @@ function send_activation_email(string $email, string $activation_code)
 function send_reset_password(string $email, string $activation_code)
 {
     // create the activation link
-    $activation_link = APP_URL . "/reset_password.php?email=$email&activation_code=$activation_code";
+    $activation_link = APP_URL . "/verify_password.php?email=$email&activation_code=$activation_code";
 
     // set email subject & body
     $subject = 'Réinitialise ton mot de passe dès maintenant !';
