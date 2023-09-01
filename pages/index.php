@@ -262,7 +262,7 @@ echo head('MMI Companion | Accueil');
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.getElementById("calendar");
-      let eventColors = {};
+      // let eventColors = {};
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
         buttonText: {
@@ -295,7 +295,7 @@ echo head('MMI Companion | Accueil');
           let eventLocation = arg.event.extendedProps.location;
           let eventDescription = arg.event.extendedProps.description;
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
-          // arg.event.setProp('backgroundColor', 'green');
+          arg.eventColor='#198754';
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
           let eventContent = '<div class="fc-title">' + arg.event.title + '</div>';
 
@@ -312,14 +312,14 @@ echo head('MMI Companion | Accueil');
           };
         },
 
-        eventDidMount: function(arg) {
-          let eventTitle = arg.event.title;
-          let eventColor = eventColors[eventTitle];
+        // eventDidMount: function(arg) {
+        //   let eventTitle = arg.event.title;
+        //   let eventColor = eventColors[eventTitle];
 
-          if (eventColor) {
-            arg.el.style.backgroundColor = eventColor;
-          }
-        }
+        //   if (eventColor) {
+        //     arg.el.style.backgroundColor = eventColor;
+        //   }
+        // }
       });
 
       // Fonction pour générer une couleur aléatoire

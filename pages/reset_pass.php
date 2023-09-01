@@ -10,7 +10,7 @@ if(isset($_POST['submit'])){
         if($password == $password_confirm){
             $password = password_hash($password, PASSWORD_DEFAULT);
             
-            $sql = "UPDATE users SET password = :password AND verification_code_pass = null WHERE edu_mail = :edu_mail";
+            $sql = "UPDATE users SET password = :password, verification_code_pass = null WHERE edu_mail = :edu_mail";
             $stmt = $dbh->prepare($sql);
             $stmt->execute([
                 'password' => $password,
