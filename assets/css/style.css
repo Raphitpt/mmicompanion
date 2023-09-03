@@ -33,9 +33,6 @@ main {
     flex-direction: column;
 }
 
-
-
-
 /* HEADER */
 
 .content_header {
@@ -286,6 +283,35 @@ main {
 
 /* Page de Bienvenue */
 
+.main-desktop{
+    display: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 30px;
+}
+
+.main-desktop h1{
+    color: #004A5A;
+    font-size: 17px;
+    font-weight: 500;
+    font-family: Montserrat;
+    width: 500px;
+    text-align: center;
+}
+
+.main-desktop p{
+    color: #004A5A;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: Montserrat;
+    width: 500px;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 .main-accueil {
     display: flex;

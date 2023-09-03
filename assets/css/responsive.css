@@ -1,0 +1,9 @@
+@media screen and (min-width: 1024px) {
+    .main-accueil {
+        display: none;
+    }
+
+    .main-desktop {
+        display: flex;
+    }
+}
