@@ -63,15 +63,15 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 if (strpos($users['edu_group'], 'BUT1') !== false) {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.name_subject = ss.id_subject
-    WHERE rs.code_ressource LIKE 'R1%' OR rs.code_ressource LIKE 'R2%' ORDER BY ss.name_subject ASC";
+    WHERE rs.code_ressource LIKE 'R1%' OR rs.code_ressource LIKE 'R2%' OR rs.code_ressource LIKE 'SAE1%' OR rs.code_ressource LIKE 'SAE2%' ORDER BY ss.name_subject ASC";
 } elseif (strpos($users['edu_group'], 'BUT2') !== false) {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.name_subject = ss.id_subject
-    WHERE rs.code_ressource LIKE 'R3%' OR rs.code_ressource LIKE 'R4%' ORDER BY ss.name_subject ASC";
+    WHERE rs.code_ressource LIKE 'R3%' OR rs.code_ressource LIKE 'R4%' OR rs.code_ressource LIKE 'SAE3%' OR rs.code_ressource LIKE 'SAE4%' ORDER BY ss.name_subject ASC";
 } elseif (strpos($users['edu_group'], 'BUT3') !== false) {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.name_subject = ss.id_subject
-    WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' ORDER BY ss.name_subject ASC";
+    WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' OR rs.code_ressource LIKE 'SAE5%' OR rs.code_ressource LIKE 'SAE6%' ORDER BY ss.name_subject ASC";
 } else {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.id_subject = ss.id_subject ORDER BY ss.name_subject ASC";
