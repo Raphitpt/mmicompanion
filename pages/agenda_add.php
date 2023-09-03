@@ -45,7 +45,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 
 // Petit bout de code pour récupérer les matières dans la base de donnée et les utiliser dans le select du formulaire
 // --------------------
-$sql_subject = "SELECT * FROM sch_subject";
+$sql_subject = "SELECT * FROM sch_subject ORDER BY name_subject ASC";
 $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
