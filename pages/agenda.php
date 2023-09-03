@@ -89,6 +89,16 @@ foreach ($agenda as $agendas) {
     }
 }
 
+
+// --------------------
+// Récupérer les couleurs des matières
+
+$sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
+$stmt_color = $dbh->prepare($sql_color);
+$stmt_color->execute();
+$colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
+
+
 // Obligatoire pour afficher la page
 echo head("MMI Companion - Agenda");
 ?>
@@ -202,6 +212,12 @@ echo head("MMI Companion - Agenda");
                         echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
                     }
                     echo "<div class='agenda_content_subject-agenda'>";
+                    foreach ($colors as $color) {
+                        if ($color['id_subject'] == $agenda['id_subject']) {
+                            echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
+                            break;
+                        }
+                    }
                     // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
                     echo "<p>" . $agenda['name_subject'] . "</p>";
                     echo "</div>";
