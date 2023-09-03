@@ -113,7 +113,7 @@ echo head("MMI Companion - Profil");
                             <?php } ?>
 
                         </select>
-                        <input type="submit" value="valider">
+                        <input type="submit" value="Valider">
                     </form>
                 </div>
             <?php } ?>
