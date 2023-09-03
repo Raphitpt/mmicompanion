@@ -19,6 +19,7 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
             'edu_mail' => $edu_mail
         ]);
         header('Location: ./login.php');
+        $_SESSION['success_mail'] = "Votre mail a bien été vérifié !";
         exit();
     }
     else{
