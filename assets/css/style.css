@@ -1243,6 +1243,10 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     -webkit-appearance: none;
+    min-width: 100px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis 
 }
 
 
