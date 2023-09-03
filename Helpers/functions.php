@@ -29,6 +29,7 @@ function head(string $title = ''): string
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../assets/css/style.css" rel="stylesheet"">
+  <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
   <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
@@ -161,14 +162,14 @@ function generateBurgerMenuContent()
             <div class="burger_content_trait_header"></div>
             <a href="./index.php">
                 <div class="burger_content_link-header">
-                    <i class="fi fi-br-home"></i>
-                    <p>Vue d\'ensemble</p>
+                    <i class="fi fi-br-calendar-lines"></i>
+                    <p>Emploi du temps</p>
                     <div id="select_background_index-header" class=""></div>
                 </div>
             </a>
             <a href="./agenda.php">
                 <div class="burger_content_link-header">
-                    <i class="fi fi-br-calendar"></i>
+                    <i class="fi fi-br-book-bookmark"></i>
                     <p>Agenda</p>
                     <div id="select_background_agenda-header" class=""></div>
                 </div>
