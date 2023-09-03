@@ -1088,9 +1088,6 @@ main {
     width: 80%;
 }
 
-.agenda_content_list_item_flexleft-agenda div{
-    width: 80%;
-}
 
 .agenda_content_list_item_flexleft-agenda i {
     margin-right: 10px;
@@ -1103,11 +1100,10 @@ main {
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
-    width: 100%;
-    overflow: hidden;
+    overflow: clip;
     text-overflow: ellipsis;
+    width: 200px;
 }
-
 
 
 .agenda_content_list_item_flexleft-agenda input[type="checkbox"] {
