@@ -471,6 +471,14 @@ main {
     font-weight: 500;
 }
 
+.success_message-login {
+    color: #00b938;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
 
 
 
