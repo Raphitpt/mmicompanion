@@ -1,12 +1,18 @@
+<!-- 
+        Page d'accueil quand on arrive sur l'application via le QR-code ou bien en cliquant sur le lien
+        On peut s'inscrire(register.php) ou se connecter(login.php)
+        On peut aussi accéder à la page d'accueil en cliquant sur le logo en haut à gauche
+-->
+
 <?php
 session_start();
 require "../bootstrap.php";
 
 echo head("MMI Companion - Accueil");
 ?>
-<body class="body-accueil">
+<body class="body-login">
     <main class="main-accueil">
-        <div class="illustration-accueil">
+        <div class="illustration-login">
             <img src="../assets/img/accueil.svg" alt="Illustration diverse">
         </div>
         <div class="title-accueil">

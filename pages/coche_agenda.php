@@ -1,3 +1,4 @@
+<!-- Script utilisé dans le fichier agenda.php pour mettre à jour la valeur d'une coche -->
 <?php
 require "../bootstrap.php";
 

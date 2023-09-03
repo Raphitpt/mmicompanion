@@ -1,4 +1,5 @@
 <?php
+
 /*
 
     Fichier : /Helpers/functions.php
@@ -28,6 +29,7 @@ function head(string $title = ''): string
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="../assets/css/style.css" rel="stylesheet"">
+  <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
   <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
@@ -72,13 +74,125 @@ function head(string $title = ''): string
   <title>$title</title>
   <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
     <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
-    <script src="../assets/js/auth.js"></script>
     
 
 </head>
 
 
 HTML_HEAD;
+}
+
+
+
+
+function generateBurgerMenuContent()
+{
+    // Le code HTML du menu burger
+    $menuHtmlFinal = '
+    <div class="burger_content-header" id="burger_content-header">
+        <div style="height:60px"></div>
+        <div class="burger_content_title-header">
+            <img src="./../assets/img/mmicompanion.svg" alt="">
+            <h1>MMI Companion</h1>
+        </div>
+        <div class="burger_content_content-header">
+            <div class="burger_content_trait_header"></div>
+            <a href="./index.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-home"></i>
+                    <p>Vue d\'ensemble</p>
+                    <div id="select_background_index-header" class=""></div>
+                </div>
+            </a>
+            <a href="./agenda.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-calendar"></i>
+                    <p>Agenda</p>
+                    <div id="select_background_agenda-header" class=""></div>
+                </div>
+            </a>
+            <div class="burger_content_trait_header"></div>
+            <a href="./messages.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-comment-alt"></i>
+                    <p>Messages</p>
+                    <div id="select_background_messages-header" class=""></div>
+                </div>
+            </a>
+            <a href="./mail.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-envelope"></i>
+                    <p>Boite mail</p>
+                    <div id="select_background_mail-header" class=""></div>
+                </div>
+            </a>
+            <div class="burger_content_trait_header"></div>
+            <a href="./sante.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-doctor"></i>
+                    <p>Mon bien être</p>
+                    <div id="select_background_sante-header" class=""></div>
+                </div>
+            </a>
+            <a href="./profil.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-user"></i>
+                    <p>Mon profil</p>
+                    <div id="select_background_profil-header" class=""></div>
+                </div>
+            </a>
+            <div class="burger_content_trait_header"></div>
+            <a href="./logout.php">
+                <div class="burger_content_link-header logout-header">
+                    <i class="fi fi-br-delete-user"></i>
+                    <p>Se déconnecter</p>
+                </div>
+            </a>
+        </div>
+    </div>';
+
+    $menuHtml = '
+    <div class="burger_content-header" id="burger_content-header">
+        <div style="height:60px"></div>
+        <div class="burger_content_title-header">
+            <img src="./../assets/img/mmicompanion.svg" alt="">
+            <h1>MMI Companion</h1>
+        </div>
+        <div class="burger_content_content-header">
+            <div class="burger_content_trait_header"></div>
+            <a href="./index.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-calendar-lines"></i>
+                    <p>Emploi du temps</p>
+                    <div id="select_background_index-header" class=""></div>
+                </div>
+            </a>
+            <a href="./agenda.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-book-bookmark"></i>
+                    <p>Agenda</p>
+                    <div id="select_background_agenda-header" class=""></div>
+                </div>
+            </a>
+            <div class="burger_content_trait_header"></div>
+            <a href="./profil.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-user"></i>
+                    <p>Mon profil</p>
+                    <div id="select_background_profil-header" class=""></div>
+                </div>
+            </a>
+            <div class="burger_content_trait_header"></div>
+            <a href="./logout.php">
+                <div class="burger_content_link-header logout-header">
+                    <i class="fi fi-br-delete-user"></i>
+                    <p>Se déconnecter</p>
+                </div>
+            </a>
+        </div>
+    </div>';
+
+    echo $menuHtml; // Affiche le menu HTML
 }
 
 
@@ -140,8 +254,14 @@ function calendar($group = '')
     }
     return $calendar_link;
 }
+// on initialise la bibliothèque Firebase JWT pour PHP avec Composer et on y ajoute la clé secrète qui est dans le fichier .env
 use \Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+
+// La c'est la fonction qui décode le JWT, oui le cookie est encodé pour plus de sécurité,
+// Il faut que le tableau ci-dessous soit identique à celui du fichier login.php, sinon on perd des données
+// Si on ajoute un champs dans le cookie il faut l'ajouter dans le tableau ci-dessous puis dans le fichier login.php
+// La clé secrète est dans le fichier .env, ne pas toucher
 function decodeJWT($jwt, $secret_key)
 {
 
@@ -176,8 +296,9 @@ function decodeJWT($jwt, $secret_key)
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-function sendNotification($message, $body, $group) {
-    $dbh = new PDO('mysql:host='.$_ENV['DB_HOST'].';dbname='.$_ENV['DB_NAME'].'', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
+function sendNotification($message, $body, $group)
+{
+    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
     // Assuming you already have a valid $dbh connection to your database
     if ($group != null) {
         $query = "SELECT s.* FROM subscriptions s
@@ -186,7 +307,7 @@ function sendNotification($message, $body, $group) {
         $stmt = $dbh->prepare($query);
         $stmt->execute(['group' => $group]);
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }else{
+    } else {
         $query = "SELECT * FROM subscriptions";
         $stmt = $dbh->query($query);
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -232,5 +353,116 @@ function sendNotification($message, $body, $group) {
             echo "[x] Le message n'a pas réussi à être envoyer {$endpoint}: {$report->getReason()}\n";
             // Handle the failure, remove the subscription from your server, etc.
         }
+    }
+}
+function generate_activation_code(): string
+{
+    return bin2hex(random_bytes(16));
+}
+
+const APP_URL = 'https://app.mmi-companion.fr/pages';
+const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
+function send_activation_email(string $email, string $activation_code)
+{
+    // create the activation link
+    $activation_link = APP_URL . "/verify_mail.php?email=$email&activation_code=$activation_code";
+
+    // set email subject & body
+    $subject = 'Active ton compte dès maintenant !';
+    $message = <<<MESSAGE
+            Hi,
+            Please click the following link to activate your account:
+            $activation_link
+            MESSAGE;
+    // email header
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To:' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/plain; charset="utf-8"; DelSp="Yes"; format=flowed ' . "\r\n" .
+        'Content-Disposition: inline' . "\r\n" .
+        'Content-Transfer-Encoding: 7bit' . " \r\n" .
+        'X-Mailer:PHP/' . phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    if (mail($email, $subject, nl2br($message), $headers)) {
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } else {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
+}
+
+function send_reset_password(string $email, string $activation_code)
+{
+    // create the activation link
+    $activation_link = APP_URL . "/verify_password.php?email=$email&activation_code=$activation_code";
+
+    // set email subject & body
+    $subject = 'Réinitialise ton mot de passe dès maintenant !';
+    $message = <<<HTML
+<!DOCTYPE html>
+<html lang="en" style="margin: 0; padding: 0; box-sizing: border-box;">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Email</title>
+    <style>
+.button:hover {
+  background-color: #458ea4;
+}
+</style>
+</head>
+<body style="margin: 0; padding: 0; box-sizing: border-box; background-color: #f2f2f2;">
+    <div class="container" style="box-sizing: border-box; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #B9E0FF; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+        <div class="logo" style="margin: 0; padding: 0; box-sizing: border-box; text-align: center; margin-bottom: 20px;">
+            <img src="https://dev.mmi-companion.fr/mmicompanion/assets/img/mmicompanion.svg" alt="logo mmi" style="margin: 0; padding: 0; box-sizing: border-box; max-width: 80%;">
+            <h1 style="margin: 0; padding: 0; box-sizing: border-box; color: #56B8D6; font-family: Montserrat, sans-serif; font-size: 1.6rem; font-weight: 800;">MMI Companion</h1>
+        </div>
+
+        <table style="margin: 0; padding: 0; box-sizing: border-box; width: 100%; border-collapse: collapse; margin-bottom: 20px;" width="100%">
+            <tbody style="margin: 0; padding: 0; box-sizing: border-box;">
+                <tr style="margin: 0; padding: 0; box-sizing: border-box;">
+                    <td style="margin: 0; box-sizing: border-box; padding: 10px; text-align: left; border-bottom: 1px solid #ccc;" align="left">
+                        <img src="https://dev.mmi-companion.fr/mmicompanion/assets/img/verif_mail.svg" style="margin: 0; padding: 0; box-sizing: border-box; width: 100%;" alt="email">
+                    </td>
+                </tr>
+                <tr style="margin: 0; padding: 0; box-sizing: border-box;">
+                    <td style="margin: 0; box-sizing: border-box; padding: 10px; text-align: left; border-bottom: 1px solid #ccc;" align="left">
+                        <p style="margin: 0; padding: 0; box-sizing: border-box; color: #004A5A; font-family: Montserrat, sans-serif; font-size: 1.2rem; font-weight: 500; text-align: center;">
+                            Bonjour, <br style="margin: 0; padding: 0; box-sizing: border-box;"><br style="margin: 0; padding: 0; box-sizing: border-box;">
+                            Merci de confirmer votre email en cliquant sur le lien ci-dessous.
+                        </p>
+                    </td>
+                </tr>
+                <tr style="margin: 0; padding: 0; box-sizing: border-box;">
+                    <td style="margin: 0; box-sizing: border-box; padding: 10px; text-align: left; border-bottom: 1px solid #ccc;" align="left">
+                        <a href="$activation_link" class="button" style="margin: 0; box-sizing: border-box; background-color: #56B8D6; color: #004A5A; border: none; border-radius: 25px; padding: 10px 60px; font-size: 13px; font-weight: 800; cursor: pointer; font-family: Montserrat, sans-serif; text-decoration: none; display: block; width: 100%; text-align: center;">Confirmer votre email</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
+HTML;
+
+    // email header
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <'.SENDER_EMAIL_ADDRESS.'>' . "\r\n" .
+                'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
+                'Content-Type: text/html; charset="utf-8"'."\r\n" .
+                'X-Mailer: PHP/'.phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    if (mail($email, $subject, nl2br($message), $headers)) {
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } else {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
     }
 }

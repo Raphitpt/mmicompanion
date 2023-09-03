@@ -1,3 +1,4 @@
+<!-- Script pour se deconneter avec plusieurs sécurités -->
 <?php 
 session_start();
 if (isset($_COOKIE['jwt'])) {

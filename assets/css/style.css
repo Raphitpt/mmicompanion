@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    touch-action: manipulation;
 }
 
 a {
@@ -11,10 +12,29 @@ a {
     color: inherit;
 }
 
+body {
+    touch-action: manipulation
+}
+
+main {
+    touch-action: manipulation
+}
 
 .no-scroll {
     overflow: hidden;
-  }
+}
+
+.body-all {
+    background-color: #DDF0FF;
+    height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
 
 /* HEADER */
 
@@ -112,14 +132,21 @@ a {
     position: relative;
 }
 
-.content_img-header-index img {
+.rounded-img {
     width: 50px;
-    height: auto;
-    flex-shrink: 0;
-
+    height: 50px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
 }
 
-.content_img-header-index div {
+.rounded-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.content_img-header-index .green_circle {
     height: 10px;
     width: 10px;
     background-color: #05E200;
@@ -142,6 +169,7 @@ a {
     top: 0px;
     left: 0;
     width: 80vw;
+    max-width: 350px;
     height: 100vh;
     background: var(--bleu-trs-clair-background, #DDF0FF);
     z-index: 100;
@@ -229,6 +257,21 @@ a {
 }
 
 
+.logout-header i {
+    color: #D65656;
+}
+
+.logout-header p {
+    color: #D65656;
+}
+
+.score{
+    color: #004A5A !important;
+    margin-top: -3vh;
+    font-weight: 800;
+}
+
+
 
 
 
@@ -241,11 +284,8 @@ a {
 
 /* ACCUEIL.PHP */
 
-.body-accueil {
-    background-color: #B9E0FF;
-    font-family: 'Montserrat', sans-serif;
-    height: 100vh;
-}
+/* Page de Bienvenue */
+
 
 .main-accueil {
     display: flex;
@@ -255,12 +295,12 @@ a {
     height: 100vh;
 }
 
-.illustration-accueil {
+.illustration-login {
     display: flex;
     justify-content: center;
 }
 
-.illustration-accueil img {
+.illustration-login img {
     width: 80%;
 }
 
@@ -274,6 +314,7 @@ a {
     font-size: 26px;
     font-weight: 900;
     color: #004A5A;
+    font-family: Montserrat;
 }
 
 .title-accueil p {
@@ -282,6 +323,7 @@ a {
     color: #004A5A;
     font-size: 10px;
     padding: 0px 5px;
+    font-family: Montserrat;
 }
 
 
@@ -314,6 +356,9 @@ a {
 
 
 
+
+
+
 /* LOGIN.PHP */
 
 .body-login {
@@ -321,6 +366,10 @@ a {
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
 }
 
 .main-login {
@@ -329,6 +378,8 @@ a {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 80vw;
+    max-width: 550px;
 }
 
 .back_btn {
@@ -355,7 +406,7 @@ a {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 70%;
+    width: 100%;
 }
 
 .input-login {
@@ -370,7 +421,7 @@ a {
 }
 
 .input-login::placeholder {
-    color: rgba(50, 125, 142, 0.4);
+    color: #858585;
 }
 
 .button_forget-login {
@@ -387,12 +438,19 @@ a {
     font-size: 12px;
 }
 
+.error_message-login {
+    color: #D65656;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
 
 
 
 /* REGISTER.PHP */
 
-.form_visibility1-register {
+.form-register {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -481,18 +539,357 @@ a {
 
 
 
+/* LOST_PASSWORD.PHP */
+
+.success_message-lost_password {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+    width: 70%;
+    text-align: center;
+}
+
+
+
+
+/* MAIL.PHP */
+
+
+.main-mail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 80vw;
+    max-width: 550px;
+}
+
+.title-mail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.title-mail h1 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #004A5A;
+    font-family: Montserrat;
+}
+
+.title-mail p {
+    text-align: center;
+    font-weight: 500;
+    color: #004A5A;
+    font-size: 11px;
+    padding: 0px 5px;
+    font-family: Montserrat;
+    width: 70%;
+}
+
+.trait-mail {
+    width: 15%;
+    height: 1px;
+    border-radius: 15px;
+    background-color: #004A5A;
+}
+
+.button-accueil p {
+    margin-top: 10px;
+    color: #004A5A;
+    font-size: 11px;
+    font-weight: 500;
+    font-family: Montserrat;
+    width: 70%;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------- */
 
 
 
 /* INDEX.PHP */
 
-.body-index {
-    background-color: #DDF0FF;
+/* Tutoriel - Page de bienvenue */
+
+
+.main-welcome {
+    height: 100vh;
+    margin: 0px 10vw;
+    max-width: 550px;
+}
+
+.form-welcome {
     height: 100vh;
 }
 
+/* Page 1 */
+
+.welcome_page1-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.title_content_welcome_page1-index {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+}
+
+.title_content_welcome_page1-index h1 {
+    color: var(--texte, #004A5A);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
+
+.title_content_welcome_page1-index img {
+    width: 21px;
+    height: auto;
+}
+
+.title_welcome_page1-index p {
+    color: var(--texte, #004A5A);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.trait_title_welcome-index {
+    width: 50vw;
+    height: 0.5px;
+    background: #004A5A;
+    border-radius: 20px;
+}
+
+.content_welcome_page1-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.content_welcome_page1-index p {
+    color: var(--texte, #004A5A);
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.content_welcome_questions_page1-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.content_welcome_questions_content_page1-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.content_welcome_questions_content_page1-index label {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.content_welcome_questions_content_page1-index select {
+    width: 100%;
+    height: 42px;
+    border-radius: 19.5px;
+    border: none;
+    outline: none;
+    text-align: center;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 0px 20px;
+}
+
+.trait_content_welcome-index {
+    width: 20vw;
+    height: 0.5px;
+    background: #004A5A;
+    border-radius: 20px;
+}
+
+.button_welcome-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #004A5A;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: center;
+    border: none;
+    width: 120px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #56B8D6;
+}
+
+/* Page 2 */
+
+.welcome_page2-index {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.title_welcome_page2-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.title_content_welcome_page2-index {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.title_content_welcome_page2-index i {
+    width: 22px;
+    height: auto;
+    color: var(--texte, #004A5A);
+}
+
+.title_content_welcome_page2-index h1 {
+    color: var(--texte, #004A5A);
+    text-align: left;
+    font-family: Montserrat;
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.title_welcome_page2-index p {
+    position: relative;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    padding-left: 15px;
+}
+
+.title_welcome_page2-index p::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #004A5A;
+}
+
+.content_welcome_page2-index{
+    border-radius: 40px;
+    background: var(--bleu-moyen, #56B8D6);
+}
+
+.content_welcome_page2-index ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 40px 50px;
+}
+
+.content_welcome_page2-index ul li {
+    color: #004A5A;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+/* Page 3 */
+
+
+.welcome_page3-index {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.title_welcome_page3-index {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+
+
+
+
+
+
+
+/* ---------- */
+
 .main-index {
-    margin: 0 10vw;
+    width: 80vw;
+    max-width: 550px;
 }
 
 
@@ -529,7 +926,7 @@ a {
     padding: 20px;
 }
 
-.fc-toolbar-title{
+.fc-toolbar-title {
     color: #004A5A !important;
     font-weight: 600 !important;
     font-size: 15px !important;
@@ -541,7 +938,7 @@ a {
     max-width: 200px;
 }
 
-.fc-toolbar-chunk{
+.fc-toolbar-chunk {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
@@ -580,11 +977,12 @@ a {
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
 }
+
 .no-event {
     background-image: url(path/to/image.jpg);
     background-size: cover;
     /* autres styles personnalisés */
-  }
+}
 
 
 
@@ -595,10 +993,15 @@ a {
 
 .body-agenda {
     background: #DDF0FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .main-agenda {
-    margin: 0 10vw;
+    width: 80vw;
+    max-width: 550px;
 }
 
 .agenda_title_flextop-agenda {
@@ -645,14 +1048,25 @@ a {
     font-weight: 500;
 }
 
-.agenda_content_list_item-agenda{
+.agenda_content_list_item-agenda {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
-.agenda_content_list_item_flexleft-agenda i{
+.agenda_content_list_item_flexleft-agenda {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    width: 80%;
+}
+
+.agenda_content_list_item_flexleft-agenda div{
+    width: 80%;
+}
+
+.agenda_content_list_item_flexleft-agenda i {
     margin-right: 10px;
     color: #CB0000;
 }
@@ -663,16 +1077,12 @@ a {
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
-    width: 50vw;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.agenda_content_list_item_flexleft-agenda {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-}
+
 
 .agenda_content_list_item_flexleft-agenda input[type="checkbox"] {
     appearance: none;
@@ -703,7 +1113,7 @@ input[type="checkbox"]:checked::before {
     }
 }
 
-.agenda_content_subject-agenda{
+.agenda_content_subject-agenda {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -718,7 +1128,7 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
 }
 
-.circle_subject-agenda{
+.circle_subject-agenda {
     width: 10px;
     height: 10px;
     border-radius: 50%;
@@ -726,7 +1136,20 @@ input[type="checkbox"]:checked::before {
     background-color: #464646;
 }
 
+.agenda_content_list_item_flexright-agenda{
+    display: flex;
+    gap: 30px;
+}
+
 .agenda_content_list_item_flexright-agenda i{
+    font-size: 17px;
+}
+
+.agenda_content_list_item_flexright-agenda i.blue {
+    color: #004A5A;
+}
+
+.agenda_content_list_item_flexright-agenda i.red {
     color: #CB0000;
 }
 
@@ -735,12 +1158,6 @@ input[type="checkbox"]:checked::before {
 
 /* AGENDA_ADD.PHP */
 
-/*
-* Prefixed by:
-* PostCSS: v7.0.29,
-* Autoprefixer: v9.7.6
-* Browsers: last 4 version
-*/
 
 .form-agenda_add {
     display: -webkit-box;
@@ -748,14 +1165,14 @@ input[type="checkbox"]:checked::before {
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
     -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 
@@ -780,6 +1197,7 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    max-width: 375px;
 }
 
 .label-agenda_add {
@@ -788,11 +1206,11 @@ input[type="checkbox"]:checked::before {
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
 
 .label-agenda_add i {
@@ -811,13 +1229,26 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
 }
 
-
-
-.input_date-agenda_add {
-    border-radius: 30px;
+.container_input-agenda_add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: #ffffff;
-    padding: 10px 20%;
+    border-radius: 30px;
     width: 80%;
+    max-width: 290px;
+}
+
+.container_input-agenda_add i{
+    color: #004A5A;
+    padding: 10px;
+    font-size: 15px;
+    transform: translateY(2px);
+}
+
+.input-agenda_add {
+    background-color: #ffffff00;
+    padding: 10px 20px;
     border: none;
     color: #252525;
     font-family: Montserrat;
@@ -825,70 +1256,15 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    position: relative;
-    text-align: center;
-    background-image: url(./../img/calendar.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    /* Positionnez l'image à droite et au centre */
-    background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
-}
-
-.input_date-agenda_add[type="date"]::-webkit-calendar-picker-indicator {
-    background-position: right;
-    background-size: auto;
-    cursor: pointer;
-    position: absolute;
-    height: 100%;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    width: auto;
-    opacity: 0;
+    -webkit-appearance: none;
+    min-width: 100px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis 
 }
 
 
-.input_select-agenda_add {
-    border-radius: 30px;
-    background: #ffffff;
-    padding: 10px 0px;
-    padding-left: 0px;
-    width: 80%;
-    border: none;
-    color: #252525;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    text-align: center;
-    background-image: url(./../img/bookmark.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    /* Positionnez l'image à droite et au centre */
-    background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
-}
 
-.input_type-agenda_add {
-    background-image: url(./../img/bookmark.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    /* Positionnez l'image à droite et au centre */
-    background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
-}
-
-.input_school-agenda_add {
-    background-image: url(./../img/school.svg);
-    background-repeat: no-repeat;
-    background-position: 20px;
-    /* Positionnez l'image à droite et au centre */
-    background-size: 20px;
-    /* Ajustez la taille de l'image de la flèche selon vos besoins */
-}
 
 .form_button-agenda {
     display: -webkit-box;
@@ -897,11 +1273,11 @@ input[type="checkbox"]:checked::before {
     gap: 20px;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
     -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
     margin-top: 20px;
 }
 
@@ -933,15 +1309,208 @@ input[type="checkbox"]:checked::before {
 }
 
 
-select{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 5px;
+
+
+
+
+
+
+
+
+/* PROFIL.PHP */
+
+.main-profil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80vw;
+    max-width: 550px;
 }
 
+.profil_picture-profil {
+    margin: 40px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    border-radius: 50%;
+    z-index: 19;
+}
 
+.profil_picture-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
 
+.edit_profil_picture-img{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 20;
+}
 
+.edit_profil_picture-img i{
+    background-color: #56b8d6;
+    color: #004a5a;
+    padding: 10px;
+    border-radius: 50%;
+}
 
-  
+.profil_picture-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.profil_form-profil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.profil_form-disabled {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.profil_form-input_disabled {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.profil_form-input_disabled label {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: #004A5A;
+}
+
+.profil_form-input_disabled input {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #3e3e3e;
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: #d6d6d6;
+    padding: 0px 20px;
+}
+
+.trait-profil {
+    width: 50%;
+    height: 1px;
+    background-color: #004A5A;
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+.profil_form-password {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.profil_form-input_password {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.profil_form-input_password label {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: #004A5A;
+}
+
+.profil_form-input_password input[type="password"] {
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #858585;
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: #fefefe;
+    padding: 0px 20px;
+}
+
+.profil_form-password input[type="submit"] {
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    color: #004A5A;
+    width: 70%;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    background-color: #56B8D6;
+    padding: 0px 20px;
+}
+
+.success_password-profil{
+    color: #83d656;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.error_password-profil{
+    color: #D65656;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.profil_form-button_logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: #D65656;
+    width: 70%;
+    height: 40px;
+    color: #F8F8F8;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+}
