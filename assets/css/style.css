@@ -1575,7 +1575,7 @@ input[type="checkbox"]:checked::before {
 .form_transmit_role-profil select{
     width: 60%;
     height: 40px;
-    border-radius: 25px;
+    border-radius: 15px;
     border: none;
     background-color: #fefefe;
     padding: 0px 20px;
