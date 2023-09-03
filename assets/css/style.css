@@ -1147,6 +1147,11 @@ input[type="checkbox"]:checked::before {
     width: 100%;
 }
 
+.container_circle_subject-agenda{
+    width: 10px !important;
+    height: 10px;
+}
+
 .circle_subject-agenda {
     width: 10px !important;
     height: 10px;
