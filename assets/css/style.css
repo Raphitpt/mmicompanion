@@ -1232,7 +1232,7 @@ input[type="checkbox"]:checked::before {
 .container_input-agenda_add{
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     background: #ffffff;
     border-radius: 30px;
     width: 80%;
@@ -1242,6 +1242,7 @@ input[type="checkbox"]:checked::before {
 .container_input-agenda_add i{
     color: #004A5A;
     padding: 10px;
+    padding-left:30px;
     font-size: 15px;
     transform: translateY(2px);
 }
@@ -1257,12 +1258,19 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
     line-height: normal;
     -webkit-appearance: none;
+    
+}
+
+.input_select-agenda_add{
     min-width: 100px;
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis 
 }
 
+.input_date-agenda_add{
+    width: 100%;
+}
 
 
 

@@ -52,12 +52,10 @@ $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo head('MMI Companion | Accueil');
 ?>
 
-
-<body class="body-all">
-
   <!-- Mise en place du tutoriel -->
   <?php
   if ($user_data['edu_group'] == 'undefined' || $user_data['edu_group'] == '') { ?>
+  <body class="body-all">
     <main class="main-welcome">
       <form action="" method="post" class="form-welcome">
         <section class="welcome_page1-index">
@@ -136,7 +134,7 @@ echo head('MMI Companion | Accueil');
             <div class="title_content_welcome_page2-index">
               <h1>Bienvenue sur MMI Companion</h1>
             </div>
-            <p>Je te laisse découvrir l’application et nous restons disponible pour répondre à tes questions à cette adresse mail : <span style="font-weight:700">arnaud.graciet@etu.univ-poitiers.fr</span></p>
+            <p>Je te laisse découvrir l’application et nous restons disponible pour répondre à tes questions à cette adresse mail : <span style="font-weight:700">contact@mmi-companion.fr</span></p>
           </div>
           <div class="trait_content_welcome-index"></div>
           <input type="submit" id="button_page3-validate" class="button_welcome-index" value="C'est parti !">
@@ -180,6 +178,7 @@ echo head('MMI Companion | Accueil');
 <?php } else {
 ?>
 
+<body class="body-all">
 
   <header class="header-index">
     <div class="content_header-index">
@@ -257,10 +256,12 @@ echo head('MMI Companion | Accueil');
     let select_background_profil = document.querySelector('#select_background_index-header');
     select_background_profil.classList.add('select_link-header');
 
+    // -----------------------
+
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
-      let calendarEl = document.getElementById("calendar");
+      let calendarEl = document.querySelector("#calendar");
       let eventColors = {
 
         <?php 
