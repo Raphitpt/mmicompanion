@@ -93,6 +93,22 @@ echo head("MMI Companion - Profil");
 
             <div class="trait-profil"></div>
 
+            <div class="transmit_role-profil">
+                <h1>Transmettre son rôle à un autre étudiant</h1>
+                <form class="form_transmit_role-profil">
+                    <select name="" id="">
+                        <?php 
+                        foreach ($variable as $key => $value) {
+                            # code...
+                        }
+                        ?>
+                    </select>
+                    <input type="submit" value="valider">
+                </form>
+            </div>
+
+            <div class="trait-profil"></div>
+
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
         </div>
         <div style="height:30px"></div>
