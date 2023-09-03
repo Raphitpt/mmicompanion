@@ -27,6 +27,10 @@ main {
 .body-all {
     background-color: #DDF0FF;
     height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
 }
 
 
@@ -281,11 +285,6 @@ main {
 
 /* Page de Bienvenue */
 
-.body-accueil {
-    background-color: #B9E0FF;
-    height: 100vh;
-}
-
 
 .main-accueil {
     display: flex;
@@ -366,6 +365,10 @@ main {
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     height: 100vh;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
 }
 
 .main-login {
@@ -374,6 +377,8 @@ main {
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 80vw;
+    max-width: 550px;
 }
 
 .back_btn {
@@ -400,7 +405,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 70%;
+    width: 100%;
 }
 
 .input-login {
@@ -550,18 +555,14 @@ main {
 /* MAIL.PHP */
 
 
-.body-mail {
-    background-color: #B9E0FF;
-    height: 100vh;
-}
-
-
 .main-mail {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 80vw;
+    max-width: 550px;
 }
 
 .title-mail {
@@ -628,6 +629,7 @@ main {
 .main-welcome {
     height: 100vh;
     margin: 0px 10vw;
+    max-width: 550px;
 }
 
 .form-welcome {
@@ -884,13 +886,9 @@ main {
 
 /* ---------- */
 
-.body-index {
-    background-color: #DDF0FF;
-    height: 100vh;
-}
-
 .main-index {
-    margin: 0 10vw;
+    width: 80vw;
+    max-width: 550px;
 }
 
 
@@ -994,10 +992,15 @@ main {
 
 .body-agenda {
     background: #DDF0FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .main-agenda {
-    margin: 0 10vw;
+    width: 80vw;
+    max-width: 550px;
 }
 
 .agenda_title_flextop-agenda {
@@ -1186,6 +1189,7 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    max-width: 375px;
 }
 
 .label-agenda_add {
@@ -1224,6 +1228,7 @@ input[type="checkbox"]:checked::before {
     background: #ffffff;
     border-radius: 30px;
     width: 80%;
+    max-width: 290px;
 }
 
 .container_input-agenda_add i{
@@ -1307,11 +1312,12 @@ input[type="checkbox"]:checked::before {
 /* PROFIL.PHP */
 
 .main-profil {
-    margin: 0px 10vw;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 80vw;
+    max-width: 550px;
 }
 
 .profil_picture-profil {

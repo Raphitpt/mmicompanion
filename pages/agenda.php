@@ -202,7 +202,7 @@ echo head("MMI Companion - Agenda");
                         echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
                     }
                     echo "<div class='agenda_content_subject-agenda'>";
-                    echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
+                    // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
                     echo "<p>" . $agenda['name_subject'] . "</p>";
                     echo "</div>";
                     echo "</div>";

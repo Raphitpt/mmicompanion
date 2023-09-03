@@ -44,12 +44,16 @@ if (isset($_POST['annee']) && isset($_POST['tp'])) {
   exit();
 }
 
+$color_subjects = "SELECT * FROM sch_ressource";
+$stmt = $dbh->prepare($color_subjects);
+$stmt->execute();
+$color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo head('MMI Companion | Accueil');
 ?>
 
 
-<body class="body-index">
+<body class="body-all">
 
   <!-- Mise en place du tutoriel -->
   <?php
@@ -259,7 +263,11 @@ echo head('MMI Companion | Accueil');
       let calendarEl = document.getElementById("calendar");
       let eventColors = {
 
-        'R3.01': 'red',
+        <?php 
+        foreach ($color_subjects as $color_subject) {
+          echo "'" . $color_subject['code_ressource'] . "': '" . $color_subject['color_ressource'] . "',";
+        }
+        ?>
       };
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
@@ -313,7 +321,7 @@ echo head('MMI Companion | Accueil');
           let eventColor = null;
 
           // Recherchez une correspondance partielle entre le titre de l'événement et les clés de l'objet eventColors
-          for (var key in eventColors) {
+          for (let key in eventColors) {
             if (eventTitle.includes(key)) {
               eventColor = eventColors[key];
               break; // Sortez de la boucle dès qu'une correspondance est trouvée
