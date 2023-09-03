@@ -82,6 +82,18 @@ echo head("MMI Companion | Connexion");
     <main class="main-login">
         <h1 class="title-login">SE CONNECTER</h1>
         <div style="height:30px"></div>
+        <?php if (isset($_SESSION['success_mail'])) : ?>
+        <div class="success_message">
+            <?= $_SESSION['success_mail']; ?>
+        </div>
+        <?php unset($_SESSION['success_mail']); ?>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['error_mail'])) : ?>
+        <div class="error_message">
+            <?= $_SESSION['error_mail']; ?>
+        </div>
+        <?php unset($_SESSION['error_mail']); ?>
+        <?php endif; ?>
         <form method="POST" class="form-login">
             <input type="text" name="username" placeholder="email" id="username" class="input-login" required>
             <div style="height:20px"></div>
