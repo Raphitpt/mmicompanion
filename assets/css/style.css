@@ -164,6 +164,7 @@ main {
     top: 0px;
     left: 0;
     width: 80vw;
+    max-width: 350px;
     height: 100vh;
     background: var(--bleu-trs-clair-background, #DDF0FF);
     z-index: 100;
