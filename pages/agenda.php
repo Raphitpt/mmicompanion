@@ -49,8 +49,9 @@ $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 $agenda = array_merge($agenda_user, $eval);
 $eval_cont = count($eval);
 $agenda_cont = count($agenda);
+usort($agenda, 'compareDates');
 
-
+var_dump($agenda);
 // Tableaux pour traduire les dates en français
 // --------------------
 $semaine = array(

@@ -466,3 +466,13 @@ HTML;
         error_log("Error sending activation email to $email");
     }
 }
+
+function compareDates($a, $b) {
+    $dateA = strtotime($a['date_finish']);
+    $dateB = strtotime($b['date_finish']);
+
+    if ($dateA == $dateB) {
+        return 0;
+    }
+    return ($dateA < $dateB) ? -1 : 1;
+}
