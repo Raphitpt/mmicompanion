@@ -10,10 +10,16 @@ require "../bootstrap.php";
 
 echo head("MMI Companion - Accueil");
 ?>
+
 <body class="body-login">
+    <main class="main-desktop">
+        <img src="./../assets/img/PC_install.webp" alt="">
+        <h1><span style="font-weight:700">Nous travaillons sur la version PC...</span><br>Mais pour le moment, je t'invite à scanner le QR Code pour accès à l'application sur ton smartphone</h1>
+        <p id="btn_access">Je veux y accéder quand-même</p>
+    </main>
     <main class="main-accueil">
         <div class="illustration-login">
-            <img src="../assets/img/accueil.svg" alt="Illustration diverse">
+            <img src="./../assets/img/accueil.svg" alt="Illustration diverse">
         </div>
         <div class="title-accueil">
             <h1>BIENVENUE</h1>
@@ -27,4 +33,17 @@ echo head("MMI Companion - Accueil");
         </div>
     </main>
 </body>
+
+<script>
+    let btn_access = document.querySelector("#btn_access");
+    let main_accueil = document.querySelector(".main-accueil");
+    let main_desktop = document.querySelector(".main-desktop");
+
+    btn_access.addEventListener("click", () => {
+        main_accueil.style.display = "flex";
+        main_desktop.style.display = "none";
+    })
+</script>
+
 </html>
+
