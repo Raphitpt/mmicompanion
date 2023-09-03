@@ -1055,6 +1055,17 @@ main {
     align-items: center;
 }
 
+.agenda_content_list_item_flexleft-agenda {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    width: 80%;
+}
+
+.agenda_content_list_item_flexleft-agenda div{
+    width: 80%;
+}
+
 .agenda_content_list_item_flexleft-agenda i {
     margin-right: 10px;
     color: #CB0000;
@@ -1066,16 +1077,12 @@ main {
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
-    width: 40vw;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.agenda_content_list_item_flexleft-agenda {
-    display: flex;
-    flex-direction: row;
-    align-items: start;
-}
+
 
 .agenda_content_list_item_flexleft-agenda input[type="checkbox"] {
     appearance: none;
