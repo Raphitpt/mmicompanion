@@ -51,7 +51,6 @@ $eval_cont = count($eval);
 $agenda_cont = count($agenda);
 usort($agenda, 'compareDates');
 
-var_dump($agenda);
 // Tableaux pour traduire les dates en français
 // --------------------
 $semaine = array(
