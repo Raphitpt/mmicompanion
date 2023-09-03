@@ -1522,6 +1522,7 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
     color: #004A5A;
     width: 70%;
+    max-width: 220px;
     height: 40px;
     border-radius: 15px;
     border: none;
@@ -1559,6 +1560,7 @@ input[type="checkbox"]:checked::before {
     font-weight: 800;
     line-height: normal;
     color: #004A5A;
+    text-align: center;
 }
 
 .form_transmit_role-profil{
@@ -1605,6 +1607,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 20px;
     background-color: #D65656;
     width: 70%;
+    max-width: 220px;
     height: 40px;
     color: #F8F8F8;
     text-align: center;
