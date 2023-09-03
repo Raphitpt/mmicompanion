@@ -1102,7 +1102,6 @@ main {
     font-weight: 600;
     overflow: clip;
     text-overflow: ellipsis;
-    width: 200px;
 }
 
 
@@ -1139,6 +1138,16 @@ input[type="checkbox"]:checked::before {
     display: flex;
     flex-direction: row;
     align-items: center;
+    width: 100%;
+}
+
+.agenda_content_subject-agenda p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space : nowrap;
+    overflow-wrap : break-word;
+    width: 130px;
+    
 }
 
 .agenda_content_list_item_flexleft-agenda div p {
