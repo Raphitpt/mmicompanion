@@ -18,8 +18,6 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 // --------------------
 // Fin de la récupération du cookie
 
-// On récupère les données de l'utilisateur pour l'EDT
-$cal_link = calendar($user['edu_group']);
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
 $user_data = "SELECT * FROM users WHERE id_user = :id_user";
@@ -29,6 +27,8 @@ $stmt->execute([
 ]);
 $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
+// On récupère le lien de l'emploi du temps de l'utilisateur via la base de données
+$cal_link = calendar($user_data['edu_group']);
 
 // On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
 if (isset($_POST['annee']) && isset($_POST['tp'])) {
