@@ -45,7 +45,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     $stmt->execute([
         'title' => $title,
         'date' => $date,
-        'id_user' => $users['id_user'],
+        'id_user' => $task['id_user'],
         'type' => $type,
         'id_subject' => $school_subject,
         'edu_group' => $users['edu_group'],
@@ -85,6 +85,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
 // Obligatoire pour afficher la page
 echo head("MMI Companion - Agenda");
+
 ?>
 
 <body class="body-all">

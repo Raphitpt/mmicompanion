@@ -237,6 +237,9 @@ echo head("MMI Companion - Agenda");
                     if($agenda['type'] == "eval" || $agenda['type'] == "devoir" && $users['role'] == "eleve"){
                         echo "<i class='fi fi-br-trash red' hidden></i>";
                     } 
+                    elseif ($users['role'] == "admin" || $users['role'] == "chef") {
+                        echo "<a href='agenda_edit.php?id_user=".$agenda['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
+                    }
                     else {
                         echo "<a href='agenda_edit.php?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
                     }
