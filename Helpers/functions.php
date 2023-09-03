@@ -360,7 +360,7 @@ function generate_activation_code(): string
     return bin2hex(random_bytes(16));
 }
 
-const APP_URL = 'http://localhost/mmicompanion/pages';
+const APP_URL = 'https://app.mmi-companion.fr/pages';
 const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
 function send_activation_email(string $email, string $activation_code)
 {
