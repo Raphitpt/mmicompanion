@@ -40,7 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             // On génère un code d'activation pour l'utilisateur
             $activation_code = generate_activation_code();
 
-            $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code)";
+            $pp_profile = 'https://ui-avatars.com/api/?background=random&name='.$pname.'+'.$name.'&rounded=true&size=128';
+
+            $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link)";
             $stmt = $dbh->prepare($sql_register);
             $stmt->execute([
                 ':pname' => $pname,
@@ -48,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 ':pass' => $hash_password,
                 ':edu_mail' => $edu_mail,
                 ':edu_group' => $edu_group,
-                ':activation_code' => $activation_code
+                ':activation_code' => $activation_code,
+                ':pp_link' => $pp_profile
             ]);
             $data = array(
                 'mail_user' => $edu_mail,
