@@ -18,11 +18,12 @@ if($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['email']) && isset($_GET[
         $stmt->execute([
             'edu_mail' => $edu_mail
         ]);
-        header('Location: ./mail.php');
+        header('Location: ./login.php');
         exit();
     }
     else{
-        header('Location: ./mail.php');
+        header('Location: ./login.php');
+        $_SESSION['error_mail'] = "Erreur lors de la vérification du mail !, merci de nous contactez si le problème persiste.";
         exit();
     }
 }
