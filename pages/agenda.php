@@ -46,10 +46,18 @@ $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // Fin de la récupération des évaluations
 
 // Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
+$sql_devoir = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
+$stmt_devoir = $dbh->prepare($sql_devoir);
+$stmt_devoir->execute([
+    'edu_group' => $users['edu_group']
+]);
+$devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
+
 $agenda = array_merge($agenda_user, $eval);
+$agenda = array_merge($agenda, $devoir);
 $eval_cont = count($eval);
 $agenda_cont = count($agenda);
-
+usort($agenda, 'compareDates');
 
 // Tableaux pour traduire les dates en français
 // --------------------
@@ -88,6 +96,15 @@ foreach ($agenda as $agendas) {
         $tachesNonTermineesRestantes++;
     }
 }
+
+
+// --------------------
+// Récupérer les couleurs des matières
+
+$sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
+$stmt_color = $dbh->prepare($sql_color);
+$stmt_color->execute();
+$colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 // Obligatoire pour afficher la page
 echo head("MMI Companion - Agenda");
@@ -202,6 +219,14 @@ echo head("MMI Companion - Agenda");
                         echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
                     }
                     echo "<div class='agenda_content_subject-agenda'>";
+                    echo "<div class='container_circle_subject-agenda'>";
+                    foreach ($colors as $color) {
+                        if ($color['id_subject'] == $agenda['id_subject']) {
+                            echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
+                            break;
+                        }
+                    };
+                    echo "</div>";
                     // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
                     echo "<p>" . $agenda['name_subject'] . "</p>";
                     echo "</div>";
@@ -209,9 +234,12 @@ echo head("MMI Companion - Agenda");
                     echo "</div>";
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
                     // Ne pas afficher la corbeille si l'utilisateur est un étudiant et que c'est une évaluation
-                    if($agenda['type'] == "eval" && $users['role'] = "etudiant"){
+                    if(($agenda['type'] == "eval" || $agenda['type'] == "devoir") && $users['role'] == "eleve"){
                         echo "<i class='fi fi-br-trash red' hidden></i>";
                     } 
+                    elseif ($users['role'] == "admin" || $users['role'] == "chef") {
+                        echo "<a href='agenda_edit.php?id_user=".$agenda['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
+                    }
                     else {
                         echo "<a href='agenda_edit.php?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
                     }

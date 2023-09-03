@@ -471,6 +471,14 @@ main {
     font-weight: 500;
 }
 
+.success_message-login {
+    color: #00b938;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+
 
 
 
@@ -1085,11 +1093,11 @@ main {
     display: flex;
     flex-direction: row;
     align-items: start;
-    width: 80%;
+    width: 70%;
 }
 
 .agenda_content_list_item_flexleft-agenda div{
-    width: 80%;
+    width: 70%;
 }
 
 .agenda_content_list_item_flexleft-agenda i {
@@ -1103,11 +1111,11 @@ main {
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
-    width: 100%;
-    overflow: hidden;
+    overflow: clip;
     text-overflow: ellipsis;
+    white-space: normal;
+    width: 100%;
 }
-
 
 
 .agenda_content_list_item_flexleft-agenda input[type="checkbox"] {
@@ -1143,23 +1151,34 @@ input[type="checkbox"]:checked::before {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 5px;
+    width: 100%;
 }
 
-.agenda_content_list_item_flexleft-agenda div p {
+.container_circle_subject-agenda{
+    width: 10px !important;
+    height: 10px;
+}
+
+.circle_subject-agenda {
+    width: 10px !important;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #464646;
+}
+
+.agenda_content_subject-agenda p {
     color: #AFAFAF;
     font-family: Montserrat;
     font-size: 10px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-}
-
-.circle_subject-agenda {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 5px;
-    background-color: #464646;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space : nowrap;
+    width: 130px;
+    
 }
 
 .agenda_content_list_item_flexright-agenda{
@@ -1457,7 +1476,7 @@ input[type="checkbox"]:checked::before {
     width: 50%;
     height: 1px;
     background-color: #004A5A;
-    margin: 0 auto;
+    margin: 15px auto;
     border-radius: 20px;
 }
 
@@ -1511,8 +1530,9 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
     color: #004A5A;
     width: 70%;
+    max-width: 220px;
     height: 40px;
-    border-radius: 15px;
+    border-radius: 30px;
     border: none;
     background-color: #56B8D6;
     padding: 0px 20px;
@@ -1532,6 +1552,65 @@ input[type="checkbox"]:checked::before {
     font-weight: 500;
 }
 
+
+.transmit_role-profil{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.transmit_role-profil h1{
+    font-family: Montserrat;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    color: #004A5A;
+    text-align: center;
+}
+
+.form_transmit_role-profil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.form_transmit_role-profil select{
+    width: 60%;
+    height: 40px;
+    border-radius: 15px;
+    border: none;
+    background-color: #fefefe;
+    padding: 0px 20px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #858585;
+}
+
+.form_transmit_role-profil input{
+    width: 40%;
+    max-width: 120px;
+    height: 40px;
+    border-radius: 25px;
+    border: none;
+    background-color: #56B8D6;
+    padding: 0px 20px;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    color: #004A5A;
+}
+
 .profil_form-button_logout {
     display: flex;
     align-items: center;
@@ -1539,6 +1618,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 20px;
     background-color: #D65656;
     width: 70%;
+    max-width: 220px;
     height: 40px;
     color: #F8F8F8;
     text-align: center;

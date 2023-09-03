@@ -45,7 +45,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     $stmt->execute([
         'title' => $title,
         'date' => $date,
-        'id_user' => $users['id_user'],
+        'id_user' => $task['id_user'],
         'type' => $type,
         'id_subject' => $school_subject,
         'edu_group' => $users['edu_group'],
@@ -60,7 +60,23 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 
 // Petit bout de code pour récupérer les matières dans la base de donnée et les utiliser dans le select du formulaire
 // --------------------
-$sql_subject = "SELECT * FROM sch_subject";
+if (strpos($users['edu_group'], 'BUT1') !== false) {
+    $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R1%' OR rs.code_ressource LIKE 'R2%' OR rs.code_ressource LIKE 'SAE1%' OR rs.code_ressource LIKE 'SAE2%' ORDER BY ss.name_subject ASC";
+} elseif (strpos($users['edu_group'], 'BUT2') !== false) {
+    $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R3%' OR rs.code_ressource LIKE 'R4%' OR rs.code_ressource LIKE 'SAE3%' OR rs.code_ressource LIKE 'SAE4%' ORDER BY ss.name_subject ASC";
+} elseif (strpos($users['edu_group'], 'BUT3') !== false) {
+    $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' OR rs.code_ressource LIKE 'SAE5%' OR rs.code_ressource LIKE 'SAE6%' ORDER BY ss.name_subject ASC";
+} else {
+    $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.id_subject = ss.id_subject ORDER BY ss.name_subject ASC";
+}
+
 $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
@@ -69,6 +85,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
 // Obligatoire pour afficher la page
 echo head("MMI Companion - Agenda");
+
 ?>
 
 <body class="body-all">
