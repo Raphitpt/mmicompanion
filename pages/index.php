@@ -223,15 +223,15 @@ echo head('MMI Companion | Accueil');
 
     <div style="height:30px"></div>
 
-    <section class="section_agenda-index">
+    <!-- <section class="section_agenda-index">
       <div class="title_trait">
         <h1>L'agenda</h1>
         <div>
           <?php
-          if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-            $activation_code = generate_activation_code();
-            send_activation_email($_POST['mail'], $activation_code);
-          }
+          // if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
+          //   $activation_code = generate_activation_code();
+          //   send_activation_email($_POST['mail'], $activation_code);
+          // }
           ?>
           <form method="post">
             <input type="text" name="mail">
@@ -241,7 +241,7 @@ echo head('MMI Companion | Accueil');
       </div>
 
 
-    </section>
+    </section> -->
 
   </main>
 
