@@ -1468,7 +1468,7 @@ input[type="checkbox"]:checked::before {
     width: 50%;
     height: 1px;
     background-color: #004A5A;
-    margin: 0 auto;
+    margin: 15px auto;
     border-radius: 20px;
 }
 
@@ -1524,7 +1524,7 @@ input[type="checkbox"]:checked::before {
     width: 70%;
     max-width: 220px;
     height: 40px;
-    border-radius: 15px;
+    border-radius: 30px;
     border: none;
     background-color: #56B8D6;
     padding: 0px 20px;
@@ -1550,7 +1550,8 @@ input[type="checkbox"]:checked::before {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 20px;
+    width: 100%;
 }
 
 .transmit_role-profil h1{
@@ -1568,12 +1569,13 @@ input[type="checkbox"]:checked::before {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    width: 100%;
 }
 
 .form_transmit_role-profil select{
-    width: 100%;
-    height: 30px;
-    border-radius: 15px;
+    width: 60%;
+    height: 40px;
+    border-radius: 25px;
     border: none;
     background-color: #fefefe;
     padding: 0px 20px;
@@ -1586,9 +1588,10 @@ input[type="checkbox"]:checked::before {
 }
 
 .form_transmit_role-profil input{
-    width: 100%;
-    height: 30px;
-    border-radius: 15px;
+    width: 40%;
+    max-width: 120px;
+    height: 40px;
+    border-radius: 25px;
     border: none;
     background-color: #56B8D6;
     padding: 0px 20px;
