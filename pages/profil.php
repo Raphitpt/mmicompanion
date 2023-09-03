@@ -21,6 +21,14 @@ $stmt_pp_original->execute([
 ]);
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
+if($users['role'] == "chef" || $users['role'] == "admin"){
+    $sql_list = "SELECT pname, name, id_user FROM users WHERE edu_group = :edu_group AND role = 'eleve' ORDER BY name ASC";
+    $stmt = $dbh->prepare($sql_list);
+    $stmt->execute([
+        'edu_group' => $users['edu_group']
+    ]);
+    $list_eleve = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 echo head("MMI Companion - Profil");
 
 ?>
@@ -90,7 +98,7 @@ echo head("MMI Companion - Profil");
                 <?php } ?>
                       
             </form>
-
+            <?php if ($users['role'] == "admin"){ ?>
             <div class="trait-profil"></div>
 
             <div class="transmit_role-profil">
@@ -98,15 +106,15 @@ echo head("MMI Companion - Profil");
                 <form class="form_transmit_role-profil">
                     <select name="" id="">
                         <?php 
-                        foreach ($variable as $key => $value) {
-                            # code...
-                        }
+                        foreach ($list_eleve as $list_eleves) { ?>
+                            <option value='<?php echo $list_eleves['id_user']; ?>'><?php echo $list_eleves['pname']; ?> <?php echo $list_eleves['name']; ?></option>
+                        <?php }?>
                         ?>
                     </select>
                     <input type="submit" value="valider">
                 </form>
             </div>
-
+            <?php } ?>
             <div class="trait-profil"></div>
 
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
