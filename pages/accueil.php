@@ -21,9 +21,9 @@ echo head("MMI Companion - Accueil");
         </div>
         <div style="height:30px"></div>
         <div class="button-accueil">
-            <a role="button" href="./pages/register.php" class="button_register">Créer un compte</a>
+            <a role="button" href="./register.php" class="button_register">Créer un compte</a>
             <div style="height:10px"></div>
-            <a role="button" href="./pages/login.php" class="button_login">Se connecter</a>
+            <a role="button" href="./login.php" class="button_login">Se connecter</a>
         </div>
     </main>
 </body>
