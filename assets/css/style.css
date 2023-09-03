@@ -1143,14 +1143,14 @@ input[type="checkbox"]:checked::before {
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100%;
+    width: 80%;
 }
 
 .agenda_content_subject-agenda p {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space : nowrap;
-    width: 130px;
+    width: 70%;
     
 }
 
