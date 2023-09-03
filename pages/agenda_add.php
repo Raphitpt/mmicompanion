@@ -45,7 +45,26 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 
 // Petit bout de code pour récupérer les matières dans la base de donnée et les utiliser dans le select du formulaire
 // --------------------
-$sql_subject = "SELECT * FROM sch_subject ORDER BY name_subject ASC";
+// $sql_subject = "SELECT * FROM sch_subject ORDER BY name_subject ASC";
+
+if (strpos($users['edu_group'], 'BUT1') !== false) {
+    $sql_subject = "SELECT rs.*, ss.name_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R1%' OR rs.code_ressource LIKE 'R2%' ORDER BY ss.name_subject ASC";
+} elseif (strpos($users['edu_group'], 'BUT2') !== false) {
+    $sql_subject = "SELECT rs.*, ss.name_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R3%' OR rs.code_ressource LIKE 'R4%' ORDER BY ss.name_subject ASC";
+} elseif (strpos($users['edu_group'], 'BUT3') !== false) {
+    $sql_subject = "SELECT rs.*, ss.name_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' ORDER BY ss.name_subject ASC";
+} else {
+    $sql_subject = "SELECT r.*, s.name_subject 
+    FROM sch_ressource AS r
+    LEFT JOIN sch_subject AS s ON r.id_ressource = s.id_ressource ORDER BY name_subject ASC";
+}
+
 $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
