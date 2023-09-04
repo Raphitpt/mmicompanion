@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['pname']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['name']) && isset($_POST['edu_mail'])) {
        if (filter_var($_POST['edu_mail'], FILTER_VALIDATE_EMAIL) === false) {
         $error_message = "L'email n'est pas valide.";
-        exit;
+        exit();
         }
 
         $pname = strip_tags($_POST['pname']);
@@ -19,9 +19,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 
-        if ($password != $confirm_password) {
+        if ($password !== $confirm_password) {
             $error_message = "Les mots de passe ne correspondent pas.";
-            exit;
+            header('Location: ./register.php');
+            exit();
         }
 
         // Vérifier si l'utilisateur existe déjà dans la base de données sinon créer son compte
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             );
             $_SESSION['post_data'] = $data;
             header('Location: ./mail.php');
-            exit;
+            exit();
         }
 
     }  else {
