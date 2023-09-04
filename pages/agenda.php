@@ -33,13 +33,18 @@ $stmt_agenda->execute([
 $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
 // Fin de la récupération des taches
-
+$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt_user = $dbh->prepare($sql_user);
+$stmt_user->execute([
+    ':id_user' => $users['id_user']
+]);
+$user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 // Requetes pour récupérer les évaluations de son TP
 // --------------------
 $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
-    'edu_group' => $users['edu_group']
+    'edu_group' => $user['edu_group']
 ]);
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
@@ -49,7 +54,7 @@ $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 $sql_devoir = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_devoir = $dbh->prepare($sql_devoir);
 $stmt_devoir->execute([
-    'edu_group' => $users['edu_group']
+    'edu_group' => $user['edu_group']
 ]);
 $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
