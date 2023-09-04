@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 
-        if ($password !== $confirm_password) {
+        if ($password != $confirm_password) {
             $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
             header('Location: ./register.php');
             exit();
