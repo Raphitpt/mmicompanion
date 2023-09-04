@@ -20,12 +20,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $confirm_password = strip_tags($_POST['confirm_password']);
 
 
-        if ($password != $confirm_password) {
-            $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
-            dd($_SESSION);
-            header('Location: ./register.php');
-            exit();
-        }
+        // if ($password != $confirm_password) {
+        //     $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
+        //     header('Location: ./register.php');
+        //     exit();
+        // }
         
         // Vérifier si l'utilisateur existe déjà dans la base de données sinon créer son compte
         $sql_check = "SELECT * FROM users WHERE edu_mail = :edu_mail";
@@ -36,6 +35,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!empty($user)) {
             $error_message = "L'utilisateur existe déjà.";
+        } else if ($password != $confirm_password){
+            $error_message = "Les mots de passe ne correspondent pas.";
+            $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
         } else{
             // On hash le mot de passe pour plus de sécurité, le MD5 est déconseillé, on laisse l'agorithme par défaut, ça évite les failles de sécurité
             $hash_password = password_hash($password, PASSWORD_DEFAULT);
@@ -97,7 +99,6 @@ echo head('MMI Companion - Register');
                 <div style="height:15px"></div>
                 <?php if(!empty($_SESSION['error_message'])) { ?>
                     <div class="error_message-login"><?php echo $_SESSION['error_message']; ?></div>
-                    <div style="height:15px"></div>
                 <?php } ?>
             </div>
         </form>
