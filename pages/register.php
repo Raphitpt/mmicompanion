@@ -4,7 +4,7 @@ require '../bootstrap.php';
 
 // Création de la variable pour afficher les messages d'erreurs quand l'utilisateur clique sur "Créer un compte"
 $error_message = "";
-
+$_SESSION['error_message'] = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['pname']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['name']) && isset($_POST['edu_mail'])) {
        if (filter_var($_POST['edu_mail'], FILTER_VALIDATE_EMAIL) === false) {
