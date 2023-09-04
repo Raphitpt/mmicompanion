@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $confirm_password = strip_tags($_POST['confirm_password']);
 
         if ($password !== $confirm_password) {
-            $error_message = "Les mots de passe ne correspondent pas.";
+            $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
             header('Location: ./register.php');
             exit();
         }
@@ -93,7 +93,10 @@ echo head('MMI Companion - Register');
                 <div class="trait_register"></div>
                 <input type="submit" value="Créer mon compte" class="button_register">
                 <div style="height:15px"></div>
-                <div class="error_message-login"><?php echo $error_message ?></div>
+                <?php if(!empty($_SESSION['error_message'])) { ?>
+                    <div class="error_message-login"><?php echo $_SESSION['error_message']; ?></div>
+                    <div style="height:15px"></div>
+                <?php } ?>
             </div>
         </form>
     </main>
