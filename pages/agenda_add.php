@@ -61,7 +61,7 @@ if (strpos($users['edu_group'], 'BUT1') !== false) {
     WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' OR rs.code_ressource LIKE 'SAE5%' OR rs.code_ressource LIKE 'SAE6%' ORDER BY ss.name_subject ASC";
 } else {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
-    JOIN sch_subject ss ON rs.id_subject = ss.id_subject ORDER BY ss.name_subject ASC";
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject ORDER BY ss.name_subject ASC";
 }
 
 $stmt_subject = $dbh->prepare($sql_subject);
