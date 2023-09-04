@@ -99,7 +99,9 @@ echo head('MMI Companion - Register');
                 <div style="height:15px"></div>
                 <?php if(!empty($_SESSION['error_message'])) { ?>
                     <div class="error_message-login"><?php echo $_SESSION['error_message']; ?></div>
-                <?php } ?>
+                <?php
+                unset($_SESSION['error_message']);
+            } ?>
             </div>
         </form>
     </main>
