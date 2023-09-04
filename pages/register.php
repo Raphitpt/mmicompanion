@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
         if ($password != $confirm_password) {
             $error_message = "Les mots de passe ne correspondent pas.";
+            header('Location: ./register.php');
             exit;
         }
 
