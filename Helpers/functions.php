@@ -378,8 +378,8 @@ function send_activation_email(string $email, string $activation_code)
     // set email subject & body
     $subject = 'Active ton compte dès maintenant !';
     $message = <<<MESSAGE
-            Hi,
-            Please click the following link to activate your account:
+            Salut,
+            Clique sur le lien pour activer ton compte MMI Companion:
             $activation_link
             MESSAGE;
     // email header

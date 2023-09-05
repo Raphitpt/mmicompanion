@@ -48,6 +48,13 @@ $stmt_user->execute([
 ]);
 $user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
+$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt_user = $dbh->prepare($sql_user);
+$stmt_user->execute([
+    ':id_user' => $users['id_user']
+]);
+$user = $stmt_user->fetch(PDO::FETCH_ASSOC);
+
 
 // Petit bout de code pour récupérer les matières dans la base de donnée et les utiliser dans le select du formulaire
 // --------------------
@@ -69,7 +76,6 @@ if (strpos($user['edu_group'], 'BUT1') !== false) {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.name_subject = ss.id_subject ORDER BY ss.name_subject ASC";
 }
-
 $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
