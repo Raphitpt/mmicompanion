@@ -24,6 +24,15 @@ function head(string $title = ''): string
 <html lang="fr">
 
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FX70LE2MCM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FX70LE2MCM');
+</script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
@@ -77,15 +86,7 @@ function head(string $title = ''): string
     
 
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FX70LE2MCM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-FX70LE2MCM');
-</script>
 
 HTML_HEAD;
 }
@@ -460,10 +461,10 @@ HTML;
 
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'From: MMI Companion <'.SENDER_EMAIL_ADDRESS.'>' . "\r\n" .
-                'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
-                'Content-Type: text/html; charset="utf-8"'."\r\n" .
-                'X-Mailer: PHP/'.phpversion();
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To:' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
 
     // send the email
     $_SESSION['mail_message'] = "";
@@ -475,7 +476,8 @@ HTML;
     }
 }
 
-function compareDates($a, $b) {
+function compareDates($a, $b)
+{
     $dateA = strtotime($a['date_finish']);
     $dateB = strtotime($b['date_finish']);
 
