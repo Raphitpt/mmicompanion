@@ -24,7 +24,8 @@ function head(string $title = ''): string
 <html lang="fr">
 
 <head>
-        <!-- Google tag (gtag.js) -->
+<!-- Google tag (gtag.js) -->
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FX70LE2MCM"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -46,6 +47,9 @@ function head(string $title = ''): string
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <script src="./../assets/js/jquery-3.7.1.min.js"></script>
+
   <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png">
@@ -82,7 +86,6 @@ function head(string $title = ''): string
 <link rel="apple-touch-startup-image" media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="../splash_screens/8.3__iPad_Mini_portrait.png">
   <title>$title</title>
 </head>
-
 HTML_HEAD;
 }
 
@@ -456,10 +459,10 @@ HTML;
 
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'From: MMI Companion <'.SENDER_EMAIL_ADDRESS.'>' . "\r\n" .
-                'Reply-To:'.SENDER_EMAIL_ADDRESS. "\r\n" .
-                'Content-Type: text/html; charset="utf-8"'."\r\n" .
-                'X-Mailer: PHP/'.phpversion();
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To:' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
 
     // send the email
     $_SESSION['mail_message'] = "";
@@ -471,7 +474,8 @@ HTML;
     }
 }
 
-function compareDates($a, $b) {
+function compareDates($a, $b)
+{
     $dateA = strtotime($a['date_finish']);
     $dateB = strtotime($b['date_finish']);
 
