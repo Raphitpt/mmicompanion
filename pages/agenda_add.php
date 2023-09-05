@@ -41,6 +41,12 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 }
 // --------------------
 // Fin de la vérification du formulaire
+$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt_user = $dbh->prepare($sql_user);
+$stmt_user->execute([
+    ':id_user' => $users['id_user']
+]);
+$user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
 $sql_user = "SELECT * FROM users WHERE id_user = :id_user";
 $stmt_user = $dbh->prepare($sql_user);
