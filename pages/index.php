@@ -49,7 +49,7 @@ $stmt = $dbh->prepare($color_subjects);
 $stmt->execute();
 $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo head('MMI Companion | Accueil');
+echo head('MMI Companion | Emploi du temps');
 ?>
 
   <!-- Mise en place du tutoriel -->

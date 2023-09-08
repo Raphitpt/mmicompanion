@@ -1,46 +1,69 @@
-
-
 <?php
-/* connect to gmail */
-$hostname = '{mail.univ-poitiers.fr:993/imap/ssl}INBOX';
-$username = 'rtiphone';
-$password = '69Y7t5ps';
+namespace PhpImap;
+require 'src/PhpImap/__autoload.php';
+?>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    div#wrap {width:860px; margin:20px auto;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<?php
 
-/* try to connect */
-$inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Gmail: ' . imap_last_error());
+// Configuration for the Mailbox class
+$hoststring = '{mail.univ-poitiers.fr:993/imap/ssl/novalidate-cert}INBOX';
+$username   = 'rtiphone';
+$password   = '69Y7t5ps';
+$attachdir  = './attachments/';
 
-/* grab emails */
-$emails = imap_search($inbox,'UNSEEN');
+// Construct the $mailbox handle
+$mailbox = new Mailbox($hoststring, $username, $password, $attachdir);
 
-/* if emails are returned, cycle through each... */
-if($emails) {
-	
-	/* begin output var */
-	$output = '';
-	
-	/* put the newest emails on top */
-	rsort($emails);
-	
-	/* for every email... */
-	foreach($emails as $email_number) {
-		
-		/* get information specific to this email */
-		$overview = imap_fetch_overview($inbox,$email_number,0);
-		$message = imap_fetchbody($inbox,$email_number,2);
-		
-		/* output the email header information */
-		$output.= '<div class="toggler '.($overview[0]->seen ? 'read' : 'unread').'">';
-		$output.= '<span class="subject">'.$overview[0]->subject.'</span> ';
-		$output.= '<span class="from">'.$overview[0]->from.'</span>';
-		$output.= '<span class="date">on '.$overview[0]->date.'</span>';
-		$output.= '</div>';
-		
-		/* output the email body */
-		$output.= '<div class="body">'.$message.'</div>';
-	}
-	
-	echo $output;
-} 
+// Get INBOX emails after date 2017-01-01
+$mailsIds = $mailbox->searchMailbox('SINCE "20230801"');
+if(!$mailsIds) exit('Mailbox is empty');
 
-/* close the connection */
-imap_close($inbox);
+// Show the total number of emails loaded
+echo 'n= '.count($mailsIds).'<br>';
+
+// Put the latest email on top of listing
+rsort($mailsIds);
+
+// Get the last 15 emails only
+array_splice($mailsIds, 15);
+
+// Loop through emails one by one
+foreach($mailsIds as $num) {
+    
+    // Show header with subject and data on this email
+    $head = $mailbox->getMailHeader($num);
+    echo '<div style="text-align:center"><b>';
+    echo $head->subject.'</b>&nbsp;&nbsp;(';
+    if     (isset($head->fromName))    echo 'by '.$head->fromName.' on ';
+    elseif (isset($head->fromAddress)) echo 'by '.$head->fromAddress.' on ';
+    echo $head->date.')';
+    echo '</div>';
+    
+    // Show the main body message text
+    // Do not mark email as seen
+    $markAsSeen = false;
+    $mail = $mailbox->getMail($num, $markAsSeen);
+    if ($mail->textHtml)
+        echo $mail->textHtml;
+    else
+        echo $mail->textPlain;
+    echo '<br><br>';
+    
+    // Load eventual attachment into attachments directory
+    $mail->getAttachments();
+
+}
+
+$mailbox->disconnect();
+?>
+</div>
+</body>
+</html>
