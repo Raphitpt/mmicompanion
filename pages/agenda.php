@@ -43,7 +43,12 @@ $stmt_agenda->execute([
 $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
 // Fin de la récupération des taches
-
+$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt_user = $dbh->prepare($sql_user);
+$stmt_user->execute([
+    ':id_user' => $users['id_user']
+]);
+$user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 // Requetes pour récupérer les évaluations de son TP
 // --------------------
 $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
@@ -68,6 +73,14 @@ $agenda = array_merge($agenda, $devoir);
 $eval_cont = count($eval);
 $agenda_cont = count($agenda);
 usort($agenda, 'compareDates');
+
+
+$sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role = 'chef'";
+$stmt_chef = $dbh->prepare($sql_chef);
+$stmt_chef->execute([
+    'edu_group' => $user['edu_group']
+]);
+$chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
 
 // Tableaux pour traduire les dates en français
 // --------------------
@@ -196,6 +209,16 @@ echo head("MMI Companion - Agenda");
             </div>
             <div style="height:15px"></div>
             <div class="agenda_title_flexbottom-agenda">
+                <?php
+                echo "<p style='font-weight: bold;'>TP " . $user['edu_group'] . "</p>";
+                if (!empty($chef)){
+                    echo "<p style='font-weight: bold;'>Responsable : " . $chef['pname'] . " " . $chef['name'] . "</p>";
+                }
+                else{
+                    echo "<p style='font-weight: bold;'>Responsable : Aucun</p>";
+                }
+                ?>
+                <div style="height:15px"></div>
                 <?php
                 // Systeme de compteur de taches non terminées ou terminées
                 // On compte le nombre d'occurences de taches non terminées

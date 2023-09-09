@@ -99,7 +99,7 @@ echo head("MMI Companion - Profil");
                 <?php } ?>
 
             </form>
-            <?php if ($users['role'] == "admin") { ?>
+            <?php if ($users['role'] == "chef") { ?>
                 <div class="trait-profil"></div>
 
                 <div class="transmit_role-profil">
