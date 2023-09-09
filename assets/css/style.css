@@ -70,7 +70,7 @@ main {
 }
 
 
-/* HEADER INDEX.PHP */
+/* HEADER CALENDAR.php */
 
 .header-index {
     width: 100vw;
@@ -279,7 +279,7 @@ main {
 
 
 
-/* ACCUEIL.PHP */
+/* INDEX.PHP */
 
 /* Page de Bienvenue */
 
@@ -656,10 +656,18 @@ main {
 
 
 
-/* INDEX.PHP */
+/* CALENDAR.php */
 
 /* Tutoriel - Page de bienvenue */
 
+.body-welcome {
+    background-color: #DDF0FF;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
 .main-welcome {
     height: 100vh;
@@ -1020,18 +1028,129 @@ main {
 
 
 
+/* TUTO AGENDA.PHP */
+
+.body-tuto_agenda {
+    background-color: #DDF0FF;
+    height: calc(100vh - 90px);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main_tuto-agenda{
+    height: calc(100vh - 90px);
+    margin: 0px 10vw;
+    max-width: 550px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-tuto_agenda {
+    height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.main_tuto-agenda p {
+    color: #004A5A;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: Montserrat;
+}
+
+.title_tuto-agenda{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.title_tuto-agenda img{
+    width: 25px;
+    height: auto;
+}
+
+.title_tuto-agenda h1{
+    color: #004A5A;
+    font-size: 19px;
+    font-weight: 800;
+    font-family: Montserrat;
+}
+
+.p_trait-agenda{
+    position: relative;
+    padding-left: 10px;
+}
+
+.p_trait-agenda::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 100%;
+    border-radius: 20px;
+    background-color: #004A5A;
+}
+
+.title_content_tuto-agenda{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+}
+
+.title_content_tuto-agenda img{
+    width: 17px;
+    height: auto;
+}
+
+.title_content_tuto-agenda h2{
+    color: #004A5A;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: Montserrat;
+}
+
+.container_button_tuto-agenda{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button_tuto-agenda {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #004A5A;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: center;
+    border: none;
+    width: 120px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: #56B8D6;
+}
+
+
+
 
 
 
 /* AGENDA.PHP */
-
-.body-agenda {
-    background: #DDF0FF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
 
 .main-agenda {
     width: 80vw;
@@ -1219,7 +1338,6 @@ input[type="checkbox"]:checked::before {
     -ms-flex-align: center;
     align-items: center;
 }
-
 
 
 .trait_agenda_add {

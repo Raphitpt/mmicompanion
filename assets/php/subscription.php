@@ -2,7 +2,7 @@
 require_once '../../bootstrap.php'; // Inclure votre fichier bootstrap.php contenant la connexion à la base de données
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$users = decodeJWT($jwt, $secret_key);
+$user = decodeJWT($jwt, $secret_key);
 // Récupérer les données de l'abonnement depuis la requête POST
 $subscriptionData = json_decode(file_get_contents('php://input'), true);
 
@@ -39,7 +39,7 @@ try {
     // Préparer la requête SQL pour l'insertion de l'abonnement dans la table
     $stmt = $dbh->prepare("INSERT INTO subscriptions (endpoint, p256dh, auth, edu_mail) VALUES (:endpoint, :p256dh, :auth, :edu_mail)");
     $stmt->bindParam(':endpoint', $subscriptionData['endpoint']);
-    $stmt->bindParam(':edu_mail', $users['edu_mail']);
+    $stmt->bindParam(':edu_mail', $user['edu_mail']);
     $stmt->bindParam(':p256dh', $subscriptionData['keys']['p256dh']);
     $stmt->bindParam(':auth', $subscriptionData['keys']['auth']);
 

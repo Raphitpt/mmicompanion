@@ -76,7 +76,7 @@ echo head("MMI Companion | Connexion");
 ?>
 
 <body class="body-login">
-    <a href="./accueil.php" class="back_btn">
+    <a href="./index.php" class="back_btn">
         <i class="fi fi-br-arrow-alt-right"></i>
     </a>
     <main class="main-login">
@@ -168,7 +168,7 @@ echo head("MMI Companion | Connexion");
                             localStorage.setItem('jwt', response.jwt);
 
                             // Redirection vers la page d'accueil ou autre page sécurisée
-                            window.location.href = './index.php';
+                            window.location.href = './calendar.php';
                         }
                     }
                 },
