@@ -55,7 +55,7 @@ echo head('MMI Companion | Accueil');
   <!-- Mise en place du tutoriel -->
   <?php
   if ($user_data['edu_group'] == 'undefined' || $user_data['edu_group'] == '') { ?>
-  <body class="body-all">
+  <body class="body-welcome">
     <main class="main-welcome">
       <form action="" method="post" class="form-welcome">
         <section class="welcome_page1-index">
