@@ -329,7 +329,7 @@ echo head("MMI Companion - Agenda");
                     echo "</div>";
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
                     // Ne pas afficher la corbeille si l'utilisateur est un étudiant et que c'est une évaluation
-                    if(($agenda['type'] == "eval" || $agenda['type'] == "devoir") && $user['role'] == "eleve"){
+                    if(($agenda['type'] == "eval" || $agenda['type'] == "devoir") && $user_sql['role'] == "eleve"){
                         echo "<i class='fi fi-br-trash red' hidden></i>";
                     } 
                     elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
