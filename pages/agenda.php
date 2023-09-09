@@ -5,7 +5,7 @@ require "../bootstrap.php";
 
 // Si la personne ne possède pas le cookie, on la redirige vers la page d'accueil pour se connecter
 if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./accueil.php');
+    header('Location: ./index.php');
     exit;
 }
 
@@ -13,10 +13,20 @@ if (!isset($_COOKIE['jwt'])) {
 // --------------------
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$users = decodeJWT($jwt, $secret_key);
+$user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
+
+
+// Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
+$user_data = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_data);
+$stmt->execute([
+  'id_user' => $user['id_user']
+]);
+$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 // Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
 // --------------------
@@ -28,7 +38,7 @@ $sql_agenda = "SELECT a.*, s.*
 
 $stmt_agenda = $dbh->prepare($sql_agenda);
 $stmt_agenda->execute([
-    'id_user' => $users['id_user']
+    'id_user' => $user['id_user']
 ]);
 $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
@@ -39,7 +49,7 @@ $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
-    'edu_group' => $users['edu_group']
+    'edu_group' => $user['edu_group']
 ]);
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
@@ -49,7 +59,7 @@ $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 $sql_devoir = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_devoir = $dbh->prepare($sql_devoir);
 $stmt_devoir->execute([
-    'edu_group' => $users['edu_group']
+    'edu_group' => $user['edu_group']
 ]);
 $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
@@ -106,8 +116,52 @@ $stmt_color = $dbh->prepare($sql_color);
 $stmt_color->execute();
 $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
+
+// --------------------
+
+// On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
+// if (isset($_POST)) {
+//     $update_user = "UPDATE users SET tuto_agenda = 1 WHERE id_user = :id_user";
+//     $stmt = $dbh->prepare($update_user);
+//     $stmt->execute([
+//       'id_user' => $user['id_user']
+//     ]);
+//     header('Location: ./agenda.php');
+//     exit();
+//   }
+
+
 // Obligatoire pour afficher la page
 echo head("MMI Companion - Agenda");
+?>
+<!-- Mise en place du tutoriel -->
+<?php
+  if ($user_data['tuto_agenda'] == 0) { ?>
+  <body class="body-all">
+    <main class="main_tuto-agenda">
+      <form action="" method="post" class="form-tuto_agenda">
+        <section class="tuto_page1-agenda">
+        <div class="title_tuto_page1-agenda">
+            <img src="./../assets/img/hello_emoji.png" alt="Emoji d'une main qui fait bonjour">
+            <h1>Bonjour <?php echo $user['pname'] ?></h1>
+        </div>
+        <div class="trait_title_tuto-agenda"></div>
+        <div class="content_tuto_page1-agenda">
+            <p>Pour commencer, nous avons besoin de quelques informations en plus :</p>
+            <p>Je te laisse découvrir l’application et nous restons disponible pour répondre à tes questions à cette adresse mail : <span style="font-weight:700">contact@mmi-companion.fr</span></p>
+        </div>
+        <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" value="Compris">
+        </section> 
+          
+      </form>
+
+
+    </main>
+
+</body>
+<?php 
+}else{
+
 ?>
 
 <body class="body-all">
@@ -234,14 +288,14 @@ echo head("MMI Companion - Agenda");
                     echo "</div>";
                     echo "<div class='agenda_content_list_item_flexright-agenda'>";
                     // Ne pas afficher la corbeille si l'utilisateur est un étudiant et que c'est une évaluation
-                    if(($agenda['type'] == "eval" || $agenda['type'] == "devoir") && $users['role'] == "eleve"){
+                    if(($agenda['type'] == "eval" || $agenda['type'] == "devoir") && $user['role'] == "eleve"){
                         echo "<i class='fi fi-br-trash red' hidden></i>";
                     } 
-                    elseif ($users['role'] == "admin" || $users['role'] == "chef") {
-                        echo "<a href='agenda_edit.php?id_user=".$agenda['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
+                    elseif ($user['role'] == "admin" || $user['role'] == "chef") {
+                        echo "<a href='agenda_edit.php?id_user=".$agenda['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$user['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
                     }
                     else {
-                        echo "<a href='agenda_edit.php?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$users['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
+                        echo "<a href='agenda_edit.php?id_user=".$user['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$user['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
                     }
 
                     echo "</div>";
@@ -334,5 +388,9 @@ echo head("MMI Companion - Agenda");
         });
     </script>
 </body>
+
+<?php 
+}
+?>
 
 </html>

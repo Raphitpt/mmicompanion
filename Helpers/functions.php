@@ -97,7 +97,7 @@ function generateBurgerMenuContent()
         </div>
         <div class="burger_content_content-header">
             <div class="burger_content_trait_header"></div>
-            <a href="./index.php">
+            <a href="./calendar.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-home"></i>
                     <p>Vue d\'ensemble</p>
@@ -160,7 +160,7 @@ function generateBurgerMenuContent()
         </div>
         <div class="burger_content_content-header">
             <div class="burger_content_trait_header"></div>
-            <a href="./index.php">
+            <a href="./calendar.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-calendar-lines"></i>
                     <p>Emploi du temps</p>

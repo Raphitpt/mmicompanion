@@ -72,7 +72,7 @@ echo head('MMI Companion - Register');
 ?>
 
 <body class="body-login">
-    <a href="./accueil.php" class="back_btn">
+    <a href="./index.php" class="back_btn">
         <i class="fi fi-br-arrow-alt-right"></i>
     </a>
     <main class="main-login">
