@@ -46,7 +46,7 @@ $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 $sql_user = "SELECT * FROM users WHERE id_user = :id_user";
 $stmt_user = $dbh->prepare($sql_user);
 $stmt_user->execute([
-    ':id_user' => $users['id_user']
+    ':id_user' => $user['id_user']
 ]);
 $user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 // Requetes pour récupérer les évaluations de son TP
