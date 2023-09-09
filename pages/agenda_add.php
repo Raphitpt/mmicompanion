@@ -46,29 +46,23 @@ $stmt_user = $dbh->prepare($sql_user);
 $stmt_user->execute([
     ':id_user' => $user['id_user']
 ]);
-$user = $stmt_user->fetch(PDO::FETCH_ASSOC);
+$user_sql = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
-$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt_user = $dbh->prepare($sql_user);
-$stmt_user->execute([
-    ':id_user' => $user['id_user']
-]);
-$user = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
 
 // Petit bout de code pour récupérer les matières dans la base de donnée et les utiliser dans le select du formulaire
 // --------------------
 // $sql_subject = "SELECT * FROM sch_subject ORDER BY name_subject ASC";
 
-if (strpos($user['edu_group'], 'BUT1') !== false) {
+if (strpos($user_sql['edu_group'], 'BUT1') !== false) {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.name_subject = ss.id_subject
     WHERE rs.code_ressource LIKE 'R1%' OR rs.code_ressource LIKE 'R2%' OR rs.code_ressource LIKE 'SAE1%' OR rs.code_ressource LIKE 'SAE2%' ORDER BY ss.name_subject ASC";
-} elseif (strpos($user['edu_group'], 'BUT2') !== false) {
+} elseif (strpos($user_sql['edu_group'], 'BUT2') !== false) {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.name_subject = ss.id_subject
     WHERE rs.code_ressource LIKE 'R3%' OR rs.code_ressource LIKE 'R4%' OR rs.code_ressource LIKE 'SAE3%' OR rs.code_ressource LIKE 'SAE4%' ORDER BY ss.name_subject ASC";
-} elseif (strpos($user['edu_group'], 'BUT3') !== false) {
+} elseif (strpos($user_sql['edu_group'], 'BUT3') !== false) {
     $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
     JOIN sch_subject ss ON rs.name_subject = ss.id_subject
     WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' OR rs.code_ressource LIKE 'SAE5%' OR rs.code_ressource LIKE 'SAE6%' ORDER BY ss.name_subject ASC";
@@ -130,7 +124,7 @@ echo head("MMI Companion - Agenda");
 
                 
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
-                <?php if ($user['role'] == "chef" || $user['role'] == "admin") { ?>
+                <?php if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin") { ?>
                     <div style="height:15px"></div>
                     <label for="type" class="label-agenda_add">
                         <h2>Type de tâche</h2>

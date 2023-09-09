@@ -1,69 +1,20 @@
 <?php
-namespace PhpImap;
-require 'src/PhpImap/__autoload.php';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-    div#wrap {width:860px; margin:20px auto;}
-</style>
-</head>
-<body>
-<div id="wrap">
-<?php
+declare(strict_types=1);
+session_start();
 
-// Configuration for the Mailbox class
-$hoststring = '{mail.univ-poitiers.fr:993/imap/ssl/novalidate-cert}INBOX';
-$username   = 'rtiphone';
-$password   = '69Y7t5ps';
-$attachdir  = './attachments/';
+require "./bootstrap.php";
 
-// Construct the $mailbox handle
-$mailbox = new Mailbox($hoststring, $username, $password, $attachdir);
 
-// Get INBOX emails after date 2017-01-01
-$mailsIds = $mailbox->searchMailbox('SINCE "20230801"');
-if(!$mailsIds) exit('Mailbox is empty');
 
-// Show the total number of emails loaded
-echo 'n= '.count($mailsIds).'<br>';
+require_once 'vendor/autoload.php';
 
-// Put the latest email on top of listing
-rsort($mailsIds);
+use Zimbra\Admin\AdminApi;
+use Zimbra\Common\Enum\AccountBy;
+use Zimbra\Common\Struct\AccountSelector;
 
-// Get the last 15 emails only
-array_splice($mailsIds, 15);
+$username = 'rtiphone';
+$password = '69Y7t5ps';
 
-// Loop through emails one by one
-foreach($mailsIds as $num) {
-    
-    // Show header with subject and data on this email
-    $head = $mailbox->getMailHeader($num);
-    echo '<div style="text-align:center"><b>';
-    echo $head->subject.'</b>&nbsp;&nbsp;(';
-    if     (isset($head->fromName))    echo 'by '.$head->fromName.' on ';
-    elseif (isset($head->fromAddress)) echo 'by '.$head->fromAddress.' on ';
-    echo $head->date.')';
-    echo '</div>';
-    
-    // Show the main body message text
-    // Do not mark email as seen
-    $markAsSeen = false;
-    $mail = $mailbox->getMail($num, $markAsSeen);
-    if ($mail->textHtml)
-        echo $mail->textHtml;
-    else
-        echo $mail->textPlain;
-    echo '<br><br>';
-    
-    // Load eventual attachment into attachments directory
-    $mail->getAttachments();
-
-}
-
-$mailbox->disconnect();
-?>
-</div>
-</body>
-</html>
+$api = new AdminApi('http://zimbra.univ-poitiers.fr/service/soap');
+$api->auth($username, $password);
+$account = $api->getAccountInfo(new AccountSelector(AccountBy::NAME, $accountName));

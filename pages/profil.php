@@ -21,11 +21,20 @@ $stmt_pp_original->execute([
 ]);
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
-if ($user['role'] == "chef" || $user['role'] == "admin") {
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
+$stmt->execute([
+  'id_user' => $user['id_user']
+]);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+
+if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin") {
     $sql_list = "SELECT pname, name, id_user FROM users WHERE edu_group = :edu_group AND role = 'eleve' ORDER BY name ASC";
     $stmt = $dbh->prepare($sql_list);
     $stmt->execute([
-        'edu_group' => $user['edu_group']
+        'edu_group' => $user_sql['edu_group']
     ]);
     $list_eleve = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -99,7 +108,7 @@ echo head("MMI Companion - Profil");
                 <?php } ?>
 
             </form>
-            <?php if ($user['role'] == "chef") { ?>
+            <?php if ($user_sql['role'] == "chef") { ?>
                 <div class="trait-profil"></div>
 
                 <div class="transmit_role-profil">

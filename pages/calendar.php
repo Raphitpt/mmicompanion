@@ -20,15 +20,15 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_data = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_data);
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
 $stmt->execute([
   'id_user' => $user['id_user']
 ]);
-$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // On récupère le lien de l'emploi du temps de l'utilisateur via la base de données
-$cal_link = calendar($user_data['edu_group']);
+$cal_link = calendar($user_sql['edu_group']);
 
 // On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
 if (isset($_POST['annee']) && isset($_POST['tp'])) {
@@ -54,7 +54,7 @@ echo head('MMI Companion | Accueil');
 
   <!-- Mise en place du tutoriel -->
   <?php
-  if ($user_data['edu_group'] == 'undefined' || $user_data['edu_group'] == '') { ?>
+  if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <body class="body-welcome">
     <main class="main-welcome">
       <form action="" method="post" class="form-welcome">
@@ -197,7 +197,7 @@ echo head('MMI Companion | Accueil');
         <a href="./profil.php">
           <div class="content_img-header-index">
             <div class="rounded-img">
-              <img src="<?php echo $user_data['pp_link'] ?>" alt="Photo de profil">
+              <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
             </div>
             <div class="green_circle"></div>
           </div>

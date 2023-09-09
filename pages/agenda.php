@@ -20,12 +20,12 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_data = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_data);
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
 $stmt->execute([
   'id_user' => $user['id_user']
 ]);
-$user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
@@ -43,12 +43,7 @@ $stmt_agenda->execute([
 $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
 // Fin de la récupération des taches
-$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt_user = $dbh->prepare($sql_user);
-$stmt_user->execute([
-    ':id_user' => $user['id_user']
-]);
-$user = $stmt_user->fetch(PDO::FETCH_ASSOC);
+
 // Requetes pour récupérer les évaluations de son TP
 // --------------------
 $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
@@ -149,7 +144,7 @@ echo head("MMI Companion - Agenda");
 ?>
 <!-- Mise en place du tutoriel -->
 <?php
-  if ($user_data['tuto_agenda'] == 0) { ?>
+  if ($user_sql['tuto_agenda'] == 0) { ?>
   <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
     <header>
@@ -233,7 +228,7 @@ echo head("MMI Companion - Agenda");
             <div style="height:15px"></div>
             <div class="agenda_title_flexbottom-agenda">
                 <?php
-                echo "<p style='font-weight: bold;'>Groupe : " . $user['edu_group'] . "</p>";
+                echo "<p style='font-weight: bold;'>Groupe : " . $user_sql['edu_group'] . "</p>";
                 if (!empty($chef)){
                     echo "<p style='font-weight: bold;'>Responsable : " . $chef['pname'] . " " . $chef['name'] . "</p>";
                 }
@@ -337,7 +332,7 @@ echo head("MMI Companion - Agenda");
                     if(($agenda['type'] == "eval" || $agenda['type'] == "devoir") && $user['role'] == "eleve"){
                         echo "<i class='fi fi-br-trash red' hidden></i>";
                     } 
-                    elseif ($user['role'] == "admin" || $user['role'] == "chef") {
+                    elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
                         echo "<a href='agenda_edit.php?id_user=".$agenda['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$user['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
                     }
                     else {
