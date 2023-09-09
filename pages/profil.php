@@ -10,22 +10,22 @@ if (!isset($_COOKIE['jwt'])) {
 
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$users = decodeJWT($jwt, $secret_key);
+$user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
 
 // Recupération du lien de la photo de profil en base de donnée, en local ça ne fonctionnera pas, il faut quel soit en ligne, sauf si l'ajout de la photo et en local
 $pp_original = "SELECT pp_link, score FROM users WHERE id_user = :id_user";
 $stmt_pp_original = $dbh->prepare($pp_original);
 $stmt_pp_original->execute([
-    'id_user' => $users['id_user']
+    'id_user' => $user['id_user']
 ]);
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
-if ($users['role'] == "chef" || $users['role'] == "admin") {
+if ($user['role'] == "chef" || $user['role'] == "admin") {
     $sql_list = "SELECT pname, name, id_user FROM users WHERE edu_group = :edu_group AND role = 'eleve' ORDER BY name ASC";
     $stmt = $dbh->prepare($sql_list);
     $stmt->execute([
-        'edu_group' => $users['edu_group']
+        'edu_group' => $user['edu_group']
     ]);
     $list_eleve = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
@@ -61,11 +61,11 @@ echo head("MMI Companion - Profil");
             <div class="profil_form-disabled">
                 <div class="profil_form-input_disabled">
                     <label for="name">Prénom</label>
-                    <input type="text" name="name" id="name" value="<?php echo ucfirst($users['pname']) ?>" disabled>
+                    <input type="text" name="name" id="name" value="<?php echo ucfirst($user['pname']) ?>" disabled>
                 </div>
                 <div class="profil_form-input_disabled">
                     <label for="mail">Email</label>
-                    <input type="text" name="mail" id="mail" value="<?php echo $users['edu_mail'] ?>" disabled>
+                    <input type="text" name="mail" id="mail" value="<?php echo $user['edu_mail'] ?>" disabled>
                 </div>
             </div>
 
@@ -99,13 +99,13 @@ echo head("MMI Companion - Profil");
                 <?php } ?>
 
             </form>
-            <?php if ($users['role'] == "chef") { ?>
+            <?php if ($user['role'] == "chef") { ?>
                 <div class="trait-profil"></div>
 
                 <div class="transmit_role-profil">
                     <h1>Transmettre son rôle à un autre étudiant</h1>
                     <form class="form_transmit_role-profil" method="POST" action="./transfert_role.php">
-                        <input type="hidden" name="id_user" value="<?php echo $users['id_user']; ?>">
+                        <input type="hidden" name="id_user" value="<?php echo $user['id_user']; ?>">
                         <select name="passage_role" id="passage_role">
                             <?php
                             foreach ($list_eleve as $list_eleves) { ?>

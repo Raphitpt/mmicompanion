@@ -5,7 +5,7 @@ require './../bootstrap.php';
 
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$users = decodeJWT($jwt, $secret_key);
+$user = decodeJWT($jwt, $secret_key);
 
 if(isset($_POST['points'])){
     $points = $_POST['points'];
@@ -15,7 +15,7 @@ if(isset($_POST['points'])){
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'nombre' => $points,
-        'id_user' => $users['id_user']
+        'id_user' => $user['id_user']
     ]);
     exit();
 }

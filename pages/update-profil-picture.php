@@ -4,7 +4,7 @@ require "../bootstrap.php";
 
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY'];
-$users = decodeJWT($jwt, $secret_key);
+$user = decodeJWT($jwt, $secret_key);
 
 if (isset($_FILES['profil-picture'])) {
   $uploadedFile = $_FILES['profil-picture'];
@@ -20,7 +20,7 @@ if (isset($_FILES['profil-picture'])) {
       $stmt = $dbh->prepare($sql);
       $stmt->execute([
         'profil_picture' => $destinationPath,
-        'id_user' => $users['id_user']
+        'id_user' => $user['id_user']
       ]);
 
       // Renvoyer la réponse JSON avec l'URL de la nouvelle image de profil
