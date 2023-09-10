@@ -306,7 +306,7 @@ echo head("MMI Companion - Agenda");
                         }
                     }
 
-                    echo "<div>";
+                    echo "<div class='agenda_title_content_list_item_flexleft-agenda'>";
                     if ($agenda['type'] == "eval") {
                         echo "<h3 class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</h3>";
                     }
@@ -314,16 +314,14 @@ echo head("MMI Companion - Agenda");
                         echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
                     }
                     echo "<div class='agenda_content_subject-agenda'>";
-                    echo "<div class='container_circle_subject-agenda'>";
                     foreach ($colors as $color) {
                         if ($color['id_subject'] == $agenda['id_subject']) {
-                            echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
+                            echo "<p style='background-color:". $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
+                            // echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
                             break;
                         }
                     };
-                    echo "</div>";
                     // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
-                    echo "<p>" . $agenda['name_subject'] . "</p>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
