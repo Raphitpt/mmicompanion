@@ -951,7 +951,7 @@ main {
 .main-index {
     width: 80vw;
     max-width: 550px;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 70px);
     overflow-y: hidden;
 }
 
@@ -1498,6 +1498,92 @@ input[type="checkbox"]:checked::before {
     font-weight: 800;
     line-height: normal;
     border: none;
+}
+
+
+
+
+/* OUTILS_SUPPLEMENTAIRES.PHP */
+
+.main-outils {
+    width: 80vw;
+    max-width: 550px;
+    overflow-y: hidden;
+}
+
+.container-outils{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+}
+
+.container-outils a{
+    width: 100%;
+}
+
+.item-outils{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 13px;
+    padding: 30px;
+    width: 100%;
+    gap: 10px;
+}
+
+.item-outils.red{
+    background: linear-gradient(90deg, #C53F3F 20.33%, rgba(197, 63, 63, 0.10) 101.93%);
+}
+
+.item-outils.purple{
+    background: linear-gradient(90deg, #583D88 20.33%, rgba(88, 61, 136, 0.10) 101.93%);
+}
+
+.item-outils.orange{
+    background: linear-gradient(90deg, #BF5C00 20.33%, rgba(191, 92, 0, 0.10) 101.93%);
+}
+
+.item_flextop-outils{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.item_flextop-outils h1{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.item_flextop-outils img{
+    width: auto;
+    height: 80px;
+}
+
+.item_flextop-outils.updago_img img{
+    width: 100px;
+    height: auto;
+}
+
+.item_flexbottom-outils{
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.item_flexbottom-outils p{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 

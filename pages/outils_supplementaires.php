@@ -39,8 +39,46 @@ echo head("MMI Companion - Outils supplémentaires");
         <?php generateBurgerMenuContent() ?>
     </header>
 
-    <main>
-        
+    <main class="main-outils">
+        <div style="height:30px"></div>
+        <div class="container-outils">
+            <a href="https://zimbra.univ-poitiers.fr" target="_blank">
+                <div class="item-outils red">
+                    <div class="item_flextop-outils">
+                        <h1>Messagerie
+                        <br>(webmail)
+                        </h1>
+                        <img src="./../assets/img/messagerie.webp" alt="Une personne envoyant un email">
+                    </div>
+                    <div class="item_flexbottom-outils">
+                        <p>Ta messagerie de l’université de Poitiers</p>
+                    </div>
+                </div>
+            </a>
+            <a href="https://cas.univ-poitiers.fr/cas/login?service=https://ent.univ-poitiers.fr/uPortal/Login" target="_blank">
+                <div class="item-outils purple">
+                    <div class="item_flextop-outils">
+                        <h1>ENT</h1>
+                        <img src="./../assets/img/ENT.webp" alt="Une personne qui travaille">
+                    </div>
+                    <div class="item_flexbottom-outils">
+                        <p>Ton espace numérique de travail</p>
+                    </div>
+                </div>
+            </a>
+            <a href="https://auth.univ-poitiers.fr/cas/login?service=https%3A%2F%2Fupdago.univ-poitiers.fr%2Flogin%2Findex.php%3FauthCAS%3DCAS" target="_blank">
+                <div class="item-outils orange">
+                    <div class="item_flextop-outils updago_img">
+                        <h1>UPdago</h1>
+                        <img src="./../assets/img/UPdago.webp" alt="Logo de UPdago">
+                    </div>
+                    <div class="item_flexbottom-outils">
+                        <p>Ta plateforme d’enseignement en ligne</p>
+                    </div>
+                </div>
+            </a>
+            
+        </div>
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
