@@ -63,7 +63,7 @@ echo head("Informations");
                     $name_color = "#0D6EFD";
                 } elseif ($information['role'] == "admin") {
                     $name_color = "#6C757D";
-                } elseif ($information['role'] == "BDE") {
+                } elseif (strpos($information['role'], 'BDE') !== false) {
                     $name_color = "#DC3545";
                 }
                 ?>
