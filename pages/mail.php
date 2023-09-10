@@ -35,7 +35,7 @@ $sql_code = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 
-echo head("MMI Companion - Vérification du mail");
+echo head("MMI Companion | Vérification du mail");
 ?>
 <body class="body-login">
     <main class="main-mail">

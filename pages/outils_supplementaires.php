@@ -19,7 +19,7 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion - Outils supplémentaires");
+echo head("MMI Companion | Outils supplémentaires");
 
 ?>
 

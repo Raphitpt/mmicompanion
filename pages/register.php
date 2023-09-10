@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 
-echo head('MMI Companion - Register');
+echo head('MMI Companion | Register');
 
 ?>
 

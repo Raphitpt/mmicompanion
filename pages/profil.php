@@ -38,7 +38,7 @@ if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin") {
     ]);
     $list_eleve = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-echo head("MMI Companion - Profil");
+echo head("MMI Companion | Profil");
 
 ?>
 

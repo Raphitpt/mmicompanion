@@ -140,7 +140,7 @@ if (isset($_POST['button-validate'])) {
 
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion - Agenda");
+echo head("MMI Companion | Agenda");
 ?>
 <!-- Mise en place du tutoriel -->
 <?php

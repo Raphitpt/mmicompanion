@@ -45,17 +45,18 @@ echo head('Ajouter une information');
                     <i class="fi fi-br-bars-sort"></i>
                 </div>
                 <div style="width:20px"></div>
-                <h1>Agenda</h1>
+                <h1>Informations</h1>
             </div>
         </div>
 
         <?php generateBurgerMenuContent() ?>
     </header>
-    <main>
-        <div class="content_main">
-            <div class="content_title-main">
-                <h2>Ajouter une information</h2>
-            </div>
+    <main class="main-informations">
+        <div style="height:30px"></div>
+        <div class="title_trait">
+            <h1>Ajouter une information</h1>
+            <div></div>
+        </div>
             <div class="content_agenda">
                 <form action="" method="post" class="form_agenda">
                     <div class="content_input">
@@ -92,22 +93,31 @@ echo head('Ajouter une information');
                     </div>
                 </form>
             </div>
-        </div>
 
     </main>
+
+    <script src="../assets/js/menu-navigation.js"></script>
+    <script>
+
+        // Faire apparaître le background dans le menu burger
+        let select_background_profil = document.querySelector('#select_background_informations-header');
+        select_background_profil.classList.add('select_link-header');
+
+        // -------------------------
+
+        window.addEventListener('DOMContentLoaded', function(){
+            const group = document.querySelector('#group_info');
+            const tp = document.querySelector('#tp_info');
+            group.addEventListener('change', function(){
+                if (group.value == 'all') {
+                    tp.disabled = true;
+                } else {
+                    tp.disabled = false;
+                }
+            })
+        })
+
+    </script>
+
 </body>
 </html>
-<script>
-    window.addEventListener('DOMContentLoaded', function(){
-        const group = document.querySelector('#group_info');
-        const tp = document.querySelector('#tp_info');
-        group.addEventListener('change', function(){
-            if (group.value == 'all') {
-                tp.disabled = true;
-            } else {
-                tp.disabled = false;
-            }
-        })
-    })
-
-</script>

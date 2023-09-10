@@ -30,7 +30,7 @@ $query_informations->execute([
 
 $informations = $query_informations->fetchAll();
 
-echo head("Informations");
+echo head("MMI Companion | Informations");
 ?>
 <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
@@ -58,13 +58,13 @@ echo head("Informations");
             <?php foreach ($informations as $information) : 
                 $name_color = "";
                 if ($information['role'] == "eleve") {
-                    $name_color = "#FFC107";
+                    $name_color = "#FFB141";
                 } elseif ($information['role'] == "prof") {
-                    $name_color = "#0D6EFD";
+                    $name_color = "#5cceff";
                 } elseif ($information['role'] == "admin") {
-                    $name_color = "#6C757D";
+                    $name_color = "#FF5757";
                 } elseif ($information['role'] == "BDE") {
-                    $name_color = "#DC3545";
+                    $name_color = "#bca5ff";
                 }
                 ?>
                 <div class="item-information">
