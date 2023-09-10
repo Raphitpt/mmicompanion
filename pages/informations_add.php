@@ -10,7 +10,7 @@ $user = decodeJWT($jwt, $secret_key);
 
 
 if (isset($_POST['submit'])) {
-    if(!empty($_POST['titre']) && !empty($_POST['name']) && !empty($_POST['content']) && !empty($_POST['group_info'])){
+    if(!empty($_POST['titre']) && !empty($_POST['user']) && !empty($_POST['content']) && !empty($_POST['group_info'])){
         $group_info = $_POST['group_info'];
         if(isset($_POST['tp_info']) && !empty($_POST['tp_info'])){
            $group_info = $group_info . '-' . $_POST['tp_info'];
@@ -19,13 +19,14 @@ if (isset($_POST['submit'])) {
     $name = $_POST['user'];
     $content = $_POST['content'];
     
-    $sql = "INSERT INTO informations (titre, user, content, group_info) VALUES (:titre, :user, :content, :group_info)";
+    $sql = "INSERT INTO informations (titre, user, content, group_info, id_user) VALUES (:titre, :user, :content, :group_info, :id_user)";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'titre' => $title,
         'user' => $name,
         'content' => $content,
-        'group_info' => $group_info
+        'group_info' => $group_info,
+        'id_user' => $user['id_user']
 
     ]);
     header('Location: ./informations.php');
@@ -79,6 +80,7 @@ echo head('Ajouter une information');
                         </select>
                         <label for="tp_info">Tp:</label>
                         <select name="tp_info" id="tp_info" disabled>
+                            <option value="">Tous</option>
                             <option value="TP1">TP1</option>
                             <option value="TP2">TP2</option>
                             <option value="TP3">TP3</option>
