@@ -951,6 +951,8 @@ main {
 .main-index {
     width: 80vw;
     max-width: 550px;
+    height: calc(100vh - 80px);
+    overflow-y: hidden;
 }
 
 
@@ -985,6 +987,7 @@ main {
     background-color: #fff;
     border-radius: 20px;
     padding: 20px;
+    max-height: 780px;
 }
 
 .fc-toolbar-title {
@@ -1174,6 +1177,7 @@ main {
 .main-agenda {
     width: 80vw;
     max-width: 550px;
+    overflow-y: hidden;
 }
 
 .agenda_title_flextop-agenda {

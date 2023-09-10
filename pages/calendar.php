@@ -220,7 +220,7 @@ echo head('MMI Companion | Accueil');
       <div id="calendar"></div>
     </section>
 
-    <div style="height:30px"></div>
+    <!-- <div style="height:30px"></div> -->
 
     <!-- <section class="section_agenda-index">
       <div class="title_trait">
@@ -284,7 +284,7 @@ echo head('MMI Companion | Accueil');
         hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 75,
-        height: '70vh',
+        height: 'calc(100vh - 160px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         headerToolbar: {
