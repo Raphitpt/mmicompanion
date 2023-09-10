@@ -408,11 +408,14 @@ echo head("MMI Companion - Agenda");
         function handleCheckboxChange() {
             let checkbox = this;
             let heading = checkbox.parentNode.querySelector(".title_subject-agenda");
+            let subject_agenda = checkbox.parentNode.querySelector(".agenda_content_subject-agenda");
 
             if (checkbox.checked) {
                 heading.style.textDecoration = "line-through";
+                subject_agenda.style.opacity = "0.5";
             } else {
                 heading.style.textDecoration = "none";
+                subject_agenda.style.opacity = "1";
             }
         }
 

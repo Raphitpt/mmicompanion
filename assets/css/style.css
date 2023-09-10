@@ -1258,20 +1258,25 @@ main {
 
 input[type="checkbox"]:checked::before {
     content: url(./../img/check-mark-icon.svg);
-    animation: zoom 0.15s ease;
+    animation: animation_check 0.25s ease;
     transform: scale(0.11);
     color: #004A5A;
 }
 
-@keyframes zoom {
+@keyframes animation_check {
     0% {
         transform: scale(0);
+    }
+
+    50%{
+        transform: scale(0.16);
     }
 
     100% {
         transform: scale(0.11);
     }
 }
+
 
 .agenda_title_content_list_item_flexleft-agenda{
     display: flex;
@@ -1296,6 +1301,7 @@ input[type="checkbox"]:checked::before {
 
 .agenda_content_subject-agenda{
     width: 100%;
+    transition: all 0.3s ease-in-out;
 }
 
 .agenda_content_subject-agenda p {
