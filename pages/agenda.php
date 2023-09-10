@@ -49,7 +49,7 @@ $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
-    'edu_group' => $user['edu_group']
+    'edu_group' => $user_sql['edu_group']
 ]);
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
@@ -59,7 +59,7 @@ $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 $sql_devoir = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_devoir = $dbh->prepare($sql_devoir);
 $stmt_devoir->execute([
-    'edu_group' => $user['edu_group']
+    'edu_group' => $user_sql['edu_group']
 ]);
 $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
@@ -73,7 +73,7 @@ usort($agenda, 'compareDates');
 $sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role = 'chef'";
 $stmt_chef = $dbh->prepare($sql_chef);
 $stmt_chef->execute([
-    'edu_group' => $user['edu_group']
+    'edu_group' => $user_sql['edu_group']
 ]);
 $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
 
