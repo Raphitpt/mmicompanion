@@ -264,8 +264,8 @@ main {
 
 .select_link-header {
     border-radius: 19.5px;
-    width: 225px;
-    right: 10px;
+    width: 235px;
+    right: -10px;
     height: 42px;
     position: absolute;
     background: var(--bleu-trs-clair-background, #B9E0FF);
