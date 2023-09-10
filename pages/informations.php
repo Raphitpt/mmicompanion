@@ -64,7 +64,7 @@ echo head("MMI Companion | Informations");
                 } elseif ($information['role'] == "admin") {
                     $name_color = "#6C757D";
                 } elseif (strpos($information['role'], 'BDE') !== false) {
-                    $name_color = "#DC3545";
+                    $name_color = "#bca5ff";
                 }
                 ?>
                 <div class="item-information">
