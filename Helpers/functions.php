@@ -182,6 +182,13 @@ function generateBurgerMenuContent()
                 </div>
             </a>
             <div class="burger_content_trait_header"></div>
+            <a href="./informations.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-info"></i>
+                    <p>Informations</p>
+                    <div id="select_background_informations-header" class=""></div>
+                </div>
+            </a>
             <a href="./outils_supplementaires.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-link-alt"></i>

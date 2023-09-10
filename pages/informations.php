@@ -47,29 +47,39 @@ echo head("Informations");
 
         <?php generateBurgerMenuContent() ?>
     </header>
-    <main>
-        <div class="content_main">
-            <div class="content_title-main">
-                <h2>Informations</h2>
-            </div>
-            <div class="content_informations">
-                <?php foreach ($informations as $information) : ?>
-                    <div class="content_information">
-                        <div class="content_title-information">
-                            <h3><?= $information['titre'] ?></h3>
+    <main class="main-informations">
+        <div style="height:30px"></div>
+        <div class="title_trait">
+            <h1>Informations</h1>
+            <div></div>
+        </div>
+        <div style="height:20px"></div>
+        <div class="container-informations">
+            <?php foreach ($informations as $information) : ?>
+                <div class="item-information">
+                    <div class="item_content_title-information">
+                        <div class="item_content_title_flexleft-information">
+                            <h2><?= $information['titre'] ?></h2>
+                            <p><?= $information['date'] ?></p>
                         </div>
-                        <div class="content_date-information">
-                            <h3><?= $information['date'] ?></h3>
-                        </div>
-                        <div class="content_user-information">
-                            <h3><?= $information['user'] ?></h3>
-                        </div>
-                        <div class="content_text-information">
-                            <p><?= $information['content'] ?></p>
+                        <div class="item_content_title_flexright-information" style="background-color : <?php echo "blue" ?>">
+                            <p><?= $information['user'] ?></p>
                         </div>
                     </div>
-                <?php endforeach; ?>
-            </div>
+                    <div class="item_content_text-information">
+                        <p><?= $information['content'] ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
     </main>
+
+    <script src="../assets/js/menu-navigation.js"></script>
+    <script>
+        // Faire apparaître le background dans le menu burger
+        let select_background_profil = document.querySelector('#select_background_informations-header');
+        select_background_profil.classList.add('select_link-header');
+    </script>
 </body>
+
+</html>

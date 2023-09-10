@@ -1502,6 +1502,95 @@ input[type="checkbox"]:checked::before {
 
 
 
+/* INFORMATIONS.PHP */
+
+.main-informations {
+    width: 80vw;
+    max-width: 550px;
+}
+
+.container-informations{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 20px;
+    width: 100%;
+}
+
+.item-information{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 13px;
+    padding: 30px;
+    width: 100%;
+    gap: 10px;
+    background: #FFF;
+}
+
+.item_content_title-information{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.item_content_title_flexleft-information{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.item_content_title_flexleft-information h2{
+    color: var(--Texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.item_content_title_flexleft-information p{
+    color: rgba(0, 74, 90, 0.50);
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.item_content_title_flexright-information{
+    border-radius: 5px;
+    padding: 5px 20px;
+}
+
+.item_content_title_flexright-information p{
+    color: #FFF;
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.item_content_text-information{
+    display: flex;
+    justify-content: start;
+    width: 100%;
+}
+
+.item_content_text-information p{
+    color: var(--Texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+
 
 /* OUTILS_SUPPLEMENTAIRES.PHP */
 
