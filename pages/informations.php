@@ -55,14 +55,25 @@ echo head("Informations");
         </div>
         <div style="height:20px"></div>
         <div class="container-informations">
-            <?php foreach ($informations as $information) : ?>
+            <?php foreach ($informations as $information) : 
+                $name_color = "";
+                if ($information['role'] == "eleve") {
+                    $name_color = "#FFC107";
+                } elseif ($information['role'] == "prof") {
+                    $name_color = "#0D6EFD";
+                } elseif ($information['role'] == "admin") {
+                    $name_color = "#6C757D";
+                } elseif ($information['role'] == "BDE") {
+                    $name_color = "#DC3545";
+                }
+                ?>
                 <div class="item-information">
                     <div class="item_content_title-information">
                         <div class="item_content_title_flexleft-information">
                             <h2><?= $information['titre'] ?></h2>
                             <p><?= $information['date'] ?></p>
                         </div>
-                        <div class="item_content_title_flexright-information" style="background-color : <?php echo $information['role'] ?>">
+                        <div class="item_content_title_flexright-information" style="background-color : <?php echo $name_color ?>">
                             <p><?= $information['user'] ?></p>
                         </div>
                     </div>
