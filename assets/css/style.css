@@ -37,9 +37,9 @@ main {
 
 .content_header {
     width: 100vw;
-    height: 90px;
+    height: 80px;
     flex-shrink: 0;
-    border-radius: 0px 0px 34px 34px;
+    border-radius: 0px 0px 20px 20px;
     background: var(--bleu-trs-clair-background, #B9E0FF);
 }
 
@@ -54,8 +54,17 @@ main {
     height: 100%;
 }
 
+.burger-header{
+    transform: rotate(0);
+    transition: transform 0.4s ease-in-out;
+}
+
+.burger-header:hover{
+    transform: rotate(180deg);
+}
+
 .content_title-header .burger-header i {
-    font-size: 30px;
+    font-size: 25px;
     flex-shrink: 0;
     color: #004A5A;
 }
@@ -74,9 +83,9 @@ main {
 
 .header-index {
     width: 100vw;
-    height: 90px;
+    height: 80px;
     flex-shrink: 0;
-    border-radius: 0px 0px 34px 34px;
+    border-radius: 0px 0px 20px 20px;
     background: var(--bleu-trs-clair-background, #B9E0FF);
 }
 
@@ -89,11 +98,21 @@ main {
     height: 100%;
 }
 
+.burger-header-index{
+    transform: rotate(0);
+    transition: transform 0.4s ease-in-out;
+}
+
+.burger-header-index:hover{
+    transform: rotate(180deg);
+}
+
 .burger-header-index i {
-    font-size: 30px;
+    font-size: 25px;
     flex-shrink: 0;
     color: #004A5A;
 }
+
 
 .content-header-index {
     display: flex;
