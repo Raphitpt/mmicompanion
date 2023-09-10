@@ -15,11 +15,11 @@ $stmt->execute([
 ]);
 $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$sql_informations = "SELECT * FROM informations WHERE group_info = :edu_group_common
+$sql_informations = "SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_common
                     UNION ALL
-                    SELECT * FROM informations WHERE group_info = :edu_group_perso
+                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_perso
                     UNION ALL
-                    SELECT * FROM informations WHERE group_info = :edu_group_but";
+                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_but";
 
 $query_informations = $dbh->prepare($sql_informations);
 $query_informations->execute([
@@ -62,7 +62,7 @@ echo head("Informations");
                             <h2><?= $information['titre'] ?></h2>
                             <p><?= $information['date'] ?></p>
                         </div>
-                        <div class="item_content_title_flexright-information" style="background-color : <?php echo "blue" ?>">
+                        <div class="item_content_title_flexright-information" style="background-color : <?php echo $information['role'] ?>">
                             <p><?= $information['user'] ?></p>
                         </div>
                     </div>
