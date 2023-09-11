@@ -52,9 +52,10 @@ $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo head('MMI Companion | Accueil');
 ?>
 
-  <!-- Mise en place du tutoriel -->
-  <?php
-  if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
+<!-- Mise en place du tutoriel -->
+<?php
+if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
+
   <body class="body-welcome">
     <main class="main-welcome">
       <form action="" method="post" class="form-welcome">
@@ -144,84 +145,84 @@ echo head('MMI Companion | Accueil');
 
     </main>
 
-</body>
+  </body>
 
-<script>
-  const button_page1_validate = document.querySelector('#button_page1-validate');
-  const button_page2_validate = document.querySelector('#button_page2-validate');
-  const button_page2_back = document.querySelector('#button_page2-back');
-  const button_page3_back = document.querySelector('#button_page3-back');
-  const welcome_page1 = document.querySelector('.welcome_page1-index');
-  const welcome_page2 = document.querySelector('.welcome_page2-index');
-  const welcome_page3 = document.querySelector('.welcome_page3-index');
+  <script>
+    const button_page1_validate = document.querySelector('#button_page1-validate');
+    const button_page2_validate = document.querySelector('#button_page2-validate');
+    const button_page2_back = document.querySelector('#button_page2-back');
+    const button_page3_back = document.querySelector('#button_page3-back');
+    const welcome_page1 = document.querySelector('.welcome_page1-index');
+    const welcome_page2 = document.querySelector('.welcome_page2-index');
+    const welcome_page3 = document.querySelector('.welcome_page3-index');
 
-  button_page1_validate.addEventListener('click', () => {
-    welcome_page1.style.display = 'none';
-    welcome_page2.style.display = 'flex';
-  })
+    button_page1_validate.addEventListener('click', () => {
+      welcome_page1.style.display = 'none';
+      welcome_page2.style.display = 'flex';
+    })
 
-  button_page2_validate.addEventListener('click', () => {
-    welcome_page2.style.display = 'none';
-    welcome_page3.style.display = 'flex';
-  })
+    button_page2_validate.addEventListener('click', () => {
+      welcome_page2.style.display = 'none';
+      welcome_page3.style.display = 'flex';
+    })
 
-  button_page2_back.addEventListener('click', () => {
-    welcome_page1.style.display = 'flex';
-    welcome_page2.style.display = 'none';
-  })
+    button_page2_back.addEventListener('click', () => {
+      welcome_page1.style.display = 'flex';
+      welcome_page2.style.display = 'none';
+    })
 
-  button_page3_back.addEventListener('click', () => {
-    welcome_page2.style.display = 'flex';
-    welcome_page3.style.display = 'none';
-  })
-</script>
+    button_page3_back.addEventListener('click', () => {
+      welcome_page2.style.display = 'flex';
+      welcome_page3.style.display = 'none';
+    })
+  </script>
 <?php } else {
 ?>
 
-<body class="body-all">
+  <body class="body-all">
 
-  <header class="header-index">
-    <div class="content_header-index">
+    <header class="header-index">
+      <div class="content_header-index">
 
-      <div class="burger-header-index" id="burger-header">
-        <i class="fi fi-br-bars-sort"></i>
-      </div>
-
-      <div class="content-header-index">
-        <div class="content_title-header-index">
-          <h1>Salut <span style="font-weight:800">
-              <?php echo ucfirst($user['pname']) ?><span></h1>
-          <p>en ligne</p>
+        <div class="burger-header-index" id="burger-header">
+          <i class="fi fi-br-bars-sort"></i>
         </div>
-        <div style="width:10px"></div>
-        <a href="./profil.php">
-          <div class="content_img-header-index">
-            <div class="rounded-img">
-              <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
-            </div>
-            <div class="green_circle"></div>
+
+        <div class="content-header-index">
+          <div class="content_title-header-index">
+            <h1>Salut <span style="font-weight:800">
+                <?php echo ucfirst($user['pname']) ?><span></h1>
+            <p>en ligne</p>
           </div>
-        </a>
+          <div style="width:10px"></div>
+          <a href="./profil.php">
+            <div class="content_img-header-index">
+              <div class="rounded-img">
+                <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
+              </div>
+              <div class="green_circle"></div>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
 
-    <?php generateBurgerMenuContent() ?>
+      <?php generateBurgerMenuContent() ?>
 
-  </header>
+    </header>
 
-  <main class="main-index">
-    <div style="height:30px"></div>
-    <section class="section_calendar-index">
-      <div class="title_trait">
-        <h1>L'emploi du temps</h1>
-        <div></div>
-        <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a>
-      </div>
-      <div style="height:15px"></div>
-      <div id="calendar"></div>
-      
-    </section>
-  </main>
+    <main class="main-index">
+      <div style="height:30px"></div>
+      <section class="section_calendar-index">
+        <div class="title_trait">
+          <h1>L'emploi du temps</h1>
+          <div></div>
+          <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a>
+        </div>
+        <div style="height:15px"></div>
+        <div id="calendar"></div>
+
+      </section>
+    </main>
 
   </body>
 
@@ -243,29 +244,54 @@ echo head('MMI Companion | Accueil');
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
 
-        <?php 
+        <?php
         foreach ($color_subjects as $color_subject) {
           echo "'" . $color_subject['code_ressource'] . "': '" . $color_subject['color_ressource'] . "',";
         }
         ?>
       };
       let calendar = new FullCalendar.Calendar(calendarEl, {
-        locale: 'fr',
-        buttonText: {
-          today: 'Aujourd\'hui',
-          month: 'Mois',
-          week: 'Semaine',
-          day: 'Jour',
-          list: 'Liste'
+          locale: 'fr',
+          buttonText: {
+            today: 'Aujourd\'hui',
+            month: 'Mois',
+            week: 'Semaine',
+            day: 'Jour',
+            list: 'Liste'
+          },
+          slotMinTime: '08:00',
+          slotMaxTime: '18:30',
+          hiddenDays: [0, 6],
+          allDaySlot: false,
+          eventMinHeight: 75,
+          height: 'calc(95vh - 160px)',
+          nowIndicator: true,
+          initialView: "timeGridDay",
+          views: {
+                    timeGridFourDay: {
+                        type: 'timeGrid',
+                        dayCount: 3
+                    }
+                },
+          customButtons: {
+            custom1day: {
+              text: '3 Jour',
+              click: function() {
+                calendar.changeView('timeGridFourDay'); // Changez la vue en 'timeGridThreeDay'
+              }
+            },
+            custom3day: {
+              text: '1 Jour',
+              click: function() {
+                calendar.changeView('timeGridDay'); // Changez la vue en 'timeGridThreeDay'
+              }
+            },
+          },
+        footerToolbar: {
+          left: "custom3day",
+          center: "",
+          right: "custom1day",
         },
-        slotMinTime: '08:00',
-        slotMaxTime: '18:30',
-        hiddenDays: [0, 6],
-        allDaySlot: false,
-        eventMinHeight: 75,
-        height: 'calc(95vh - 160px)',
-        nowIndicator: true,
-        initialView: "timeGridDay",
         headerToolbar: {
           left: "prev",
           center: "title",
@@ -314,11 +340,11 @@ echo head('MMI Companion | Accueil');
         }
       });
 
-      calendar.render();
+    calendar.render();
     });
   </script>
 <?php
-  }
+}
 ?>
 
 </html>
