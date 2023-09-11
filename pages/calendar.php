@@ -221,10 +221,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       <div style="height:20px"></div>
       <div class="container_calendar-calendar">
         <div class="button-calendar">
-          <button>Jour</button>
+          <button>1 jour</button>
           <button>3 jours</button>
         </div>
-        <div style="height:15px"></div>
         <div id="calendar"></div>
 
       </section>
@@ -270,7 +269,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           hiddenDays: [0, 6],
           allDaySlot: false,
           eventMinHeight: 75,
-          height: 'calc(95vh - 160px)',
+          height: 'calc(95vh - 215px)',
           nowIndicator: true,
           initialView: "timeGridDay",
           views: {
