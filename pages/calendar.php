@@ -275,7 +275,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 75,
-        height: 'calc(95vh - 160px)',
+        height: 'calc(95vh - 210px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         headerToolbar: {
