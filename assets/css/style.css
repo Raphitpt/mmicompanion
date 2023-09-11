@@ -390,19 +390,6 @@ main {
     font-family: Montserrat;
     text-decoration: none;
 }
-.button_voirplus{
-    background-color: #56B8D6;
-    color: #004A5A;
-    border: none;
-    border-radius: 25px;
-    padding: 7px 13px;
-    margin-left: 2px;
-    font-size: 10px;
-    font-weight: 700;
-    cursor: pointer;
-    font-family: Montserrat;
-    text-decoration: none;
-}
 
 .button_login {
     font-weight: 700;
@@ -989,6 +976,36 @@ main {
     border-radius: 10px;
     background: var(--texte, #004A5A);
     margin-bottom: 3px;
+}
+
+.container_calendar-calendar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.button-calendar{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.button-calendar button{
+    background-color: #56B8D6;
+    color: #004A5A;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 15px;
+    width: 100px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: Montserrat;
+    text-decoration: none;
 }
 
 

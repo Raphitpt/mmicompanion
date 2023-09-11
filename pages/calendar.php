@@ -215,10 +215,17 @@ echo head('MMI Companion | Accueil');
       <div class="title_trait">
         <h1>L'emploi du temps</h1>
         <div></div>
-        <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a>
+        <!-- <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a> -->
       </div>
-      <div style="height:15px"></div>
-      <div id="calendar"></div>
+      <div style="height:20px"></div>
+      <div class="container_calendar-calendar">
+        <div class="button-calendar">
+          <button>Jour</button>
+          <button>3 jours</button>
+        </div>
+        <div id="calendar"></div>
+      </div>
+      
       
     </section>
   </main>
