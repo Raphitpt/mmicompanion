@@ -3,8 +3,7 @@ function main() {
   if (
     !permission ||
     !("Notification" in window) ||
-    !("serviceWorker" in navigator) ||
-    !("PushManager" in window)
+    !("serviceWorker" in navigator) || Notification.permission !== "default"
 
 
   ) {
