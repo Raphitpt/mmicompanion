@@ -81,7 +81,7 @@ main {
 
 /* HEADER CALENDAR.php */
 
-.header-index {
+.header-calendar {
     width: 100vw;
     height: 80px;
     flex-shrink: 0;
@@ -89,7 +89,7 @@ main {
     background: var(--bleu-trs-clair-background, #B9E0FF);
 }
 
-.content_header-index {
+.content_header-calendar {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -98,33 +98,33 @@ main {
     height: 100%;
 }
 
-.burger-header-index{
+.burger-header-calendar{
     transform: rotate(0);
     transition: transform 0.4s ease-in-out;
 }
 
-.burger-header-index:hover{
+.burger-header-calendar:hover{
     transform: rotate(180deg);
 }
 
-.burger-header-index i {
+.burger-header-calendar i {
     font-size: 25px;
     flex-shrink: 0;
     color: #004A5A;
 }
 
 
-.content-header-index {
+.content-header-calendar {
     display: flex;
     align-items: center;
 }
 
-.content_title-header-index {
+.content_title-header-calendar {
     display: flex;
     flex-direction: column;
 }
 
-.content_title-header-index h1 {
+.content_title-header-calendar h1 {
     color: var(--texte, #004A5A);
     text-align: right;
     font-family: Montserrat;
@@ -134,7 +134,7 @@ main {
     line-height: normal;
 }
 
-.content_title-header-index p {
+.content_title-header-calendar p {
     color: var(--texte, #004A5A);
     text-align: right;
     font-family: Montserrat;
@@ -144,7 +144,7 @@ main {
     line-height: normal;
 }
 
-.content_img-header-index {
+.content_img-header-calendar {
     position: relative;
 }
 
@@ -162,7 +162,7 @@ main {
     object-fit: cover;
 }
 
-.content_img-header-index .green_circle {
+.content_img-header-calendar .green_circle {
     height: 10px;
     width: 10px;
     background-color: #05E200;
@@ -188,7 +188,7 @@ main {
     max-width: 350px;
     height: 100vh;
     background: var(--bleu-trs-clair-background, #DDF0FF);
-    z-index: 100;
+    z-calendar: 100;
     border-radius: 0px 25px 0px 0px;
     display: flex;
     flex-direction: column;
@@ -240,7 +240,7 @@ main {
     align-items: center;
     padding: 10px 0;
     width: 200px;
-    z-index: 2;
+    z-calendar: 2;
     position: relative;
 
 }
@@ -249,7 +249,7 @@ main {
     font-size: 20px;
     color: #004A5A;
     margin-right: 10px;
-    z-index: 2;
+    z-calendar: 2;
 }
 
 .burger_content_link-header p {
@@ -259,7 +259,7 @@ main {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    z-index: 2;
+    z-calendar: 2;
 }
 
 .select_link-header {
@@ -269,7 +269,7 @@ main {
     height: 42px;
     position: absolute;
     background: var(--bleu-trs-clair-background, #B9E0FF);
-    z-index: 1;
+    z-calendar: 1;
 }
 
 
@@ -948,7 +948,7 @@ main {
 
 /* ---------- */
 
-.main-index {
+.main-calendar {
     width: 80vw;
     max-width: 550px;
     height: calc(100vh - 70px);
@@ -1934,7 +1934,7 @@ input[type="checkbox"]:checked::before {
     height: 100px;
     position: relative;
     border-radius: 50%;
-    z-index: 19;
+    z-calendar: 19;
 }
 
 .profil_picture-img {
@@ -1948,7 +1948,7 @@ input[type="checkbox"]:checked::before {
     position: absolute;
     top: 0px;
     right: 0px;
-    z-index: 20;
+    z-calendar: 20;
 }
 
 .edit_profil_picture-img i{

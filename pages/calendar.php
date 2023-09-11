@@ -180,22 +180,22 @@ echo head('MMI Companion | Accueil');
 
 <body class="body-all">
 
-  <header class="header-index">
-    <div class="content_header-index">
+  <header class="header-calendar">
+    <div class="content_header-calendar">
 
-      <div class="burger-header-index" id="burger-header">
+      <div class="burger-header-calendar" id="burger-header">
         <i class="fi fi-br-bars-sort"></i>
       </div>
 
-      <div class="content-header-index">
-        <div class="content_title-header-index">
+      <div class="content-header-calendar">
+        <div class="content_title-header-calendar">
           <h1>Salut <span style="font-weight:800">
               <?php echo ucfirst($user['pname']) ?><span></h1>
           <p>en ligne</p>
         </div>
         <div style="width:10px"></div>
         <a href="./profil.php">
-          <div class="content_img-header-index">
+          <div class="content_img-header-calendar">
             <div class="rounded-img">
               <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
             </div>
@@ -209,9 +209,9 @@ echo head('MMI Companion | Accueil');
 
   </header>
 
-  <main class="main-index">
+  <main class="main-calendar">
     <div style="height:30px"></div>
-    <section class="section_calendar-index">
+    <section class="section_calendar-calendar">
       <div class="title_trait">
         <h1>L'emploi du temps</h1>
         <div></div>
