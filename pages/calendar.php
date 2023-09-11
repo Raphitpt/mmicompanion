@@ -210,14 +210,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     </header>
 
-    <main class="main-index">
-      <div style="height:30px"></div>
-      <section class="section_calendar-index">
-        <div class="title_trait">
-          <h1>L'emploi du temps</h1>
-          <div></div>
+  <main class="main-calendar">
+    <div style="height:30px"></div>
+    <section class="section_calendar-calendar">
+      <div class="title_trait">
+        <h1>L'emploi du temps</h1>
+        <div></div>
+      </div>
+      <div style="height:20px"></div>
+      <div class="container_calendar-calendar">
+        <div class="button-calendar">
+          <button id="changeViewButton3day">1 jour</button>
+          <button id="changeViewButton1day">3 jours</button>
         </div>
-        <div style="height:15px"></div>
         <div id="calendar"></div>
 
       </section>
@@ -243,6 +248,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       changeViewButton1day.addEventListener('click', function() {
         calendar.changeView('timeGridThreeDay'); // Changez la vue en "timeGridThreeDay".
       });
+      let changeViewButton3day = document.getElementById('changeViewButton3day');
+      changeViewButton1day.addEventListener('click', function() {
+        calendar.changeView('timeGridDay'); // Changez la vue en "timeGridThreeDay".
+      });
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
@@ -264,6 +273,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
+        views: {
+                    timeGridFourDay: {
+                        type: 'timeGrid',
+                        dayCount: 3
+                    }
+                },
         hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 75,
