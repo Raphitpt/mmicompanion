@@ -3,7 +3,10 @@ function main() {
   if (
     !permission ||
     !("Notification" in window) ||
-    !("serviceWorker" in navigator)
+    !("serviceWorker" in navigator) ||
+    !("PushManager" in window)
+
+
   ) {
     return;
   }
