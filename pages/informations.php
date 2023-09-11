@@ -49,9 +49,14 @@ echo head("MMI Companion | Informations");
     </header>
     <main class="main-informations">
         <div style="height:30px"></div>
-        <div class="title_trait">
-            <h1>Informations</h1>
-            <div></div>
+        <div class="info_title_flextop-informations">
+            <div class="title_trait">
+                <h1>Informations</h1>
+                <div></div>
+            </div>
+            <div class="info_title_flextopright-informations">
+                <a href="./informations_add.php">Ajouter</a>
+            </div>
         </div>
         <div style="height:20px"></div>
         <div class="container-informations">
@@ -87,6 +92,7 @@ echo head("MMI Companion | Informations");
                 </div>
             <?php endforeach; ?>
         </div>
+        <div style="height:30px"></div>
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
