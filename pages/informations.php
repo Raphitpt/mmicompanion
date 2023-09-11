@@ -73,12 +73,12 @@ echo head("MMI Companion | Informations");
                 ?>
                 <div class="item-information">
                     <div class="item_content_title-information">
-                        <div class="item_content_title_flexleft-information">
+                        <div class="item_content_title_flextop-information">
                             <h2><?= $information['titre'] ?></h2>
-                            <p><?= $newDate ?></p>
                         </div>
-                        <div class="item_content_title_flexright-information" style="background-color : <?php echo $name_color ?>">
-                            <p><?= $information['user'] ?></p>
+                        <div class="item_content_title_flexbottom-information">
+                            <p><?= $newDate ?></p>
+                            <p style="background-color : <?php echo $name_color ?>"><?= $information['user'] ?></p>
                         </div>
                     </div>
                     <div class="item_content_text-information">
