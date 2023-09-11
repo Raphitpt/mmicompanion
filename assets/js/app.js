@@ -5,7 +5,6 @@ function main() {
     !("Notification" in window) ||
     !("serviceWorker" in navigator) || Notification.permission !== "default"
 
-
   ) {
     return;
   }

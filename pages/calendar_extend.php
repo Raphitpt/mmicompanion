@@ -37,14 +37,15 @@ echo head("MMI Companion | Emploi du temps");
 
 ?>
 <style>
-    #calendar{
+    #calendar {
         font-size: 13px !important;
     }
-    .fc-v-event{
+
+    .fc-v-event {
         font-size: 0.58rem !important;
     }
-
 </style>
+
 <body class="body-all">
     <!-- Menu de navigation -->
     <header>
@@ -109,9 +110,31 @@ echo head("MMI Companion | Emploi du temps");
                     }
                 },
                 headerToolbar: {
-                    left: "prev",
+                    left: "customPrevious",
                     center: "title",
-                    right: "today next",
+                    right: "today customNext",
+                },
+                customButtons: {
+                    customNext: {
+                        icon: 'chevron-right',
+                        click: function() {
+                            let daysToAdvance = 3; // Avancez toujours de 3 jours
+
+                            calendar.incrementDate({
+                                days: daysToAdvance
+                            });
+                        }
+                    },
+                    customPrevious: {
+                        icon: 'chevron-left',
+                        click: function() {
+                            let daysToGoBack = 3; // Avancez toujours de 3 jours
+
+                            calendar.incrementDate({
+                                days: -daysToGoBack
+                            });
+                        }
+                    }
                 },
                 // plugins: [DayGridPlugin, iCalendarPlugin],
                 events: {

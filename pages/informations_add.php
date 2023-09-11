@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require '../bootstrap.php';
 
 // La on récupère le cookie que l'on à crée à la connection
@@ -8,6 +8,7 @@ $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
 $user = decodeJWT($jwt, $secret_key);
 
+session_start();
 
 if (isset($_POST['submit'])) {
     if(!empty($_POST['titre']) && !empty($_POST['user']) && !empty($_POST['content']) && !empty($_POST['group_info'])){
