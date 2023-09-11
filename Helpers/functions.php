@@ -324,7 +324,7 @@ function sendNotification($message, $body, $group)
     // Assuming you already have a valid $dbh connection to your database
     if ($group != null) {
         $query = "SELECT s.* FROM subscriptions s
-                  INNER JOIN users u ON s.edu_mail = u.edu_mail
+                  INNER JOIN users u ON s.id_user = u.id_user
                   WHERE u.edu_group = :group";
         $stmt = $dbh->prepare($query);
         $stmt->execute(['group' => $group]);

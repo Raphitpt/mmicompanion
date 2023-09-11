@@ -390,6 +390,19 @@ main {
     font-family: Montserrat;
     text-decoration: none;
 }
+.button_voirplus{
+    background-color: #56B8D6;
+    color: #004A5A;
+    border: none;
+    border-radius: 25px;
+    padding: 7px 13px;
+    margin-left: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: Montserrat;
+    text-decoration: none;
+}
 
 .button_login {
     font-weight: 700;

@@ -57,6 +57,8 @@ echo head("MMI Companion | Informations");
         <div class="container-informations">
             <?php foreach ($informations as $information) : 
                 $name_color = "";
+                $timestamp = strtotime($information['date']); // Convertit la date en timestamp
+                $newDate = date("d-m-Y H:i", $timestamp);
                 if ($information['role'] == "eleve") {
                     $name_color = "#FFB141";
                 } elseif ($information['role'] == "prof") {
@@ -73,7 +75,7 @@ echo head("MMI Companion | Informations");
                     <div class="item_content_title-information">
                         <div class="item_content_title_flexleft-information">
                             <h2><?= $information['titre'] ?></h2>
-                            <p><?= $information['date'] ?></p>
+                            <p><?= $newDate ?></p>
                         </div>
                         <div class="item_content_title_flexright-information" style="background-color : <?php echo $name_color ?>">
                             <p><?= $information['user'] ?></p>
