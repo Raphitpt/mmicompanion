@@ -244,14 +244,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
-      let changeViewButton1day = document.getElementById('changeViewButton1day');
-      changeViewButton1day.addEventListener('click', function() {
-        calendar.changeView('timeGridThreeDay'); // Changez la vue en "timeGridThreeDay".
-      });
-      let changeViewButton3day = document.getElementById('changeViewButton3day');
-      changeViewButton1day.addEventListener('click', function() {
-        calendar.changeView('timeGridDay'); // Changez la vue en "timeGridThreeDay".
-      });
+      
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
@@ -334,6 +327,14 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       });
 
       calendar.render();
+      let changeViewButton1day = document.getElementById('changeViewButton1day');
+      changeViewButton1day.addEventListener('click', function() {
+        calendar.changeView('timeGridFourDay'); // Changez la vue en "timeGridThreeDay".
+      });
+      let changeViewButton3day = document.getElementById('changeViewButton3day');
+      changeViewButton1day.addEventListener('click', function() {
+        calendar.changeView('timeGridDay'); // Changez la vue en "timeGridThreeDay".
+      });
     });
   </script>
 <?php
