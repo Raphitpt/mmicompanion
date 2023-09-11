@@ -8,6 +8,19 @@ $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
 $user = decodeJWT($jwt, $secret_key);
 
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
+$stmt->execute([
+  'id_user' => $user['id_user']
+]);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+if ($user_sql['role'] == 'eleve'){
+    header('Location: ./informations.php');
+    exit;
+}
+
 session_start();
 
 if (isset($_POST['submit'])) {

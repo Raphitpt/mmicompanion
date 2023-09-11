@@ -2,11 +2,15 @@
 session_start();
 require '../bootstrap.php';
 
+
+
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
 $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
 $user = decodeJWT($jwt, $secret_key);
+
+
 
 $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
 $stmt = $dbh->prepare($user_sql);
@@ -29,6 +33,7 @@ $query_informations->execute([
 ]);
 
 $informations = $query_informations->fetchAll();
+
 
 echo head("MMI Companion | Informations");
 ?>
@@ -54,9 +59,14 @@ echo head("MMI Companion | Informations");
                 <h1>Informations</h1>
                 <div></div>
             </div>
-            <div class="info_title_flextopright-informations">
-                <a href="./informations_add.php">Ajouter</a>
-            </div>
+            <?php 
+            if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin" || $user_sql['role'] == "prof" || strpos($user_sql['role'], 'BDE') !== false) {
+                ?>
+                <div class="info_title_flextopright-informations">
+                    <a href="./informations_add.php">Ajouter</a>
+                </div>
+                <?php
+            } ?>
         </div>
         <div style="height:20px"></div>
         <div class="container-informations">
