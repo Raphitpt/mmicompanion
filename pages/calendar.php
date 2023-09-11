@@ -263,7 +263,7 @@ echo head('MMI Companion | Accueil');
         hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 75,
-        height: 'calc(100vh - 160px)',
+        height: 'calc(95vh - 160px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         headerToolbar: {
