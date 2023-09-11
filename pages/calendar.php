@@ -181,48 +181,41 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-all">
 
-  <header class="header-calendar">
-    <div class="content_header-calendar">
+    <header class="header-index">
+      <div class="content_header-index">
 
-      <div class="burger-header-calendar" id="burger-header">
-        <i class="fi fi-br-bars-sort"></i>
-      </div>
-
-      <div class="content-header-calendar">
-        <div class="content_title-header-calendar">
-          <h1>Salut <span style="font-weight:800">
-              <?php echo ucfirst($user['pname']) ?><span></h1>
-          <p>en ligne</p>
+        <div class="burger-header-index" id="burger-header">
+          <i class="fi fi-br-bars-sort"></i>
         </div>
-        <div style="width:10px"></div>
-        <a href="./profil.php">
-          <div class="content_img-header-calendar">
-            <div class="rounded-img">
-              <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
-            </div>
-            <div class="green_circle"></div>
+
+        <div class="content-header-index">
+          <div class="content_title-header-index">
+            <h1>Salut <span style="font-weight:800">
+                <?php echo ucfirst($user['pname']) ?><span></h1>
+            <p>en ligne</p>
           </div>
-        </a>
+          <div style="width:10px"></div>
+          <a href="./profil.php">
+            <div class="content_img-header-index">
+              <div class="rounded-img">
+                <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
+              </div>
+              <div class="green_circle"></div>
+            </div>
+          </a>
+        </div>
       </div>
-    </div>
 
       <?php generateBurgerMenuContent() ?>
 
     </header>
 
-  <main class="main-calendar">
-    <div style="height:30px"></div>
-    <section class="section_calendar-calendar">
-      <div class="title_trait">
-        <h1>L'emploi du temps</h1>
-        <div></div>
-        <!-- <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a> -->
-      </div>
-      <div style="height:20px"></div>
-      <div class="container_calendar-calendar">
-        <div class="button-calendar">
-          <button>Jour</button>
-          <button>3 jours</button>
+    <main class="main-index">
+      <div style="height:30px"></div>
+      <section class="section_calendar-index">
+        <div class="title_trait">
+          <h1>L'emploi du temps</h1>
+          <div></div>
         </div>
         <div style="height:15px"></div>
         <div id="calendar"></div>
@@ -246,6 +239,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
+      let changeViewButton1day = document.getElementById('changeViewButton1day');
+      changeViewButton1day.addEventListener('click', function() {
+        calendar.changeView('timeGridThreeDay'); // Changez la vue en "timeGridThreeDay".
+      });
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
@@ -257,47 +254,22 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         ?>
       };
       let calendar = new FullCalendar.Calendar(calendarEl, {
-          locale: 'fr',
-          buttonText: {
-            today: 'Aujourd\'hui',
-            month: 'Mois',
-            week: 'Semaine',
-            day: 'Jour',
-            list: 'Liste'
-          },
-          slotMinTime: '08:00',
-          slotMaxTime: '18:30',
-          hiddenDays: [0, 6],
-          allDaySlot: false,
-          eventMinHeight: 75,
-          height: 'calc(95vh - 160px)',
-          nowIndicator: true,
-          initialView: "timeGridDay",
-          views: {
-                    timeGridFourDay: {
-                        type: 'timeGrid',
-                        dayCount: 3
-                    }
-                },
-          customButtons: {
-            custom1day: {
-              text: '3 Jour',
-              click: function() {
-                calendar.changeView('timeGridFourDay'); // Changez la vue en 'timeGridThreeDay'
-              }
-            },
-            custom3day: {
-              text: '1 Jour',
-              click: function() {
-                calendar.changeView('timeGridDay'); // Changez la vue en 'timeGridThreeDay'
-              }
-            },
-          },
-        footerToolbar: {
-          left: "custom3day",
-          center: "",
-          right: "custom1day",
+        locale: 'fr',
+        buttonText: {
+          today: 'Aujourd\'hui',
+          month: 'Mois',
+          week: 'Semaine',
+          day: 'Jour',
+          list: 'Liste'
         },
+        slotMinTime: '08:00',
+        slotMaxTime: '18:30',
+        hiddenDays: [0, 6],
+        allDaySlot: false,
+        eventMinHeight: 75,
+        height: 'calc(95vh - 160px)',
+        nowIndicator: true,
+        initialView: "timeGridDay",
         headerToolbar: {
           left: "prev",
           center: "title",
@@ -346,7 +318,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         }
       });
 
-    calendar.render();
+      calendar.render();
     });
   </script>
 <?php
