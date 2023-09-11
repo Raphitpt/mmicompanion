@@ -29,6 +29,23 @@ if (isset($_POST['submit'])) {
         'id_user' => $user['id_user']
 
     ]);
+    if ($stmt->rowCount() > 0) {
+        $_SESSION['success'] = "L'information a bien été ajoutée";
+        if ($group_info == 'all'){
+            $message = "Nouvelle information";
+            $body = 'Une nouvelle information a été ajoutée';
+            $group = '';
+            sendNotification($message, $body, $group);
+        } else {
+            $message = "Nouvelle information";
+            $body = 'Une nouvelle information a été ajoutée';
+            $group = $group_info;
+            sendNotification($message, $body, $group);
+        }
+    } else {
+        $_SESSION['error'] = "Une erreur est survenue";
+    }
+    dd();
     header('Location: ./informations.php');
     exit();
     }
