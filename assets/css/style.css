@@ -1538,7 +1538,7 @@ input[type="checkbox"]:checked::before {
     border-radius: 13px;
     padding: 30px;
     width: 100%;
-    gap: 10px;
+    gap: 15px;
     background: #FFF;
 }
 
@@ -1547,7 +1547,7 @@ input[type="checkbox"]:checked::before {
     flex-direction: column;
     align-items: start;
     width: 100%;
-    gap: 5px;
+    gap: 10px;
 }
 
 .item_content_title_flextop-information h2{
@@ -1563,8 +1563,8 @@ input[type="checkbox"]:checked::before {
 .item_content_title_flexbottom-information{
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 100%;
+    align-items: start;
+    width: 100%;;
     
 }
 
