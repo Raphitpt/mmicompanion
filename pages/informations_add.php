@@ -66,6 +66,7 @@ if (isset($_POST['submit'])) {
 
 echo head('Ajouter une information');
 ?>
+
 <body class="body-all">
     <!-- Menu de navigation -->
     <header>
