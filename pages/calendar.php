@@ -215,33 +215,12 @@ echo head('MMI Companion | Accueil');
       <div class="title_trait">
         <h1>L'emploi du temps</h1>
         <div></div>
+        <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a>
       </div>
       <div style="height:15px"></div>
       <div id="calendar"></div>
+      
     </section>
-
-    <!-- <div style="height:30px"></div> -->
-
-    <!-- <section class="section_agenda-index">
-      <div class="title_trait">
-        <h1>L'agenda</h1>
-        <div>
-          <?php
-          // if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-          //   $activation_code = generate_activation_code();
-          //   send_activation_email($_POST['mail'], $activation_code);
-          // }
-          ?>
-          <form method="post">
-            <input type="text" name="mail">
-            <input type="submit" value="Envoyer" name="submit">
-          </form>
-        </div>
-      </div>
-
-
-    </section> -->
-
   </main>
 
   </body>
