@@ -188,7 +188,7 @@ main {
     max-width: 350px;
     height: 100vh;
     background: var(--bleu-trs-clair-background, #DDF0FF);
-    z-calendar: 100;
+    z-index: 100;
     border-radius: 0px 25px 0px 0px;
     display: flex;
     flex-direction: column;
@@ -240,7 +240,7 @@ main {
     align-items: center;
     padding: 10px 0;
     width: 200px;
-    z-calendar: 2;
+    z-index: 2;
     position: relative;
 
 }
@@ -249,7 +249,7 @@ main {
     font-size: 20px;
     color: #004A5A;
     margin-right: 10px;
-    z-calendar: 2;
+    z-index: 2;
 }
 
 .burger_content_link-header p {
@@ -259,7 +259,7 @@ main {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    z-calendar: 2;
+    z-index: 2;
 }
 
 .select_link-header {
@@ -269,7 +269,7 @@ main {
     height: 42px;
     position: absolute;
     background: var(--bleu-trs-clair-background, #B9E0FF);
-    z-calendar: 1;
+    z-index: 1;
 }
 
 
@@ -1934,7 +1934,7 @@ input[type="checkbox"]:checked::before {
     height: 100px;
     position: relative;
     border-radius: 50%;
-    z-calendar: 19;
+    z-index: 19;
 }
 
 .profil_picture-img {
@@ -1948,7 +1948,7 @@ input[type="checkbox"]:checked::before {
     position: absolute;
     top: 0px;
     right: 0px;
-    z-calendar: 20;
+    z-index: 20;
 }
 
 .edit_profil_picture-img i{
