@@ -216,7 +216,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         <div class="title_trait">
           <h1>L'emploi du temps</h1>
           <div></div>
-          <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a>
+          <!-- <a role="button" href="./calendar_extend.php" class="button_voirplus">Voir plus</a> -->
         </div>
         <div style="height:15px"></div>
         <div id="calendar"></div>
