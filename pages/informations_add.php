@@ -74,43 +74,41 @@ echo head('Ajouter une information');
             <h1>Ajouter une information</h1>
             <div></div>
         </div>
-            <div class="content_agenda">
-                <form action="" method="post" class="form_agenda">
-                    <div class="content_input">
-                        <label for="titre">Titre</label>
-                        <input type="text" name="titre" id="titre" placeholder="Titre de l'information">
-                    </div>
-                    <div class="content_input">
-                        <label for="user">Utilisateur</label>
-                        <input type="text" name="user" id="user" placeholder="Utilisateur" value="<?php echo substr($user['pname'],0,1) . '. ' . $user['name']; ?>">
-                    </div>
-                    <div class="content_input">
-                        <label for="content">Contenu</label>
-                        <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
-                    </div>
-                    <div class="content_input">
-                        <label for="group_info">Groupe</label>
-                        <select name="group_info" id="group_info">
-                            <option value="all">Tous</option>
-                            <option value="BUT1">BUT1</option>
-                            <option value="BUT2">BUT2</option>
-                            <option value="BUT3">BUT3</option>
-                        </select>
-                        <label for="tp_info">Tp:</label>
-                        <select name="tp_info" id="tp_info" disabled>
-                            <option value="">Tous</option>
-                            <option value="TP1">TP1</option>
-                            <option value="TP2">TP2</option>
-                            <option value="TP3">TP3</option>
-                            <option value="TP4">TP4</option>
-                        </select>
-                    </div>
-                    <div class="content_input">
-                        <input type="submit" name="submit" value="Valider">
-                    </div>
-                </form>
+        <form action="" method="post" class="form_agenda">
+            <div class="content_input">
+                <label for="titre">Titre</label>
+                <input type="text" name="titre" id="titre" placeholder="Titre de l'information">
             </div>
-
+            <div class="content_input">
+                <label for="user">Utilisateur</label>
+                <input type="text" name="user" id="user" placeholder="Utilisateur" value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>">
+            </div>
+            <div class="content_input">
+                <label for="content">Contenu</label>
+                <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
+            </div>
+            <div class="content_input">
+                <label for="group_info">Groupe</label>
+                <select name="group_info" id="group_info">
+                    <option value="all">Tous</option>
+                    <option value="BUT1">BUT1</option>
+                    <option value="BUT2">BUT2</option>
+                    <option value="BUT3">BUT3</option>
+                </select>
+                <label for="tp_info">Tp:</label>
+                <select name="tp_info" id="tp_info" disabled>
+                    <option value="">Tous</option>
+                    <option value="TP1">TP1</option>
+                    <option value="TP2">TP2</option>
+                    <option value="TP3">TP3</option>
+                    <option value="TP4">TP4</option>
+                </select>
+            </div>
+            <div class="content_input">
+                <input type="submit" name="submit" value="Valider">
+            </div>
+        </form>
+    
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
