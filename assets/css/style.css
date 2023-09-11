@@ -1634,6 +1634,27 @@ input[type="checkbox"]:checked::before {
     line-height: normal;
 }
 
+.item_button-informations{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+}
+
+.item_button-informations i.blue {
+    color: #004A5A;
+}
+
+.item_button-informations i.red {
+    color: #CB0000;
+}
+
+
+
+
+
+
 
 
 /* INFORMATIONS_ADD.PHP */
