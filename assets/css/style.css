@@ -1586,15 +1586,15 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    word-break: break-all;
+    white-space: normal;
 }
 
 .item_content_title_flexbottom-information{
     display: flex;
     justify-content: space-between;
     align-items: start;
-    width: 100%;;
-    
+    width: 100%;
+    gap: 10px;  
 }
 
 .item_content_title_flexbottom-information p:nth-child(1){
@@ -1604,6 +1604,7 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    white-space: normal;
 }
 
 .item_content_title_flexbottom-information p:nth-child(2){
