@@ -210,20 +210,16 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     </header>
 
-  <main class="main-calendar">
-    <div style="height:30px"></div>
-    <section class="section_calendar-calendar">
-      <div class="title_trait">
-        <h1>L'emploi du temps</h1>
-        <div></div>
-      </div>
-      <div style="height:20px"></div>
-      <div class="container_calendar-calendar">
-        <div class="button-calendar">
-          <button id="changeViewButton3day">1 jour</button>
-          <button id="changeViewButton1day">3 jours</button>
+    <main class="main-calendar">
+      <div style="height:30px"></div>
+      <section class="section_calendar-calendar">
+        <div class="title_trait">
+          <h1>L'emploi du temps</h1>
+          <div></div>
         </div>
-        <div id="calendar"></div>
+        <div style="height:20px"></div>
+        <div class="container_calendar-calendar">
+          <div id="calendar"></div>
 
       </section>
     </main>
@@ -244,7 +240,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
-      
+
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
@@ -267,21 +263,43 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
         views: {
-                    timeGridFourDay: {
-                        type: 'timeGrid',
-                        dayCount: 3
-                    }
-                },
+          timeGridFourDay: {
+            type: 'timeGrid',
+            dayCount: 3
+          },
+          timeGridDay: {
+            type: 'timeGrid',
+            dayCount: 1
+          }
+        },
         hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 75,
         height: 'calc(95vh - 210px)',
         nowIndicator: true,
         initialView: "timeGridDay",
+        footerToolbar: {
+          left: "custom3day",
+          right: "custom1day",
+        },
         headerToolbar: {
           left: "prev",
           center: "title",
           right: "today next",
+        },
+        customButtons: {
+          custom1day: {
+            text: '3 jours',
+            click: function() {
+              calendar.changeView('timeGridFourDay'); // Changez la vue en 'timeGridThreeDay'
+            }
+          },
+          custom3day: {
+            text: '1 jour',
+            click: function() {
+              calendar.changeView('timeGridDay'); // Changez la vue en 'timeGridThreeDay'
+            }
+          },
         },
         // plugins: [DayGridPlugin, iCalendarPlugin],
         events: {
@@ -308,6 +326,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             html: eventContent
           };
         },
+
         eventDidMount: function(arg) {
           let eventTitle = arg.event.title;
           let eventColor = null;
@@ -319,22 +338,29 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
               break; // Sortez de la boucle dès qu'une correspondance est trouvée
             }
           }
+          let fontSize = '0.8rem';
 
+          if (calendar.view.type === 'timeGridFourDay') {
+            fontSize = '0.52rem';
+          } 
+          if (calendar.view.type === 'timeGridDay') {
+            fontSize = '0.8rem';
+          }
+
+
+          arg.el.querySelector('.fc-title').style.fontSize = fontSize;
+          arg.el.querySelector('.fc-description').style.fontSize = fontSize;
+        
           if (eventColor) {
             arg.el.style.backgroundColor = eventColor;
           }
         }
+
       });
 
       calendar.render();
-      let changeViewButton1day = document.getElementById('changeViewButton1day');
-      changeViewButton1day.addEventListener('click', function() {
-        calendar.changeView('timeGridFourDay'); // Changez la vue en "timeGridThreeDay".
-      });
-      let changeViewButton3day = document.getElementById('changeViewButton3day');
-      changeViewButton1day.addEventListener('click', function() {
-        calendar.changeView('timeGridDay'); // Changez la vue en "timeGridThreeDay".
-      });
+
+
     });
   </script>
 <?php
