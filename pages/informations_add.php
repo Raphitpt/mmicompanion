@@ -104,22 +104,55 @@ echo head('Ajouter une information');
             <div class="form_groupe_input-informations_add">
                 <div class="form_groupe_content_input-informations_add">
                     <label for="group_info">Groupe :</label>
-                    <select name="group_info" id="group_info">
+                    <div class="form_container_checkbox-informations_add">
+                        <div>
+                            <input type="checkbox"  name="group_info" />
+                            <label for="group_info">BUT1</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="group_info" />
+                            <label for="group_info">BUT2</label>
+                        </div>
+                        <div>
+                            <input type="checkbox"  name="group_info" />
+                            <label for="group_info">BUT3</label>
+                        </div>
+                    </div>
+                    <!-- <select name="group_info" id="group_info">
                         <option value="all">Tous</option>
                         <option value="BUT1">BUT1</option>
                         <option value="BUT2">BUT2</option>
                         <option value="BUT3">BUT3</option>
-                    </select>
+                    </select> -->
                 </div>
                 <div class="form_groupe_content_input-informations_add">
                     <label for="tp_info">TP :</label>
-                    <select name="tp_info" id="tp_info" disabled>
+                    <div class="form_container_checkbox-informations_add">
+                        <div>
+                            <input type="checkbox"  name="tp_info" />
+                            <label for="tp_info">TP1</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="tp_info" />
+                            <label for="tp_info">TP2</label>
+                        </div>
+                        <div>
+                            <input type="checkbox"  name="tp_info" />
+                            <label for="tp_info">TP3</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" name="tp_info" />
+                            <label for="tp_info">TP4</label>
+                        </div>
+                    </div>
+                    
+                    <!-- <select name="tp_info" id="tp_info" disabled>
                         <option value="">Tous</option>
                         <option value="TP1">TP1</option>
                         <option value="TP2">TP2</option>
                         <option value="TP3">TP3</option>
                         <option value="TP4">TP4</option>
-                    </select>
+                    </select> -->
                 </div>      
             </div>
             <div class="form_button-informations_add">

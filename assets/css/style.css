@@ -1286,7 +1286,7 @@ main {
     margin-right: 10px;
 }
 
-input[type="checkbox"]:checked::before {
+.agenda_content_list_item_flexleft-agenda input[type="checkbox"]:checked::before {
     content: url(./../img/check-mark-icon.svg);
     animation: animation_check 0.25s ease;
     transform: scale(0.11);
@@ -1745,7 +1745,8 @@ input[type="checkbox"]:checked::before {
 
 .form_groupe_content_input-informations_add{
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     gap: 10px;
 }
 
@@ -1756,6 +1757,11 @@ input[type="checkbox"]:checked::before {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.form_container_checkbox-informations_add{
+    display: flex;
+    flex-direction: column;
 }
 
 .form_groupe_content_input-informations_add select{
