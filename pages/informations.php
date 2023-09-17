@@ -102,7 +102,7 @@ echo head("MMI Companion | Informations");
                     <?php if($information['id_user'] === $user['id_user']){ ?>
                     <div class="item_button-informations">
                         <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
-                        <a href=''><i class='fi fi-br-trash red'></i></a>
+                        <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>
                     </div>
                     <?php } ?>
                 </div>
