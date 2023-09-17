@@ -283,9 +283,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           right: "custom1day",
         },
         headerToolbar: {
-          left: "prev",
+          left: "customPrevious",
           center: "title",
-          right: "today next",
+          right: "today customNext",
         },
         customButtons: {
           custom1day: {
@@ -298,6 +298,38 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             text: '1 jour',
             click: function() {
               calendar.changeView('timeGridDay'); // Changez la vue en 'timeGridThreeDay'
+            }
+          },
+          customNext: {
+            icon: 'chevron-right',
+            click: function() {
+              if (calendar.view.type === 'timeGridFourDay') {
+                let daysToAdvance = 3;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              } else {
+                let daysToAdvance = 1;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              }
+            }
+          },
+          customPrevious: {
+            icon: 'chevron-left',
+            click: function() {
+              if (calendar.view.type === 'timeGridFourDay') {
+                let daysToGoBack = 3;
+                calendar.incrementDate({
+                  days: -daysToGoBack
+                });
+              } else {
+                let daysToGoBack = 1;
+                calendar.incrementDate({
+                  days: -daysToGoBack
+                });
+              }
             }
           },
         },
@@ -342,7 +374,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
           if (calendar.view.type === 'timeGridFourDay') {
             fontSize = '0.52rem';
-          } 
+          }
           if (calendar.view.type === 'timeGridDay') {
             fontSize = '0.8rem';
           }
@@ -350,7 +382,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
           arg.el.querySelector('.fc-title').style.fontSize = fontSize;
           arg.el.querySelector('.fc-description').style.fontSize = fontSize;
-        
+
           if (eventColor) {
             arg.el.style.backgroundColor = eventColor;
           }
