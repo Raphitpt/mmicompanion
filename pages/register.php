@@ -88,7 +88,7 @@ echo head('MMI Companion | Register');
                 <div style="height:20px"></div>
                 <input type="text" name="name" placeholder="nom" class="input-login" required>
                 <div style="height:20px"></div>
-                <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern=".+@etu\.univ-poitiers\.fr" class="input-login" required>
+                <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern="^(.+@etu\.univ-poitiers\.fr|.+@univ-poitiers\.fr)$" class="input-login" required>
                 <div style="height:20px"></div>
                 <input type="password" name="password" placeholder="mot de passe" class="input-login" required>
                 <div style="height:20px"></div>
