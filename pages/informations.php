@@ -23,7 +23,7 @@ $sql_informations = "SELECT informations.*, users.role FROM informations INNER J
                     UNION ALL
                     SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_perso
                     UNION ALL
-                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_but";
+                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_but ORDER BY date DESC";
 
 $query_informations = $dbh->prepare($sql_informations);
 $query_informations->execute([
