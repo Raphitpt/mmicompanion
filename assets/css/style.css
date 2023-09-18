@@ -1008,6 +1008,10 @@ main {
     text-decoration: none !important;
 }
 
+.fc-footer-toolbar .fc-toolbar-chunk button:focus{
+    border: none !important;
+}
+
 
 #calendar {
     font-family: 'Montserrat', sans-serif;
