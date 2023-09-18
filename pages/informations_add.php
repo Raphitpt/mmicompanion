@@ -95,12 +95,15 @@ echo head('Ajouter une information');
                 <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
             </div>
             <div class="form_groupe_input-informations_add">
+                <p>Groupe</p>
+                <div class="form_groupe_content_input-informations_add"></div>
             </div>
             <input type="hidden" name="group_info" id="group_info">
             <div class="form_button-informations_add">
                 <a role="button" href='./informations.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
             </div>
+            <div style="height:20px"></div>
 
         </form>
 
@@ -178,7 +181,7 @@ echo head('Ajouter une information');
             },
         ];
 
-        const myTree = new Tree('.form_groupe_input-informations_add', {
+        const myTree = new Tree('.form_groupe_content_input-informations_add', {
             data: treeData,
             onChange: function() {
                 document.getElementById("group_info").value = JSON.stringify(this.values);
