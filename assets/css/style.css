@@ -1968,6 +1968,23 @@ main {
     border-radius: 50%;
 }
 
+.button_notifications-profil button{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    color: #004A5A;
+    width: 100%;
+    max-width: 220px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    background-color: #56B8D6;
+    padding: 0px 20px;
+    text-align: center;
+}
+
 .profil_picture-input {
     position: absolute;
     top: 0;
