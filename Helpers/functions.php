@@ -318,7 +318,7 @@ function decodeJWT($jwt, $secret_key)
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-function sendNotificationToGroups($message, $body, $groups)
+function sendNotification($message, $body, $groups)
 {
     $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
     // Assuming you already have a valid $dbh connection to your database
