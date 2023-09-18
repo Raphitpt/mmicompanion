@@ -31,7 +31,7 @@
     </mj-section>
     <mj-section background-color="#ddf0ff" padding="20px 0">
       <mj-column width="100%">
-        <mj-text align="center" color="#004a5a" font-size="16px" font-weight="500" font-family="Montserrat" padding-top="10px" padding-right="30px" padding-left="30px">Si tu rencontres des dificultées, envoie nous un mail à <strong><a href:"mailto:contact@mmi-companion.fr">contact@mmi-companion.fr</a></strong></mj-text>
+        <mj-text align="center" color="#004a5a" font-size="16px" font-weight="500" font-family="Montserrat" padding-top="10px" padding-right="30px" padding-left="30px">Si tu rencontres des dificultées, envoie nous un mail à <strong><mj-link href:"mailto:contact@mmi-companion.fr">contact@mmi-companion.fr</mj-link></strong></mj-text>
       </mj-column>
     </mj-section>
     <mj-section background-color="#ddf0ff" padding-bottom="10px">
