@@ -179,6 +179,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     const welcome_page3 = document.querySelector('.welcome_page3-index');
     const welcome_page4 = document.querySelector('.welcome_page4-index');
 
+    button_page14_validate.addEventListener('click', () => {
+      location.reload();
+    })
     button_page1_validate.addEventListener('click', () => {
       welcome_page1.style.display = 'none';
       welcome_page2.style.display = 'flex';
