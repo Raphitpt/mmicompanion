@@ -79,7 +79,7 @@ echo head("MMI Companion | Informations");
                 } elseif ($information['role'] == "prof") {
                     $name_color = "#5cceff";
                 } elseif ($information['role'] == "admin") {
-                    $name_color = "#6C757D";
+                    $name_color = "#FF3333";
                 }elseif ($information['role'] == "chef") {
                     $name_color = "#6C757D";
                 } elseif (strpos($information['role'], 'BDE') !== false) {
