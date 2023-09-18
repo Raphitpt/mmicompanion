@@ -318,24 +318,13 @@ function decodeJWT($jwt, $secret_key)
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-function sendNotification($message, $body, $group)
+function sendNotificationToGroups($message, $body, $groups)
 {
     $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
     // Assuming you already have a valid $dbh connection to your database
-    if ($group != null) {
-        $query = "SELECT s.* FROM subscriptions s
-                  INNER JOIN users u ON s.id_user = u.id_user
-                  WHERE u.edu_group = :group";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute(['group' => $group]);
-        $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        $query = "SELECT * FROM subscriptions";
-        $stmt = $dbh->query($query);
-        $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-
+    
+    $groupsArray = explode(',', $groups); // Split the groups into an array
+    
     $auth = array(
         'VAPID' => array(
             'subject' => 'mailto:rtiphonet@gmail.com',
@@ -346,22 +335,31 @@ function sendNotification($message, $body, $group)
 
     $webPush = new WebPush($auth);
 
-    foreach ($subscriptions as $subscriptionData) {
-        $subscription = Subscription::create([
-            'endpoint' => $subscriptionData['endpoint'],
-            'keys' => [
-                'p256dh' => $subscriptionData['p256dh'],
-                'auth' => $subscriptionData['auth'],
-            ],
-            // You can add additional properties if needed, e.g., 'contentEncoding', 'expirationTime', etc.
-        ]);
+    foreach ($groupsArray as $group) {
+        $query = "SELECT s.* FROM subscriptions s
+                  INNER JOIN users u ON s.id_user = u.id_user
+                  WHERE u.edu_group = :group";
+        $stmt = $dbh->prepare($query);
+        $stmt->execute(['group' => trim($group)]); // Trim to remove any leading/trailing whitespace
+        $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $payload = json_encode([
-            'body' => $body,
-            'title' => $message
-        ]);
+        foreach ($subscriptions as $subscriptionData) {
+            $subscription = Subscription::create([
+                'endpoint' => $subscriptionData['endpoint'],
+                'keys' => [
+                    'p256dh' => $subscriptionData['p256dh'],
+                    'auth' => $subscriptionData['auth'],
+                ],
+                // You can add additional properties if needed, e.g., 'contentEncoding', 'expirationTime', etc.
+            ]);
 
-        $webPush->queueNotification($subscription, $payload);
+            $payload = json_encode([
+                'body' => $body,
+                'title' => $message
+            ]);
+
+            $webPush->queueNotification($subscription, $payload);
+        }
     }
 
     $webPush->flush();
@@ -370,9 +368,9 @@ function sendNotification($message, $body, $group)
         $endpoint = $report->getRequest()->getUri()->__toString();
 
         if ($report->isSuccess()) {
-            echo "[v] Le message à bien été envoyer à {$endpoint}.\n";
+            echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
         } else {
-            echo "[x] Le message n'a pas réussi à être envoyer {$endpoint}: {$report->getReason()}\n";
+            echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
             // Handle the failure, remove the subscription from your server, etc.
         }
     }

@@ -45,17 +45,10 @@ if (isset($_POST['submit'])) {
         ]);
         if ($stmt->rowCount() > 0) {
             $_SESSION['success'] = "L'information a bien été ajoutée";
-            if ($group_info == 'all') {
-                $message = "Nouvelle information";
-                $body = 'Une nouvelle information a été ajoutée';
-                $group = '';
-                sendNotification($message, $body, $group);
-            } else {
-                $message = "Nouvelle information";
-                $body = 'Une nouvelle information a été ajoutée';
-                $group = $group_info;
-                sendNotification($message, $body, $group);
-            }
+            $message = "Nouvelle information";
+            $body = 'Une nouvelle information de ' . $name . ' a été ajoutée';
+            $group = $group_info;
+            sendNotification($message, $body, $group);
         } else {
             $_SESSION['error'] = "Une erreur est survenue";
         }
@@ -95,13 +88,11 @@ echo head('Ajouter une information');
             </div>
             <div class="form_input-informations_add">
                 <label for="user">Utilisateur</label>
-                <input type="text" name="user" id="user" placeholder="Utilisateur"
-                    value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>" readonly>
+                <input type="text" name="user" id="user" placeholder="Utilisateur" value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>" readonly>
             </div>
             <div class="form_input-informations_add">
                 <label for="content">Contenu</label>
-                <textarea name="content" id="content" cols="30" rows="10"
-                    placeholder="Contenu de l'information"></textarea>
+                <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
             </div>
             <div class="form_groupe_input-informations_add">
             </div>
@@ -122,64 +113,66 @@ echo head('Ajouter une information');
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
 
-        const treeData = [
-            {
+        const treeData = [{
                 id: 'BUT1',
                 text: 'BUT1',
-                children: [
-                    {
+                children: [{
                         id: 'BUT-TP1',
                         text: 'TP1',
                     },
-                    {   id: 'BUT1-TP2', 
-                        text: 'TP2' 
+                    {
+                        id: 'BUT1-TP2',
+                        text: 'TP2'
                     },
                     {
                         id: 'BUT1-TP3',
                         text: 'TP3',
                     },
-                    {   id: 'BUT1-TP4', 
-                        text: 'TP4' 
+                    {
+                        id: 'BUT1-TP4',
+                        text: 'TP4'
                     },
                 ],
             },
             {
                 id: 'BUT2',
                 text: 'BUT2',
-                children: [
-                    {
+                children: [{
                         id: 'BUT2-TP1',
                         text: 'TP1',
                     },
-                    {   id: 'BUT2-TP2', 
-                        text: 'TP2' 
+                    {
+                        id: 'BUT2-TP2',
+                        text: 'TP2'
                     },
                     {
                         id: 'BUT2-TP3',
                         text: 'TP3',
                     },
-                    {   id: 'BUT2-TP4', 
-                        text: 'TP4' 
+                    {
+                        id: 'BUT2-TP4',
+                        text: 'TP4'
                     },
                 ],
             },
             {
                 id: 'BUT3',
                 text: 'BUT3',
-                children: [
-                    {
+                children: [{
                         id: 'BUT3-TP1',
                         text: 'TP1',
                     },
-                    {   id: 'BUT3-TP2', 
-                        text: 'TP2' 
+                    {
+                        id: 'BUT3-TP2',
+                        text: 'TP2'
                     },
                     {
                         id: 'BUT3-TP3',
                         text: 'TP3',
                     },
-                    {   id: 'BUT3-TP4', 
-                        text: 'TP4' 
+                    {
+                        id: 'BUT3-TP4',
+                        text: 'TP4'
                     },
                 ],
             },
@@ -190,7 +183,7 @@ echo head('Ajouter une information');
             onChange: function() {
                 document.getElementById("group_info").value = JSON.stringify(this.values);
                 console.log(this.values);
-        },
+            },
         });
     </script>
 
