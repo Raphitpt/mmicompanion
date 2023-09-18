@@ -59,9 +59,14 @@ main {
     transition: transform 0.4s ease-in-out;
 }
 
-.burger-header:hover{
+.burger-header.active {
     transform: rotate(180deg);
 }
+
+/* 
+.burger-header:hover{
+    transform: rotate(180deg);
+} */
 
 .content_title-header .burger-header i {
     font-size: 25px;
@@ -103,9 +108,13 @@ main {
     transition: transform 0.4s ease-in-out;
 }
 
-.burger-header-calendar:hover{
+.burger-header-calendar.active {
     transform: rotate(180deg);
 }
+
+/* .burger-header-calendar:hover{
+    transform: rotate(180deg);
+} */
 
 .burger-header-calendar i {
     font-size: 25px;
@@ -1008,6 +1017,10 @@ main {
     text-decoration: none !important;
 }
 
+.fc-footer-toolbar .fc-toolbar-chunk button:focus{
+    border: none !important;
+}
+
 
 #calendar {
     font-family: 'Montserrat', sans-serif;
@@ -1017,7 +1030,7 @@ main {
     background-color: #fff;
     border-radius: 20px;
     padding: 20px;
-    max-height: 780px;
+    max-height: 900px;
 }
 
 .fc-toolbar-title {
@@ -1962,6 +1975,23 @@ main {
     color: #004a5a;
     padding: 10px;
     border-radius: 50%;
+}
+
+.button_notifications-profil button{
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    color: #004A5A;
+    width: 100%;
+    max-width: 220px;
+    height: 40px;
+    border-radius: 30px;
+    border: none;
+    background-color: #56B8D6;
+    padding: 0px 20px;
+    text-align: center;
 }
 
 .profil_picture-input {

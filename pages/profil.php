@@ -66,6 +66,8 @@ echo head("MMI Companion | Profil");
             <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
             <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
+        <div id="push-permission" class="button_notifications-profil"></div>
+        <div style="height:25px"></div>
         <div class="profil_form-profil">
             <div class="profil_form-disabled">
                 <div class="profil_form-input_disabled">
@@ -130,7 +132,6 @@ echo head("MMI Companion | Profil");
 
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
         </div>
-        <div id="push-permission"></div>
         <div style="height:30px"></div>
     </main>
 

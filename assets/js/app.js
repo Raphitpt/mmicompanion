@@ -9,7 +9,7 @@ function main() {
     return;
   }
   const button = document.createElement("button");
-  button.textContent = "Enable Push Notifications";
+  button.textContent = "Activer les notifications";
   permission.appendChild(button);
   button.addEventListener("click", askPermission);
 }
