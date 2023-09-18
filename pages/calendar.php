@@ -136,7 +136,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
               <i class="fi fi-br-bell"></i>
               <h1>Active les notifications</h1>
             </div>
-            <p>Une fois que tu auras installer l'application sur ton téléphone, tu pourras activer les notifications depuis la page de ton profil pour ne louper aucune information.</p>
+            <p>Une fois que tu auras installé l'application sur ton téléphone, tu pourras activer les notifications depuis la page de ton profil pour ne louper aucune information.</p>
             <div id="push-permission" class="button_notifications-profil"></div>
             <div class="trait_content_welcome-index"></div>
             <div style="height:2px"></div>
