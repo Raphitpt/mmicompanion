@@ -28,12 +28,9 @@ if (isset($_POST['submit'])) {
         if ($_POST['group_info'] == 'all') {
             $group_info = 'all';
         } else {
-            foreach ($_POST['group_info'] as $group) {
-                foreach ($_POST['tp_info'] as $tp) {
-                    $group_info[] = $group . '-' . $tp;
-                }
-            };
-            $group_info = implode(', ', $group_info);
+            $json_group_info = json_decode($_POST['group_info']);
+            $group_info = $json_group_info;
+            $group_info = implode(',', $group_info);
         }
         $title = $_POST['titre'];
         $name = $_POST['user'];
@@ -101,57 +98,17 @@ echo head('Ajouter une information');
             </div>
             <div class="form_input-informations_add">
                 <label for="user">Utilisateur</label>
-                <input type="text" name="user" id="user" placeholder="Utilisateur" value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>" readonly>
+                <input type="text" name="user" id="user" placeholder="Utilisateur"
+                    value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>" readonly>
             </div>
             <div class="form_input-informations_add">
                 <label for="content">Contenu</label>
-                <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
+                <textarea name="content" id="content" cols="30" rows="10"
+                    placeholder="Contenu de l'information"></textarea>
             </div>
             <div class="form_groupe_input-informations_add">
-                <div class="form_groupe_content_input-informations_add">
-                    <label for="group_info[]">Groupe :</label>
-                    <div class="form_container_checkbox-informations_add">
-                        <div>
-                            <input type="checkbox" name="group_info" value="all" />
-                            <label for="group_info">Tous</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="group_info[]" value="BUT1" />
-                            <label for="group_info[]">BUT1</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="group_info[]" value="BUT2" />
-                            <label for="group_info[]">BUT2</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="group_info[]" value="BUT3" />
-                            <label for="group_info[]">BUT3</label>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="form_groupe_content_input-informations_add">
-                    <label for="tp_info">TP :</label>
-                    <div class="form_container_checkbox-informations_add">
-                        <div>
-                            <input type="checkbox" name="tp_info[]" value="TP1" disabled />
-                            <label for="tp_info[]">TP1</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="tp_info[]" value="TP2" disabled />
-                            <label for="tp_info[]">TP2</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="tp_info[]" value="TP3" disabled />
-                            <label for="tp_info[]">TP3</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="tp_info[]" value="TP4" disabled />
-                            <label for="tp_info[]">TP4</label>
-                        </div>
-                    </div>
-                </div>
             </div>
+            <input type="hidden" name="group_info" id="group_info">
             <div class="form_button-informations_add">
                 <a role="button" href='./informations.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
@@ -162,42 +119,81 @@ echo head('Ajouter une information');
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
+    <script src="../assets/js/tree.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const tousCheckbox = document.querySelector('input[name="group_info"][value="all"]');
-            const groupCheckboxes = document.querySelectorAll('input[name="group_info[]"]');
-            const tpCheckboxes = document.querySelectorAll('input[name="tp_info[]"]');
-            const but1Checkbox = document.querySelector('input[name="group_info[]"][value="BUT1"]');
-            const but2Checkbox = document.querySelector('input[name="group_info[]"][value="BUT2"]');
-            const but3Checkbox = document.querySelector('input[name="group_info[]"][value="BUT3"]');
+        const treeData = [
+            {
+                id: 'BUT1',
+                text: 'BUT1',
+                children: [
+                    {
+                        id: 'BUT-TP1',
+                        text: 'TP1',
+                    },
+                    {   id: 'BUT1-TP2', 
+                        text: 'TP2' 
+                    },
+                    {
+                        id: 'BUT1-TP3',
+                        text: 'TP3',
+                    },
+                    {   id: 'BUT1-TP4', 
+                        text: 'TP4' 
+                    },
+                ],
+            },
+            {
+                id: 'BUT2',
+                text: 'BUT2',
+                children: [
+                    {
+                        id: 'BUT2-TP1',
+                        text: 'TP1',
+                    },
+                    {   id: 'BUT2-TP2', 
+                        text: 'TP2' 
+                    },
+                    {
+                        id: 'BUT2-TP3',
+                        text: 'TP3',
+                    },
+                    {   id: 'BUT2-TP4', 
+                        text: 'TP4' 
+                    },
+                ],
+            },
+            {
+                id: 'BUT3',
+                text: 'BUT3',
+                children: [
+                    {
+                        id: 'BUT3-TP1',
+                        text: 'TP1',
+                    },
+                    {   id: 'BUT3-TP2', 
+                        text: 'TP2' 
+                    },
+                    {
+                        id: 'BUT3-TP3',
+                        text: 'TP3',
+                    },
+                    {   id: 'BUT3-TP4', 
+                        text: 'TP4' 
+                    },
+                ],
+            },
+        ];
 
-            function toggleCheckboxes(checkboxes, isEnabled) {
-                checkboxes.forEach(function(checkbox) {
-                    if (checkbox !== tousCheckbox) {
-                        checkbox.disabled = isEnabled;
-                    }
-                });
-            }
-            tousCheckbox.addEventListener('click', function() {
-                toggleCheckboxes(groupCheckboxes, tousCheckbox.checked);
-                // toggleCheckboxes(tpCheckboxes, tousCheckbox.checked);
-            });
-
-            function enableTpCheckboxes() {
-                let isAnyButChecked = but1Checkbox.checked || but2Checkbox.checked || but3Checkbox.checked;
-                tpCheckboxes.forEach(function(checkbox) {
-                    checkbox.disabled = !isAnyButChecked;
-                    checkbox.checked = true;
-                });
-            }
-
-            but1Checkbox.addEventListener('click', enableTpCheckboxes);
-            but2Checkbox.addEventListener('click', enableTpCheckboxes);
-            but3Checkbox.addEventListener('click', enableTpCheckboxes);
+        const myTree = new Tree('.form_groupe_input-informations_add', {
+            data: treeData,
+            onChange: function() {
+                document.getElementById("group_info").value = JSON.stringify(this.values);
+                console.log(this.values);
+        },
         });
     </script>
 

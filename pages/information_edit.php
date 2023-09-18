@@ -26,6 +26,9 @@ $stmt_information->execute([
 ]);
 $information = $stmt_information->fetch(PDO::FETCH_ASSOC);
 
+$information_array = explode(',', $information['group_info']);
+$tableauDeChaines = array_map('trim', $information_array);
+$tableauDeChaines = json_encode($tableauDeChaines);
 
 if ($user_sql['role'] == 'eleve'){
     header('Location: ./informations.php');
@@ -112,59 +115,9 @@ echo head('Ajouter une information');
                 <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"><?php echo strip_tags($information['content'])?></textarea>
             </div>
             <div class="form_groupe_input-informations_add">
-                <div class="form_groupe_content_input-informations_add">
-                    <label for="group_info">Groupe :</label>
-                    <div class="form_container_checkbox-informations_add">
-                        <div>
-                            <input type="checkbox"  name="group_info" />
-                            <label for="group_info">BUT1</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="group_info" />
-                            <label for="group_info">BUT2</label>
-                        </div>
-                        <div>
-                            <input type="checkbox"  name="group_info" />
-                            <label for="group_info">BUT3</label>
-                        </div>
-                    </div>
-                    <!-- <select name="group_info" id="group_info">
-                        <option value="all">Tous</option>
-                        <option value="BUT1">BUT1</option>
-                        <option value="BUT2">BUT2</option>
-                        <option value="BUT3">BUT3</option>
-                    </select> -->
-                </div>
-                <div class="form_groupe_content_input-informations_add">
-                    <label for="tp_info">TP :</label>
-                    <div class="form_container_checkbox-informations_add">
-                        <div>
-                            <input type="checkbox"  name="tp_info" />
-                            <label for="tp_info">TP1</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="tp_info" />
-                            <label for="tp_info">TP2</label>
-                        </div>
-                        <div>
-                            <input type="checkbox"  name="tp_info" />
-                            <label for="tp_info">TP3</label>
-                        </div>
-                        <div>
-                            <input type="checkbox" name="tp_info" />
-                            <label for="tp_info">TP4</label>
-                        </div>
-                    </div>
-                    
-                    <!-- <select name="tp_info" id="tp_info" disabled>
-                        <option value="">Tous</option>
-                        <option value="TP1">TP1</option>
-                        <option value="TP2">TP2</option>
-                        <option value="TP3">TP3</option>
-                        <option value="TP4">TP4</option>
-                    </select> -->
-                </div>      
+                
             </div>
+            <input type="hidden" name="group_info" id="group_info">
             <div class="form_button-informations_add">
                 <a role="button" href='./informations.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
@@ -175,27 +128,96 @@ echo head('Ajouter une information');
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
-    <!-- <script>
+    <script src="../assets/js/tree.min.js"></script>
+    <script>
 
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
 
-        // -------------------------
+        const treeData = [
+            {
+                id: 'BUT1',
+                text: 'BUT1',
+                children: [
+                    {
+                        id: 'BUT-TP1',
+                        text: 'TP1',
+                    },
+                    {   id: 'BUT1-TP2', 
+                        text: 'TP2' 
+                    },
+                    {
+                        id: 'BUT1-TP3',
+                        text: 'TP3',
+                    },
+                    {   id: 'BUT1-TP4', 
+                        text: 'TP4' 
+                    },
+                ],
+            },
+            {
+                id: 'BUT2',
+                text: 'BUT2',
+                children: [
+                    {
+                        id: 'BUT2-TP1',
+                        text: 'TP1',
+                    },
+                    {   id: 'BUT2-TP2', 
+                        text: 'TP2' 
+                    },
+                    {
+                        id: 'BUT2-TP3',
+                        text: 'TP3',
+                    },
+                    {   id: 'BUT2-TP4', 
+                        text: 'TP4' 
+                    },
+                ],
+            },
+            {
+                id: 'BUT3',
+                text: 'BUT3',
+                children: [
+                    {
+                        id: 'BUT3-TP1',
+                        text: 'TP1',
+                    },
+                    {   id: 'BUT3-TP2', 
+                        text: 'TP2' 
+                    },
+                    {
+                        id: 'BUT3-TP3',
+                        text: 'TP3',
+                    },
+                    {   id: 'BUT3-TP4', 
+                        text: 'TP4' 
+                    },
+                ],
+            },
+        ];
 
-        window.addEventListener('DOMContentLoaded', function(){
-            const group = document.querySelector('#group_info');
-            const tp = document.querySelector('#tp_info');
-            group.addEventListener('change', function(){
-                if (group.value == 'all') {
-                    tp.disabled = true;
-                } else {
-                    tp.disabled = false;
-                }
-            })
-        })
+        const myTree = new Tree('.form_groupe_input-informations_add', {
+            data: treeData,
+            
 
-    </script> -->
+            loaded: function(tree) {
+                const selectValues = "<?php echo $information['group_info']?>";
+                
+
+                tree.values = <?php print($tableauDeChaines) ?>;
+                console.log(tree.values);
+            },
+
+            onChange: function() {
+                document.getElementById("group_info").value = JSON.stringify(this.values);
+                console.log(this.values);
+        },
+        });
+
+
+    </script>
 
 </body>
 </html>

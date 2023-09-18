@@ -2181,3 +2181,12 @@ main {
     font-weight: 800;
     line-height: normal;
 }
+.treejs-nodes{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-family: Montserrat;
+    font-weight: 500;
+    color: var(--Texte, #004A5A);
+}
