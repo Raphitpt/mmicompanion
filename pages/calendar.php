@@ -345,19 +345,29 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           format: "ics",
         },
         eventContent: function(arg) {
-
+          let eventTitle = arg.event.title;
           let eventLocation = arg.event.extendedProps.location;
           let eventDescription = arg.event.extendedProps.description;
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
-          let eventContent = '<div class="fc-title" style="font-size: 0.8rem">' + arg.event.title + '</div>';
+          let eventContent = "";
 
-          if (eventDescription) {
-            eventContent += '<div class="fc-description" style="font-size: 0.8rem">' + test + '</div>';
+          if (eventTitle && calendar.view.type === 'timeGridFourDay') {
+            eventContent += '<div class="fc-title" style="font-size:0.52rem">' + eventTitle + '</div>';
+          } else if (eventTitle && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-title" style="font-size:0.8rem">' + eventTitle + '</div>';
           }
 
-          if (eventLocation) {
-            eventContent += '<div class="fc-location" style="font-size: 0.8rem">' + eventLocation + '</div>';
+          if (eventDescription && calendar.view.type === 'timeGridFourDay') {
+            eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
+          } else if (eventDescription && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-description" style="font-size:0.8rem">' + test + '</div>';
+          }
+
+          if (eventLocation && calendar.view.type === 'timeGridFourDay') {
+            eventContent += '<div class="fc-location" style="font-size:0.52rem">' + eventLocation + '</div>';
+          } else if (eventLocation && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
           }
 
           return {
