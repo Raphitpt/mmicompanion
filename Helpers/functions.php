@@ -382,7 +382,7 @@ function generate_activation_code(): string
 
 const APP_URL = 'https://app.mmi-companion.fr/pages';
 const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
-function send_activation_email(string $email, string $activation_code)
+function send_activation_email(string $email, string $activation_code, string $name)
 {
     // create the activation link
     $activation_link = APP_URL . "/verify_mail.php?email=$email&activation_code=$activation_code";
@@ -395,6 +395,7 @@ function send_activation_email(string $email, string $activation_code)
 
     // replace placeholders in the HTML content with actual values
     $message = str_replace('{activation_link}', $activation_link, $message);
+    $message = str_replace('{FirstName}', $name, $message);
 
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
