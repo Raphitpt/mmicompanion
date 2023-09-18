@@ -59,9 +59,14 @@ main {
     transition: transform 0.4s ease-in-out;
 }
 
-.burger-header:hover{
+.burger-header.active {
     transform: rotate(180deg);
 }
+
+/* 
+.burger-header:hover{
+    transform: rotate(180deg);
+} */
 
 .content_title-header .burger-header i {
     font-size: 25px;
@@ -103,9 +108,13 @@ main {
     transition: transform 0.4s ease-in-out;
 }
 
-.burger-header-calendar:hover{
+.burger-header-calendar.active {
     transform: rotate(180deg);
 }
+
+/* .burger-header-calendar:hover{
+    transform: rotate(180deg);
+} */
 
 .burger-header-calendar i {
     font-size: 25px;
