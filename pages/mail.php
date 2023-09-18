@@ -9,13 +9,13 @@ session_start();
 require "../bootstrap.php";
 
 
-
 if (isset($_SESSION['post_data'])) {
     // Récupérer les données depuis la session
     $mail_user = $_SESSION['post_data']['mail_user'];
     $activation_code = $_SESSION['post_data']['activation_code'];
     $name = $_SESSION['post_data']['pname'];
     send_activation_email($mail_user, $activation_code, $name);
+    
 
 } else if(isset($_POST['mail_user']) && isset($_POST['id_user']) && isset($_POST['activation_code'])) {
     // Récupérer les données depuis le formulaire
@@ -32,7 +32,7 @@ $stmt->execute([
     'edu_mail' => $mail_user,
 ]);
 $sql_code = $stmt->fetch(PDO::FETCH_ASSOC);
-// dd($sql_code);
+
 
 
 
