@@ -293,7 +293,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             click: function() {
               calendar.changeView('timeGridFourDay');
               document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
-                eventEl.style.fontSize = '0.8em !important';
+                eventEl.style.fontSize = '0.8rem !important';
               });
             }
           },
@@ -301,8 +301,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             text: '1 jour',
             click: function() {
               calendar.changeView('timeGridDay');
-              document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
-                eventEl.style.fontSize = '1.5em !important';
+              document.querySelectorAll('.fc-location').forEach(function(eventEl) {
+                eventEl.style.fontSize = '1.5rem !important';
               });
             }
           },
