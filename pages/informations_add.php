@@ -46,7 +46,7 @@ if (isset($_POST['submit'])) {
         if ($stmt->rowCount() > 0) {
             $_SESSION['success'] = "L'information a bien été ajoutée";
             $message = "Nouvelle information";
-            $body = 'Une nouvelle information de ' . $name . ' a été ajoutée';
+            $body = 'Une nouvelle information de ' . $name . ' a été ajoutée !';
             $group = $group_info;
             sendNotification($message, $body, $group);
         } else {
