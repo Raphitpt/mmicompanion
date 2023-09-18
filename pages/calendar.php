@@ -8,7 +8,7 @@ if (!isset($_COOKIE['jwt'])) {
   header('Location: ./index.php');
   exit;
 }
-
+unset($_SESSION['mail_message']);
 // La on récupère le cookie que l'on à crée à la connection, voir login.php et fonction.php
 // --------------------
 $jwt = $_COOKIE['jwt'];

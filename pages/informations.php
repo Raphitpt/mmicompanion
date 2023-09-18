@@ -1,6 +1,10 @@
 <?php
 session_start();
 require '../bootstrap.php';
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./index.php');
+    exit;
+  }
 
 
 
