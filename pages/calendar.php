@@ -75,7 +75,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             <p>Pour commencer, nous avons besoin de quelques informations en plus :</p>
             <div class="content_welcome_questions_page1-index">
               <div class="content_welcome_questions_content_page1-index">
-                <label for="annee">En quelle année rentres-tu ?</label>
+                <label for="annee">En quelle année es-tu ?</label>
                 <select name="annee" id="annee">
                   <option value="BUT1">BUT 1</option>
                   <option value="BUT2">BUT 2</option>
@@ -119,7 +119,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
                 Clique sur « Ajouter à l’écran d’accueil » ou « Installer l'application ».
               </li>
               <li>
-                <span style="font-weight:700">MMI Companion</span> est maintenant installée sur ta page d'accueil ! Tu peux y accéder plus simplement et rapidement.
+                <span style="font-weight:700">MMI Companion</span> est maintenant installée sur ta téléphone ! Tu peux y accéder plus simplement et rapidement.
               </li>
             </ul>
           </div>
@@ -153,7 +153,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             <div class="title_content_welcome_page2-index">
               <h1>Bienvenue sur MMI Companion</h1>
             </div>
-            <p>Je te laisse découvrir l’application et nous restons disponible pour répondre à tes questions à cette adresse mail : <span style="font-weight:700">contact@mmi-companion.fr</span></p>
+            <p>Je te laisse découvrir l’application et nous restons disponible pour répondre à tes questions à cette adresse mail : <span style="font-weight:700"><a href="mailto:contact@mmi-companion.fr">contact@mmi-companion.fr</a></span></p>
           </div>
           <div class="trait_content_welcome-index"></div>
           <input type="submit" id="button_page4-validate" class="button_welcome-index" value="C'est parti !">
