@@ -237,21 +237,20 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     select_background_profil.classList.add('select_link-header');
 
     // -----------------------
-    
+
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
 
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
-
         <?php
         foreach ($color_subjects as $color_subject) {
           echo "'" . $color_subject['code_ressource'] . "': '" . $color_subject['color_ressource'] . "',";
         }
         ?>
       };
-      
+
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
         buttonText: {
@@ -292,45 +291,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           custom3day: {
             text: '3 jours',
             click: function() {
-              calendar.changeView('timeGridFourDay'); // Changez la vue en 'timeGridThreeDay'
+              calendar.changeView('timeGridFourDay');
+              document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
+                eventEl.style.fontSize = '0.8em !important';
+              });
             }
           },
           custom1day: {
             text: '1 jour',
             click: function() {
-              calendar.changeView('timeGridDay'); // Changez la vue en 'timeGridDay'
-            }
-          },
-          customNext: {
-            icon: 'chevron-right',
-            click: function() {
-              if (calendar.view.type === 'timeGridFourDay') {
-                let daysToAdvance = 3;
-                calendar.incrementDate({
-                  days: daysToAdvance
-                });
-              } else {
-                let daysToAdvance = 1;
-                calendar.incrementDate({
-                  days: daysToAdvance
-                });
-              }
-            }
-          },
-          customPrevious: {
-            icon: 'chevron-left',
-            click: function() {
-              if (calendar.view.type === 'timeGridFourDay') {
-                let daysToGoBack = 3;
-                calendar.incrementDate({
-                  days: -daysToGoBack
-                });
-              } else {
-                let daysToGoBack = 1;
-                calendar.incrementDate({
-                  days: -daysToGoBack
-                });
-              }
+              calendar.changeView('timeGridDay');
+              document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
+                eventEl.style.fontSize = '1.5em !important';
+              });
             }
           },
           customNext: {
@@ -371,16 +344,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           url: url1,
           format: "ics",
         },
-        calendar.customButtons.custom1day.addEventListener('click', function() {
-            let fontSize = '0.52rem';
-            arg.el.querySelector('.fc-title').style.fontSize = fontSize;
-            arg.el.querySelector('.fc-description').style.fontSize = fontSize;
-          });
-          calendar.customButtons.custom3day.addEventListener('click', function() {
-            let fontSize = '0.8rem';
-            arg.el.querySelector('.fc-title').style.fontSize = fontSize;
-            arg.el.querySelector('.fc-description').style.fontSize = fontSize;
-          });
         eventContent: function(arg) {
 
           let eventLocation = arg.event.extendedProps.location;
@@ -413,23 +376,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
               break; // Sortez de la boucle dès qu'une correspondance est trouvée
             }
           }
-          // let fontSize = '0.8rem';
-          
-
-          if (calendar.view.type === 'timeGridFourDay') {
-            fontSize = '0.52rem';
-          } 
-          if (calendar.view.type === 'timeGridDay') {
-            fontSize = '0.8rem';
-          }
-
-          
-          
-
-
-          arg.el.querySelector('.fc-title').style.fontSize = fontSize;
-          arg.el.querySelector('.fc-description').style.fontSize = fontSize;
-
           if (eventColor) {
             arg.el.style.backgroundColor = eventColor;
           }
@@ -438,10 +384,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       });
 
       calendar.render();
-      
-
     });
   </script>
+
 <?php
 }
 ?>
