@@ -237,7 +237,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     select_background_profil.classList.add('select_link-header');
 
     // -----------------------
-
+    
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
 
@@ -251,6 +251,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         }
         ?>
       };
+      
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
         buttonText: {
@@ -265,11 +266,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         views: {
           timeGridFourDay: {
             type: 'timeGrid',
-            dayCount: 3
+            dayCount: 3,
           },
           timeGridDay: {
             type: 'timeGrid',
-            dayCount: 1
+            dayCount: 1,
           }
         },
         hiddenDays: [0, 6],
@@ -279,8 +280,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
-          left: "custom3day",
-          right: "custom1day",
+          left: "custom1day",
+          right: "custom3day",
         },
         headerToolbar: {
           left: "customPrevious",
@@ -288,16 +289,48 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           right: "today customNext",
         },
         customButtons: {
-          custom1day: {
+          custom3day: {
             text: '3 jours',
             click: function() {
               calendar.changeView('timeGridFourDay'); // Changez la vue en 'timeGridThreeDay'
             }
           },
-          custom3day: {
+          custom1day: {
             text: '1 jour',
             click: function() {
-              calendar.changeView('timeGridDay');
+              calendar.changeView('timeGridDay'); // Changez la vue en 'timeGridDay'
+            }
+          },
+          customNext: {
+            icon: 'chevron-right',
+            click: function() {
+              if (calendar.view.type === 'timeGridFourDay') {
+                let daysToAdvance = 3;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              } else {
+                let daysToAdvance = 1;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              }
+            }
+          },
+          customPrevious: {
+            icon: 'chevron-left',
+            click: function() {
+              if (calendar.view.type === 'timeGridFourDay') {
+                let daysToGoBack = 3;
+                calendar.incrementDate({
+                  days: -daysToGoBack
+                });
+              } else {
+                let daysToGoBack = 1;
+                calendar.incrementDate({
+                  days: -daysToGoBack
+                });
+              }
             }
           },
           customNext: {
@@ -383,21 +416,24 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           // let fontSize = '0.8rem';
           
 
-          // if (calendar.view.type === 'timeGridFourDay') {
-          //   fontSize = '0.52rem';
-          // }
-          // if (calendar.view.type === 'timeGridDay') {
-          //   fontSize = '0.8rem';
-          // }
+          if (calendar.view.type === 'timeGridFourDay') {
+            fontSize = '0.52rem';
+          } 
+          if (calendar.view.type === 'timeGridDay') {
+            fontSize = '0.8rem';
+          }
+
+          
+          
 
 
-          // arg.el.querySelector('.fc-title').style.fontSize = fontSize;
-          // arg.el.querySelector('.fc-description').style.fontSize = fontSize;
+          arg.el.querySelector('.fc-title').style.fontSize = fontSize;
+          arg.el.querySelector('.fc-description').style.fontSize = fontSize;
 
           if (eventColor) {
             arg.el.style.backgroundColor = eventColor;
           }
-        }
+        },
 
       });
 
