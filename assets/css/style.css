@@ -928,6 +928,8 @@ main {
     line-height: normal;
 }
 
+
+
 /* Page 3 */
 
 
@@ -940,7 +942,22 @@ main {
     height: 100vh;
 }
 
-.title_welcome_page3-index {
+
+
+
+/* Page 4 */
+
+
+.welcome_page4-index {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 100vh;
+}
+
+.title_welcome_page4-index {
     display: flex;
     flex-direction: column;
     align-items: center;
