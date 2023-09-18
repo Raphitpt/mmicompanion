@@ -29,6 +29,7 @@ $information = $stmt_information->fetch(PDO::FETCH_ASSOC);
 $information_array = explode(',', $information['group_info']);
 $tableauDeChaines = array_map('trim', $information_array);
 $tableauDeChaines = json_encode($tableauDeChaines);
+$tableauDeChaines = str_replace('"', "'", $tableauDeChaines);
 
 if ($user_sql['role'] == 'eleve'){
     header('Location: ./informations.php');
@@ -39,10 +40,10 @@ session_start();
 
 if (isset($_POST['submit'])) {
     if(!empty($_POST['titre']) && !empty($_POST['user']) && !empty($_POST['content']) && !empty($_POST['group_info'])){
-        $group_info = $_POST['group_info'];
-        if(isset($_POST['tp_info']) && !empty($_POST['tp_info'])){
-           $group_info = $group_info . '-' . $_POST['tp_info'];
-        }
+    $json_group_info = json_decode($_POST['group_info']);
+    $group_info = $json_group_info;
+    $group_info = implode(',', $group_info);
+
     $title = $_POST['titre'];
     $name = $_POST['user'];
     $content = $_POST['content'];
@@ -56,22 +57,6 @@ if (isset($_POST['submit'])) {
         'group_info' => $group_info,
         'id_information' => $id_information
     ]);
-    if ($stmt->rowCount() > 0) {
-        $_SESSION['success'] = "L'information a bien été ajoutée";
-        if ($group_info == 'all'){
-            $message = "Nouvelle information";
-            $body = 'Une nouvelle information a été ajoutée';
-            $group = '';
-            sendNotification($message, $body, $group);
-        } else {
-            $message = "Nouvelle information";
-            $body = 'Une nouvelle information a été ajoutée';
-            $group = $group_info;
-            sendNotification($message, $body, $group);
-        }
-    } else {
-        $_SESSION['error'] = "Une erreur est survenue";
-    }
     header('Location: ./informations.php');
     exit();
     }
@@ -108,7 +93,7 @@ echo head('Ajouter une information');
             </div>
             <div class="form_input-informations_add">
                 <label for="user">Utilisateur</label>
-                <input type="text" name="user" id="user" placeholder="Utilisateur" value="<?php echo $information['user']?> " disabled>
+                <input type="text" name="user" id="user" placeholder="Utilisateur" value="<?php echo $information['user']?> " readonly>
             </div>
             <div class="form_input-informations_add">
                 <label for="content">Contenu</label>
@@ -202,12 +187,9 @@ echo head('Ajouter une information');
             data: treeData,
             
 
-            loaded: function(tree) {
-                const selectValues = "<?php echo $information['group_info']?>";
-                
-
-                tree.values = <?php print($tableauDeChaines) ?>;
-                console.log(tree.values);
+            loaded: function() {
+                const values = this.values;
+                this.values = <?php print($tableauDeChaines) ?>;
             },
 
             onChange: function() {
@@ -215,6 +197,7 @@ echo head('Ajouter une information');
                 console.log(this.values);
         },
         });
+        
 
 
     </script>
