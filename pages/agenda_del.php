@@ -1,6 +1,10 @@
 <?php 
 session_start();
 require "../bootstrap.php";
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./index.php');
+    exit;
+  }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_user']) && isset($_GET['id_task'])) {
     $id_user = $_GET['id_user'];

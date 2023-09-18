@@ -1,7 +1,7 @@
 <?php
 session_start();
 require '../bootstrap.php';
-
+unset($_SESSION['mail_message']);
 // On initialise la bibliothèque Firebase JWT pour PHP avec Composer et on y ajoute la clé secrète qui est dans le fichier .env (ne pas push le fichier .env sur GitHub)
 use Firebase\JWT\JWT;
 
