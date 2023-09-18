@@ -252,43 +252,46 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       };
 
       let calendar = new FullCalendar.Calendar(calendarEl, {
-          locale: 'fr',
-          buttonText: {
-            today: 'Aujourd\'hui',
-            month: 'Mois',
-            week: 'Semaine',
-            day: 'Jour',
-            list: 'Liste'
+        locale: 'fr',
+        buttonText: {
+          today: 'Aujourd\'hui',
+          month: 'Mois',
+          week: 'Semaine',
+          day: 'Jour',
+          list: 'Liste'
+        },
+        slotMinTime: '08:00',
+        slotMaxTime: '18:30',
+
+        views: {
+          timeGridFourDay: {
+            type: 'timeGrid',
+            dayCount: 3,
+            weekends: false,
           },
-          slotMinTime: '08:00',
-          slotMaxTime: '18:30',
-          views: {
-            timeGridFourDay: {
-              type: 'timeGrid',
-              dayCount: 3,
-            },
-            timeGridDay: {
-              type: 'timeGrid',
-              dayCount: 1,
-            }
-          },
-          hiddenDays: [0, 6],
-          allDaySlot: false,
-          eventMinHeight: 75,
-          height: 'calc(95vh - 153px)',
-          nowIndicator: true,
-          initialView: "timeGridDay",
-          footerToolbar: {
-            left: "custom1day",
-            // center: "addEvent",
-            right: "custom3day",
-          },
-          headerToolbar: {
-            left: "customPrevious",
-            center: "title",
-            right: "today customNext",
-          },
-          customButtons: {
+          timeGridDay: {
+            type: 'timeGrid',
+            dayCount: 1,
+            weekends: false,
+          }
+        },
+        // hiddenDays: [0, 6],
+        allDaySlot: false,
+        eventMinHeight: 75,
+        height: 'calc(95vh - 153px)',
+        nowIndicator: true,
+        initialView: "timeGridDay",
+        footerToolbar: {
+          left: "custom1day",
+          // center: "addEvent",
+          right: "custom3day",
+        },
+        headerToolbar: {
+          left: "customPrevious",
+          center: "title",
+          right: "today customNext",
+        },
+        customButtons: {
           //   addEvent: {
           //     icon: 'plus',
           //     click: function() {
@@ -346,14 +349,23 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             click: function() {
               if (calendar.view.type === 'timeGridFourDay') {
                 let daysToGoBack = 3;
-                calendar.incrementDate({
-                  days: -daysToGoBack
-                });
-              } else {
-                let daysToGoBack = 1;
-                calendar.incrementDate({
-                  days: -daysToGoBack
-                });
+                let currentDate = calendar.getDate();
+                currentDate.setDate(currentDate.getDate() - daysToGoBack);
+                calendar.gotoDate(currentDate);
+              } else if (calendar.view.type === 'timeGridDay') {
+                const currentDate = calendar.getDate();
+                const currentDayOfWeek = currentDate.getDay();
+                let daysToGoBack;
+
+                if (currentDayOfWeek === 0) {
+                  daysToGoBack = 2;
+                } else if (currentDayOfWeek === 1) {
+                  daysToGoBack = 3;
+                } else {
+                  daysToGoBack = 1;
+                }
+
+                calendar.prev(daysToGoBack);
               }
             }
           },
@@ -412,7 +424,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
       });
 
-    calendar.render();
+      calendar.render();
     });
   </script>
 
