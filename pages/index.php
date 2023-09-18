@@ -19,8 +19,9 @@ echo head('MMI Companion | Accueil');
     </main>
     <main class="main-accueil">
         <div class="illustration-login">
-            <img src="./../assets/img/accueil.svg" alt="Illustration diverse">
+            <img src="./../assets/img/accueil.webp" alt="Illustration diverse">
         </div>
+        <div style="height:20px"></div>
         <div class="title-accueil">
             <h1>BIENVENUE</h1>
             <p>Ne perds plus le fil de tes études avec MMI Companion !</br> <span style="font-weight: 600;">Enregistre, organise, réussis !<span></p>

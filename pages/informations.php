@@ -1,6 +1,10 @@
 <?php
 session_start();
 require '../bootstrap.php';
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./index.php');
+    exit;
+  }
 
 
 
@@ -74,10 +78,10 @@ echo head("MMI Companion | Informations");
                     $name_color = "#FFB141";
                 } elseif ($information['role'] == "prof") {
                     $name_color = "#5cceff";
-                } elseif ($information['role'] == "admin") {
+                } elseif ($information['role'] == "chef") {
                     $name_color = "#6C757D";
-                }elseif ($information['role'] == "chef") {
-                    $name_color = "#6C757D";
+                } elseif ($information['user'] == "Admin") {
+                        $name_color = "#FF3333";
                 } elseif (strpos($information['role'], 'BDE') !== false) {
                     $name_color = "#bca5ff";
                 }

@@ -1,6 +1,10 @@
 <?php
 
 require '../bootstrap.php';
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./index.php');
+    exit;
+  }
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
