@@ -297,7 +297,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           custom3day: {
             text: '1 jour',
             click: function() {
-              calendar.changeView('timeGridDay'); // Changez la vue en 'timeGridThreeDay'
+              calendar.changeView('timeGridDay');
             }
           },
           customNext: {
@@ -338,6 +338,16 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           url: url1,
           format: "ics",
         },
+        calendar.customButtons.custom1day.addEventListener('click', function() {
+            let fontSize = '0.52rem';
+            arg.el.querySelector('.fc-title').style.fontSize = fontSize;
+            arg.el.querySelector('.fc-description').style.fontSize = fontSize;
+          });
+          calendar.customButtons.custom3day.addEventListener('click', function() {
+            let fontSize = '0.8rem';
+            arg.el.querySelector('.fc-title').style.fontSize = fontSize;
+            arg.el.querySelector('.fc-description').style.fontSize = fontSize;
+          });
         eventContent: function(arg) {
 
           let eventLocation = arg.event.extendedProps.location;
@@ -370,18 +380,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
               break; // Sortez de la boucle dès qu'une correspondance est trouvée
             }
           }
-          let fontSize = '0.8rem';
+          // let fontSize = '0.8rem';
+          
 
-          if (calendar.view.type === 'timeGridFourDay') {
-            fontSize = '0.52rem';
-          }
-          if (calendar.view.type === 'timeGridDay') {
-            fontSize = '0.8rem';
-          }
+          // if (calendar.view.type === 'timeGridFourDay') {
+          //   fontSize = '0.52rem';
+          // }
+          // if (calendar.view.type === 'timeGridDay') {
+          //   fontSize = '0.8rem';
+          // }
 
 
-          arg.el.querySelector('.fc-title').style.fontSize = fontSize;
-          arg.el.querySelector('.fc-description').style.fontSize = fontSize;
+          // arg.el.querySelector('.fc-title').style.fontSize = fontSize;
+          // arg.el.querySelector('.fc-description').style.fontSize = fontSize;
 
           if (eventColor) {
             arg.el.style.backgroundColor = eventColor;
@@ -391,7 +402,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       });
 
       calendar.render();
-
+      
 
     });
   </script>
