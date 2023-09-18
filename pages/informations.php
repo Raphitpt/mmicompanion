@@ -78,10 +78,10 @@ echo head("MMI Companion | Informations");
                     $name_color = "#FFB141";
                 } elseif ($information['role'] == "prof") {
                     $name_color = "#5cceff";
-                } elseif ($information['name'] == "Admin") {
-                    $name_color = "#FF3333";
-                }elseif ($information['role'] == "chef") {
+                } elseif ($information['role'] == "chef") {
                     $name_color = "#6C757D";
+                } elseif ($information['user'] == "Admin") {
+                        $name_color = "#FF3333";
                 } elseif (strpos($information['role'], 'BDE') !== false) {
                     $name_color = "#bca5ff";
                 }
