@@ -293,7 +293,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             click: function() {
               calendar.changeView('timeGridFourDay');
               document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
-                eventEl.style.fontSize = '0.8em !important';
+                eventEl.style.fontSize = '0.8rem !important';
               });
             }
           },
@@ -301,8 +301,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             text: '1 jour',
             click: function() {
               calendar.changeView('timeGridDay');
-              document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
-                eventEl.style.fontSize = '1.5em !important';
+              document.querySelectorAll('.fc-location').forEach(function(eventEl) {
+                eventEl.style.fontSize = '1.5rem !important';
               });
             }
           },
@@ -350,14 +350,14 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           let eventDescription = arg.event.extendedProps.description;
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
-          let eventContent = '<div class="fc-title">' + arg.event.title + '</div>';
+          let eventContent = '<div class="fc-title" style="font-size: 0.8rem">' + arg.event.title + '</div>';
 
           if (eventDescription) {
-            eventContent += '<div class="fc-description">' + test + '</div>';
+            eventContent += '<div class="fc-description" style="font-size: 0.8rem">' + test + '</div>';
           }
 
           if (eventLocation) {
-            eventContent += '<div class="fc-location">' + eventLocation + '</div>';
+            eventContent += '<div class="fc-location" style="font-size: 0.8rem">' + eventLocation + '</div>';
           }
 
           return {
