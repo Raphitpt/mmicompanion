@@ -133,12 +133,27 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           </div>
           <div class="title_welcome_page2-index">
             <div class="title_content_welcome_page2-index">
+              <i class="fi fi-br-bell"></i>
+              <h1>Active les notifications</h1>
+            </div>
+            <p>Pour ne manquez aucune information, tu peux activer les notifications en cliquant sur le bouton ci-dessous ou plus tard dans ta page profil.</p>
+            <div id="push-permission" class="button_notifications-profil"></div>
+          </div>
+
+        </section>
+
+        <section class="welcome_page4-index">
+          <div class="back_btn" id="button_page4-back">
+            <i class="fi fi-br-arrow-alt-right"></i>
+          </div>
+          <div class="title_welcome_page2-index">
+            <div class="title_content_welcome_page2-index">
               <h1>Bienvenue sur MMI Companion</h1>
             </div>
             <p>Je te laisse découvrir l’application et nous restons disponible pour répondre à tes questions à cette adresse mail : <span style="font-weight:700">contact@mmi-companion.fr</span></p>
           </div>
           <div class="trait_content_welcome-index"></div>
-          <input type="submit" id="button_page3-validate" class="button_welcome-index" value="C'est parti !">
+          <input type="submit" id="button_page4-validate" class="button_welcome-index" value="C'est parti !">
         </section>
       </form>
 
@@ -147,14 +162,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   </body>
 
+  <script src="../assets/js/app.js"></script>
   <script>
     const button_page1_validate = document.querySelector('#button_page1-validate');
     const button_page2_validate = document.querySelector('#button_page2-validate');
+    const button_page3_validate = document.querySelector('#button_page3-validate');
+    const button_page4_validate = document.querySelector('#button_page4-validate');
     const button_page2_back = document.querySelector('#button_page2-back');
     const button_page3_back = document.querySelector('#button_page3-back');
+    const button_page4_back = document.querySelector('#button_page4-back');
     const welcome_page1 = document.querySelector('.welcome_page1-index');
     const welcome_page2 = document.querySelector('.welcome_page2-index');
     const welcome_page3 = document.querySelector('.welcome_page3-index');
+    const welcome_page4 = document.querySelector('.welcome_page4-index');
 
     button_page1_validate.addEventListener('click', () => {
       welcome_page1.style.display = 'none';
@@ -171,9 +191,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       welcome_page2.style.display = 'none';
     })
 
+    button_page3_validate.addEventListener('click', () => {
+      welcome_page2.style.display = 'none';
+      welcome_page3.style.display = 'flex';
+    })
+
     button_page3_back.addEventListener('click', () => {
       welcome_page2.style.display = 'flex';
       welcome_page3.style.display = 'none';
+    })
+
+    button_page4_back.addEventListener('click', () => {
+      welcome_page2.style.display = 'flex';
+      welcome_page4.style.display = 'none';
     })
   </script>
 <?php } else {
