@@ -136,8 +136,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
               <i class="fi fi-br-bell"></i>
               <h1>Active les notifications</h1>
             </div>
-            <p>Pour ne manquez aucune information, tu peux activer les notifications en cliquant sur le bouton ci-dessous ou plus tard dans ta page profil.</p>
+            <p>Une fois que tu auras installer l'application sur ton téléphone, tu pourras activer les notifications depuis la page de ton profil pour ne louper aucune information.</p>
             <div id="push-permission" class="button_notifications-profil"></div>
+            <div class="trait_content_welcome-index"></div>
+            <div style="height:2px"></div>
+            <div id="button_page3-validate" class="button_welcome-index">Valider</div>
           </div>
 
         </section>
@@ -192,8 +195,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     })
 
     button_page3_validate.addEventListener('click', () => {
-      welcome_page2.style.display = 'none';
-      welcome_page3.style.display = 'flex';
+      welcome_page3.style.display = 'none';
+      welcome_page4.style.display = 'flex';
     })
 
     button_page3_back.addEventListener('click', () => {
@@ -202,7 +205,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     })
 
     button_page4_back.addEventListener('click', () => {
-      welcome_page2.style.display = 'flex';
+      welcome_page3.style.display = 'flex';
       welcome_page4.style.display = 'none';
     })
   </script>
