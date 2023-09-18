@@ -390,7 +390,7 @@ function send_activation_email(string $email, string $activation_code)
     // set email subject & body
     $subject = 'Active ton compte dès maintenant !';
     $message = <<<HTML
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
   <head>
     <title>
@@ -640,7 +640,7 @@ function send_activation_email(string $email, string $activation_code)
         <tbody>
           <tr>
             <td align="center" bgcolor="#56b8d6" role="presentation" style="border:none;border-radius:10px;cursor:auto;height:25px;mso-padding-alt:10px 25px;background:#56b8d6;" valign="middle">
-              <a href="$activation_link" style="display: inline-block; width: 180px; background: #56b8d6; color: #004a5a; font-family: Montserrat; font-size: 15px; font-weight: 600; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 10px;" target="_blank">
+              <a href="{{Link}}" style="display: inline-block; width: 180px; background: #56b8d6; color: #004a5a; font-family: Montserrat; font-size: 15px; font-weight: 600; line-height: 120%; margin: 0; text-decoration: none; text-transform: none; padding: 10px 25px; mso-padding-alt: 0px; border-radius: 10px;" target="_blank">
                 Vérifier mon email
               </a>
             </td>
@@ -676,7 +676,7 @@ function send_activation_email(string $email, string $activation_code)
               <tr>
                 <td align="center" style="font-size:0px;padding:0px;word-break:break-word;">
                   
-      <div style="font-family:Montserrat;font-size:12px;line-height:1;text-align:center;color:#004a5a;">$activation_link</div>
+      <div style="font-family:Montserrat;font-size:12px;line-height:1;text-align:center;color:#004a5a;">{{Link}}</div>
     
                 </td>
               </tr>
@@ -724,7 +724,7 @@ function send_activation_email(string $email, string $activation_code)
               <tr>
                 <td align="center" style="font-size:0px;padding:0px;padding-top:10px;padding-right:30px;padding-left:30px;word-break:break-word;">
                   
-      <div style="font-family:Montserrat;font-size:16px;font-weight:500;line-height:1;text-align:center;color:#004a5a;">Si tu rencontres des dificultées, envoie nous un mail à <strong><a href:"mailto:contact@mmi-companion.fr">contact@mmi-companion.fr</a></strong></div>
+      <div style="font-family:Montserrat;font-size:16px;font-weight:500;line-height:1;text-align:center;color:#004a5a;">Si tu rencontres des dificultées, envoie nous un mail à <strong><mj-link href:"mailto:contact@mmi-companion.fr">contact@mmi-companion.fr</mj-link></strong></div>
     
                 </td>
               </tr>
@@ -803,6 +803,7 @@ function send_activation_email(string $email, string $activation_code)
     
   </body>
 </html>
+  
 HTML;
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
