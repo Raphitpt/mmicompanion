@@ -109,7 +109,8 @@
 
 	],
 
-	"start_url": "/mmicompanion/pages/calendar.php",
+
+	"start_url": "/pages/calendar.php",
 
 	"background_color": "#ffffff",
 
