@@ -252,42 +252,61 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       };
 
       let calendar = new FullCalendar.Calendar(calendarEl, {
-        locale: 'fr',
-        buttonText: {
-          today: 'Aujourd\'hui',
-          month: 'Mois',
-          week: 'Semaine',
-          day: 'Jour',
-          list: 'Liste'
-        },
-        slotMinTime: '08:00',
-        slotMaxTime: '18:30',
-        views: {
-          timeGridFourDay: {
-            type: 'timeGrid',
-            dayCount: 3,
+          locale: 'fr',
+          buttonText: {
+            today: 'Aujourd\'hui',
+            month: 'Mois',
+            week: 'Semaine',
+            day: 'Jour',
+            list: 'Liste'
           },
-          timeGridDay: {
-            type: 'timeGrid',
-            dayCount: 1,
-          }
-        },
-        hiddenDays: [0, 6],
-        allDaySlot: false,
-        eventMinHeight: 75,
-        height: 'calc(95vh - 153px)',
-        nowIndicator: true,
-        initialView: "timeGridDay",
-        footerToolbar: {
-          left: "custom1day",
-          right: "custom3day",
-        },
-        headerToolbar: {
-          left: "customPrevious",
-          center: "title",
-          right: "today customNext",
-        },
-        customButtons: {
+          slotMinTime: '08:00',
+          slotMaxTime: '18:30',
+          views: {
+            timeGridFourDay: {
+              type: 'timeGrid',
+              dayCount: 3,
+            },
+            timeGridDay: {
+              type: 'timeGrid',
+              dayCount: 1,
+            }
+          },
+          hiddenDays: [0, 6],
+          allDaySlot: false,
+          eventMinHeight: 75,
+          height: 'calc(95vh - 153px)',
+          nowIndicator: true,
+          initialView: "timeGridDay",
+          footerToolbar: {
+            left: "custom1day",
+            // center: "addEvent",
+            right: "custom3day",
+          },
+          headerToolbar: {
+            left: "customPrevious",
+            center: "title",
+            right: "today customNext",
+          },
+          customButtons: {
+          //   addEvent: {
+          //     icon: 'plus',
+          //     click: function() {
+          //       let dateStr = prompt('Enter a date in YYYY-MM-DD format');
+          //       let date = new Date(dateStr + 'T00:00:00'); // will be in local time
+
+          //       if (!isNaN(date.valueOf())) { // valid?
+          //         calendar.addEvent({
+          //           title: 'dynamic event',
+          //           start: date,
+          //           allDay: true
+          //         });
+          //         alert('Great. Now, update your database...');
+          //       } else {
+          //         alert('Invalid date.');
+          //       }
+          //     }
+          // },
           custom3day: {
             text: '3 jours',
             click: function() {
@@ -393,7 +412,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
       });
 
-      calendar.render();
+    calendar.render();
     });
   </script>
 
