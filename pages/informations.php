@@ -21,19 +21,15 @@ $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $sql_informations = "SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_common
                     UNION ALL
-                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_perso
-                    UNION ALL
-                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_but ORDER BY date DESC";
+                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info LIKE :edu_group_perso ORDER BY date DESC";
 
 $query_informations = $dbh->prepare($sql_informations);
 $query_informations->execute([
     'edu_group_common' => 'all',
-    'edu_group_perso' => $user_sql['edu_group'],
-    'edu_group_but' => substr($user_sql['edu_group'], 0, 4)
+    'edu_group_perso' => '%' . $user_sql['edu_group'] . '%'
 ]);
 
 $informations = $query_informations->fetchAll();
-
 
 echo head("MMI Companion | Informations");
 ?>

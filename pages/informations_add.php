@@ -33,7 +33,7 @@ if (isset($_POST['submit'])) {
                     $group_info[] = $group . '-' . $tp;
                 }
             };
-            $group_info = implode(',', $group_info);
+            $group_info = implode(', ', $group_info);
         }
         $title = $_POST['titre'];
         $name = $_POST['user'];
@@ -191,6 +191,7 @@ echo head('Ajouter une information');
                 let isAnyButChecked = but1Checkbox.checked || but2Checkbox.checked || but3Checkbox.checked;
                 tpCheckboxes.forEach(function(checkbox) {
                     checkbox.disabled = !isAnyButChecked;
+                    checkbox.checked = true;
                 });
             }
 
