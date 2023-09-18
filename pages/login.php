@@ -96,7 +96,6 @@ echo head("MMI Companion | Connexion");
             <?php if (isset($_SESSION['success_mail'])) : ?>
             <div class="success_message-login">
                 <?= $_SESSION['success_mail']; ?>
-                bonjour
             </div>
             <?php unset($_SESSION['success_mail']); ?>
             <?php endif; ?>
