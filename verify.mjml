@@ -1,0 +1,43 @@
+<mjml>
+  <mj-head>
+    <mj-font name="Montserrat" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900" />
+    <mj-attributes>
+      <mj-all padding="0px"></mj-all>
+      <mj-class name="preheader" color="#000000" font-size="11px" font-family="Montserrat" padding="0px"></mj-class>
+    </mj-attributes>
+    <mj-style inline="inline">a { text-decoration: none; color: inherit; }</mj-style>
+  </mj-head>
+  <mj-body background-color="#FFF">
+    <mj-section background-color="#b9e0ff" padding="40px 0">
+      <mj-column width="100%">
+        <mj-image src="https://dev.mmi-companion.fr/mmicompanion/assets/img/mmicompanion.svg" alt="logo" width="120px"></mj-image>
+        <mj-text align="center" color="#56b8d6" font-size="20px" font-weight="800" font-family="Montserrat">MMI Companion</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#ddf0ff" padding-top="20px">
+      <mj-column width="100%">
+        <mj-image src="https://dev.mmi-companion.fr/mmicompanion/assets/img/verif_mail.svg" alt="tickets" width="192px" padding="10px 25px"></mj-image>
+        <mj-text align="center" color="#004a5a" font-weight="600" font-size="25px" font-family="Montserrat" padding="10px 25px">Salut {{FirstName}},</mj-text>
+        <mj-text align="center" font-weight="500" color="#004a5a" font-size="18px" font-family="Montserrat" padding="10px 30px">Bienvenue sur <strong>MMI Companion</strong> !<br /></mj-text>
+        <mj-text align="center" color="#004a5a" font-size="18px" font-family="Montserrat" padding="10px 30px">Clique sur le bouton ci-dessous pour vérifier ton mail et accéder à l'application</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#ddf0ff">
+        <mj-column width="100%">
+            <mj-button background-color="#56b8d6" height="25px" width="230px" color="#004a5a" font-size="15px" border-radius="10px" font-weight="600" font-family="Montserrat" href="{{Link}}" padding="15px 25px">Vérifier mon email</mj-button>
+        </mj-column>
+        <mj-column width="100%">
+            <mj-text align="center" color="#004a5a" font-size="12px" font-family="Montserrat">{{Link}}</mj-text>
+    </mj-section>
+    <mj-section background-color="#ddf0ff" padding="20px 0">
+      <mj-column width="100%">
+        <mj-text align="center" color="#004a5a" font-size="16px" font-weight="500" font-family="Montserrat" padding-top="10px" padding-right="30px" padding-left="30px">Si tu rencontres des dificultées, envoie nous un mail à <strong><mj-link href:"mailto:contact@mmi-companion.fr">contact@mmi-companion.fr</mj-link></strong></mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section background-color="#ddf0ff" padding-bottom="10px">
+      <mj-column vertical-align="top" width="100%">
+        <mj-text align="center" color="#004a5a" font-size="12px" font-family="Montserrat" padding="10px 25px">MMI Companion - Tous droits réservés</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>

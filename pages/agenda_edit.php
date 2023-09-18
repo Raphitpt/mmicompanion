@@ -95,7 +95,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 // Fin de la récupération des matières
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion - Agenda");
+echo head("MMI Companion | Agenda");
 
 ?>
 

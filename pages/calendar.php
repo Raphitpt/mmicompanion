@@ -52,9 +52,10 @@ $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 echo head('MMI Companion | Accueil');
 ?>
 
-  <!-- Mise en place du tutoriel -->
-  <?php
-  if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
+<!-- Mise en place du tutoriel -->
+<?php
+if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
+
   <body class="body-welcome">
     <main class="main-welcome">
       <form action="" method="post" class="form-welcome">
@@ -144,105 +145,84 @@ echo head('MMI Companion | Accueil');
 
     </main>
 
-</body>
+  </body>
 
-<script>
-  const button_page1_validate = document.querySelector('#button_page1-validate');
-  const button_page2_validate = document.querySelector('#button_page2-validate');
-  const button_page2_back = document.querySelector('#button_page2-back');
-  const button_page3_back = document.querySelector('#button_page3-back');
-  const welcome_page1 = document.querySelector('.welcome_page1-index');
-  const welcome_page2 = document.querySelector('.welcome_page2-index');
-  const welcome_page3 = document.querySelector('.welcome_page3-index');
+  <script>
+    const button_page1_validate = document.querySelector('#button_page1-validate');
+    const button_page2_validate = document.querySelector('#button_page2-validate');
+    const button_page2_back = document.querySelector('#button_page2-back');
+    const button_page3_back = document.querySelector('#button_page3-back');
+    const welcome_page1 = document.querySelector('.welcome_page1-index');
+    const welcome_page2 = document.querySelector('.welcome_page2-index');
+    const welcome_page3 = document.querySelector('.welcome_page3-index');
 
-  button_page1_validate.addEventListener('click', () => {
-    welcome_page1.style.display = 'none';
-    welcome_page2.style.display = 'flex';
-  })
+    button_page1_validate.addEventListener('click', () => {
+      welcome_page1.style.display = 'none';
+      welcome_page2.style.display = 'flex';
+    })
 
-  button_page2_validate.addEventListener('click', () => {
-    welcome_page2.style.display = 'none';
-    welcome_page3.style.display = 'flex';
-  })
+    button_page2_validate.addEventListener('click', () => {
+      welcome_page2.style.display = 'none';
+      welcome_page3.style.display = 'flex';
+    })
 
-  button_page2_back.addEventListener('click', () => {
-    welcome_page1.style.display = 'flex';
-    welcome_page2.style.display = 'none';
-  })
+    button_page2_back.addEventListener('click', () => {
+      welcome_page1.style.display = 'flex';
+      welcome_page2.style.display = 'none';
+    })
 
-  button_page3_back.addEventListener('click', () => {
-    welcome_page2.style.display = 'flex';
-    welcome_page3.style.display = 'none';
-  })
-</script>
+    button_page3_back.addEventListener('click', () => {
+      welcome_page2.style.display = 'flex';
+      welcome_page3.style.display = 'none';
+    })
+  </script>
 <?php } else {
 ?>
 
-<body class="body-all">
+  <body class="body-all">
 
-  <header class="header-index">
-    <div class="content_header-index">
+    <header class="header-calendar">
+      <div class="content_header-calendar">
 
-      <div class="burger-header-index" id="burger-header">
-        <i class="fi fi-br-bars-sort"></i>
-      </div>
-
-      <div class="content-header-index">
-        <div class="content_title-header-index">
-          <h1>Salut <span style="font-weight:800">
-              <?php echo ucfirst($user['pname']) ?><span></h1>
-          <p>en ligne</p>
+        <div class="burger-header-calendar" id="burger-header">
+          <i class="fi fi-br-bars-sort"></i>
         </div>
-        <div style="width:10px"></div>
-        <a href="./profil.php">
-          <div class="content_img-header-index">
-            <div class="rounded-img">
-              <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
-            </div>
-            <div class="green_circle"></div>
+
+        <div class="content-header-calendar">
+          <div class="content_title-header-calendar">
+            <h1>Salut <span style="font-weight:800">
+                <?php echo ucfirst($user['pname']) ?><span></h1>
+            <p>en ligne</p>
           </div>
-        </a>
-      </div>
-    </div>
-
-    <?php generateBurgerMenuContent() ?>
-
-  </header>
-
-  <main class="main-index">
-    <div style="height:30px"></div>
-    <section class="section_calendar-index">
-      <div class="title_trait">
-        <h1>L'emploi du temps</h1>
-        <div></div>
-      </div>
-      <div style="height:15px"></div>
-      <div id="calendar"></div>
-    </section>
-
-    <div style="height:30px"></div>
-
-    <!-- <section class="section_agenda-index">
-      <div class="title_trait">
-        <h1>L'agenda</h1>
-        <div>
-          <?php
-          // if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-          //   $activation_code = generate_activation_code();
-          //   send_activation_email($_POST['mail'], $activation_code);
-          // }
-          ?>
-          <form method="post">
-            <input type="text" name="mail">
-            <input type="submit" value="Envoyer" name="submit">
-          </form>
+          <div style="width:10px"></div>
+          <a href="./profil.php">
+            <div class="content_img-header-calendar">
+              <div class="rounded-img">
+                <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
+              </div>
+              <div class="green_circle"></div>
+            </div>
+          </a>
         </div>
       </div>
 
+      <?php generateBurgerMenuContent() ?>
 
-    </section> -->
+    </header>
 
-  </main>
+    <main class="main-calendar">
+      <div style="height:30px"></div>
+      <section class="section_calendar-calendar">
+        <div class="title_trait">
+          <h1>L'emploi du temps</h1>
+          <div></div>
+        </div>
+        <div style="height:20px"></div>
+        <div class="container_calendar-calendar">
+          <div id="calendar"></div>
+
+      </section>
+    </main>
 
   </body>
 
@@ -260,16 +240,17 @@ echo head('MMI Companion | Accueil');
 
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
+
       const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
-
-        <?php 
+        <?php
         foreach ($color_subjects as $color_subject) {
           echo "'" . $color_subject['code_ressource'] . "': '" . $color_subject['color_ressource'] . "',";
         }
         ?>
       };
+
       let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
         buttonText: {
@@ -281,16 +262,113 @@ echo head('MMI Companion | Accueil');
         },
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
-        hiddenDays: [0, 6],
+
+        views: {
+          timeGridFourDay: {
+            type: 'timeGrid',
+            dayCount: 3,
+            weekends: false,
+          },
+          timeGridDay: {
+            type: 'timeGrid',
+            dayCount: 1,
+            weekends: false,
+          }
+        },
+        // hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 75,
-        height: '70vh',
+        height: 'calc(95vh - 153px)',
         nowIndicator: true,
         initialView: "timeGridDay",
+        footerToolbar: {
+          left: "custom1day",
+          // center: "addEvent",
+          right: "custom3day",
+        },
         headerToolbar: {
-          left: "prev",
+          left: "customPrevious",
           center: "title",
-          right: "today next",
+          right: "today customNext",
+        },
+        customButtons: {
+          //   addEvent: {
+          //     icon: 'plus',
+          //     click: function() {
+          //       let dateStr = prompt('Enter a date in YYYY-MM-DD format');
+          //       let date = new Date(dateStr + 'T00:00:00'); // will be in local time
+
+          //       if (!isNaN(date.valueOf())) { // valid?
+          //         calendar.addEvent({
+          //           title: 'dynamic event',
+          //           start: date,
+          //           allDay: true
+          //         });
+          //         alert('Great. Now, update your database...');
+          //       } else {
+          //         alert('Invalid date.');
+          //       }
+          //     }
+          // },
+          custom3day: {
+            text: '3 jours',
+            click: function() {
+              calendar.changeView('timeGridFourDay');
+              document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
+                eventEl.style.fontSize = '0.8rem !important';
+              });
+            }
+          },
+          custom1day: {
+            text: '1 jour',
+            click: function() {
+              calendar.changeView('timeGridDay');
+              document.querySelectorAll('.fc-location').forEach(function(eventEl) {
+                eventEl.style.fontSize = '1.5rem !important';
+              });
+            }
+          },
+          customNext: {
+            icon: 'chevron-right',
+            click: function() {
+              if (calendar.view.type === 'timeGridFourDay') {
+                let daysToAdvance = 3;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              } else {
+                let daysToAdvance = 1;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              }
+            }
+          },
+          customPrevious: {
+            icon: 'chevron-left',
+            click: function() {
+              if (calendar.view.type === 'timeGridFourDay') {
+                let daysToGoBack = 3;
+                let currentDate = calendar.getDate();
+                currentDate.setDate(currentDate.getDate() - daysToGoBack);
+                calendar.gotoDate(currentDate);
+              } else if (calendar.view.type === 'timeGridDay') {
+                const currentDate = calendar.getDate();
+                const currentDayOfWeek = currentDate.getDay();
+                let daysToGoBack;
+
+                if (currentDayOfWeek === 0) {
+                  daysToGoBack = 2;
+                } else if (currentDayOfWeek === 1) {
+                  daysToGoBack = 3;
+                } else {
+                  daysToGoBack = 1;
+                }
+
+                calendar.prev(daysToGoBack);
+              }
+            }
+          },
         },
         // plugins: [DayGridPlugin, iCalendarPlugin],
         events: {
@@ -298,25 +376,36 @@ echo head('MMI Companion | Accueil');
           format: "ics",
         },
         eventContent: function(arg) {
-
+          let eventTitle = arg.event.title;
           let eventLocation = arg.event.extendedProps.location;
           let eventDescription = arg.event.extendedProps.description;
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
-          let eventContent = '<div class="fc-title">' + arg.event.title + '</div>';
+          let eventContent = "";
 
-          if (eventDescription) {
-            eventContent += '<div class="fc-description">' + test + '</div>';
+          if (eventTitle && calendar.view.type === 'timeGridFourDay') {
+            eventContent += '<div class="fc-title" style="font-size:0.52rem">' + eventTitle + '</div>';
+          } else if (eventTitle && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-title" style="font-size:0.8rem">' + eventTitle + '</div>';
           }
 
-          if (eventLocation) {
-            eventContent += '<div class="fc-location">' + eventLocation + '</div>';
+          if (eventDescription && calendar.view.type === 'timeGridFourDay') {
+            eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
+          } else if (eventDescription && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-description" style="font-size:0.8rem">' + test + '</div>';
+          }
+
+          if (eventLocation && calendar.view.type === 'timeGridFourDay') {
+            eventContent += '<div class="fc-location" style="font-size:0.52rem">' + eventLocation + '</div>';
+          } else if (eventLocation && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
           }
 
           return {
             html: eventContent
           };
         },
+
         eventDidMount: function(arg) {
           let eventTitle = arg.event.title;
           let eventColor = null;
@@ -328,18 +417,19 @@ echo head('MMI Companion | Accueil');
               break; // Sortez de la boucle dès qu'une correspondance est trouvée
             }
           }
-
           if (eventColor) {
             arg.el.style.backgroundColor = eventColor;
           }
-        }
+        },
+
       });
 
       calendar.render();
     });
   </script>
+
 <?php
-  }
+}
 ?>
 
 </html>

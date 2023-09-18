@@ -182,6 +182,21 @@ function generateBurgerMenuContent()
                 </div>
             </a>
             <div class="burger_content_trait_header"></div>
+            <a href="./informations.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-info"></i>
+                    <p>Informations</p>
+                    <div id="select_background_informations-header" class=""></div>
+                </div>
+            </a>
+            <a href="./outils_supplementaires.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-link-alt"></i>
+                    <p>Outils supplémentaires</p>
+                    <div id="select_background_outils-supplementaires-header" class=""></div>
+                </div>
+            </a>
+            <div class="burger_content_trait_header"></div>
             <a href="./profil.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-user"></i>
@@ -303,23 +318,12 @@ function decodeJWT($jwt, $secret_key)
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-function sendNotification($message, $body, $group)
+function sendNotification($message, $body, $groups)
 {
     $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
     // Assuming you already have a valid $dbh connection to your database
-    if ($group != null) {
-        $query = "SELECT s.* FROM subscriptions s
-                  INNER JOIN users u ON s.edu_mail = u.edu_mail
-                  WHERE u.edu_group = :group";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute(['group' => $group]);
-        $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        $query = "SELECT * FROM subscriptions";
-        $stmt = $dbh->query($query);
-        $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
 
+    $groupsArray = explode(',', $groups); // Split the groups into an array
 
     $auth = array(
         'VAPID' => array(
@@ -331,22 +335,31 @@ function sendNotification($message, $body, $group)
 
     $webPush = new WebPush($auth);
 
-    foreach ($subscriptions as $subscriptionData) {
-        $subscription = Subscription::create([
-            'endpoint' => $subscriptionData['endpoint'],
-            'keys' => [
-                'p256dh' => $subscriptionData['p256dh'],
-                'auth' => $subscriptionData['auth'],
-            ],
-            // You can add additional properties if needed, e.g., 'contentEncoding', 'expirationTime', etc.
-        ]);
+    foreach ($groupsArray as $group) {
+        $query = "SELECT s.* FROM subscriptions s
+                  INNER JOIN users u ON s.id_user = u.id_user
+                  WHERE u.edu_group = :group";
+        $stmt = $dbh->prepare($query);
+        $stmt->execute(['group' => trim($group)]); // Trim to remove any leading/trailing whitespace
+        $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $payload = json_encode([
-            'body' => $body,
-            'title' => $message
-        ]);
+        foreach ($subscriptions as $subscriptionData) {
+            $subscription = Subscription::create([
+                'endpoint' => $subscriptionData['endpoint'],
+                'keys' => [
+                    'p256dh' => $subscriptionData['p256dh'],
+                    'auth' => $subscriptionData['auth'],
+                ],
+                // You can add additional properties if needed, e.g., 'contentEncoding', 'expirationTime', etc.
+            ]);
 
-        $webPush->queueNotification($subscription, $payload);
+            $payload = json_encode([
+                'body' => $body,
+                'title' => $message
+            ]);
+
+            $webPush->queueNotification($subscription, $payload);
+        }
     }
 
     $webPush->flush();
@@ -355,9 +368,9 @@ function sendNotification($message, $body, $group)
         $endpoint = $report->getRequest()->getUri()->__toString();
 
         if ($report->isSuccess()) {
-            echo "[v] Le message à bien été envoyer à {$endpoint}.\n";
+            echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
         } else {
-            echo "[x] Le message n'a pas réussi à être envoyer {$endpoint}: {$report->getReason()}\n";
+            echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
             // Handle the failure, remove the subscription from your server, etc.
         }
     }
@@ -369,30 +382,31 @@ function generate_activation_code(): string
 
 const APP_URL = 'https://app.mmi-companion.fr/pages';
 const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
-function send_activation_email(string $email, string $activation_code)
+function send_activation_email(string $email, string $activation_code, string $name)
 {
     // create the activation link
     $activation_link = APP_URL . "/verify_mail.php?email=$email&activation_code=$activation_code";
 
-    // set email subject & body
+    // set email subject
     $subject = 'Active ton compte dès maintenant !';
-    $message = <<<MESSAGE
-            Salut,
-            Clique sur le lien pour activer ton compte MMI Companion:
-            $activation_link
-            MESSAGE;
+
+    // load HTML content from a file
+    $message = file_get_contents('./../verify.html');
+
+    // replace placeholders in the HTML content with actual values
+    $message = str_replace('{activation_link}', $activation_link, $message);
+    $message = str_replace('{FirstName}', $name, $message);
+
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
         'Reply-To:' . SENDER_EMAIL_ADDRESS . "\r\n" .
-        'Content-Type: text/plain; charset="utf-8"; DelSp="Yes"; format=flowed ' . "\r\n" .
-        'Content-Disposition: inline' . "\r\n" .
-        'Content-Transfer-Encoding: 7bit' . " \r\n" .
-        'X-Mailer:PHP/' . phpversion();
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
 
     // send the email
     $_SESSION['mail_message'] = "";
-    if (mail($email, $subject, nl2br($message), $headers)) {
+    if (mail($email, $subject, $message, $headers)) {
         $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
     } else {
         $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";

@@ -12,7 +12,15 @@ $user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
+// --------------------
 
+
+$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt_user = $dbh->prepare($sql_user);
+$stmt_user->execute([
+    ':id_user' => $user['id_user']
+]);
+$user_sql = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
 // On vérifie si le formulaire est rempli et si oui on ajoute la tache dans la base de donnée
 // On appelle certaines variable du cookie pour les ajouter dans la base de donnée
@@ -34,19 +42,12 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'id_user' => $user['id_user'],
         'type' => $type,
         'id_subject' => $school_subject,
-        'edu_group' => $user['edu_group']
+        'edu_group' => $user_sql['edu_group']
     ]);
     header('Location: ./agenda.php');
     exit();
 }
-// --------------------
 // Fin de la vérification du formulaire
-$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt_user = $dbh->prepare($sql_user);
-$stmt_user->execute([
-    ':id_user' => $user['id_user']
-]);
-$user_sql = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
 
 
@@ -78,7 +79,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 // Fin de la récupération des matières
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion - Agenda");
+echo head("MMI Companion | Agenda");
 ?>
 
 <body class="body-all">

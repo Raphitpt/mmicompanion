@@ -38,7 +38,7 @@ if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin") {
     ]);
     $list_eleve = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-echo head("MMI Companion - Profil");
+echo head("MMI Companion | Profil");
 
 ?>
 
@@ -66,6 +66,8 @@ echo head("MMI Companion - Profil");
             <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
             <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
+        <div id="push-permission" class="button_notifications-profil"></div>
+        <div style="height:25px"></div>
         <div class="profil_form-profil">
             <div class="profil_form-disabled">
                 <div class="profil_form-input_disabled">
@@ -135,16 +137,20 @@ echo head("MMI Companion - Profil");
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
+    <script src="../assets/js/app.js"></script>
     <script>
+    
+        // Faire apparaître le background dans le menu burger
+        let select_background_profil = document.querySelector('#select_background_profil-header');
+        select_background_profil.classList.add('select_link-header');
+        
         let form_transmit_role = document.querySelector('.form_transmit_role-profil');
         form_transmit_role.addEventListener("submit", function(event) {
             if (!confirm("Êtes-vous sûr de vouloir transmettre votre rôle à un autre étudiant ? Cela entraînera une déconnexion de votre compte.")) {
                 event.preventDefault(); // Empêche la soumission du formulaire si l'utilisateur clique sur "Annuler"
             }
         });
-        // Faire apparaître le background dans le menu burger
-        let select_background_profil = document.querySelector('#select_background_profil-header');
-        select_background_profil.classList.add('select_link-header');
+        
 
         document.addEventListener('DOMContentLoaded', () => {
             let input = document.querySelector('#profil_picture-input');

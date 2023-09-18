@@ -49,7 +49,7 @@ $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 $sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
-    'edu_group' => $user['edu_group']
+    'edu_group' => $user_sql['edu_group']
 ]);
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
@@ -59,7 +59,7 @@ $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 $sql_devoir = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_devoir = $dbh->prepare($sql_devoir);
 $stmt_devoir->execute([
-    'edu_group' => $user['edu_group']
+    'edu_group' => $user_sql['edu_group']
 ]);
 $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
@@ -73,7 +73,7 @@ usort($agenda, 'compareDates');
 $sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role = 'chef'";
 $stmt_chef = $dbh->prepare($sql_chef);
 $stmt_chef->execute([
-    'edu_group' => $user['edu_group']
+    'edu_group' => $user_sql['edu_group']
 ]);
 $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
 
@@ -140,7 +140,7 @@ if (isset($_POST['button-validate'])) {
 
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion - Agenda");
+echo head("MMI Companion | Agenda");
 ?>
 <!-- Mise en place du tutoriel -->
 <?php
@@ -306,7 +306,7 @@ echo head("MMI Companion - Agenda");
                         }
                     }
 
-                    echo "<div>";
+                    echo "<div class='agenda_title_content_list_item_flexleft-agenda'>";
                     if ($agenda['type'] == "eval") {
                         echo "<h3 class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</h3>";
                     }
@@ -314,16 +314,14 @@ echo head("MMI Companion - Agenda");
                         echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
                     }
                     echo "<div class='agenda_content_subject-agenda'>";
-                    echo "<div class='container_circle_subject-agenda'>";
                     foreach ($colors as $color) {
                         if ($color['id_subject'] == $agenda['id_subject']) {
-                            echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
+                            echo "<p style='background-color:". $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
+                            // echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
                             break;
                         }
                     };
-                    echo "</div>";
                     // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
-                    echo "<p>" . $agenda['name_subject'] . "</p>";
                     echo "</div>";
                     echo "</div>";
                     echo "</div>";
@@ -410,11 +408,14 @@ echo head("MMI Companion - Agenda");
         function handleCheckboxChange() {
             let checkbox = this;
             let heading = checkbox.parentNode.querySelector(".title_subject-agenda");
+            let subject_agenda = checkbox.parentNode.querySelector(".agenda_content_subject-agenda");
 
             if (checkbox.checked) {
                 heading.style.textDecoration = "line-through";
+                subject_agenda.style.opacity = "0.5";
             } else {
                 heading.style.textDecoration = "none";
+                subject_agenda.style.opacity = "1";
             }
         }
 

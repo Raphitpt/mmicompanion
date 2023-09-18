@@ -13,6 +13,7 @@ burgerButton.addEventListener('click', (event) => {
   toggleMenu();
 
   documentBody.classList.add('no-scroll');
+  burgerButton.classList.add('active');
 });
 
 // Ajoutez un gestionnaire d'événement au clic sur le document
@@ -21,6 +22,7 @@ document.addEventListener('click', (event) => {
   if (!menu.contains(event.target)) {
     menu.style.transform = 'translateX(-100%)';
     documentBody.classList.remove('no-scroll');
+    burgerButton.classList.remove('active');
   }
 });
 
@@ -31,10 +33,23 @@ function toggleMenu() {
   if (isMenuOpen) {
     menu.style.transform = 'translateX(-100%)';
     documentBody.classList.remove('no-scroll');
+    burgerButton.classList.remove('active');
   } else {
     menu.style.transform = 'translateX(0%)';
   }
 }
+
+// Animation du bouton burger
+
+// burgerButton.addEventListener('click', function() {
+//   if (burgerButton.classList.contains('active')) {
+//     burgerButton.classList.remove('active');
+//   } else {
+//     burgerButton.classList.add('active');
+//   }
+// });
+
+
 
 // link.forEach(function(link) {
 //   link.addEventListener('click', function(event) {

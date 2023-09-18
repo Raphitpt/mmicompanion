@@ -59,7 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             ]);
             $data = array(
                 'mail_user' => $edu_mail,
-                'activation_code' => $activation_code
+                'activation_code' => $activation_code,
+                'pname' => $pname
             );
             $_SESSION['post_data'] = $data;
             header('Location: ./mail.php');
@@ -71,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 
-echo head('MMI Companion - Register');
+echo head('MMI Companion | Register');
 
 ?>
 
@@ -88,7 +89,7 @@ echo head('MMI Companion - Register');
                 <div style="height:20px"></div>
                 <input type="text" name="name" placeholder="nom" class="input-login" required>
                 <div style="height:20px"></div>
-                <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern=".+@etu\.univ-poitiers\.fr" class="input-login" required>
+                <input type="text" name="edu_mail" placeholder="adresse mail étudiante" pattern="^(.+@etu\.univ-poitiers\.fr|.+@univ-poitiers\.fr)$" class="input-login" required>
                 <div style="height:20px"></div>
                 <input type="password" name="password" placeholder="mot de passe" class="input-login" required>
                 <div style="height:20px"></div>
