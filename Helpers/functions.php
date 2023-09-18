@@ -322,9 +322,9 @@ function sendNotification($message, $body, $groups)
 {
     $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
     // Assuming you already have a valid $dbh connection to your database
-    
+
     $groupsArray = explode(',', $groups); // Split the groups into an array
-    
+
     $auth = array(
         'VAPID' => array(
             'subject' => 'mailto:rtiphonet@gmail.com',
@@ -803,7 +803,7 @@ function send_activation_email(string $email, string $activation_code)
     
   </body>
 </html>
-            HTML;
+HTML;
     // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
