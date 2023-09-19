@@ -277,7 +277,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
 
-      const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
+      const url1 = '<?php echo $cal_link ?>';
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
         <?php
@@ -298,7 +298,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
-
         views: {
           timeGridFourDay: {
             type: 'timeGrid',
@@ -313,8 +312,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         // hiddenDays: [0, 6],
         allDaySlot: false,
-        eventMinHeight: 75,
-        height: 'calc(95vh - 153px)',
+        eventMinHeight: 50,
+        height: 'calc(90vh - 100px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
