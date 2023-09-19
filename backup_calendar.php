@@ -15,25 +15,19 @@ $ical_links = [
     "BUT3-TP4" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2451&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
 ];
 
-// Vérifiez si $group existe dans le tableau $ical_links
-if (array_key_exists($group, $ical_links)) {
-    $calendar_link = $ical_links[$group];
-    $backupFileName = 'ical_backup_' . $group . '_' . date('Y-m-d_H-i-s') . '.ics';
-    
-    // Répertoire de sauvegarde
-    $backupDir = './backup_cal/';
 
-    // Téléchargez le fichier iCal et effectuez la sauvegarde
+$backupDir = './backup_cal/';
+
+foreach ($ical_links as $group => $calendar_link) {
+    // Téléchargez le fichier iCal
     $icalData = file_get_contents($calendar_link);
-    
+
     if ($icalData !== false) {
-        // Sauvegarder le fichier iCal
+        // Sauvegardez le fichier iCal avec le nom du groupe
+        $backupFileName = $group . '.ics';
         file_put_contents($backupDir . $backupFileName, $icalData);
-        echo "Sauvegarde réussie à " . date('Y-m-d H:i:s') . "\n";
+        echo "Sauvegarde réussie pour le groupe $group à " . date('Y-m-d H:i:s') . "\n";
     } else {
-        echo "Erreur lors du téléchargement du fichier iCal\n";
+        echo "Erreur lors du téléchargement du fichier iCal pour le groupe $group\n";
     }
-} else {
-    echo "Groupe non reconnu : $group\n";
 }
-?>
