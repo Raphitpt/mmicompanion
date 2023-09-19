@@ -1894,7 +1894,8 @@ main {
 .form_button-informations_add input[type="submit"] {
     border-radius: 18px;
     background: var(--bleu-moyen, #56B8D6);
-    padding: 10px 40px;
+    width: 131px;
+    height: 35px;
     color: #004A5A;
     text-align: center;
     font-family: Montserrat;

@@ -204,6 +204,20 @@ echo head("MMI Companion | Agenda");
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
         select_background_profil.classList.add('select_link-header');
+
+        // Vérifier si l'utilisateur utilise un appareil iOS
+        function isIOS() {
+            return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+        }
+
+        // Sélectionner l'élément avec la classe .input_date-agenda_add
+        const inputElement = document.querySelector('.input_date-agenda_add');
+
+        // Vérifier si l'utilisateur est sur un appareil iOS
+        if (isIOS()) {
+            // Supprimer le padding-left
+            inputElement.style.paddingLeft = '0';
+        }
     </script>
     
 </body>
