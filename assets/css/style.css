@@ -397,7 +397,8 @@ main {
     color: #004A5A;
     border: none;
     border-radius: 25px;
-    padding: 10px 60px;
+    width: 210px;
+    height: 36px;
     font-size: 13px;
     font-weight: 800;
     cursor: pointer;
@@ -1253,7 +1254,6 @@ main {
 .main-agenda {
     width: 80vw;
     max-width: 550px;
-    overflow-y: hidden;
 }
 
 .agenda_title_flextop-agenda {
@@ -1499,7 +1499,19 @@ main {
     max-width: 290px;
 }
 
-.container_input-agenda_add i{
+.container_input_date-agenda_add{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background: #ffffff;
+    border-radius: 30px;
+    width: 80%;
+    max-width: 290px;
+    position: relative;
+    height: 39px;
+}
+
+.container_input-agenda_add i, .container_input_date-agenda_add i{
     color: #004A5A;
     padding: 10px;
     padding-left:30px;
@@ -1519,6 +1531,14 @@ main {
     line-height: normal;
     -webkit-appearance: none;
     
+}
+
+.input_date-agenda_add{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    padding-left: 70px;
 }
 
 .input_select-agenda_add{
@@ -1565,7 +1585,8 @@ main {
 .form_button-agenda input[type="submit"] {
     border-radius: 18px;
     background: var(--bleu-moyen, #56B8D6);
-    padding: 10px 40px;
+    width: 131px;
+    height: 35px;
     color: #004A5A;
     text-align: center;
     font-family: Montserrat;
@@ -1873,7 +1894,8 @@ main {
 .form_button-informations_add input[type="submit"] {
     border-radius: 18px;
     background: var(--bleu-moyen, #56B8D6);
-    padding: 10px 40px;
+    width: 131px;
+    height: 35px;
     color: #004A5A;
     text-align: center;
     font-family: Montserrat;
