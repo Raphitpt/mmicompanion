@@ -70,7 +70,7 @@ $agenda_cont = count($agenda);
 usort($agenda, 'compareDates');
 
 
-$sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role = 'chef'";
+$sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
 $stmt_chef = $dbh->prepare($sql_chef);
 $stmt_chef->execute([
     'edu_group' => $user_sql['edu_group']
