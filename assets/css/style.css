@@ -1499,7 +1499,19 @@ main {
     max-width: 290px;
 }
 
-.container_input-agenda_add i{
+.container_input_date-agenda_add{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background: #ffffff;
+    border-radius: 30px;
+    width: 80%;
+    max-width: 290px;
+    position: relative;
+    height: 39px;
+}
+
+.container_input-agenda_add i, .container_input_date-agenda_add i{
     color: #004A5A;
     padding: 10px;
     padding-left:30px;
@@ -1519,6 +1531,14 @@ main {
     line-height: normal;
     -webkit-appearance: none;
     
+}
+
+.input_date-agenda_add{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    padding-left: 60px;
 }
 
 .input_select-agenda_add{

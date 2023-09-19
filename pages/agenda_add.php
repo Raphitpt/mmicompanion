@@ -127,7 +127,7 @@ echo head("MMI Companion | Agenda");
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="container_input-agenda_add">
+                <div class="container_input_date-agenda_add">
                     <i class="fi fi-br-calendar"></i>
                     <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
                 </div>

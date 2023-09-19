@@ -64,7 +64,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-echo head('Ajouter une information');
+echo head('MMI Companion | Informations');
 ?>
 
 <body class="body-all">
