@@ -60,7 +60,7 @@ echo head("MMI Companion | Informations");
                 <div></div>
             </div>
             <?php 
-            if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin" || $user_sql['role'] == "prof" || strpos($user_sql['role'], 'BDE') !== false) {
+            if (str_contains($user_sql['role'], "chef") ||str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "prof") || str_contains($user_sql['role'], "BDE")) {
                 ?>
                 <div class="info_title_flextopright-informations">
                     <a href="./informations_add.php">Ajouter</a>
@@ -74,15 +74,15 @@ echo head("MMI Companion | Informations");
                 $name_color = "";
                 $timestamp = strtotime($information['date']); // Convertit la date en timestamp
                 $newDate = date("d-m-Y H:i", $timestamp);
-                if ($information['role'] == "eleve") {
+                if (str_contains($information['role'], "eleve")) {
                     $name_color = "#FFB141";
-                } elseif ($information['role'] == "prof") {
+                } elseif (str_contains($information['role'], "prof")) {
                     $name_color = "#5cceff";
-                } elseif ($information['role'] == "chef") {
-                    $name_color = "#6C757D";
-                } elseif ($information['user'] == "Admin") {
-                        $name_color = "#FF3333";
-                } elseif (strpos($information['role'], 'BDE') !== false) {
+                } elseif (str_contains($information['role'], "chef")) {
+                    $name_color = "#FFA02F";
+                } elseif (str_contains($information['role'], "admin")) {
+                    $name_color = "#FF3333";
+                } elseif (str_contains($information['role'], "BDE")) {
                     $name_color = "#bca5ff";
                 }
                 ?>
