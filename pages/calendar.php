@@ -277,7 +277,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
 
-      const url1 = 'https://corsproxy.io/?' + encodeURIComponent('<?php echo $cal_link ?>');
+      const url1 = '<?php echo $cal_link ?>';
       let calendarEl = document.querySelector("#calendar");
       let eventColors = {
         <?php

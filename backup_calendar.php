@@ -19,11 +19,9 @@ $ical_links = [
 $backupDir = './backup_cal/';
 
 foreach ($ical_links as $group => $calendar_link) {
-    // Téléchargez le fichier iCal
     $icalData = file_get_contents($calendar_link);
 
     if ($icalData !== false) {
-        // Sauvegardez le fichier iCal avec le nom du groupe
         $backupFileName = $group . '.ics';
         file_put_contents($backupDir . $backupFileName, $icalData);
         echo "Sauvegarde réussie pour le groupe $group à " . date('Y-m-d H:i:s') . "\n";
