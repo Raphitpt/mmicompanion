@@ -1092,9 +1092,9 @@ main {
     margin-left: 0px;
 }
 
-.fc-timegrid-slot {
+/* .fc-timegrid-slot {
     height: 30px !important
-}
+} */
 
 .fc-theme-standard .fc-scrollgrid {
     border: none !important;
