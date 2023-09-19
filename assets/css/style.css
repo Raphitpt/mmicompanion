@@ -1778,6 +1778,22 @@ main {
     resize: vertical;
 }
 
+.form_role_input-informations_add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.form_role_input-informations_add label{
+    color: var(--Texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
 .form_groupe_input-informations_add{
     display: flex;
     justify-content: space-around;
