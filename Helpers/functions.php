@@ -239,40 +239,40 @@ function calendar($group = '')
 {
     $calendar_link = '';
     if ($group == "BUT1-TP1") {
-        $calendar_link = './../backup/BUT1-TP1.ics';
+        $calendar_link = './../backup_cal/BUT1-TP1.ics';
     }
     if ($group == "BUT1-TP2") {
-        $calendar_link = './../backup/BUT1-TP2.ics';
+        $calendar_link = './../backup_cal/BUT1-TP2.ics';
     }
     if ($group == "BUT1-TP3") {
-        $calendar_link = './../backup/BUT1-TP3.ics';
+        $calendar_link = './../backup_cal/BUT1-TP3.ics';
     }
     if ($group == "BUT1-TP4") {
-        $calendar_link = './../backup/BUT1-TP4.ics';
+        $calendar_link = './../backup_cal/BUT1-TP4.ics';
     }
     if ($group == "BUT2-TP1") {
-        $calendar_link = './../backup/BUT2-TP1.ics';
+        $calendar_link = './../backup_cal/BUT2-TP1.ics';
     }
     if ($group == "BUT2-TP2") {
-        $calendar_link = './../backup/BUT2-TP2.ics';
+        $calendar_link = './../backup_cal/BUT2-TP2.ics';
     }
     if ($group == "BUT2-TP3") {
-        $calendar_link = './../backup/BUT2-TP3.ics';
+        $calendar_link = './../backup_cal/BUT2-TP3.ics';
     }
     if ($group == "BUT2-TP4") {
-        $calendar_link = './../backup/BUT2-TP4.ics';
+        $calendar_link = './../backup_cal/BUT2-TP4.ics';
     }
     if ($group == "BUT3-TP1") {
-        $calendar_link = './../backup/BUT3-TP1.ics';
+        $calendar_link = './../backup_cal/BUT3-TP1.ics';
     }
     if ($group == "BUT3-TP2") {
-        $calendar_link = './../backup/BUT3-TP2.ics';
+        $calendar_link = './../backup_cal/BUT3-TP2.ics';
     }
     if ($group == "BUT3-TP3") {
-        $calendar_link = './../backup/BUT3-TP3.ics';
+        $calendar_link = './../backup_cal/BUT3-TP3.ics';
     }
     if ($group == "BUT3-TP4") {
-        $calendar_link = './../backup/BUT3-TP4.ics';
+        $calendar_link = './../backup_cal/BUT3-TP4.ics';
     }
     return $calendar_link;
 }
