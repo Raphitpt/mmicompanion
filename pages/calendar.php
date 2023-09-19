@@ -245,9 +245,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       <?php generateBurgerMenuContent() ?>
 
     </header>
-
+    <div style="height:30px"></div>
     <main class="main-calendar">
-      <div style="height:30px"></div>
+      
       <section class="section_calendar-calendar">
         <div class="title_trait">
           <h1>L'emploi du temps</h1>
