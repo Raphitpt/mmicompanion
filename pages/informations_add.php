@@ -118,7 +118,7 @@ echo head('Ajouter une information');
             <?php 
             foreach ($informations as $information) {
                 if(str_contains($information['role'], 'admin')){
-                    echo "je suis admin";
+                    echo "<input type='checkbox' name='group_info' id='group_info' value='all'>";
                 }
                 if (str_contains($information['role'], 'chef')){
                     echo "je suis chef";
