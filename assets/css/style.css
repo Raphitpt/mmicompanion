@@ -1054,11 +1054,12 @@ main {
 #calendar {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
-    width: 100vw;
+    width: 95vw;
     height: 100%;
     padding: 20px;
     max-height: 900px;
     background-color: white;
+    border-radius: 20px;
 }
 
 .fc-toolbar-title {
