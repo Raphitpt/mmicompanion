@@ -1035,7 +1035,7 @@ main {
     background-color: transparent !important;
     border: none !important;
     color: #004A5A !important;
-    font-size: 11px;
+    font-size: 0.80em !important;
 }
 
 .fc-footer-toolbar .fc-toolbar-chunk button:focus{
@@ -1059,7 +1059,7 @@ main {
 .fc-toolbar-title {
     color: #004A5A !important;
     font-weight: 600 !important;
-    font-size: 15px !important;
+    font-size: 0.95em !important;
     font-family: Montserrat !important;
     text-align: center;
     overflow: hidden;
@@ -1081,7 +1081,7 @@ main {
     background-color: transparent !important;
     border: none !important;
     color: #004A5A !important;
-    font-size: 11px;
+    font-size: 0.75em !important;
 }
 
 
@@ -1089,9 +1089,9 @@ main {
     margin-left: 0px;
 }
 
-/* .fc-timegrid-slot {
-    height: 30px !important
-} */
+.fc-timegrid-slot {
+    height: 1.6em !important
+}
 
 .fc-theme-standard .fc-scrollgrid {
     border: none !important;
