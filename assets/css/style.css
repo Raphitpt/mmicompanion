@@ -1360,7 +1360,7 @@ main {
     gap: 3px;
 }
 
-.agenda_title_content_list_item_flexleft-agenda h3 {
+.agenda_title_content_list_item_flexleft-agenda label {
     color: #252525;
     font-family: Montserrat;
     font-size: 14px;

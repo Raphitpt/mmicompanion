@@ -300,18 +300,18 @@ echo head("MMI Companion | Agenda");
                     }
                     if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
                         if ($agenda['checked'] == 1) {
-                            echo "<input type='checkbox' name='checkbox' class='checkbox' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-".$agenda['id_task']."' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
                         } else {
-                            echo "<input type='checkbox' name='checkbox' class='checkbox' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
+                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-".$agenda['id_task']."' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
                         }
                     }
 
                     echo "<div class='agenda_title_content_list_item_flexleft-agenda'>";
                     if ($agenda['type'] == "eval") {
-                        echo "<h3 class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</h3>";
+                        echo "<label for='checkbox-".$agenda['id_task']."' class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</label>";
                     }
                     if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                        echo "<h3 class='title_subject-agenda'>" . $agenda['title'] . "</h3>";
+                        echo "<label for='checkbox-".$agenda['id_task']."' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
                     }
                     echo "<div class='agenda_content_subject-agenda'>";
                     foreach ($colors as $color) {
