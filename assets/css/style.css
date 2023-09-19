@@ -1032,17 +1032,10 @@ main {
 }
 
 .fc-footer-toolbar .fc-toolbar-chunk button{
-    background-color: #56B8D6 !important;
-    color: #004A5A !important;
+    background-color: transparent !important;
     border: none !important;
-    border-radius: 25px !important;
-    padding: 10px 15px !important;
-    width: 100px !important;
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    cursor: pointer !important;
-    font-family: Montserrat !important;
-    text-decoration: none !important;
+    color: #004A5A !important;
+    font-size: 11px;
 }
 
 .fc-footer-toolbar .fc-toolbar-chunk button:focus{
@@ -1060,7 +1053,9 @@ main {
     background-color: white;
     border-radius: 20px;
 }
-
+.fc .fc-toolbar.fc-header-toolbar{
+    margin-bottom: 0.5em !important;
+}
 .fc-toolbar-title {
     color: #004A5A !important;
     font-weight: 600 !important;
@@ -1070,9 +1065,11 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 200px;
+    max-width: 80vw;
 }
-
+.fc .fc-toolbar.fc-footer-toolbar{
+    margin-top: 0.5em !important;
+}
 .fc-toolbar-chunk {
     display: flex !important;
     justify-content: center !important;
