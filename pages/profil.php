@@ -30,7 +30,7 @@ $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 
-if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin") {
+if (str_contains($user_sql['role'], "chef") || str_contains($user_sql['role'], "admin")) {
     $sql_list = "SELECT pname, name, id_user FROM users WHERE edu_group = :edu_group AND role = 'eleve' ORDER BY name ASC";
     $stmt = $dbh->prepare($sql_list);
     $stmt->execute([
@@ -110,7 +110,7 @@ echo head("MMI Companion | Profil");
                 <?php } ?>
 
             </form>
-            <?php if ($user_sql['role'] == "chef") { ?>
+            <?php if (str_contains($user_sql['role'], "chef")) { ?>
                 <div class="trait-profil"></div>
 
                 <div class="transmit_role-profil">

@@ -980,24 +980,17 @@ main {
 /* ---------- */
 
 .main-calendar {
-    width: 100vw;
+    width: 95vw;
     max-width: 550px;
     height: calc(100vh - 70px);
     overflow-y: hidden;
 }
 
-.section_calendar-calendar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-}
 
 .title_trait {
     display: flex;
     flex-direction: row;
     align-items: end;
-    width: 80vw;
 }
 
 .title_trait h1 {
@@ -1014,6 +1007,10 @@ main {
     border-radius: 10px;
     background: var(--texte, #004A5A);
     margin-bottom: 3px;
+}
+
+.section_calendar-calendar .title_trait{
+    margin-left: 40px;
 }
 
 .container_calendar-calendar{
@@ -1033,14 +1030,12 @@ main {
 }
 
 .fc-footer-toolbar .fc-toolbar-chunk button{
-    background-color: #56B8D6 !important;
     color: #004A5A !important;
     border: none !important;
-    border-radius: 25px !important;
-    padding: 10px 15px !important;
+    padding: 5px 10px !important;
     width: 100px !important;
     font-size: 13px !important;
-    font-weight: 700 !important;
+    font-weight: 500 !important;
     cursor: pointer !important;
     font-family: Montserrat !important;
     text-decoration: none !important;
@@ -1054,26 +1049,31 @@ main {
 #calendar {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
-    width: 95vw;
-    height: 100%;
-    padding: 20px;
-    max-height: 900px;
-    background-color: white;
+    width: 100%;
+    background-color: #fff;
     border-radius: 20px;
+    padding: 20px;
+    padding-bottom: 10px;
+    max-height: 900px;
 }
 
+.fc .fc-toolbar.fc-header-toolbar{
+    margin-bottom: 0.5em !important;
+}
 .fc-toolbar-title {
     color: #004A5A !important;
     font-weight: 600 !important;
-    font-size: 15px !important;
+    font-size: 0.95em !important;
     font-family: Montserrat !important;
     text-align: center;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    max-width: 200px;
+    max-width: 80vw;
 }
-
+.fc .fc-toolbar.fc-footer-toolbar{
+    margin-top: 0.5em !important;
+}
 .fc-toolbar-chunk {
     display: flex !important;
     justify-content: center !important;
@@ -1085,7 +1085,7 @@ main {
     background-color: transparent !important;
     border: none !important;
     color: #004A5A !important;
-    font-size: 11px;
+    font-size: 0.75em !important;
 }
 
 
@@ -1094,7 +1094,7 @@ main {
 }
 
 .fc-timegrid-slot {
-    height: 30px !important
+    height: 1.55em !important
 }
 
 .fc-theme-standard .fc-scrollgrid {
@@ -1360,7 +1360,7 @@ main {
     gap: 3px;
 }
 
-.agenda_title_content_list_item_flexleft-agenda h3 {
+.agenda_title_content_list_item_flexleft-agenda label {
     color: #252525;
     font-family: Montserrat;
     font-size: 14px;
@@ -1780,6 +1780,22 @@ main {
     font-weight: 500;
     line-height: normal;
     resize: vertical;
+}
+
+.form_role_input-informations_add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.form_role_input-informations_add label{
+    color: var(--Texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .form_groupe_input-informations_add{

@@ -25,6 +25,7 @@ if ($user_sql['role'] == 'eleve') {
     exit;
 }
 
+
 session_start();
 
 if (isset($_POST['submit'])) {
@@ -35,13 +36,15 @@ if (isset($_POST['submit'])) {
 
         $title = $_POST['titre'];
         $name = $_POST['user'];
+        $user_role = $_POST['role'];
         $content = $_POST['content'];
 
-        $sql = "INSERT INTO informations (titre, user, content, group_info, id_user) VALUES (:titre, :user, :content, :group_info, :id_user)";
+        $sql = "INSERT INTO informations (titre, user, user_role, content, group_info, id_user) VALUES (:titre, :user, :user_role, :content, :group_info, :id_user)";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
             'titre' => $title,
             'user' => $name,
+            'user_role' => $user_role,
             'content' => $content,
             'group_info' => $group_info,
             'id_user' => $user['id_user']
@@ -91,9 +94,37 @@ echo head('Ajouter une information');
                 <input type="text" name="titre" id="titre" placeholder="Ajouter un titre à l'information" required>
             </div>
             <div class="form_input-informations_add">
-                <label for="user">Utilisateur</label>
-                <input type="text" name="user" id="user" placeholder="Utilisateur" value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>" readonly>
+                <label for="user_input">Utilisateur</label>
+                <input type="text" name="user" id="user_input" placeholder="Utilisateur" value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>" readonly>
             </div>
+            <?php 
+                if(str_contains($user_sql['role'], 'admin')){
+                    echo "<div class='form_role_input-informations_add'>";
+                    echo "<input type='radio' name='role' value='admin' id='admin'>";
+                    echo "<label for='admin'>Je veux que mon rôle s'affiche en tant qu'administrateur</label>";
+                    echo "</div>";
+                }
+                if (str_contains($user_sql['role'], 'chef')){
+                    echo "<div class='form_role_input-informations_add'>";
+                    echo "<input type='radio' name='role' value='chef' id='chef'>";
+                    echo "<label for='chef'>Je veux que mon rôle s'affiche en tant que chef du TP</label>";
+                    echo "</div>";
+                }
+                if (str_contains($user_sql['role'], 'BDE')){
+                    echo "<div class='form_role_input-informations_add'>";
+                    echo "<input type='radio' name='role' value='BDE' id='bde'>";
+                    echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
+                    echo "</div>";
+                }
+
+                if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
+                    echo "<div class='form_role_input-informations_add'>";
+                    echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
+                    echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
+                    echo "</div>";
+                }
+            
+            ?>
             <div class="form_input-informations_add">
                 <label for="content">Contenu</label>
                 <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
@@ -124,7 +155,7 @@ echo head('Ajouter une information');
                 id: 'BUT1',
                 text: 'BUT1',
                 children: [{
-                        id: 'BUT-TP1',
+                        id: 'BUT1-TP1',
                         text: 'TP1',
                     },
                     {
