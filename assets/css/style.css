@@ -1254,7 +1254,6 @@ main {
 .main-agenda {
     width: 80vw;
     max-width: 550px;
-    overflow-y: hidden;
 }
 
 .agenda_title_flextop-agenda {
