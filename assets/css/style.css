@@ -997,7 +997,6 @@ main {
     display: flex;
     flex-direction: row;
     align-items: end;
-    width: 80vw;
 }
 
 .title_trait h1 {

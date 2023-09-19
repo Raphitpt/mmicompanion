@@ -25,6 +25,18 @@ if ($user_sql['role'] == 'eleve') {
     exit;
 }
 
+$sql_informations = "SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_common
+                    UNION ALL
+                    SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info LIKE :edu_group_perso ORDER BY date DESC";
+
+$query_informations = $dbh->prepare($sql_informations);
+$query_informations->execute([
+    'edu_group_common' => 'all',
+    'edu_group_perso' => '%' . $user_sql['edu_group'] . '%'
+]);
+
+$informations = $query_informations->fetchAll();
+
 session_start();
 
 if (isset($_POST['submit'])) {
@@ -103,6 +115,20 @@ echo head('Ajouter une information');
                 <div class="form_groupe_content_input-informations_add"></div>
             </div>
             <input type="hidden" name="group_info" id="group_info">
+            <?php 
+            foreach ($informations as $information) {
+                if(str_contains($information['role'], 'admin')){
+                    echo "je suis admin";
+                }
+                if (str_contains($information['role'], 'chef')){
+                    echo "je suis chef";
+                }
+                if (str_contains($information['role'], 'BDE')){
+                    echo "je suis BDE";
+                }
+            }
+            
+            ?>
             <div class="form_button-informations_add">
                 <a role="button" href='./informations.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
