@@ -16,7 +16,7 @@ $ical_links = [
 ];
 
 
-$backupDir = './backup_cal/';
+$backupDir = 'backup_cal/';
 
 foreach ($ical_links as $group => $calendar_link) {
     $icalData = file_get_contents($calendar_link);
