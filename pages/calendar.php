@@ -245,7 +245,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       <?php generateBurgerMenuContent() ?>
 
     </header>
-    <div style="height:30px"></div>
+    <div style="height:15px"></div>
     <main class="main-calendar">
       
       <section class="section_calendar-calendar">
@@ -313,7 +313,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         // hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 50,
-        height: 'calc(90vh - 100px)',
+        height: 'calc(98vh - 138px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
