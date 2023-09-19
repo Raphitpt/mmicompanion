@@ -178,7 +178,7 @@ echo head('Ajouter une information');
                 text: 'BUT1',
                 children: [
                     {
-                        id: 'BUT-TP1',
+                        id: 'BUT1-TP1',
                         text: 'TP1',
                     },
                     {   id: 'BUT1-TP2', 
