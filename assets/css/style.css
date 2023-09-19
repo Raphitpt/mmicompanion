@@ -7,6 +7,10 @@
     touch-action: manipulation;
 }
 
+:root{
+    --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -32,6 +36,7 @@ main {
     align-items: center;
     flex-direction: column;
 }
+
 
 /* HEADER */
 
@@ -1112,6 +1117,10 @@ main {
     background-image: url(path/to/image.jpg);
     background-size: cover;
     /* autres styles personnalisés */
+}
+
+.fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link{
+    box-shadow : 0 0 0 0;
 }
 
 
