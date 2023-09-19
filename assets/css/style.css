@@ -1052,11 +1052,11 @@ main {
 
 #calendar {
     font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
+    font-size: 0.95em;
     width: 95vw;
     height: 100%;
-    padding: 20px;
-    max-height: 900px;
+    padding: 1em;
+    max-height: 90vh;
     background-color: white;
     border-radius: 20px;
 }
