@@ -239,40 +239,40 @@ function calendar($group = '')
 {
     $calendar_link = '';
     if ($group == "BUT1-TP1") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21314&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21314&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT1-TP2") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21315&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21315&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT1-TP3") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21470&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21470&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT1-TP4") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24826&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24826&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT2-TP1") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24827&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24827&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT2-TP2") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24834&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24834&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT2-TP3") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24835&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24835&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT2-TP4") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24836&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24836&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT3-TP1") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2465&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2465&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT3-TP2") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2454&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2454&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT3-TP3") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2452&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2452&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     if ($group == "BUT3-TP4") {
-        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2451&projectId=14&calType=ical&nbWeeks=15';
+        $calendar_link = 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2451&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01';
     }
     return $calendar_link;
 }
