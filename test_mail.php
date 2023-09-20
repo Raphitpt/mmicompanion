@@ -4,7 +4,7 @@ require 'bootstrap.php';
 
 use SMTPValidateEmail\Validator as SmtpEmailValidator;
 
-$email     = 'raphael.tiphonet@etu.univ-poitiers.fr';
+$email     = 'rsggdrdfg.tdfgfgdgf@etu.univ-poitiers.fr';
 $sender    = 'no-reply@mmi-companion.fr';
 $validator = new SmtpEmailValidator($email, $sender);
 
