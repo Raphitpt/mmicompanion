@@ -51,6 +51,10 @@ if (isset($_POST['submit'])) {
     $title = $_POST['titre'];
     $name = $_POST['user'];
     $content = $_POST['content'];
+
+    if ($user_role=='chef') {
+        $group_info = $user['edu_group'];
+    }
     
     $sql = "UPDATE informations SET titre=:titre, user=:user, content=:content, group_info=:group_info WHERE id_infos=:id_information";
     $stmt = $dbh->prepare($sql);

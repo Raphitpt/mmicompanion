@@ -12,6 +12,8 @@ $jwt = $_COOKIE['jwt'];
 $secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
 $user = decodeJWT($jwt, $secret_key);
 
+dd($user);
+
 $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
 $stmt = $dbh->prepare($user_sql);
 $stmt->execute([
@@ -38,6 +40,10 @@ if (isset($_POST['submit'])) {
         $name = $_POST['user'];
         $user_role = $_POST['role'];
         $content = $_POST['content'];
+
+        if ($user_role=='chef') {
+            $group_info = $user['edu_group'];
+        }
 
         $sql = "INSERT INTO informations (titre, user, user_role, content, group_info, id_user) VALUES (:titre, :user, :user_role, :content, :group_info, :id_user)";
         $stmt = $dbh->prepare($sql);
