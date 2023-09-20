@@ -13,7 +13,3 @@ $validator = new SmtpEmailValidator($email, $sender);
 $results   = $validator->validate();
 
 dd($results);
-
-// // Get log data (log data is always collected)
-// $log = $validator->getLog();
-// var_dump($log);
