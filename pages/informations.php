@@ -60,7 +60,7 @@ echo head("MMI Companion | Informations");
                 <div></div>
             </div>
             <?php 
-            if (str_contains($user_sql['role'], "chef") ||str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "prof") || str_contains($user_sql['role'], "BDE")) {
+            if (str_contains($user_sql['role'], "chef") || str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "prof") || str_contains($user_sql['role'], "BDE")) {
                 ?>
                 <div class="info_title_flextopright-informations">
                     <a href="./informations_add.php">Ajouter</a>
@@ -93,7 +93,7 @@ echo head("MMI Companion | Informations");
                         </div>
                         <div class="item_content_title_flexbottom-information">
                             <p><?= $newDate ?></p>
-                            <p style="background-color : <?php echo $name_color ?>"><?= $information['user'] ?></p>
+                            <p style="background-color : <?php echo $name_color ?>"><?= ucwords($information['user_role']) ?></p>
                         </div>
                     </div>
                     <div class="item_content_text-information">
