@@ -44,10 +44,12 @@ session_start();
 
 if (isset($_POST['submit'])) {
     if(!empty($_POST['titre']) && !empty($_POST['user']) && !empty($_POST['content']) && !empty($_POST['group_info'])){
-    $json_group_info = json_decode($_POST['group_info']);
-    $group_info = $json_group_info;
-    $group_info = implode(',', $group_info);
-
+    if (!empty($_POST['group_info'])) {
+        $json_group_info = json_decode($_POST['group_info']);
+        $group_info = $json_group_info;
+        $group_info = implode(',', $group_info);
+    }
+    
     $title = $_POST['titre'];
     $name = $_POST['user'];
     $user_role = $_POST['role'];
