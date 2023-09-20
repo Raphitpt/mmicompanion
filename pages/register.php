@@ -19,11 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 
-        // if ($password != $confirm_password) {
-        //     $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
-        //     header('Location: ./register.php');
-        //     exit();
-        // }
+        if(str_contains($edu_mail, "@univ-poitiers.fr")){
+            $edu_group = "prof";
+        }
         
         // Vérifier si l'utilisateur existe déjà dans la base de données sinon créer son compte
         $sql_check = "SELECT * FROM users WHERE edu_mail = :edu_mail";
