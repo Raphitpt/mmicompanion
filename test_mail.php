@@ -12,8 +12,8 @@ $validator = new SmtpEmailValidator($email, $sender);
 // $validator->debug = true;
 $results   = $validator->validate();
 
-var_dump($results);
+dd($results);
 
-// Get log data (log data is always collected)
-$log = $validator->getLog();
-var_dump($log);
+// // Get log data (log data is always collected)
+// $log = $validator->getLog();
+// var_dump($log);
