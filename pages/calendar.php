@@ -412,7 +412,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             format: "ics",
           },
           {
-            url: '/calendar_event.php',
+            url: './calendar_event.php',
           },
         ],
         eventContent: function(arg) {
