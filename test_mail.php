@@ -13,3 +13,9 @@ $validator = new SmtpEmailValidator($email, $sender);
 $results   = $validator->validate();
 
 dd($results);
+
+// if ($results[$email] === true) {
+//     echo 'Email is valid!';
+// } else {
+//     echo 'Email is not valid!';
+// }
