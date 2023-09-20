@@ -218,6 +218,7 @@ echo head('MMI Companion | Informations');
 
         const myTree = new Tree('.form_groupe_content_input-informations_add', {
             data: treeData,
+            closeDepth: 1,
             onChange: function() {
                 document.getElementById("group_info").value = JSON.stringify(this.values);
                 console.log(this.values);
