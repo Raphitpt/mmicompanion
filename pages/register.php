@@ -19,10 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 
-        if(str_contains($edu_mail, "@univ-poitiers.fr")){
-            $edu_group = "prof";
-        }
-        
+
         // Vérifier si l'utilisateur existe déjà dans la base de données sinon créer son compte
         $sql_check = "SELECT * FROM users WHERE edu_mail = :edu_mail";
         $stmt = $dbh->prepare($sql_check);
@@ -44,17 +41,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             $pp_profile = 'https://ui-avatars.com/api/?background=56b8d6&color=004a5a&bold=true&name='.$pname.'+'.$name.'&rounded=true&size=128';
 
-            $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link)";
-            $stmt = $dbh->prepare($sql_register);
-            $stmt->execute([
-                ':pname' => $pname,
-                ':name' => $name,
-                ':pass' => $hash_password,
-                ':edu_mail' => $edu_mail,
-                ':edu_group' => $edu_group,
-                ':activation_code' => $activation_code,
-                ':pp_link' => $pp_profile
-            ]);
+            if(str_contains($edu_mail, "@univ-poitiers.fr")){
+                $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link, role) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link, :role)";
+                $stmt = $dbh->prepare($sql_register);
+                $stmt->execute([
+                    ':pname' => $pname,
+                    ':name' => $name,
+                    ':pass' => $hash_password,
+                    ':edu_mail' => $edu_mail,
+                    ':edu_group' => $edu_group,
+                    ':activation_code' => $activation_code,
+                    ':pp_link' => $pp_profile,
+                    'role' => 'prof'
+                ]);
+            } else {
+                $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link)";
+                $stmt = $dbh->prepare($sql_register);
+                $stmt->execute([
+                    ':pname' => $pname,
+                    ':name' => $name,
+                    ':pass' => $hash_password,
+                    ':edu_mail' => $edu_mail,
+                    ':edu_group' => $edu_group,
+                    ':activation_code' => $activation_code,
+                    ':pp_link' => $pp_profile
+                ]);
+            }
             $data = array(
                 'mail_user' => $edu_mail,
                 'activation_code' => $activation_code,
