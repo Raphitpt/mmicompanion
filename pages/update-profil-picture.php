@@ -12,9 +12,18 @@ if (isset($_FILES['profil-picture'])) {
   if ($uploadedFile['error'] === UPLOAD_ERR_OK) {
     $fileName = $uploadedFile['name'];
     $fileTempPath = $uploadedFile['tmp_name'];
+    $filename_name = pathinfo( $fileName, PATHINFO_FILENAME );
+    $filename_extension = pathinfo($fileName, PATHINFO_EXTENSION);
+    $suffix = uniqid();
+    $filename_modif = $filename_name . '_' . $suffix . '.' .$filename_extension;
 
-    // Déplacer le fichier téléchargé vers un emplacement permanent
-    $destinationPath = './../uploads/' . $fileName;
+    if (!in_array($uploadedFile['type'], ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'])) {
+      header('Location: ./profil.php');
+      exit();
+    }
+    
+    $destinationPath = './../uploads/' . $filename_modif;
+
     if (move_uploaded_file($fileTempPath, $destinationPath)) {
       $sql = "UPDATE users SET pp_link = :profil_picture WHERE id_user = :id_user";
       $stmt = $dbh->prepare($sql);
