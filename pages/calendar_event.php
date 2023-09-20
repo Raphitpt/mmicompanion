@@ -17,7 +17,9 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         'id' => $row['id_event'],
         'title' => $row['title'],
         'start' => $row['start'], // Format date et heure ISO8601
-        'end' => $row['end'],     // Format date et heure ISO8601
+        'end' => $row['end'],
+        'description' => $row['description'],
+        'location' => $row['location'],
     ];
     array_push($events, $event);
 }
