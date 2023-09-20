@@ -406,10 +406,15 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           },
         },
         // plugins: [DayGridPlugin, iCalendarPlugin],
-        events: {
-          url: url1,
-          format: "ics",
-        },
+        eventSources:[
+          {
+            url: url1,
+            format: "ics",
+          },
+          {
+            url: '/calendar_event.php',
+          },
+        ],
         eventContent: function(arg) {
           let eventTitle = arg.event.title;
           let eventLocation = arg.event.extendedProps.location;
