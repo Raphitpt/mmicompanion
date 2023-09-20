@@ -237,7 +237,7 @@ echo head('MMI Companion | Informations');
 
         const myTree = new Tree('.form_groupe_input-informations_add', {
             data: treeData,
-            
+            closeDepth: 1,           
 
             loaded: function() {
                 const values = this.values;
