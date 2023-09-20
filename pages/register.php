@@ -19,6 +19,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 
+        $ve = new hbattat\VerifyEmail($edu_mail, 'no-reply@mmi-companion.fr');
+        
+        if ($ve->verify() === false) {
+            $error_message = "L'email n'est pas valide.";
+            exit();
+        }
 
         // Vérifier si l'utilisateur existe déjà dans la base de données sinon créer son compte
         $sql_check = "SELECT * FROM users WHERE edu_mail = :edu_mail";
