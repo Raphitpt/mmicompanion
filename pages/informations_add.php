@@ -38,6 +38,7 @@ if (isset($_POST['submit'])) {
         $name = $_POST['user'];
         $user_role = $_POST['role'];
         $content = $_POST['content'];
+        $content = str_replace('<br />', PHP_EOL, $content);
 
         if ($user_role=='chef') {
             $group_info = $user['edu_group'];

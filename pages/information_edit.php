@@ -52,6 +52,7 @@ if (isset($_POST['submit'])) {
     $name = $_POST['user'];
     $user_role = $_POST['role'];
     $content = $_POST['content'];
+    $content = str_replace('<br />', PHP_EOL, $content);
 
     if ($user_role=='chef') {
         $group_info = $user['edu_group'];
@@ -268,7 +269,7 @@ echo head('MMI Companion | Informations');
     console.log(radioInputs);
 
     // Sélectionnez l'élément .form_groupe_input-informations_add
-    let formGroupe = document.querySelector(".form_groupe_content_input-informations_add");
+    let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
     radioInputs.forEach(radioInput => {
         radioInput.addEventListener("change", function () {

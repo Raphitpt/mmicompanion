@@ -162,6 +162,8 @@ echo head("MMI Companion | Informations");
                         $name_color = "#FF3333";
                     } elseif (str_contains($information['user_role'], "BDE")) {
                         $name_color = "#bca5ff";
+                    } else{
+                        $name_color = "#C882FF";
                     }
                     ?>
                     <div class="item-information">
