@@ -2,22 +2,8 @@
 
 require 'bootstrap.php';
 
-use SMTPValidateEmail\Validator as SmtpEmailValidator;
+$ve = new hbattat\VerifyEmail('fzgdsfhjfd.sfdfddsf@etu.univ-poitiers.fr', 'no-reply@mmi-companion.fr');
 
-// Create a new validator object
-
-$email     = 'rsggdrdfg.tdfgfgdgf@etu.univ-poitiers.fr';
-$sender    = 'no-reply@mmi-companion.fr';
-$validator = new SmtpEmailValidator($email, $sender);
-
-// If debug mode is turned on, logged data is printed as it happens:
-// $validator->debug = true;
-$results   = $validator->validate();
-
-dd($results);
-
-// if ($results[$email] === true) {
-//     echo 'Email is valid!';
-// } else {
-//     echo 'Email is not valid!';
-// }
+var_dump($ve->verify());
+print_r($ve->get_errors());
+print_r($ve->get_debug());
