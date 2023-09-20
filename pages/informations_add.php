@@ -35,8 +35,6 @@ if (isset($_POST['submit'])) {
             $group_info = $json_group_info;
             $group_info = implode(',', $group_info);
         }
-        
-
         $title = $_POST['titre'];
         $name = $_POST['user'];
         $user_role = $_POST['role'];
