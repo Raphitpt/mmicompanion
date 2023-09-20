@@ -74,15 +74,15 @@ echo head("MMI Companion | Informations");
                 $name_color = "";
                 $timestamp = strtotime($information['date']); // Convertit la date en timestamp
                 $newDate = date("d-m-Y H:i", $timestamp);
-                if (str_contains($information['role'], "eleve")) {
-                    $name_color = "#FFB141";
-                } elseif (str_contains($information['role'], "prof")) {
+                $userRole = $information['user_role'];
+                if (str_contains($information['user_role'], "prof")) {
                     $name_color = "#5cceff";
-                } elseif (str_contains($information['role'], "chef")) {
+                    $userRole = $information['user'];
+                } elseif (str_contains($information['user_role'], "chef")) {
                     $name_color = "#FFA02F";
-                } elseif (str_contains($information['role'], "admin")) {
+                } elseif (str_contains($information['user_role'], "admin")) {
                     $name_color = "#FF3333";
-                } elseif (str_contains($information['role'], "BDE")) {
+                } elseif (str_contains($information['user_role'], "BDE")) {
                     $name_color = "#bca5ff";
                 }
                 ?>
@@ -93,7 +93,7 @@ echo head("MMI Companion | Informations");
                         </div>
                         <div class="item_content_title_flexbottom-information">
                             <p><?= $newDate ?></p>
-                            <p style="background-color : <?php echo $name_color ?>"><?= ucwords($information['user_role']) ?></p>
+                            <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
                         </div>
                     </div>
                     <div class="item_content_text-information">

@@ -120,7 +120,11 @@ echo head('MMI Companion | Informations');
                     echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
                     echo "</div>";
                 }
-
+                if (str_contains($user_sql['role'], 'prof')){
+                    echo "<div class='form_role_input-informations_add'>";
+                    echo "<input type='hidden' name='role' value='prof' id='prof'>";
+                    echo "</div>";
+                }
                 if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
                     echo "<div class='form_role_input-informations_add'>";
                     echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
