@@ -1647,6 +1647,56 @@ main {
     width: 100%;
 }
 
+.form_groupe_input-informations{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form_groupe_input-informations p{
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 500;
+}
+
+.form_groupe_content_input-informations .treejs-nodes{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    font-family: Montserrat;
+    font-weight: 500;
+    color: var(--Texte, #004A5A);
+    gap: 10px;
+}
+
+.treejs-node .treejs-nodes{
+    margin-top: 5px;
+    gap: 5px;
+}
+
+.treejs-checkbox::before{
+    background-color: white;
+}
+
+.form_groupe_content_input-informations{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+}
+
+.form_button-informations{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+
 .item-information{
     display: flex;
     flex-direction: column;
@@ -1806,6 +1856,28 @@ main {
     resize: vertical;
 }
 
+.form_groupe_content_input-informations_add .treejs-nodes{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: start;
+    font-family: Montserrat;
+    font-weight: 500;
+    color: var(--Texte, #004A5A);
+    gap: 20px;
+}
+
+.treejs-node .treejs-nodes{
+    margin-top: 5px;
+    gap: 5px;
+}
+
+.treejs-checkbox::before{
+    background-color: white;
+}
+
 .form_role_input-informations_add{
     display: flex;
     align-items: center;
@@ -1845,23 +1917,6 @@ main {
     line-height: normal;
 }
 
-.form_container_checkbox-informations_add{
-    display: flex;
-    flex-direction: column;
-}
-
-.form_groupe_content_input-informations_add select{
-    border-radius: 30px;
-    background: #FFF;
-    padding: 5px 10px;
-    border: none;
-    color: #252525;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
 
 
 .form_button-informations_add {
@@ -1894,7 +1949,7 @@ main {
     line-height: normal;
 }
 
-.form_button-informations_add input[type="submit"] {
+.form_butttonValidate-informations {
     border-radius: 18px;
     background: var(--bleu-moyen, #56B8D6);
     width: 131px;
@@ -1922,28 +1977,6 @@ main {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-}
-
-.treejs-nodes{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: start;
-    font-family: Montserrat;
-    font-weight: 500;
-    color: var(--Texte, #004A5A);
-    gap: 20px;
-}
-
-.treejs-node .treejs-nodes{
-    margin-top: 5px;
-    gap: 5px;
-}
-
-.treejs-checkbox::before{
-    background-color: white;
 }
 
 

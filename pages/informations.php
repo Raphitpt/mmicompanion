@@ -35,6 +35,35 @@ $query_informations->execute([
 
 $informations = $query_informations->fetchAll();
 
+if (isset($_POST['submit'])) {
+    $group_info = $_POST['group_info'];
+    if ($group_info=="") {
+        $sql_informations = "SELECT * FROM informations WHERE id_user = :id_user AND user_role = 'prof'";
+        $query_informations = $dbh->prepare($sql_informations);
+        $query_informations->execute([
+            'id_user' => $user['id_user'],
+        ]);
+    }else{
+        $sql_informations = "SELECT * FROM informations WHERE id_user = :id_user AND user_role = 'prof' AND group_info = :group_info";
+        $query_informations = $dbh->prepare($sql_informations);
+        $query_informations->execute([
+            'id_user' => $user['id_user'],
+            'group_info' => $group_info
+        ]);
+    }
+    $informations_prof = $query_informations->fetchAll();
+} else{
+    $sql_informations = "SELECT * FROM informations WHERE id_user = :id_user AND user_role = 'prof'";
+    $query_informations = $dbh->prepare($sql_informations);
+    $query_informations->execute([
+        'id_user' => $user['id_user'],
+    ]);
+    $informations_prof = $query_informations->fetchAll();
+}
+
+
+
+
 echo head("MMI Companion | Informations");
 ?>
 <body class="body-tuto_agenda">
@@ -68,54 +97,193 @@ echo head("MMI Companion | Informations");
                 <?php
             } ?>
         </div>
-        <div style="height:20px"></div>
+        <div style="height:20px"></div> 
         <div class="container-informations">
-            <?php foreach ($informations as $information) : 
-                $name_color = "";
-                $timestamp = strtotime($information['date']); // Convertit la date en timestamp
-                $newDate = date("d-m-Y H:i", $timestamp);
-                $userRole = $information['user_role'];
-                if (str_contains($information['user_role'], "prof")) {
-                    $name_color = "#5cceff";
-                    $userRole = $information['user'];
-                } elseif (str_contains($information['user_role'], "chef")) {
-                    $name_color = "#FFA02F";
-                } elseif (str_contains($information['user_role'], "admin")) {
-                    $name_color = "#FF3333";
-                } elseif (str_contains($information['user_role'], "BDE")) {
-                    $name_color = "#bca5ff";
-                }
-                ?>
-                <div class="item-information">
-                    <div class="item_content_title-information">
-                        <div class="item_content_title_flextop-information">
-                            <h2><?= $information['titre'] ?></h2>
+            <?php 
+            if ( $user['role']==="prof") { ?>
+                <div class="form_groupe_input-informations">
+                    <p>Choisir les groupes ou cliquez sur valider sans case cochée pour voir toutes vos informations.</p>
+                    <div class="form_groupe_content_input-informations"></div>
+                    <form action="" method="post" class="informations-group">
+                        <input type="hidden" name="group_info" id="group_info">
+                        <div class="form_button-informations">
+                            <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
                         </div>
-                        <div class="item_content_title_flexbottom-information">
-                            <p><?= $newDate ?></p>
-                            <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
-                        </div>
-                    </div>
-                    <div class="item_content_text-information">
-                        <p><?= $information['content'] ?></p>
-                    </div>
-                    <?php if($information['id_user'] === $user['id_user']){ ?>
-                    <div class="item_button-informations">
-                        <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
-                        <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>
-                    </div>
-                    <?php } ?>
+                    </form>
                 </div>
-            <?php endforeach; ?>
+                <?php foreach ($informations_prof as $information_prof ) {
+                    $name_color = "";
+                    $timestamp = strtotime($information_prof['date']); // Convertit la date en timestamp
+                    $newDate = date("d-m-Y H:i", $timestamp);
+                    $userRole = $information_prof['user_role'];
+                    if (str_contains($information_prof['user_role'], "prof")) {
+                        $name_color = "#5cceff";
+                        $userRole = $information_prof['user'];
+                    } elseif (str_contains($information_prof['user_role'], "admin")) {
+                        $name_color = "#FF3333";
+                    } elseif (str_contains($information_prof['user_role'], "BDE")) {
+                        $name_color = "#bca5ff";
+                    }
+                    ?>
+                    
+                    <div class="item-information">
+                        <div class="item_content_title-information">
+                            <div class="item_content_title_flextop-information">
+                                <h2><?= $information_prof['titre'] ?></h2>
+                            </div>
+                            <div class="item_content_title_flexbottom-information">
+                                <p><?= $newDate ?></p>
+                                <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
+                            </div>
+                        </div>
+                        <div class="item_content_text-information">
+                            <p><?= $information_prof['content'] ?></p>
+                        </div>
+                        <?php if($information_prof['id_user'] === $user['id_user']){ ?>
+                        <div class="item_button-informations">
+                            <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information_prof['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
+                            <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information_prof['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>
+                        </div>
+                        <?php } ?>
+                    </div>
+                <?php }
+            } else{    
+                foreach ($informations as $information) : 
+                    $name_color = "";
+                    $timestamp = strtotime($information['date']); // Convertit la date en timestamp
+                    $newDate = date("d-m-Y H:i", $timestamp);
+                    $userRole = $information['user_role'];
+                    if (str_contains($information['user_role'], "prof")) {
+                        $name_color = "#5cceff";
+                        $userRole = $information['user'];
+                    } elseif (str_contains($information['user_role'], "chef")) {
+                        $name_color = "#FFA02F";
+                    } elseif (str_contains($information['user_role'], "admin")) {
+                        $name_color = "#FF3333";
+                    } elseif (str_contains($information['user_role'], "BDE")) {
+                        $name_color = "#bca5ff";
+                    } else{
+                        $name_color = "#C882FF";
+                    }
+                    ?>
+                    <div class="item-information">
+                        <div class="item_content_title-information">
+                            <div class="item_content_title_flextop-information">
+                                <h2><?= $information['titre'] ?></h2>
+                            </div>
+                            <div class="item_content_title_flexbottom-information">
+                                <p><?= $newDate ?></p>
+                                <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
+                            </div>
+                        </div>
+                        <div class="item_content_text-information">
+                            <p><?= $information['content'] ?></p>
+                        </div>
+                        <?php if($information['id_user'] === $user['id_user']){ ?>
+                        <div class="item_button-informations">
+                            <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
+                            <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>
+                        </div>
+                        <?php } ?>
+                    </div>
+                <?php endforeach; 
+            }
+            ?>
         </div>
         <div style="height:30px"></div>
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
+    <script src='../assets/js/tree.min.js'></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
+
+
+        const treeData = [{
+                id: 'BUT1',
+                text: 'BUT1',
+                children: [{
+                        id: 'BUT1-TP1',
+                        text: 'TP1',
+                    },
+                    {
+                        id: 'BUT1-TP2',
+                        text: 'TP2'
+                    },
+                    {
+                        id: 'BUT1-TP3',
+                        text: 'TP3',
+                    },
+                    {
+                        id: 'BUT1-TP4',
+                        text: 'TP4'
+                    },
+                ],
+            },
+            {
+                id: 'BUT2',
+                text: 'BUT2',
+                children: [{
+                        id: 'BUT2-TP1',
+                        text: 'TP1',
+                    },
+                    {
+                        id: 'BUT2-TP2',
+                        text: 'TP2'
+                    },
+                    {
+                        id: 'BUT2-TP3',
+                        text: 'TP3',
+                    },
+                    {
+                        id: 'BUT2-TP4',
+                        text: 'TP4'
+                    },
+                ],
+            },
+            {
+                id: 'BUT3',
+                text: 'BUT3',
+                children: [{
+                        id: 'BUT3-TP1',
+                        text: 'TP1',
+                    },
+                    {
+                        id: 'BUT3-TP2',
+                        text: 'TP2'
+                    },
+                    {
+                        id: 'BUT3-TP3',
+                        text: 'TP3',
+                    },
+                    {
+                        id: 'BUT3-TP4',
+                        text: 'TP4'
+                    },
+                ],
+            },
+        ];
+
+        const myTree = new Tree('.form_groupe_content_input-informations', {
+            data: treeData,
+            closeDepth: 1,
+            onChange: function() {
+                document.getElementById("group_info").value = this.values;
+                let group_info = document.getElementById("group_info").value;
+                console.log(group_info);
+            },
+        });
+
+
+        // let buttonValidate = document.querySelector('.form_button-informations_add input');
+        // let groupInfo = document.querySelector('#group_info');
+
+        // buttonValidate.addEventListener('click', function() {
+        //     groupInfo.value="";
+        // })
+        
     </script>
 </body>
 

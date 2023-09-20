@@ -43,7 +43,7 @@ if ($user_sql['role'] == 'eleve'){
 session_start();
 
 if (isset($_POST['submit'])) {
-    if(!empty($_POST['titre']) && !empty($_POST['user']) && !empty($_POST['content']) && !empty($_POST['group_info'])){
+    if(!empty($_POST['titre']) && !empty($_POST['user']) && !empty($_POST['content'])){
     if (!empty($_POST['group_info'])) {
         $json_group_info = json_decode($_POST['group_info']);
         $group_info = $json_group_info;
@@ -54,6 +54,7 @@ if (isset($_POST['submit'])) {
     $name = $_POST['user'];
     $user_role = $_POST['role'];
     $content = $_POST['content'];
+    // $content = str_replace('<br />', PHP_EOL, $content);
 
     if ($user_role=='chef') {
         $group_info = $user['edu_group'];
@@ -164,12 +165,13 @@ echo head('MMI Companion | Informations');
                 <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"><?php echo strip_tags($information['content'])?></textarea>
             </div>
             <div class="form_groupe_input-informations_add">
-                
+                <p>Groupe</p>
+                <div class="form_groupe_content_input-informations_add"></div>
             </div>
             <input type="hidden" name="group_info" id="group_info">
             <div class="form_button-informations_add">
                 <a role="button" href='./informations.php'>Annuler</a>
-                <input type="submit" name="submit" value="Valider">
+                <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
             </div>
                 
         </form>
@@ -247,7 +249,7 @@ echo head('MMI Companion | Informations');
             },
         ];
 
-        const myTree = new Tree('.form_groupe_input-informations_add', {
+        const myTree = new Tree('.form_groupe_content_input-informations_add', {
             data: treeData,
 
             closeDepth: 1,           
