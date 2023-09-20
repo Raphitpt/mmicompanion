@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['pname']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['name']) && isset($_POST['edu_mail'])) {
        if (filter_var($_POST['edu_mail'], FILTER_VALIDATE_EMAIL) === false) {
         $error_message = "L'email n'est pas valide.";
+        header('Location: ./register.php?error_message='.$error_message.'');
         exit();
         }
 
@@ -22,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $ve = new hbattat\VerifyEmail($edu_mail, 'no-reply@mmi-companion.fr');
 
         if ($ve->verify() === false) {
-            $error_message = "L'email n'est pas valide.";
+            $error_message = "L'email n'est pas valide ou n'existe pas. Contacte-nous si il y a un problème !";
             header('Location: ./register.php?error_message='.$error_message.'');
             exit();
         }
@@ -36,9 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!empty($user)) {
             $error_message = "L'utilisateur existe déjà.";
+            header('Location: ./register.php?error_message='.$error_message.'');
+            exit();
         } else if ($password != $confirm_password){
             $error_message = "Les mots de passe ne correspondent pas.";
             $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
+            header('Location: ./register.php?error_message='.$error_message.'');
+            exit();
         } else{
             // On hash le mot de passe pour plus de sécurité, le MD5 est déconseillé, on laisse l'agorithme par défaut, ça évite les failles de sécurité
             $hash_password = password_hash($password, PASSWORD_DEFAULT);
