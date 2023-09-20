@@ -254,6 +254,29 @@ echo head('MMI Companion | Informations');
                 console.log(this.values);
         },
         });
+
+
+    // Sélectionnez les boutons radio
+    let radioInputs = document.querySelectorAll("input[name=role]");
+    console.log(radioInputs);
+
+    // Sélectionnez l'élément .form_groupe_input-informations_add
+    let formGroupe = document.querySelector(".form_groupe_input-informations_add");
+
+    radioInputs.forEach(radioInput => {
+        radioInput.addEventListener("change", function () {
+            if (radioInput.id == "admin") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "chef") {
+                formGroupe.classList.add("hidden");
+            } if (radioInput.id == "BDE") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "user") {
+                formGroupe.classList.remove("hidden");
+            }
+        });
+        
+    });
         
 
 

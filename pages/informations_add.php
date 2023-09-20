@@ -229,34 +229,31 @@ echo head('MMI Companion | Informations');
             },
         });
 
-        // Cacher les groupes qui ne sont pas dans le groupe du chef
+    
+    // Cacher les groupes qui ne sont pas dans le groupe du chef
 
-        
     // Sélectionnez les boutons radio
-    let radioAdmin = document.getElementById("admin");
-    let radioChef = document.getElementById("chef");
-    // let radioBDE = document.getElementById("bde");
-    let radioUser = document.getElementById("user");
+    let radioInputs = document.querySelectorAll("input[name=role]");
+    console.log(radioInputs);
 
     // Sélectionnez l'élément .form_groupe_input-informations_add
     let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
-    // Ajoutez un gestionnaire d'événements à chaque bouton radio
-    radioAdmin.addEventListener("change", function () {
-        formGroupe.classList.remove("hidden");
+    radioInputs.forEach(radioInput => {
+        radioInput.addEventListener("change", function () {
+            if (radioInput.id == "admin") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "chef") {
+                formGroupe.classList.add("hidden");
+            } if (radioInput.id == "BDE") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "user") {
+                formGroupe.classList.remove("hidden");
+            }
+        });
+        
     });
 
-    radioChef.addEventListener("change", function () {
-        formGroupe.classList.add("hidden");
-    });
-
-    // radioBDE.addEventListener("change", function () {
-    //     formGroupe.classList.remove("hidden");
-    // });
-
-    radioUser.addEventListener("change", function () {
-        formGroupe.classList.remove("hidden");
-    });
 
 
     </script>
