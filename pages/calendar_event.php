@@ -7,7 +7,7 @@ $secret_key = $_ENV['SECRET_KEY'];
 $user = decodeJWT($jwt, $secret_key);
 
 $sql_events = "SELECT * FROM calendar_event WHERE user_id = :user_id";
-$stmt = $conn->prepare($sql_events);
+$stmt = $dbh->prepare($sql_events);
 $stmt->bindParam(':user_id', $user['id']);
 $stmt->execute();
 $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
