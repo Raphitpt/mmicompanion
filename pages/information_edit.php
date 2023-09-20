@@ -162,12 +162,13 @@ echo head('MMI Companion | Informations');
                 <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"><?php echo strip_tags($information['content'])?></textarea>
             </div>
             <div class="form_groupe_input-informations_add">
-                
+                <p>Groupe</p>
+                <div class="form_groupe_content_input-informations_add"></div>
             </div>
             <input type="hidden" name="group_info" id="group_info">
             <div class="form_button-informations_add">
                 <a role="button" href='./informations.php'>Annuler</a>
-                <input type="submit" name="submit" value="Valider">
+                <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
             </div>
                 
         </form>
@@ -245,7 +246,7 @@ echo head('MMI Companion | Informations');
             },
         ];
 
-        const myTree = new Tree('.form_groupe_input-informations_add', {
+        const myTree = new Tree('.form_groupe_content_input-informations_add', {
             data: treeData,
 
             closeDepth: 1,           
@@ -267,7 +268,7 @@ echo head('MMI Companion | Informations');
     console.log(radioInputs);
 
     // Sélectionnez l'élément .form_groupe_input-informations_add
-    let formGroupe = document.querySelector(".form_groupe_input-informations_add");
+    let formGroupe = document.querySelector(".form_groupe_content_input-informations_add");
 
     radioInputs.forEach(radioInput => {
         radioInput.addEventListener("change", function () {
