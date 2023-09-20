@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['pname']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['name']) && isset($_POST['edu_mail'])) {
        if (filter_var($_POST['edu_mail'], FILTER_VALIDATE_EMAIL) === false) {
         $error_message = "L'email n'est pas valide.";
+        header('Location: ./register.php?error_message='.$error_message.'');
         exit();
         }
 
@@ -19,12 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 
-        // if ($password != $confirm_password) {
-        //     $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
-        //     header('Location: ./register.php');
-        //     exit();
-        // }
-        
+        $ve = new hbattat\VerifyEmail($edu_mail, 'no-reply@mmi-companion.fr');
+
+        if ($ve->verify() === false) {
+            $error_message = "L'email n'est pas valide ou n'existe pas. Contacte-nous si il y a un problème !";
+            header('Location: ./register.php?error_message='.$error_message.'');
+            exit();
+        }
+
         // Vérifier si l'utilisateur existe déjà dans la base de données sinon créer son compte
         $sql_check = "SELECT * FROM users WHERE edu_mail = :edu_mail";
         $stmt = $dbh->prepare($sql_check);
@@ -34,9 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!empty($user)) {
             $error_message = "L'utilisateur existe déjà.";
+            header('Location: ./register.php?error_message='.$error_message.'');
+            exit();
         } else if ($password != $confirm_password){
             $error_message = "Les mots de passe ne correspondent pas.";
             $_SESSION['error_message'] = "Les mots de passe ne correspondent pas.";
+            header('Location: ./register.php?error_message='.$error_message.'');
+            exit();
         } else{
             // On hash le mot de passe pour plus de sécurité, le MD5 est déconseillé, on laisse l'agorithme par défaut, ça évite les failles de sécurité
             $hash_password = password_hash($password, PASSWORD_DEFAULT);
@@ -46,17 +53,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             $pp_profile = 'https://ui-avatars.com/api/?background=56b8d6&color=004a5a&bold=true&name='.$pname.'+'.$name.'&rounded=true&size=128';
 
-            $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link)";
-            $stmt = $dbh->prepare($sql_register);
-            $stmt->execute([
-                ':pname' => $pname,
-                ':name' => $name,
-                ':pass' => $hash_password,
-                ':edu_mail' => $edu_mail,
-                ':edu_group' => $edu_group,
-                ':activation_code' => $activation_code,
-                ':pp_link' => $pp_profile
-            ]);
+            if(str_contains($edu_mail, "@univ-poitiers.fr")){
+                $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link, role) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link, :role)";
+                $stmt = $dbh->prepare($sql_register);
+                $stmt->execute([
+                    ':pname' => $pname,
+                    ':name' => $name,
+                    ':pass' => $hash_password,
+                    ':edu_mail' => $edu_mail,
+                    ':edu_group' => $edu_group,
+                    ':activation_code' => $activation_code,
+                    ':pp_link' => $pp_profile,
+                    'role' => 'prof'
+                ]);
+            } else {
+                $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link)";
+                $stmt = $dbh->prepare($sql_register);
+                $stmt->execute([
+                    ':pname' => $pname,
+                    ':name' => $name,
+                    ':pass' => $hash_password,
+                    ':edu_mail' => $edu_mail,
+                    ':edu_group' => $edu_group,
+                    ':activation_code' => $activation_code,
+                    ':pp_link' => $pp_profile
+                ]);
+            }
             $data = array(
                 'mail_user' => $edu_mail,
                 'activation_code' => $activation_code,
@@ -97,10 +119,10 @@ echo head('MMI Companion | Register');
                 <div class="trait_register"></div>
                 <input type="submit" value="Créer mon compte" class="button_register">
                 <div style="height:15px"></div>
-                <?php if(!empty($_SESSION['error_message'])) { ?>
-                    <div class="error_message-login"><?php echo $_SESSION['error_message']; ?></div>
+                <?php if(isset($_GET['error_message'])) { ?>
+                    <div class="error_message-login"><?php echo $_GET['error_message'] ?></div>
                 <?php
-                unset($_SESSION['error_message']);
+                // unset($_SESSION['error_message']);
             } ?>
             </div>
         </form>
