@@ -10,19 +10,18 @@ $sql_events = "SELECT * FROM calendar_event WHERE id_user = :user_id";
 $stmt = $dbh->prepare($sql_events);
 $stmt->bindParam(':user_id', $user['id_user']);
 $stmt->execute();
-$events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$events = [];
 
-$eventList = [];
-foreach ($events as $event) {
-    $eventList[] = [
-        'start' => $event['start'],
-        'end' => $event['end'],
-        'title' => $event['title'],
-        'description' => $event['description'],
-        'location' => $event['location'],
-        'id' => $event['id_event']
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $event = [
+        'id' => $row['id_event'],
+        'title' => $row['title'],
+        'start' => $row['start'], // Format date et heure ISO8601
+        'end' => $row['end'],     // Format date et heure ISO8601
     ];
+    array_push($events, $event);
 }
 
-echo json_encode($eventList);
+// Convertir le tableau en JSON
+echo json_encode($events);
 
