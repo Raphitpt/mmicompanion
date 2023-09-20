@@ -39,6 +39,10 @@ if (isset($_POST['submit'])) {
         $user_role = $_POST['role'];
         $content = $_POST['content'];
 
+        if ($user_role=='chef') {
+            $group_info = $user['edu_group'];
+        }
+
         $sql = "INSERT INTO informations (titre, user, user_role, content, group_info, id_user) VALUES (:titre, :user, :user_role, :content, :group_info, :id_user)";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
@@ -116,7 +120,11 @@ echo head('MMI Companion | Informations');
                     echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
                     echo "</div>";
                 }
-
+                if (str_contains($user_sql['role'], 'prof')){
+                    echo "<div class='form_role_input-informations_add'>";
+                    echo "<input type='hidden' name='role' value='prof' id='prof'>";
+                    echo "</div>";
+                }
                 if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
                     echo "<div class='form_role_input-informations_add'>";
                     echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
@@ -224,6 +232,34 @@ echo head('MMI Companion | Informations');
                 console.log(this.values);
             },
         });
+
+    
+    // Cacher les groupes qui ne sont pas dans le groupe du chef
+
+    // Sélectionnez les boutons radio
+    let radioInputs = document.querySelectorAll("input[name=role]");
+    console.log(radioInputs);
+
+    // Sélectionnez l'élément .form_groupe_input-informations_add
+    let formGroupe = document.querySelector(".form_groupe_input-informations_add");
+
+    radioInputs.forEach(radioInput => {
+        radioInput.addEventListener("change", function () {
+            if (radioInput.id == "admin") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "chef") {
+                formGroupe.classList.add("hidden");
+            } if (radioInput.id == "BDE") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "user") {
+                formGroupe.classList.remove("hidden");
+            }
+        });
+        
+    });
+
+
+
     </script>
 
 </body>

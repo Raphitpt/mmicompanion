@@ -12,10 +12,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         exit();
         }
 
-        $pname = strip_tags($_POST['pname']);
-        $name = strip_tags($_POST['name']);
+        $pname = trim(strip_tags($_POST['pname']));
+        $name = trim(strip_tags($_POST['name']));
         $password = strip_tags($_POST['password']);
-        $edu_mail = strtolower(strip_tags($_POST['edu_mail']));
+        $edu_mail = trim(strtolower(strip_tags($_POST['edu_mail'])));
         $edu_group = "undefined";
         $confirm_password = strip_tags($_POST['confirm_password']);
 

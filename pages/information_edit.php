@@ -50,13 +50,19 @@ if (isset($_POST['submit'])) {
 
     $title = $_POST['titre'];
     $name = $_POST['user'];
+    $user_role = $_POST['role'];
     $content = $_POST['content'];
+
+    if ($user_role=='chef') {
+        $group_info = $user['edu_group'];
+    }
     
-    $sql = "UPDATE informations SET titre=:titre, user=:user, content=:content, group_info=:group_info WHERE id_infos=:id_information";
+    $sql = "UPDATE informations SET titre=:titre, user=:user, user_role=:user_role content=:content, group_info=:group_info WHERE id_infos=:id_information";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'titre' => $title,
         'user' => $name,
+        'user_role' => $user_role,
         'content' => $content,
         'group_info' => $group_info,
         'id_information' => $id_information
@@ -133,7 +139,11 @@ echo head('MMI Companion | Informations');
                     echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
                     echo "</div>";
                 }
-
+                if (str_contains($user_sql['role'], 'prof')){
+                    echo "<div class='form_role_input-informations_add'>";
+                    echo "<input type='hidden' name='role' value='prof' id='prof'>";
+                    echo "</div>";
+                }
                 if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
                     echo "<div class='form_role_input-informations_add'>";
                     if (str_contains($information['user_role'], $user_name)) {
@@ -237,6 +247,7 @@ echo head('MMI Companion | Informations');
 
         const myTree = new Tree('.form_groupe_input-informations_add', {
             data: treeData,
+
             closeDepth: 1,           
 
             loaded: function() {
@@ -249,6 +260,29 @@ echo head('MMI Companion | Informations');
                 console.log(this.values);
         },
         });
+
+
+    // Sélectionnez les boutons radio
+    let radioInputs = document.querySelectorAll("input[name=role]");
+    console.log(radioInputs);
+
+    // Sélectionnez l'élément .form_groupe_input-informations_add
+    let formGroupe = document.querySelector(".form_groupe_input-informations_add");
+
+    radioInputs.forEach(radioInput => {
+        radioInput.addEventListener("change", function () {
+            if (radioInput.id == "admin") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "chef") {
+                formGroupe.classList.add("hidden");
+            } if (radioInput.id == "BDE") {
+                formGroupe.classList.remove("hidden");
+            } if (radioInput.id == "user") {
+                formGroupe.classList.remove("hidden");
+            }
+        });
+        
+    });
         
 
 
