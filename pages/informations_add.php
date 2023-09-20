@@ -144,7 +144,7 @@ echo head('MMI Companion | Informations');
             <input type="hidden" name="group_info" id="group_info">
             <div class="form_button-informations_add">
                 <a role="button" href='./informations.php'>Annuler</a>
-                <input type="submit" name="submit" value="Valider">
+                <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
             </div>
             <div style="height:20px"></div>
 
