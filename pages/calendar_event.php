@@ -24,6 +24,5 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     array_push($events, $event);
 }
 
-// Convertir le tableau en JSON
 echo json_encode($events);
 
