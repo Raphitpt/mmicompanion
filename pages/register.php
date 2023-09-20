@@ -119,8 +119,8 @@ echo head('MMI Companion | Register');
                 <div class="trait_register"></div>
                 <input type="submit" value="Créer mon compte" class="button_register">
                 <div style="height:15px"></div>
-                <?php if(!empty($error_message)) { ?>
-                    <div class="error_message-login"><?php echo $error_message ?></div>
+                <?php if(!empty($_GET['error_message'])) { ?>
+                    <div class="error_message-login"><?php echo $_GET['error_message'] ?></div>
                 <?php
                 // unset($_SESSION['error_message']);
             } ?>
