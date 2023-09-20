@@ -7,7 +7,7 @@ use SMTPValidateEmail\Validator as SmtpEmailValidator;
 /**
  * Simple example
  */
-$email     = 'fhdsfgydfsgy@etu.univ-poitiers.fr';
+$email     = 'raphael.tiphonet@etu.univ-poitiers.fr';
 $sender    = 'no-reply@mmi-companion.fr';
 $validator = new SmtpEmailValidator($email, $sender);
 
