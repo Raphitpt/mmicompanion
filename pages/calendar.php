@@ -405,6 +405,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             }
           },
         },
+        slotEventOverlap: false,
         // plugins: [DayGridPlugin, iCalendarPlugin],
         eventSources:[
           {
