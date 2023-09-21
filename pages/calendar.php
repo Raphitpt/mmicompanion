@@ -227,14 +227,16 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         <div class="content-header-calendar">
           <div class="content_title-header-calendar">
             <h1>Salut <span style="font-weight:800">
-                <?php //echo ucfirst($user['pname']) ?><span></h1>
+                <?php //echo ucfirst($user['pname']) 
+                ?><span></h1>
             <p>en ligne</p>
           </div>
           <div style="width:10px"></div>
           <a href="./profil.php">
             <div class="content_img-header-calendar">
               <div class="rounded-img">
-                <img src="<?php //echo $user_sql['pp_link'] ?>" alt="Photo de profil">
+                <img src="<?php //echo $user_sql['pp_link'] 
+                          ?>" alt="Photo de profil">
               </div>
               <div class="green_circle"></div>
             </div>
@@ -247,16 +249,16 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     </header> -->
 
     <header>
-        <div class="content_header">
-            <div class="content_title-header">
-                <div class="burger-header" id="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>L'emploi du temps</h1>
-            </div>
+      <div class="content_header">
+        <div class="content_title-header">
+          <div class="burger-header" id="burger-header">
+            <i class="fi fi-br-bars-sort"></i>
+          </div>
+          <div style="width:20px"></div>
+          <h1>L'emploi du temps</h1>
         </div>
-        <?php generateBurgerMenuContent() ?>
+      </div>
+      <?php generateBurgerMenuContent() ?>
     </header>
     <div style="height:15px"></div>
     <main class="main-calendar">
@@ -311,9 +313,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         slotMinTime: '07:00',
         slotMaxTime: '18:30',
         views: {
-          timeGridFourDay: {
+          timeGridWeek: {
             type: 'timeGrid',
-            dayCount: 5,
             weekends: false,
           },
           timeGridDay: {
@@ -378,8 +379,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           customNext: {
             icon: 'chevron-right',
             click: function() {
-              if (calendar.view.type === 'timeGridFourDay') {
-                let daysToAdvance = 3;
+              if (calendar.view.type === 'timeGridWeek') {
+                let daysToAdvance = 7;
                 calendar.incrementDate({
                   days: daysToAdvance
                 });
@@ -394,11 +395,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           customPrevious: {
             icon: 'chevron-left',
             click: function() {
-              if (calendar.view.type === 'timeGridFourDay') {
-                let daysToGoBack = 3;
-                let currentDate = calendar.getDate();
-                currentDate.setDate(currentDate.getDate() - daysToGoBack);
-                calendar.gotoDate(currentDate);
+              if (calendar.view.type === 'timeGridWeek') {
+                let daysToGoBack = -7; // Revenir à la vue de jour (-7 jours)
+                calendar.incrementDate({
+                  days: daysToGoBack
+                });
               } else if (calendar.view.type === 'timeGridDay') {
                 const currentDate = calendar.getDate();
                 const currentDayOfWeek = currentDate.getDay();
@@ -419,8 +420,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         slotEventOverlap: false,
         // plugins: [DayGridPlugin, iCalendarPlugin],
-        eventSources:[
-          {
+        eventSources: [{
             url: url1,
             format: "ics",
           },
@@ -436,19 +436,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
           let eventContent = "";
 
-          if (eventTitle && calendar.view.type === 'timeGridFourDay') {
+          if (eventTitle && calendar.view.type === 'timeGridWeek') {
             eventContent += '<div class="fc-title" style="font-size:0.52rem">' + eventTitle + '</div>';
           } else if (eventTitle && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-title" style="font-size:0.8rem">' + eventTitle + '</div>';
           }
 
-          if (eventDescription && calendar.view.type === 'timeGridFourDay') {
+          if (eventDescription && calendar.view.type === 'timeGridWeek') {
             eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
           } else if (eventDescription && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-description" style="font-size:0.8rem">' + test + '</div>';
           }
 
-          if (eventLocation && calendar.view.type === 'timeGridFourDay') {
+          if (eventLocation && calendar.view.type === 'timeGridWeek') {
             eventContent += '<div class="fc-location" style="font-size:0.52rem">' + eventLocation + '</div>';
           } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
