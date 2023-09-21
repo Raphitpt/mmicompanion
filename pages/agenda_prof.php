@@ -220,7 +220,19 @@ echo head("MMI Companion | Agenda");
                     <h1>L'agenda</h1>
                     <div></div>
                 </div>
-
+      </div>
+      <div class="select_but_agenda">
+          <select name="but" id="but">
+            <option value="BUT1">BUT1</option>
+            <option value="BUT2">BUT2</option>
+            <option value="BUT3">BUT3</option>
+          </select>
+          <select name="tp" id="tp">
+            <option value="TP1">TP1</option>
+            <option value="TP2">TP2</option>
+            <option value="TP3">TP3</option>
+            <option value="TP4">TP4</option>
+          </select>
                 <div class="agenda_title_flextopright-agenda">
                     <a href="./agenda_add.php">Ajouter</a>
                 </div>
@@ -277,73 +289,6 @@ echo head("MMI Companion | Agenda");
         </div>
         <div style="height:25px"></div>
         <div class="agenda_content-agenda">
-            <?php
-
-            // Si il n'y a pas d'évènements dans l'agenda, afficher un message
-            if (empty($agendaByDate)) {
-                echo "<div class='agenda_content_list-agenda'>";
-                echo "<h2>Aucune tâche de prévu</h2>";
-                echo "</div>";
-            }
-
-            // Parcours les éléments par date et les affiche
-            foreach ($agendaByDate as $date => $agendas) {
-                echo "<div class='agenda_content_list-agenda'>";
-                echo "<h2>$date</h2>";
-                echo "<div style='height:10px'></div>";
-
-                foreach ($agendas as $agenda) {
-                    echo "<div class='agenda_content_list_item-agenda'>";
-                    echo "<div class='agenda_content_list_item_flexleft-agenda'>";
-
-                    if ($agenda['type'] == "eval") {
-                        echo "<i class='fi fi-br-comment-info'></i>";
-                    }
-                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                        if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
-                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-".$agenda['id_task']."' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
-                        } else {
-                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-".$agenda['id_task']."' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
-                        }
-                    }
-
-                    echo "<div class='agenda_title_content_list_item_flexleft-agenda'>";
-                    if ($agenda['type'] == "eval") {
-                        echo "<label for='checkbox-".$agenda['id_task']."' class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</label>";
-                    }
-                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                        echo "<label for='checkbox-".$agenda['id_task']."' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
-                    }
-                    echo "<div class='agenda_content_subject-agenda'>";
-                    foreach ($colors as $color) {
-                        if ($color['id_subject'] == $agenda['id_subject']) {
-                            echo "<p style='background-color:". $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
-                            // echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
-                            break;
-                        }
-                    };
-                    // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<div class='agenda_content_list_item_flexright-agenda'>";
-                    // Ne pas afficher la corbeille si l'utilisateur est un étudiant et que c'est une évaluation
-                    if(($agenda['type'] == "eval" || $agenda['type'] == "devoir") && $user_sql['role'] == "eleve"){
-                        echo "<i class='fi fi-br-trash red' hidden></i>";
-                    } 
-                    elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
-                        echo "<a href='agenda_edit.php?id_user=".$agenda['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$user['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
-                    }
-                    else {
-                        echo "<a href='agenda_edit.php?id_user=".$user['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=".$user['id_user']."&id_task=".$agenda['id_task']."'><i class='fi fi-br-trash red'></i></a>";
-                    }
-
-                    echo "</div>";
-                    echo "</div>";
-                    echo "<div style='height:10px'></div>";
-                }
-            }
-            ?>
         </div>
     </main>
     <div style="height:20px"></div>
@@ -355,82 +300,40 @@ echo head("MMI Companion | Agenda");
         select_background_profil.classList.add('select_link-header');
 
 
-        // Fonction pour mettre à jour le compteur de tâches
-        function updateCompteurTaches() {
-            const checkboxes = document.querySelectorAll(".checkbox");
-            let compteur = <?php echo $tachesNonTermineesRestantes; ?>; // Valeur initiale du compteur
+        const butSelect = document.getElementById('but');
+        const tpSelect = document.getElementById('tp');
+        const agendaMain = document.querySelector('.agenda_content-agenda');
 
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener("change", function() {
-                    if (this.checked) {
-                        compteur--; // Décrémenter le compteur si la tâche est cochée
-                    } else {
-                        compteur++; // Incrémenter le compteur si la tâche est décochée
-                    }
-                    // Mettre à jour l'affichage du compteur
-                    if (compteur === 0) {
-                        document.getElementById("compteTaches").textContent = "Aucune tâche à faire";
-                    } else if (compteur === 1) {
-                        document.getElementById("compteTaches").textContent = compteur + " tâche à faire";
-                    } else {
-                        document.getElementById("compteTaches").textContent = compteur + " tâches à faire";
-                    }
-                });
-            });
-        }
+        // Fonction pour effectuer la requête XHR en utilisant POST
+        function loadAgenda() {
+            const selectedBut = butSelect.value;
+            const selectedTp = tpSelect.value;
 
-        window.addEventListener("DOMContentLoaded", function() {
-            // On appel la fonction
-            updateCompteurTaches();
-            let checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach(function(checkbox) {
-                // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
-                checkbox.addEventListener("change", function() {
+            let edu_group = selectedBut + '-' + selectedTp;
 
-                    let idAgenda = this.getAttribute("data-idAgenda");
-                    let checkedValue = this.checked ? 1 : 0;
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // const response = JSON.parse();
+                    agendaMain.innerHTML = xhr.responseText;
+                }
+            };
 
-                    let xhr = new XMLHttpRequest();
-                    xhr.open("POST", "./coche_agenda.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            console.log(xhr.responseText);
-                        }
-                    };
-                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
-                });
-            });
-        });
+            // Préparez les données à envoyer en tant que paramètres POST
+            const data = new FormData();
+            data.append('edu_group', edu_group);
 
-        // Vérification que la case à cocher est cochée ou non
-        // Si le case est cochée, on barre le nom de la tâche et inversement
-
-        function handleCheckboxChange() {
-            let checkbox = this;
-            let heading = checkbox.parentNode.querySelector(".title_subject-agenda");
-            let subject_agenda = checkbox.parentNode.querySelector(".agenda_content_subject-agenda");
-
-            if (checkbox.checked) {
-                heading.style.textDecoration = "line-through";
-                subject_agenda.style.opacity = "0.5";
-            } else {
-                heading.style.textDecoration = "none";
-                subject_agenda.style.opacity = "1";
+            // Envoyer la requête POST vers agenda.php
+            xhr.open('POST', 'agenda_index.php', true);
+            xhr.send(data);
             }
-        }
+            
+        // Écouteurs d'événements pour les changements d'options
+        butSelect.addEventListener('change', loadAgenda);
+        tpSelect.addEventListener('change', loadAgenda);
+            </script>
 
-        window.addEventListener("DOMContentLoaded", function() {
-            let checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener("change", handleCheckboxChange);
-
-                // Vérification initiale de l'état de la case à cocher
-                handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
-            });
-        });
-        </script>
-    </body>
+</body>
 
 <?php 
 }

@@ -198,7 +198,9 @@ h1 {
 .fc-time-grid .fc-slats tbody tr:nth-child(odd) {
     display: none !important;
   }
-
+.fc-timegrid-slot .fc-timegrid-slot-lane{
+    border: none !important;
+}
 
 
 

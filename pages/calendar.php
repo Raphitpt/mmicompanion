@@ -481,6 +481,30 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       });
 
       calendar.render();
+
+      var touchStartX = 0;
+    var touchEndX = 0;
+    var swipeThreshold = 50; // Seuil pour considérer un geste comme un glissement
+
+    // Événement de toucher initial
+    calendarEl.addEventListener('touchstart', function (e) {
+        touchStartX = e.touches[0].clientX;
+    });
+
+    // Événement de fin de toucher
+    calendarEl.addEventListener('touchend', function (e) {
+        touchEndX = e.changedTouches[0].clientX;
+        var swipeDistance = touchEndX - touchStartX;
+
+        // Vérifiez si le geste était un glissement vers la gauche (jour suivant)
+        if (swipeDistance > swipeThreshold) {
+            calendar.next();
+        }
+        // Vérifiez si le geste était un glissement vers la droite (jour précédent)
+        else if (swipeDistance < -swipeThreshold) {
+            calendar.prev();
+        }
+    });
     });
   </script>
 
