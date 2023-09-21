@@ -279,6 +279,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
+  <script src="../assets/js/swipeCalendar.js"></script>
   <script src="../assets/js/menu-navigation.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
@@ -301,7 +302,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         ?>
       };
 
-      let calendar = new FullCalendar.Calendar(calendarEl, {
+      let calendar = new SwipeCalendar(calendarEl, {
+        swipeEffect: 'slide',
+        swipeSpeed: 250,
+        swipeTitlePosition: 'center',
+        
         locale: 'fr',
         buttonText: {
           today: 'Aujourd\'hui',
@@ -333,7 +338,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         initialView: "timeGridDay",
         footerToolbar: {
           left: "custom1day",
-          // center: "addEvent",
           right: "custom3day",
         },
         headerToolbar: {
@@ -342,24 +346,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           right: "today customNext",
         },
         customButtons: {
-          //   addEvent: {
-          //     icon: 'plus',
-          //     click: function() {
-          //       let dateStr = prompt('Enter a date in YYYY-MM-DD format');
-          //       let date = new Date(dateStr + 'T00:00:00'); // will be in local time
-
-          //       if (!isNaN(date.valueOf())) { // valid?
-          //         calendar.addEvent({
-          //           title: 'dynamic event',
-          //           start: date,
-          //           allDay: true
-          //         });
-          //         alert('Great. Now, update your database...');
-          //       } else {
-          //         alert('Invalid date.');
-          //       }
-          //     }
-          // },
           custom3day: {
             text: '5 jours',
             click: function() {
@@ -481,33 +467,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       });
 
       calendar.render();
-
-      var touchStartX = 0;
-      var touchEndX = 0;
-      var swipeThreshold = 50;
-
-      calendarEl.addEventListener('touchstart', function(e) {
-        touchStartX = e.touches[0].clientX;
-      });
-
-      calendarEl.addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].clientX;
-        var swipeDistance = touchEndX - touchStartX;
-
-        // Ajoutez la classe d'animation avant de changer de jour
-        calendarEl.classList.add('calendar-transition');
-
-        if (swipeDistance < swipeThreshold) {
-          calendar.next();
-        } else if (swipeDistance > -swipeThreshold) {
-          calendar.prev();
-        }
-
-        // Retirez la classe d'animation après un court délai
-        setTimeout(function() {
-          calendarEl.classList.remove('calendar-transition');
-        }, 300); // Le même délai que la durée de la transition CSS
-      });
     });
   </script>
 
