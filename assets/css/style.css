@@ -203,7 +203,9 @@ h1 {
 .fc-timegrid-slot .fc-timegrid-slot-lane{
     border: none !important;
 }
-
+.fc-header-toolbar .fc-toolbar {
+    display: none !important;
+}
 
 
 /* MENU DE NAVIGATION */
