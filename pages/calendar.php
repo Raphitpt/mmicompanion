@@ -310,7 +310,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           day: 'Jour',
           list: 'Liste'
         },
-        slotMinTime: '07:00',
+        slotMinTime: '07:30',
         slotMaxTime: '18:30',
         views: {
           timeGridWeek: {
