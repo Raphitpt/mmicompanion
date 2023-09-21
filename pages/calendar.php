@@ -310,12 +310,14 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           day: 'Jour',
           list: 'Liste'
         },
-        slotMinTime: '07:30',
+        slotMinTime: '08:00',
         slotMaxTime: '18:30',
+        slotLabelInterval: '1:00:00',
         views: {
           timeGridWeek: {
             type: 'timeGrid',
             weekends: false,
+            slotLabelInterval: '1:00:00',
           },
           timeGridDay: {
             type: 'timeGrid',
@@ -418,7 +420,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             }
           },
         },
-        slotEventOverlap: false,
+        // slotEventOverlap: false,
         // plugins: [DayGridPlugin, iCalendarPlugin],
         eventSources: [{
             url: url1,

@@ -192,8 +192,12 @@ h1 {
     top: 0px;
     right: 0px;
 }
-
-
+.fc-timegrid-now-indicator-container {
+    z-index: 100 !important;
+}
+.fc-time-grid .fc-slats tbody tr:nth-child(odd) {
+    display: none !important;
+  }
 
 
 
