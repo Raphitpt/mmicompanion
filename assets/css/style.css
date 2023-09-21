@@ -998,7 +998,7 @@ h1 {
 }
 
 
-/* .title_trait {
+.title_trait {
     display: flex;
     flex-direction: row;
     align-items: end;
@@ -1022,7 +1022,7 @@ h1 {
 
 .section_calendar-calendar .title_trait{
     margin-left: 40px;
-} */
+}
 
 .container_calendar-calendar{
     display: flex;
@@ -1063,8 +1063,8 @@ h1 {
     width: 100%;
     background-color: #fff;
     border-radius: 20px;
-    padding: 20px;
-    padding-bottom: 10px;
+    padding: 10px;
+    padding-top: 20px;
     max-height: 900px;
 }
 
@@ -1105,7 +1105,7 @@ h1 {
 }
 
 .fc-timegrid-slot {
-    height: 1.55em !important
+    height: 1.55em !important;
 }
 
 .fc-theme-standard .fc-scrollgrid {
@@ -1134,6 +1134,19 @@ h1 {
 .fc-timegrid-event-harness-inset .fc-timegrid-event, .fc-timegrid-event.fc-event-mirror, .fc-timegrid-more-link{
     box-shadow : 0 0 0 0;
 }
+
+.fc-timegrid-slot-label-cushion{
+    transform: translateY(-11px) translateX(-5px);
+    background-color: white;
+    text-align: left;
+    font-size: 13px !important;
+}
+
+
+
+
+
+
 
 
 
