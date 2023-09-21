@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
         $group_info = $user['edu_group'];
     }
     
-    $sql = "UPDATE informations SET titre=:titre, user=:user, user_role=:user_role content=:content, group_info=:group_info WHERE id_infos=:id_information";
+    $sql = "UPDATE informations SET titre=:titre, user=:user, user_role=:user_role, content=:content, group_info=:group_info WHERE id_infos=:id_information";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'titre' => $title,
@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
 
 echo head('MMI Companion | Informations');
 ?>
-
+<link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 <body class="body-all">
     <!-- Menu de navigation -->
     <header>
@@ -100,7 +100,7 @@ echo head('MMI Companion | Informations');
             <div></div>
         </div>
         <div style="height:20px"></div>
-        <form action="" method="post" class="form_informations_add">
+        <form action="" method="post" class="form_informations_add" id="formtest">
             <div class="form_title_input-informations_add">
                 <input type="text" name="titre" id="titre" placeholder="Ajouter un titre à l'information" required value="<?php echo $information['titre']?>">
             </div>
@@ -160,10 +160,13 @@ echo head('MMI Companion | Informations');
                 }
             
             ?>
-            <div class="form_input-informations_add">
-                <label for="content">Contenu</label>
-                <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"><?php echo strip_tags($information['content'])?></textarea>
-            </div>
+            <textarea class="form_content-informations_add" id="editor"><?php echo $information['content']?></textarea>
+            <input name="content" id="content" type="hidden">
+
+
+
+
+
             <div class="form_groupe_input-informations_add">
                 <p>Groupe</p>
                 <div class="form_groupe_content_input-informations_add"></div>
@@ -173,19 +176,31 @@ echo head('MMI Companion | Informations');
                 <a role="button" href='./informations.php'>Annuler</a>
                 <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
             </div>
-                
+            <div style="height:20px"></div>
+
         </form>
     
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
     <script src="../assets/js/tree.min.js"></script>
+    <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
 
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
+        $('#editor').trumbowyg();
+        // let contenuTexte = $('#editor').trumbowyg('html');
+        // let about = document.querySelector('#content');
+        // about.value = contenuTexte;
 
+        $(document).ready(function() {
+    $('#formtest').submit(function(event) {
+        var contenuTexte = $('#editor').trumbowyg('html');
+        $('#content').val(contenuTexte);
+    });
+});
         const treeData = [
             {
                 id: 'BUT1',
