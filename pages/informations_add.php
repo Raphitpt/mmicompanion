@@ -45,6 +45,7 @@ if (isset($_POST['submit'])) {
             $group_info = $user['edu_group'];
         }
 
+
         $sql = "INSERT INTO informations (titre, user, user_role, content, group_info, id_user) VALUES (:titre, :user, :user_role, :content, :group_info, :id_user)";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
@@ -72,7 +73,8 @@ if (isset($_POST['submit'])) {
 
 echo head('MMI Companion | Informations');
 ?>
-<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> -->
+<link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 
 <body class="body-all">
     <!-- Menu de navigation -->
@@ -96,7 +98,7 @@ echo head('MMI Companion | Informations');
             <div></div>
         </div>
         <div style="height:20px"></div>
-        <form action="" method="post" class="form_informations_add">
+        <form action="" method="post" class="form_informations_add" id="formtest">
             <div class="form_title_input-informations_add">
                 <input type="text" name="titre" id="titre" placeholder="Ajouter un titre à l'information" required>
             </div>
@@ -141,7 +143,7 @@ echo head('MMI Companion | Informations');
 
 
             
-            <div class="form_content-informations_add" id="editor"></div>
+            <textarea class="form_content-informations_add" id="editor"></textarea>
             <input name="content" id="content" type="hidden">
 
 
@@ -165,36 +167,46 @@ echo head('MMI Companion | Informations');
 
     <script src="../assets/js/menu-navigation.js"></script>
     <script src="../assets/js/tree.min.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+    <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
+    <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
 
 
+        $('#editor').trumbowyg();
+        // let contenuTexte = $('#editor').trumbowyg('html');
+        // let about = document.querySelector('#content');
+        // about.value = contenuTexte;
 
-
-        let quill = new Quill('#editor', {
-        modules: {
-            toolbar: [
-            ['bold', 'italic'],
-            ['link', 'blockquote', 'code-block', 'image'],
-            [{ list: 'ordered' }, { list: 'bullet' }]
-            ]
-        },
-        placeholder: 'Contenu de l\'information',
-        theme: 'snow'
-        });
+        $(document).ready(function() {
+    $('#formtest').submit(function(event) {
+        var contenuTexte = $('#editor').trumbowyg('html');
+        $('#content').val(contenuTexte);
+    });
+});
+        // let quill = new Quill('#editor', {
+        // modules: {
+        //     toolbar: [
+        //     ['bold', 'italic'],
+        //     ['link', 'blockquote', 'code-block', 'image'],
+        //     [{ list: 'ordered' }, { list: 'bullet' }]
+        //     ]
+        // },
+        // placeholder: 'Contenu de l\'information',
+        // theme: 'snow'
+        // });
 
         let form = document.querySelector('.form_informations_add');
         console.log(form);
-        form.onsubmit = function() {
-        // Populate hidden form on submit
-        let about = document.querySelector('#content');
-        about.value = JSON.stringify(quill.getContents());
-        about.value = JSON.parse(about.value).ops[0].insert;
+        // form.onsubmit = function() {
+        // // Populate hidden form on submit
+        // 
+        // about.value = JSON.stringify(quill.getContents());
+        // // about.value = JSON.parse(about.value).ops[0].insert;
 
-        };
+        // };
 
 
 

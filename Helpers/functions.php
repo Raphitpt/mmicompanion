@@ -314,6 +314,7 @@ function decodeJWT($jwt, $secret_key)
         echo "Erreur de décodage du JWT : " . $e->getMessage();
     }
 }
+
 function checkEvent($id_event, $id_user)
 {
     $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);

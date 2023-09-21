@@ -177,7 +177,9 @@ echo head("MMI Companion | Informations");
                             </div>
                         </div>
                         <div class="item_content_text-information">
-                            <p><?= $information['content'] ?></p>
+                            <p><?php 
+                            echo nl2br($information['content']); 
+                            ?></p>
                         </div>
                         <?php if($information['id_user'] === $user['id_user']){ ?>
                         <div class="item_button-informations">
