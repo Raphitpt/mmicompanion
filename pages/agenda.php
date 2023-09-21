@@ -295,11 +295,12 @@ echo head("MMI Companion | Agenda");
                 foreach ($agendas as $agenda) {
                     echo "<div class='agenda_content_list_item-agenda'>";
                     echo "<div class='agenda_content_list_item_flexleft-agenda'>";
+
                     if ($agenda['type'] == "eval") {
                         echo "<i class='fi fi-br-comment-info'></i>";
                     }
                     if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                        if ($agenda['checked'] == 1) {
+                        if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
                             echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-".$agenda['id_task']."' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
                         } else {
                             echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-".$agenda['id_task']."' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
@@ -397,7 +398,7 @@ echo head("MMI Companion | Agenda");
                             console.log(xhr.responseText);
                         }
                     };
-                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue));
+                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
                 });
             });
         });
