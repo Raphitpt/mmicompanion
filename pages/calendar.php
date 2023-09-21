@@ -497,9 +497,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         // Ajoutez la classe d'animation avant de changer de jour
         calendarEl.classList.add('calendar-transition');
 
-        if (swipeDistance > swipeThreshold) {
+        if (swipeDistance < swipeThreshold) {
           calendar.next();
-        } else if (swipeDistance < -swipeThreshold) {
+        } else if (swipeDistance > -swipeThreshold) {
           calendar.prev();
         }
 
