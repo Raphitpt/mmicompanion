@@ -360,7 +360,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           custom3day: {
             text: '5 jours',
             click: function() {
-              calendar.changeView('timeGridFourDay');
+              calendar.changeView('timeGridWeek');
               document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
                 eventEl.style.fontSize = '0.8rem !important';
               });
