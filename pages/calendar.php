@@ -442,9 +442,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             eventContent += '<div class="fc-title" style="font-size:0.8rem">' + eventTitle + '</div>';
           }
 
-          if (eventDescription && calendar.view.type === 'timeGridWeek') {
-            eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
-          } else if (eventDescription && calendar.view.type === 'timeGridDay') {
+          // if (eventDescription && calendar.view.type === 'timeGridWeek') {
+          //   eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
+          // } else 
+          if (eventDescription && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-description" style="font-size:0.8rem">' + test + '</div>';
           }
 
