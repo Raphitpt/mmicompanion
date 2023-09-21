@@ -12604,6 +12604,7 @@ class swipeCalendar_SwipeCalendar {
       initialDate: moment_default()().format('YYYY-MM-DD'),
       direction: 'ltr',
       scrollTimeReset: true,
+      weekends: false,
       buttonIcons: {
         prev: 'chevron-left',
         next: 'chevron-right',
@@ -12678,6 +12679,9 @@ class swipeCalendar_SwipeCalendar {
     this._eventsLoaded = false;
     this._curCalEventSources = null;
     this._curCalResources = null;
+    if (!this._options.weekends) {
+      this._options.forceSixRows = true;
+    }
 
     this._init();
 
@@ -12803,6 +12807,19 @@ class swipeCalendar_SwipeCalendar {
 
   render() {
     this._applyMethod('render');
+    if (!this._options.weekends) {
+      const dayCells = this._element.querySelectorAll('.fc-day-header');
+      dayCells.forEach((cell) => {
+        const day = parseInt(cell.getAttribute('data-date').split('-')[2]);
+        if (day % 7 === 1 || day % 7 === 0) {
+          cell.style.display = 'none';
+        }
+      });
+      const weekendCells = this._element.querySelectorAll('.fc-day.fc-weekend');
+      weekendCells.forEach((cell) => {
+        cell.style.display = 'none';
+      });
+    }
   }
   /**
    * Restores the container element to the state before FullCalendar was initialized.

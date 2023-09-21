@@ -279,7 +279,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
-  <script src="../assets/js/swipeCalendar.js"></script>
+  <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
   <script src="../assets/js/menu-navigation.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
@@ -302,12 +302,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         ?>
       };
 
-      let calendar = new SwipeCalendar(calendarEl, {
-        // swipeLicenseKey: 'XXXXX-XXXXX-XXXXX-XXXXX',
-        swipeEffect: 'slide',
-        swipeSpeed: 250,
-        swipeTitlePosition: 'none',
-
+      let calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'fr',
         buttonText: {
           today: 'Aujourd\'hui',
@@ -342,71 +337,71 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           right: "custom3day",
         },
         headerToolbar: {
-          left: " ",
+          left: "customPrevious",
           center: "title",
-          right: "today",
+          right: "today customNext",
         },
-        // customButtons: {
-        //   custom3day: {
-        //     text: '5 jours',
-        //     click: function() {
-        //       calendar.changeView('timeGridWeek');
-        //       document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
-        //         eventEl.style.fontSize = '0.8rem !important';
-        //       });
-        //     }
-        //   },
-        //   custom1day: {
-        //     text: '1 jour',
-        //     click: function() {
-        //       calendar.changeView('timeGridDay');
-        //       document.querySelectorAll('.fc-location').forEach(function(eventEl) {
-        //         eventEl.style.fontSize = '1.5rem !important';
-        //       });
-        //     }
-        //   },
-        //   customNext: {
-        //     icon: 'chevron-right',
-        //     click: function() {
-        //       if (calendar.view.type === 'timeGridWeek') {
-        //         let daysToAdvance = 7;
-        //         calendar.incrementDate({
-        //           days: daysToAdvance
-        //         });
-        //       } else {
-        //         let daysToAdvance = 1;
-        //         calendar.incrementDate({
-        //           days: daysToAdvance
-        //         });
-        //       }
-        //     }
-        //   },
-        //   customPrevious: {
-        //     icon: 'chevron-left',
-        //     click: function() {
-        //       if (calendar.view.type === 'timeGridWeek') {
-        //         let daysToGoBack = -7; // Revenir à la vue de jour (-7 jours)
-        //         calendar.incrementDate({
-        //           days: daysToGoBack
-        //         });
-        //       } else if (calendar.view.type === 'timeGridDay') {
-        //         const currentDate = calendar.getDate();
-        //         const currentDayOfWeek = currentDate.getDay();
-        //         let daysToGoBack;
+        customButtons: {
+          custom3day: {
+            text: '5 jours',
+            click: function() {
+              calendar.changeView('timeGridWeek');
+              document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
+                eventEl.style.fontSize = '0.8rem !important';
+              });
+            }
+          },
+          custom1day: {
+            text: '1 jour',
+            click: function() {
+              calendar.changeView('timeGridDay');
+              document.querySelectorAll('.fc-location').forEach(function(eventEl) {
+                eventEl.style.fontSize = '1.5rem !important';
+              });
+            }
+          },
+          customNext: {
+            icon: 'chevron-right',
+            click: function() {
+              if (calendar.view.type === 'timeGridWeek') {
+                let daysToAdvance = 7;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              } else {
+                let daysToAdvance = 1;
+                calendar.incrementDate({
+                  days: daysToAdvance
+                });
+              }
+            }
+          },
+          customPrevious: {
+            icon: 'chevron-left',
+            click: function() {
+              if (calendar.view.type === 'timeGridWeek') {
+                let daysToGoBack = -7; // Revenir à la vue de jour (-7 jours)
+                calendar.incrementDate({
+                  days: daysToGoBack
+                });
+              } else if (calendar.view.type === 'timeGridDay') {
+                const currentDate = calendar.getDate();
+                const currentDayOfWeek = currentDate.getDay();
+                let daysToGoBack;
 
-        //         if (currentDayOfWeek === 0) {
-        //           daysToGoBack = 2;
-        //         } else if (currentDayOfWeek === 1) {
-        //           daysToGoBack = 3;
-        //         } else {
-        //           daysToGoBack = 1;
-        //         }
+                if (currentDayOfWeek === 0) {
+                  daysToGoBack = 2;
+                } else if (currentDayOfWeek === 1) {
+                  daysToGoBack = 3;
+                } else {
+                  daysToGoBack = 1;
+                }
 
-        //         calendar.prev(daysToGoBack);
-        //       }
-        //     }
-        //   },
-        // },
+                calendar.prev(daysToGoBack);
+              }
+            }
+          },
+        },
         // slotEventOverlap: false,
         // plugins: [DayGridPlugin, iCalendarPlugin],
         eventSources: [{
