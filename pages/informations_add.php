@@ -72,6 +72,7 @@ if (isset($_POST['submit'])) {
 
 echo head('MMI Companion | Informations');
 ?>
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
 <body class="body-all">
     <!-- Menu de navigation -->
@@ -135,10 +136,18 @@ echo head('MMI Companion | Informations');
                 }
             
             ?>
-            <div class="form_input-informations_add">
-                <label for="content">Contenu</label>
-                <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
-            </div>
+
+
+
+
+            
+            <div class="form_content-informations_add" id="editor"></div>
+            <input name="content" id="content" type="hidden">
+
+
+
+
+
             <div class="form_groupe_input-informations_add">
                 <p>Groupe</p>
                 <div class="form_groupe_content_input-informations_add"></div>
@@ -156,10 +165,48 @@ echo head('MMI Companion | Informations');
 
     <script src="../assets/js/menu-navigation.js"></script>
     <script src="../assets/js/tree.min.js"></script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
+
+
+
+
+        let quill = new Quill('#editor', {
+        modules: {
+            toolbar: [
+            ['bold', 'italic'],
+            ['link', 'blockquote', 'code-block', 'image'],
+            [{ list: 'ordered' }, { list: 'bullet' }]
+            ]
+        },
+        placeholder: 'Contenu de l\'information',
+        theme: 'snow'
+        });
+
+        let form = document.querySelector('.form_informations_add');
+        console.log(form);
+        form.onsubmit = function() {
+        // Populate hidden form on submit
+        let about = document.querySelector('#content');
+        about.value = JSON.stringify(quill.getContents());
+        about.value = JSON.parse(about.value).ops[0].insert;
+
+        };
+
+
+
+
+
+
+
+
+
+
+
+
 
         const treeData = [{
                 id: 'BUT1',

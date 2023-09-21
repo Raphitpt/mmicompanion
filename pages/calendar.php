@@ -217,7 +217,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-all">
 
-    <header class="header-calendar">
+    <!-- <header class="header-calendar">
       <div class="content_header-calendar">
 
         <div class="burger-header-calendar" id="burger-header">
@@ -227,14 +227,14 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         <div class="content-header-calendar">
           <div class="content_title-header-calendar">
             <h1>Salut <span style="font-weight:800">
-                <?php echo ucfirst($user['pname']) ?><span></h1>
+                <?php //echo ucfirst($user['pname']) ?><span></h1>
             <p>en ligne</p>
           </div>
           <div style="width:10px"></div>
           <a href="./profil.php">
             <div class="content_img-header-calendar">
               <div class="rounded-img">
-                <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
+                <img src="<?php //echo $user_sql['pp_link'] ?>" alt="Photo de profil">
               </div>
               <div class="green_circle"></div>
             </div>
@@ -244,16 +244,28 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
       <?php generateBurgerMenuContent() ?>
 
+    </header> -->
+
+    <header>
+        <div class="content_header">
+            <div class="content_title-header">
+                <div class="burger-header" id="burger-header">
+                    <i class="fi fi-br-bars-sort"></i>
+                </div>
+                <div style="width:20px"></div>
+                <h1>L'emploi du temps</h1>
+            </div>
+        </div>
+        <?php generateBurgerMenuContent() ?>
     </header>
     <div style="height:15px"></div>
     <main class="main-calendar">
-      
       <section class="section_calendar-calendar">
-        <div class="title_trait">
+        <!-- <div class="title_trait">
           <h1>L'emploi du temps</h1>
           <div></div>
         </div>
-        <div style="height:20px"></div>
+        <div style="height:20px"></div> -->
         <div class="container_calendar-calendar">
           <div id="calendar"></div>
 
@@ -296,12 +308,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           day: 'Jour',
           list: 'Liste'
         },
-        slotMinTime: '08:00',
+        slotMinTime: '07:00',
         slotMaxTime: '18:30',
         views: {
           timeGridFourDay: {
             type: 'timeGrid',
-            dayCount: 3,
+            dayCount: 5,
             weekends: false,
           },
           timeGridDay: {
@@ -313,7 +325,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         // hiddenDays: [0, 6],
         allDaySlot: false,
         eventMinHeight: 50,
-        height: 'calc(98vh - 138px)',
+        height: 'calc(98vh - 95px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
@@ -346,7 +358,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           //     }
           // },
           custom3day: {
-            text: '3 jours',
+            text: '5 jours',
             click: function() {
               calendar.changeView('timeGridFourDay');
               document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {

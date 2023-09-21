@@ -991,7 +991,7 @@ main {
 }
 
 
-.title_trait {
+/* .title_trait {
     display: flex;
     flex-direction: row;
     align-items: end;
@@ -1015,7 +1015,7 @@ main {
 
 .section_calendar-calendar .title_trait{
     margin-left: 40px;
-}
+} */
 
 .container_calendar-calendar{
     display: flex;
@@ -1855,6 +1855,18 @@ main {
     line-height: normal;
     resize: vertical;
 }
+
+.form_content-informations_add{
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
 
 .form_groupe_content_input-informations_add .treejs-nodes{
     width: 100%;
