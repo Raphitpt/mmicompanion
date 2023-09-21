@@ -314,6 +314,44 @@ function decodeJWT($jwt, $secret_key)
         echo "Erreur de décodage du JWT : " . $e->getMessage();
     }
 }
+function checkEvent($id_event, $id_user)
+{
+    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
+    $sql = "INSERT INTO event_check (id_event, id_user) VALUES (:id_event, :id_user)";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['id_event' => $id_event, 'id_user' => $id_user]);
+}
+function unCheckEvent($id_event, $id_user)
+{
+    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
+    $sql = "DELETE FROM event_check WHERE id_event = :id_event AND id_user = :id_user";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['id_event' => $id_event, 'id_user' => $id_user]);
+
+
+}
+// Fonction pour vérifier si un enregistrement existe pour l'événement et l'utilisateur
+function getEventCheckedStatus($dbh, $idAgenda, $idUser) {
+    // Assurez-vous de sécuriser vos paramètres
+    $idAgenda = intval($idAgenda);
+    $idUser = intval($idUser);
+
+    // Préparez la requête SQL pour vérifier l'existence de l'enregistrement
+    $sql = "SELECT 1 FROM event_check WHERE id_event = :idAgenda AND id_user = :idUser";
+
+    // Préparez la requête SQL en utilisant la variable de connexion
+    $stmt = $dbh->prepare($sql);
+    
+    // Liez les valeurs des paramètres
+    $stmt->bindParam(":idAgenda", $idAgenda, PDO::PARAM_INT);
+    $stmt->bindParam(":idUser", $idUser, PDO::PARAM_INT);
+    
+    // Exécutez la requête SQL
+    $stmt->execute();
+
+    // Vérifiez s'il y a une ligne de résultat
+    return $stmt->fetch(PDO::FETCH_COLUMN);
+}
 
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
