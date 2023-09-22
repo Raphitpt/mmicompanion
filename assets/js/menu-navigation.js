@@ -3,8 +3,10 @@
 
 // Sélectionnez le bouton burger, le menu de navigation et le document
 const burgerButton = document.querySelector('#burger-header');
+const closeButton = document.querySelector('#close_burger-header');
 const menu = document.querySelector('#burger_content-header');
 const link = document.querySelectorAll('.burger_content_link-header');
+
 const documentBody = document.body;
 
 // Ajoutez un gestionnaire d'événement au clic sur le bouton burger
@@ -14,6 +16,7 @@ burgerButton.addEventListener('click', (event) => {
 
   documentBody.classList.add('no-scroll');
   burgerButton.classList.add('active');
+  closeButton.classList.remove('active');
 });
 
 // Ajoutez un gestionnaire d'événement au clic sur le document
@@ -23,7 +26,18 @@ document.addEventListener('click', (event) => {
     menu.style.transform = 'translateX(-100%)';
     documentBody.classList.remove('no-scroll');
     burgerButton.classList.remove('active');
+    closeButton.classList.add('active');
   }
+});
+
+// Ajoutez un gestionnaire d'événement au clic sur le bouton de fermeture
+closeButton.addEventListener('click', (event) => {
+  event.stopPropagation(); // Empêche la propagation de l'événement de clic
+  toggleMenu();
+
+  documentBody.classList.remove('no-scroll');
+  closeButton.classList.add('active');
+  burgerButton.classList.remove('active');
 });
 
 // Fonction pour basculer l'état du menu
@@ -34,6 +48,7 @@ function toggleMenu() {
     menu.style.transform = 'translateX(-100%)';
     documentBody.classList.remove('no-scroll');
     burgerButton.classList.remove('active');
+    closeButton.classList.add('active');
   } else {
     menu.style.transform = 'translateX(0%)';
   }
