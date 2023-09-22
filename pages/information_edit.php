@@ -292,6 +292,10 @@ echo head('MMI Companion | Informations');
     let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
     radioInputs.forEach(radioInput => {
+        if (radioInput.checked) {
+            formGroupe.classList.add("hidden");
+        }
+        
         radioInput.addEventListener("change", function () {
             if (radioInput.id == "admin") {
                 formGroupe.classList.remove("hidden");

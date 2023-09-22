@@ -162,8 +162,13 @@ function generateBurgerMenuContent()
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
-            <img src="./../assets/img/mmicompanion.svg" alt="">
-            <h1>MMI Companion</h1>
+            <div class="burger_content_titleleft-header">
+                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
+                <h1>MMI Companion</h1>
+            </div>
+            <div class="burger_content_titleright-header burger-header" id="close_burger-header">
+                <i class="fi-br-cross-small"></i>
+            </div>
         </div>
         <div class="burger_content_content-header">
             <div class="burger_content_trait_header"></div>
