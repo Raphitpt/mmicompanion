@@ -1152,6 +1152,18 @@ h1 {
     font-size: 13px !important;
 }
 
+.fc-title{
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.fc-location{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
 
 
 
