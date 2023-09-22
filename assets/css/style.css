@@ -93,14 +93,6 @@ main {
     font-weight: 700;
     line-height: normal;
 }
-h1 {
-    color: var(--texte, #004A5A);
-    font-size: 19px;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-}
 
 
 
