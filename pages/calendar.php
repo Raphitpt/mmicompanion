@@ -486,11 +486,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
         // Vérifiez si le geste était un glissement vers la gauche (jour suivant)
         if (swipeDistance > swipeThreshold) {
-            calendar.next();
+            calendar.prev();
         }
         // Vérifiez si le geste était un glissement vers la droite (jour précédent)
         else if (swipeDistance < -swipeThreshold) {
-            calendar.prev();
+            calendar.next();
         }
     });
     });
