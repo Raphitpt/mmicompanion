@@ -1165,6 +1165,128 @@ h1 {
 
 
 
+/* CALENDAR_ADD.PHP */
+
+.main-calendar_add{
+    width: 80vw;
+    max-width: 550px;
+}
+
+.form-calendar_add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input_title-calendar_add {
+    border-radius: 30px;
+    background: #FFF;
+    padding: 15px 30px;
+    width: 100%;
+    border: none;
+    color: #252525;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    max-width: 375px;
+}
+
+.content_inputs-calendar_add{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.content_inputs_date-calendar_add{
+    width: 100%;
+}
+
+.label-calendar_add {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+
+.label-calendar_add h2 {
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+}
+
+.container_input-calendar_add{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background: #ffffff;
+    border-radius: 30px;
+    width: 80%;
+    max-width: 290px;
+    width: 100%;
+}
+
+.input-calendar_add{
+    background-color: #ffffff00;
+    padding: 10px 20px;
+    border: none;
+    color: #252525;
+    font-family: Montserrat;
+    border-radius: 30px;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    -webkit-appearance: none;
+    background-color: white;
+    width: 100%;
+    
+}
+
+.input_textarea-calendar_add{
+    border-radius: 20px;
+    resize: vertical;
+    height: 110px;
+}
+
+
+.content_input_color-calendar_add{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.content_input_color-calendar_add input{
+    width: 100%;
+    border: none;
+    border-radius: 90px;
+}
+
+
+
+
+
+
 
 
 

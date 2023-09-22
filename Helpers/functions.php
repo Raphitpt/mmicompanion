@@ -171,7 +171,7 @@ function generateBurgerMenuContent()
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-calendar-lines"></i>
                     <p>Emploi du temps</p>
-                    <div id="select_background_index-header" class=""></div>
+                    <div id="select_background_calendar-header" class=""></div>
                 </div>
             </a>
             <a href="./agenda.php">

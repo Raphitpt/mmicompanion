@@ -49,7 +49,7 @@ $stmt = $dbh->prepare($color_subjects);
 $stmt->execute();
 $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo head('MMI Companion | Accueil');
+echo head('MMI Companion | Emploi du temps');
 ?>
 
 <!-- Mise en place du tutoriel -->
@@ -255,7 +255,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             <i class="fi fi-br-bars-sort"></i>
           </div>
           <div style="width:20px"></div>
-          <h1>L'emploi du temps</h1>
+          <h1>Emploi du temps</h1>
         </div>
       </div>
       <?php generateBurgerMenuContent() ?>
@@ -281,7 +281,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="../assets/js/app.js"></script>
   <script>
     // Faire apparaître le background dans le menu burger
-    let select_background_profil = document.querySelector('#select_background_index-header');
+    let select_background_profil = document.querySelector('#select_background_calendar-header');
     select_background_profil.classList.add('select_link-header');
 
     // -----------------------
@@ -331,6 +331,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         initialView: "timeGridDay",
         footerToolbar: {
           left: "custom1day",
+          center: "addEvent",
           right: "custom3day",
         },
         headerToolbar: {
@@ -346,6 +347,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
               document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
                 eventEl.style.fontSize = '0.8rem !important';
               });
+            }
+          },
+          addEvent: {
+            text: '+',
+            click: function() {
+              window.location.href = './calendar_add.php';
             }
           },
           custom1day: {

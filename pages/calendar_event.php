@@ -20,7 +20,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         'end' => $row['end'],
         'description' => $row['description'],
         'location' => $row['location'],
-        'color' => '#CAFF33',
+        'color' => $row['color'],
     ];
     array_push($events, $event);
 }
