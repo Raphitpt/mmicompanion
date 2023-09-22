@@ -60,17 +60,12 @@ echo head("MMI Companion | Profil");
     </header>
 
     <main class="main-profil">
-        <div class="profil_picture-profil">
+    <div class="profil_picture-profil">
             <div class="edit_profil_picture-img" id="edit_profil_picture">
                 <i class="fi fi-br-pencil"></i>
             </div>
-            <img id="preview2" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
-            <input type="file" id="profil_picture-input" style="display: none;">
-            <div id="image-container" style="display: none;">
-                <img id="preview" class="profil_picture-img" src="" alt="Aperçu de l'image">
-                <button id="downloadButton" style="display: none;">Télécharger</button>
-            </div>
-
+            <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
+            <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
 
         <div id="push-permission" class="button_notifications-profil"></div>
