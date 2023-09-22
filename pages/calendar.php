@@ -324,7 +324,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           }
         },
         eventClick: function(info) {
-          if(info.event.source.url === './calendar_event.php') {
+          if (info.event.source.url === './calendar_event.php') {
             window.location.href = './calendar_edit.php?id_event=' + info.event.id;
           }
         },
@@ -471,28 +471,28 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
       calendar.render();
       let touchStartX = 0;
-    let touchEndX = 0;
-    let swipeThreshold = 50; // Seuil pour considérer un geste comme un glissement
+      let touchEndX = 0;
+      let swipeThreshold = 50; // Seuil pour considérer un geste comme un glissement
 
-    // Événement de toucher initial
-    calendarEl.addEventListener('touchstart', function (e) {
+      // Événement de toucher initial
+      calendarEl.addEventListener('touchstart', function(e) {
         touchStartX = e.touches[0].clientX;
-    });
+      });
 
-    // Événement de fin de toucher
-    calendarEl.addEventListener('touchend', function (e) {
+      // Événement de fin de toucher
+      calendarEl.addEventListener('touchend', function(e) {
         touchEndX = e.changedTouches[0].clientX;
         let swipeDistance = touchEndX - touchStartX;
 
         // Vérifiez si le geste était un glissement vers la gauche (jour suivant)
         if (swipeDistance > swipeThreshold) {
-            calendar.prev();
+          calendar.prev();
         }
         // Vérifiez si le geste était un glissement vers la droite (jour précédent)
         else if (swipeDistance < -swipeThreshold) {
-            calendar.next();
+          calendar.next();
         }
-    });
+      });
     });
   </script>
 
