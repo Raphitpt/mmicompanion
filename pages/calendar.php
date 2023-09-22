@@ -49,7 +49,7 @@ $stmt = $dbh->prepare($color_subjects);
 $stmt->execute();
 $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-echo head('MMI Companion | Accueil');
+echo head('MMI Companion | Emploi du temps');
 ?>
 
 <!-- Mise en place du tutoriel -->
@@ -217,7 +217,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-all">
 
-    <header class="header-calendar">
+    <!-- <header class="header-calendar">
       <div class="content_header-calendar">
 
         <div class="burger-header-calendar" id="burger-header">
@@ -227,14 +227,16 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         <div class="content-header-calendar">
           <div class="content_title-header-calendar">
             <h1>Salut <span style="font-weight:800">
-                <?php echo ucfirst($user['pname']) ?><span></h1>
+                <?php //echo ucfirst($user['pname']) 
+                ?><span></h1>
             <p>en ligne</p>
           </div>
           <div style="width:10px"></div>
           <a href="./profil.php">
             <div class="content_img-header-calendar">
               <div class="rounded-img">
-                <img src="<?php echo $user_sql['pp_link'] ?>" alt="Photo de profil">
+                <img src="<?php //echo $user_sql['pp_link'] 
+                          ?>" alt="Photo de profil">
               </div>
               <div class="green_circle"></div>
             </div>
@@ -244,19 +246,28 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
       <?php generateBurgerMenuContent() ?>
 
-    </header>
-    <div style="height:15px"></div>
-    <main class="main-calendar">
-      
-      <section class="section_calendar-calendar">
-        <div class="title_trait">
-          <h1>L'emploi du temps</h1>
-          <div></div>
+    </header> -->
+
+    <header>
+      <div class="content_header">
+        <div class="content_title-header">
+          <div class="burger-header" id="burger-header">
+            <i class="fi fi-br-bars-sort"></i>
+          </div>
+          <div style="width:20px"></div>
+          <h1>Emploi du temps</h1>
         </div>
-        <div style="height:20px"></div>
+      </div>
+      <?php generateBurgerMenuContent() ?>
+    </header>
+
+    <div style="height:15px"></div>
+
+    <main class="main-calendar">
+      <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
           <div id="calendar"></div>
-
+        </div>
       </section>
     </main>
 
@@ -265,11 +276,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/ical.js@1.5.0/build/ical.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
+  <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
   <script src="../assets/js/menu-navigation.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
     // Faire apparaître le background dans le menu burger
-    let select_background_profil = document.querySelector('#select_background_index-header');
+    let select_background_profil = document.querySelector('#select_background_calendar-header');
     select_background_profil.classList.add('select_link-header');
 
     // -----------------------
@@ -298,11 +310,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
+        slotLabelInterval: '1:00:00',
         views: {
-          timeGridFourDay: {
+          timeGridWeek: {
             type: 'timeGrid',
-            dayCount: 3,
             weekends: false,
+            slotLabelInterval: '1:00:00',
           },
           timeGridDay: {
             type: 'timeGrid',
@@ -310,15 +323,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             weekends: false,
           }
         },
-        // hiddenDays: [0, 6],
+        eventClick: function(info) {
+          if (info.event.source.url === './calendar_event.php') {
+            window.location.href = './calendar_edit.php?id_event=' + info.event.id;
+          }
+        },
         allDaySlot: false,
         eventMinHeight: 50,
-        height: 'calc(98vh - 138px)',
+        height: 'calc(98vh - 95px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
           left: "custom1day",
-          // center: "addEvent",
+          center: "addEvent",
           right: "custom3day",
         },
         headerToolbar: {
@@ -327,31 +344,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           right: "today customNext",
         },
         customButtons: {
-          //   addEvent: {
-          //     icon: 'plus',
-          //     click: function() {
-          //       let dateStr = prompt('Enter a date in YYYY-MM-DD format');
-          //       let date = new Date(dateStr + 'T00:00:00'); // will be in local time
-
-          //       if (!isNaN(date.valueOf())) { // valid?
-          //         calendar.addEvent({
-          //           title: 'dynamic event',
-          //           start: date,
-          //           allDay: true
-          //         });
-          //         alert('Great. Now, update your database...');
-          //       } else {
-          //         alert('Invalid date.');
-          //       }
-          //     }
-          // },
           custom3day: {
-            text: '3 jours',
+            text: '5 jours',
             click: function() {
-              calendar.changeView('timeGridFourDay');
+              calendar.changeView('timeGridWeek');
               document.querySelectorAll('.fc-v-event').forEach(function(eventEl) {
                 eventEl.style.fontSize = '0.8rem !important';
               });
+            }
+          },
+          addEvent: {
+            text: '+',
+            click: function() {
+              window.location.href = './calendar_add.php';
             }
           },
           custom1day: {
@@ -366,8 +371,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           customNext: {
             icon: 'chevron-right',
             click: function() {
-              if (calendar.view.type === 'timeGridFourDay') {
-                let daysToAdvance = 3;
+              if (calendar.view.type === 'timeGridWeek') {
+                let daysToAdvance = 7;
                 calendar.incrementDate({
                   days: daysToAdvance
                 });
@@ -382,11 +387,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           customPrevious: {
             icon: 'chevron-left',
             click: function() {
-              if (calendar.view.type === 'timeGridFourDay') {
-                let daysToGoBack = 3;
-                let currentDate = calendar.getDate();
-                currentDate.setDate(currentDate.getDate() - daysToGoBack);
-                calendar.gotoDate(currentDate);
+              if (calendar.view.type === 'timeGridWeek') {
+                let daysToGoBack = -7; // Revenir à la vue de jour (-7 jours)
+                calendar.incrementDate({
+                  days: daysToGoBack
+                });
               } else if (calendar.view.type === 'timeGridDay') {
                 const currentDate = calendar.getDate();
                 const currentDayOfWeek = currentDate.getDay();
@@ -405,10 +410,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             }
           },
         },
-        slotEventOverlap: false,
+        // slotEventOverlap: false,
         // plugins: [DayGridPlugin, iCalendarPlugin],
-        eventSources:[
-          {
+        eventSources: [{
             url: url1,
             format: "ics",
           },
@@ -424,19 +428,20 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
           let eventContent = "";
 
-          if (eventTitle && calendar.view.type === 'timeGridFourDay') {
+          if (eventTitle && calendar.view.type === 'timeGridWeek') {
             eventContent += '<div class="fc-title" style="font-size:0.52rem">' + eventTitle + '</div>';
           } else if (eventTitle && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-title" style="font-size:0.8rem">' + eventTitle + '</div>';
           }
 
-          if (eventDescription && calendar.view.type === 'timeGridFourDay') {
-            eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
-          } else if (eventDescription && calendar.view.type === 'timeGridDay') {
+          // if (eventDescription && calendar.view.type === 'timeGridWeek') {
+          //   eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
+          // } else 
+          if (eventDescription && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-description" style="font-size:0.8rem">' + test + '</div>';
           }
 
-          if (eventLocation && calendar.view.type === 'timeGridFourDay') {
+          if (eventLocation && calendar.view.type === 'timeGridWeek') {
             eventContent += '<div class="fc-location" style="font-size:0.52rem">' + eventLocation + '</div>';
           } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
@@ -446,7 +451,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             html: eventContent
           };
         },
-
         eventDidMount: function(arg) {
           let eventTitle = arg.event.title;
           let eventColor = null;
@@ -466,6 +470,29 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       });
 
       calendar.render();
+      let touchStartX = 0;
+      let touchEndX = 0;
+      let swipeThreshold = 50; // Seuil pour considérer un geste comme un glissement
+
+      // Événement de toucher initial
+      calendarEl.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+      });
+
+      // Événement de fin de toucher
+      calendarEl.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].clientX;
+        let swipeDistance = touchEndX - touchStartX;
+
+        // Vérifiez si le geste était un glissement vers la gauche (jour suivant)
+        if (swipeDistance > swipeThreshold) {
+          calendar.prev();
+        }
+        // Vérifiez si le geste était un glissement vers la droite (jour précédent)
+        else if (swipeDistance < -swipeThreshold) {
+          calendar.next();
+        }
+      });
     });
   </script>
 

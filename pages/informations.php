@@ -177,9 +177,11 @@ echo head("MMI Companion | Informations");
                             </div>
                         </div>
                         <div class="item_content_text-information">
-                            <p><?= $information['content'] ?></p>
+                            <?php 
+                            echo nl2br($information['content']); 
+                            ?>
                         </div>
-                        <?php if($information['id_user'] === $user['id_user']){ ?>
+                        <?php if($information['id_user'] === $user['id_user'] || str_contains($user_sql['role'], "admin")){ ?>
                         <div class="item_button-informations">
                             <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
                             <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>

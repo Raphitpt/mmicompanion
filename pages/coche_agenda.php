@@ -8,12 +8,13 @@ if (!isset($_COOKIE['jwt'])) {
 
 $idAgenda = $_POST['idAgenda'];
 $checkedValue = $_POST['checked'];
+$idUser = $_POST['id_user'];
 
-$sql = "UPDATE agenda SET checked = :checked WHERE id_task = :id_task";
-$stmt = $dbh->prepare($sql);
-$stmt->bindParam(':checked', $checkedValue, PDO::PARAM_INT);
-$stmt->bindParam(':id_task', $idAgenda, PDO::PARAM_INT);
-$stmt->execute();
-
+  if ($checkedValue == 0){
+    unCheckEvent($idAgenda, $idUser);
+  } else {
+    checkEvent($idAgenda, $idUser);
+  }
+    
 echo "Mise à jour effectuée avec succès!";
 ?>

@@ -172,6 +172,7 @@ echo head("MMI Companion | Agenda");
                     <a role="button" href='./agenda.php'>Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
+                <div style="height:20px"></div>
                 
             </form>
         </div>

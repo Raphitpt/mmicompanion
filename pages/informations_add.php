@@ -45,6 +45,7 @@ if (isset($_POST['submit'])) {
             $group_info = $user['edu_group'];
         }
 
+
         $sql = "INSERT INTO informations (titre, user, user_role, content, group_info, id_user) VALUES (:titre, :user, :user_role, :content, :group_info, :id_user)";
         $stmt = $dbh->prepare($sql);
         $stmt->execute([
@@ -72,6 +73,8 @@ if (isset($_POST['submit'])) {
 
 echo head('MMI Companion | Informations');
 ?>
+<!-- <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> -->
+<link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 
 <body class="body-all">
     <!-- Menu de navigation -->
@@ -95,7 +98,7 @@ echo head('MMI Companion | Informations');
             <div></div>
         </div>
         <div style="height:20px"></div>
-        <form action="" method="post" class="form_informations_add">
+        <form action="" method="post" class="form_informations_add" id="formtest">
             <div class="form_title_input-informations_add">
                 <input type="text" name="titre" id="titre" placeholder="Ajouter un titre à l'information" required>
             </div>
@@ -106,39 +109,43 @@ echo head('MMI Companion | Informations');
             <?php 
                 if(str_contains($user_sql['role'], 'admin')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='admin' id='admin'>";
+                    echo "<input type='radio' name='role' value='admin' id='admin' checked>";
                     echo "<label for='admin'>Je veux que mon rôle s'affiche en tant qu'administrateur</label>";
                     echo "</div>";
                 }
                 if (str_contains($user_sql['role'], 'chef')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='chef' id='chef'>";
+                    echo "<input type='radio' name='role' value='chef' id='chef' checked>";
                     echo "<label for='chef'>Je veux que mon rôle s'affiche en tant que chef du TP</label>";
                     echo "</div>";
                 }
                 if (str_contains($user_sql['role'], 'BDE')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='BDE' id='bde'>";
+                    echo "<input type='radio' name='role' value='BDE' id='bde' checked>";
                     echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
                     echo "</div>";
                 }
                 if (str_contains($user_sql['role'], 'prof')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='hidden' name='role' value='prof' id='prof'>";
+                    echo "<input type='hidden' name='role' value='prof' id='prof' checked>";
                     echo "</div>";
                 }
-                if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
-                    echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
-                    echo "</div>";
-                }
+                // if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
+                //     echo "<div class='form_role_input-informations_add'>";
+                //     echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
+                //     echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
+                //     echo "</div>";
+                // }
             
             ?>
-            <div class="form_input-informations_add">
-                <label for="content">Contenu</label>
-                <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"></textarea>
+
+
+            <div class="form_content-informations_add">
+                <p>Contenu</p>
+                <textarea class="form_content_input-informations_add" id="editor"></textarea>
+                <input name="content" id="content" type="hidden">
             </div>
+            
             <div class="form_groupe_input-informations_add">
                 <p>Groupe</p>
                 <div class="form_groupe_content_input-informations_add"></div>
@@ -156,10 +163,58 @@ echo head('MMI Companion | Informations');
 
     <script src="../assets/js/menu-navigation.js"></script>
     <script src="../assets/js/tree.min.js"></script>
+    <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
+    <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
+
+
+        $('#editor').trumbowyg();
+        // let contenuTexte = $('#editor').trumbowyg('html');
+        // let about = document.querySelector('#content');
+        // about.value = contenuTexte;
+
+        $(document).ready(function() {
+    $('#formtest').submit(function(event) {
+        var contenuTexte = $('#editor').trumbowyg('html');
+        $('#content').val(contenuTexte);
+    });
+});
+        // let quill = new Quill('#editor', {
+        // modules: {
+        //     toolbar: [
+        //     ['bold', 'italic'],
+        //     ['link', 'blockquote', 'code-block', 'image'],
+        //     [{ list: 'ordered' }, { list: 'bullet' }]
+        //     ]
+        // },
+        // placeholder: 'Contenu de l\'information',
+        // theme: 'snow'
+        // });
+
+        let form = document.querySelector('.form_informations_add');
+        console.log(form);
+        // form.onsubmit = function() {
+        // // Populate hidden form on submit
+        // 
+        // about.value = JSON.stringify(quill.getContents());
+        // // about.value = JSON.parse(about.value).ops[0].insert;
+
+        // };
+
+
+
+
+
+
+
+
+
+
+
+
 
         const treeData = [{
                 id: 'BUT1',
@@ -246,6 +301,10 @@ echo head('MMI Companion | Informations');
     let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
     radioInputs.forEach(radioInput => {
+        if (radioInput.checked) {
+            formGroupe.classList.add("hidden");
+        }
+
         radioInput.addEventListener("change", function () {
             if (radioInput.id == "admin") {
                 formGroupe.classList.remove("hidden");

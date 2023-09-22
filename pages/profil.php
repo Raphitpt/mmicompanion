@@ -41,6 +41,7 @@ if (str_contains($user_sql['role'], "chef") || str_contains($user_sql['role'], "
 echo head("MMI Companion | Profil");
 
 ?>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.css" integrity="sha512-zxBiDORGDEAYDdKLuYU9X/JaJo/DPzE42UubfBw9yg8Qvb2YRRIQ8v4KsGHOx2H1/+sdSXyXxLXv5r7tHc9ygg==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
 
 <body class="body-all">
 
@@ -59,13 +60,14 @@ echo head("MMI Companion | Profil");
     </header>
 
     <main class="main-profil">
-        <div class="profil_picture-profil">
+    <div class="profil_picture-profil">
             <div class="edit_profil_picture-img" id="edit_profil_picture">
                 <i class="fi fi-br-pencil"></i>
             </div>
             <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
             <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
+
         <div id="push-permission" class="button_notifications-profil"></div>
         <div style="height:25px"></div>
         <div class="profil_form-profil">
@@ -135,8 +137,10 @@ echo head("MMI Companion | Profil");
         <div style="height:30px"></div>
     </main>
 
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script src="../assets/js/app.js"></script>
     <?php
     if ($user_sql['role'] == "chef") { ?>
@@ -153,8 +157,6 @@ echo head("MMI Companion | Profil");
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_profil-header');
         select_background_profil.classList.add('select_link-header');
-
-
 
 
         document.addEventListener('DOMContentLoaded', () => {
@@ -205,6 +207,97 @@ echo head("MMI Companion | Profil");
                 });
             });
         });
+
+    //     document.addEventListener('DOMContentLoaded', () => {
+    // let input = document.querySelector('#profil_picture-input');
+    // let imageContainer = document.querySelector('#image-container');
+    // let image = document.querySelector('#preview');
+    // let downloadButton = document.querySelector('#downloadButton');
+    // let croppie; // Variable pour stocker l'instance Croppie
+
+//     document.querySelector('.profil_picture-img').addEventListener('click', () => {
+//         // Déclenchez le clic sur le champ de fichier lorsque l'utilisateur clique sur le bouton "Éditer"
+//         input.click();
+//     });
+
+//     input.addEventListener('change', (event) => {
+//         let file = event.target.files[0];
+
+//         if (croppie) {
+//             croppie.destroy();
+//         }
+
+//         // Affichez l'image sélectionnée dans l'élément image
+//         image.src = URL.createObjectURL(file);
+
+//         // Affichez la div contenant l'image et le bouton de téléchargement
+//         imageContainer.style.display = 'block';
+
+//         // Initialisez Croppie automatiquement
+//         initializeCroppie();
+//     });
+
+//     function initializeCroppie() {
+//         croppie = new Croppie(image, {
+//             enableExif: true,
+//             viewport: {
+//                 width: 200, // Largeur de la zone de rognage
+//                 height: 200, // Hauteur de la zone de rognage
+//                 type: 'circle', // Type de zone de rognage (carré dans cet exemple)
+//             },
+//             boundary: {
+//                 width: 300, // Largeur de la zone de rognage globale
+//                 height: 300, // Hauteur de la zone de rognage globale
+//             },
+//         });
+
+//         // Rendez le bouton de téléchargement visible lorsque Croppie est prêt
+//         downloadButton.style.display = 'block';
+//     }
+
+//     downloadButton.addEventListener('click', () => {
+//         if (croppie) {
+//             // Obtenez les données de l'image rognée au format Blob
+//             croppie.result('blob').then((blob) => {
+//                 // Créez un objet FormData pour envoyer le Blob au serveur
+//                 let formData = new FormData();
+//                 formData.append('profil-picture', blob, 'profil-picture.png');
+
+//                 // Créez une requête AJAX pour envoyer l'image au serveur
+//                 let xhr = new XMLHttpRequest();
+//                 xhr.open('POST', 'update-profil-picture.php', true);
+
+//                 xhr.onload = () => {
+//                     if (xhr.status === 200) {
+//                         // Le téléchargement a réussi, mettez à jour l'image de profil si nécessaire
+//                         let response = JSON.parse(xhr.responseText);
+//                         if (response.success) {
+//                             let preview = document.querySelector('#preview2');
+//                             preview.src = response.profilPictureUrl;
+
+//                             // Masquez l'éditeur Croppie et la div contenant l'image et le bouton de téléchargement
+//                             croppie.destroy();
+//                             imageContainer.style.display = 'none';
+//                         }
+//                     } else {
+//                         // Une erreur s'est produite lors du téléchargement
+//                         console.error('Erreur lors de l\'envoi de l\'image');
+//                     }
+//                 };
+
+//                 xhr.send(formData);
+//             });
+//         } else {
+//             console.error('Veuillez sélectionner une image avant de télécharger.');
+//         }
+//     });
+
+//     // Vous pouvez également déclencher automatiquement l'initialisation de Croppie ici
+//     // Si vous souhaitez que l'éditeur s'ouvre immédiatement après le chargement de la page.
+//     // initializeCroppie();
+// });
+
+
     </script>
 </body>
 

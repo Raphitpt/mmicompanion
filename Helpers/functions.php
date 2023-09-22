@@ -162,8 +162,13 @@ function generateBurgerMenuContent()
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
-            <img src="./../assets/img/mmicompanion.svg" alt="">
-            <h1>MMI Companion</h1>
+            <div class="burger_content_titleleft-header">
+                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
+                <h1>MMI Companion</h1>
+            </div>
+            <div class="burger_content_titleright-header burger-header" id="close_burger-header">
+                <i class="fi-br-cross-small"></i>
+            </div>
         </div>
         <div class="burger_content_content-header">
             <div class="burger_content_trait_header"></div>
@@ -171,7 +176,7 @@ function generateBurgerMenuContent()
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-calendar-lines"></i>
                     <p>Emploi du temps</p>
-                    <div id="select_background_index-header" class=""></div>
+                    <div id="select_background_calendar-header" class=""></div>
                 </div>
             </a>
             <a href="./agenda.php">
@@ -313,6 +318,45 @@ function decodeJWT($jwt, $secret_key)
         // Gérer les erreurs de décodage du JWT ici
         echo "Erreur de décodage du JWT : " . $e->getMessage();
     }
+}
+
+function checkEvent($id_event, $id_user)
+{
+    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
+    $sql = "INSERT INTO event_check (id_event, id_user) VALUES (:id_event, :id_user)";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['id_event' => $id_event, 'id_user' => $id_user]);
+}
+function unCheckEvent($id_event, $id_user)
+{
+    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
+    $sql = "DELETE FROM event_check WHERE id_event = :id_event AND id_user = :id_user";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['id_event' => $id_event, 'id_user' => $id_user]);
+
+
+}
+// Fonction pour vérifier si un enregistrement existe pour l'événement et l'utilisateur
+function getEventCheckedStatus($dbh, $idAgenda, $idUser) {
+    // Assurez-vous de sécuriser vos paramètres
+    $idAgenda = intval($idAgenda);
+    $idUser = intval($idUser);
+
+    // Préparez la requête SQL pour vérifier l'existence de l'enregistrement
+    $sql = "SELECT 1 FROM event_check WHERE id_event = :idAgenda AND id_user = :idUser";
+
+    // Préparez la requête SQL en utilisant la variable de connexion
+    $stmt = $dbh->prepare($sql);
+    
+    // Liez les valeurs des paramètres
+    $stmt->bindParam(":idAgenda", $idAgenda, PDO::PARAM_INT);
+    $stmt->bindParam(":idUser", $idUser, PDO::PARAM_INT);
+    
+    // Exécutez la requête SQL
+    $stmt->execute();
+
+    // Vérifiez s'il y a une ligne de résultat
+    return $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
 use Minishlink\WebPush\WebPush;

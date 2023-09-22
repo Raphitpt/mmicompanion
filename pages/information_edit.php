@@ -60,7 +60,7 @@ if (isset($_POST['submit'])) {
         $group_info = $user['edu_group'];
     }
     
-    $sql = "UPDATE informations SET titre=:titre, user=:user, user_role=:user_role content=:content, group_info=:group_info WHERE id_infos=:id_information";
+    $sql = "UPDATE informations SET titre=:titre, user=:user, user_role=:user_role, content=:content, group_info=:group_info WHERE id_infos=:id_information";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'titre' => $title,
@@ -77,7 +77,7 @@ if (isset($_POST['submit'])) {
 
 echo head('MMI Companion | Informations');
 ?>
-
+<link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 <body class="body-all">
     <!-- Menu de navigation -->
     <header>
@@ -100,7 +100,7 @@ echo head('MMI Companion | Informations');
             <div></div>
         </div>
         <div style="height:20px"></div>
-        <form action="" method="post" class="form_informations_add">
+        <form action="" method="post" class="form_informations_add" id="formtest">
             <div class="form_title_input-informations_add">
                 <input type="text" name="titre" id="titre" placeholder="Ajouter un titre à l'information" required value="<?php echo $information['titre']?>">
             </div>
@@ -147,23 +147,29 @@ echo head('MMI Companion | Informations');
                     echo "<input type='hidden' name='role' value='prof' id='prof'>";
                     echo "</div>";
                 }
-                if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    if (str_contains($information['user_role'], $user_name)) {
-                        echo "<input type='radio' name='role' value='" . $user_name . "'id='user' checked>";
-                    }else{
-                        echo "<input type='radio' name='role' value='" . $user_name . "'id='user'>";
-                    }
+                // if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
+                //     echo "<div class='form_role_input-informations_add'>";
+                //     if (str_contains($information['user_role'], $user_name)) {
+                //         echo "<input type='radio' name='role' value='" . $user_name . "'id='user' checked>";
+                //     }else{
+                //         echo "<input type='radio' name='role' value='" . $user_name . "'id='user'>";
+                //     }
                     
-                    echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
-                    echo "</div>";
-                }
+                //     echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
+                //     echo "</div>";
+                // }
             
             ?>
-            <div class="form_input-informations_add">
-                <label for="content">Contenu</label>
-                <textarea name="content" id="content" cols="30" rows="10" placeholder="Contenu de l'information"><?php echo strip_tags($information['content'])?></textarea>
+            <div class="form_content-informations_add">
+                <p>Contenu</p>
+                <textarea class="form_content_input-informations_add" id="editor"><?php echo $information['content']?></textarea>
+                <input name="content" id="content" type="hidden">
             </div>
+
+
+
+
+
             <div class="form_groupe_input-informations_add">
                 <p>Groupe</p>
                 <div class="form_groupe_content_input-informations_add"></div>
@@ -174,19 +180,30 @@ echo head('MMI Companion | Informations');
                 <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
             </div>
             <div style="height:20px"></div>
-                
+
         </form>
     
     </main>
 
     <script src="../assets/js/menu-navigation.js"></script>
     <script src="../assets/js/tree.min.js"></script>
+    <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
 
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
+        $('#editor').trumbowyg();
+        // let contenuTexte = $('#editor').trumbowyg('html');
+        // let about = document.querySelector('#content');
+        // about.value = contenuTexte;
 
+        $(document).ready(function() {
+    $('#formtest').submit(function(event) {
+        var contenuTexte = $('#editor').trumbowyg('html');
+        $('#content').val(contenuTexte);
+    });
+});
         const treeData = [
             {
                 id: 'BUT1',
@@ -275,6 +292,10 @@ echo head('MMI Companion | Informations');
     let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
     radioInputs.forEach(radioInput => {
+        if (radioInput.checked) {
+            formGroupe.classList.add("hidden");
+        }
+        
         radioInput.addEventListener("change", function () {
             if (radioInput.id == "admin") {
                 formGroupe.classList.remove("hidden");
