@@ -42,10 +42,10 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_st
     $location = $_POST['location'];
     $color = $_POST['color'];
 
-    $sql = "INSERT INTO calendar_event (id_user, title, start, end, location, description, color) VALUES (:id_user, :title, :start, :end, :location, :description, :color)";
+    $sql = "UPDATE calendar_event SET title=:title, start=:start, end=:end, location=:location, description=:description, color=:color WHERE id_event=:id_event";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
-        'id_user' => $user['id_user'],
+        'id_event' => $event['id_event'],
         'title' => $title,
         'start' => $dateStart,
         'end' => $dateEnd,
