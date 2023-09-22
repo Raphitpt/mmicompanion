@@ -147,21 +147,24 @@ echo head('MMI Companion | Informations');
                     echo "<input type='hidden' name='role' value='prof' id='prof'>";
                     echo "</div>";
                 }
-                if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    if (str_contains($information['user_role'], $user_name)) {
-                        echo "<input type='radio' name='role' value='" . $user_name . "'id='user' checked>";
-                    }else{
-                        echo "<input type='radio' name='role' value='" . $user_name . "'id='user'>";
-                    }
+                // if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
+                //     echo "<div class='form_role_input-informations_add'>";
+                //     if (str_contains($information['user_role'], $user_name)) {
+                //         echo "<input type='radio' name='role' value='" . $user_name . "'id='user' checked>";
+                //     }else{
+                //         echo "<input type='radio' name='role' value='" . $user_name . "'id='user'>";
+                //     }
                     
-                    echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
-                    echo "</div>";
-                }
+                //     echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
+                //     echo "</div>";
+                // }
             
             ?>
-            <textarea class="form_content-informations_add" id="editor"><?php echo $information['content']?></textarea>
-            <input name="content" id="content" type="hidden">
+            <div class="form_content-informations_add">
+                <p>Contenu</p>
+                <textarea class="form_content_input-informations_add" id="editor"><?php echo $information['content']?></textarea>
+                <input name="content" id="content" type="hidden">
+            </div>
 
 
 

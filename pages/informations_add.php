@@ -109,47 +109,43 @@ echo head('MMI Companion | Informations');
             <?php 
                 if(str_contains($user_sql['role'], 'admin')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='admin' id='admin'>";
+                    echo "<input type='radio' name='role' value='admin' id='admin' checked>";
                     echo "<label for='admin'>Je veux que mon rôle s'affiche en tant qu'administrateur</label>";
                     echo "</div>";
                 }
                 if (str_contains($user_sql['role'], 'chef')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='chef' id='chef'>";
+                    echo "<input type='radio' name='role' value='chef' id='chef' checked>";
                     echo "<label for='chef'>Je veux que mon rôle s'affiche en tant que chef du TP</label>";
                     echo "</div>";
                 }
                 if (str_contains($user_sql['role'], 'BDE')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='BDE' id='bde'>";
+                    echo "<input type='radio' name='role' value='BDE' id='bde' checked>";
                     echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
                     echo "</div>";
                 }
                 if (str_contains($user_sql['role'], 'prof')){
                     echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='hidden' name='role' value='prof' id='prof'>";
+                    echo "<input type='hidden' name='role' value='prof' id='prof' checked>";
                     echo "</div>";
                 }
-                if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
-                    echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
-                    echo "</div>";
-                }
+                // if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
+                //     echo "<div class='form_role_input-informations_add'>";
+                //     echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
+                //     echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
+                //     echo "</div>";
+                // }
             
             ?>
 
 
-
-
+            <div class="form_content-informations_add">
+                <p>Contenu</p>
+                <textarea class="form_content_input-informations_add" id="editor"></textarea>
+                <input name="content" id="content" type="hidden">
+            </div>
             
-            <textarea class="form_content-informations_add" id="editor"></textarea>
-            <input name="content" id="content" type="hidden">
-
-
-
-
-
             <div class="form_groupe_input-informations_add">
                 <p>Groupe</p>
                 <div class="form_groupe_content_input-informations_add"></div>
@@ -305,6 +301,10 @@ echo head('MMI Companion | Informations');
     let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
     radioInputs.forEach(radioInput => {
+        if (radioInput.checked) {
+            formGroupe.classList.add("hidden");
+        }
+
         radioInput.addEventListener("change", function () {
             if (radioInput.id == "admin") {
                 formGroupe.classList.remove("hidden");

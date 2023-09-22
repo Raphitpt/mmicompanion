@@ -1914,17 +1914,6 @@ h1 {
     resize: vertical;
 }
 
-.form_content-informations_add{
-    width: 100%;
-    background-color: white;
-    border-radius: 30px;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
-
 
 .form_groupe_content_input-informations_add .treejs-nodes{
     width: 100%;
@@ -1963,6 +1952,47 @@ h1 {
     font-weight: 500;
     line-height: normal;
 }
+
+
+.form_content-informations_add p{
+    color: var(--Texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+.trumbowyg-editor-box{
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background: #FFF;
+    padding: 15px 30px;
+    width: 100%;
+    border: none;
+    color: #252525;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    resize: vertical;
+}
+
+.trumbowyg-box, .trumbowyg-editor-box {
+    border: none !important;
+}
+
+.trumbowyg-button-pane{
+    background: #ffffff !important;
+    border-top-right-radius: 20px !important;
+    border-top-left-radius: 20px !important;
+    /* border-bottom: none     !important; */
+}
+
+
+
 
 .form_groupe_input-informations_add{
     display: flex;
@@ -2054,32 +2084,7 @@ h1 {
     display: none;
 }
 
-.trumbowyg-editor-box{
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background: #FFF;
-    padding: 15px 30px;
-    width: 100%;
-    border: none;
-    color: #252525;
-    font-family: Montserrat;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    resize: vertical;
-}
 
-.trumbowyg-box, .trumbowyg-editor-box {
-    border: none !important;
-}
-
-.trumbowyg-button-pane{
-    background: #ffffff !important;
-    border-top-right-radius: 20px !important;
-    border-top-left-radius: 20px !important;
-    /* border-bottom: none     !important; */
-}
 
 
 
