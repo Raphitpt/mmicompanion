@@ -323,7 +323,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             weekends: false,
           }
         },
-        // hiddenDays: [0, 6],
+        eventClick: function(info) {
+          if(info.event.source.url === './calendar_event.php') {
+            window.location.href = './calendar_edit.php?id_event=' + info.event.id;
+          }
+        },
         allDaySlot: false,
         eventMinHeight: 50,
         height: 'calc(98vh - 95px)',
@@ -447,7 +451,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             html: eventContent
           };
         },
-
         eventDidMount: function(arg) {
           let eventTitle = arg.event.title;
           let eventColor = null;
@@ -467,6 +470,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       });
 
       calendar.render();
+      document.querySelectorAll('.fc-event').forEach(function(eventEl) {
+  eventEl.addEventListener('click', function() {
+    eventEl.style.userSelect = 'text';
+  });
+});
     });
   </script>
 
