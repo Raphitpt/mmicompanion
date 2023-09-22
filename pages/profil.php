@@ -41,7 +41,7 @@ if (str_contains($user_sql['role'], "chef") || str_contains($user_sql['role'], "
 echo head("MMI Companion | Profil");
 
 ?>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
 <body class="body-all">
 
     <header>
@@ -66,6 +66,9 @@ echo head("MMI Companion | Profil");
             <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
             <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
+
+        <button id="downloadButton" class="btn btn-primary">Rogner et Enregistrer</button>
+
         <div id="push-permission" class="button_notifications-profil"></div>
         <div style="height:25px"></div>
         <div class="profil_form-profil">
@@ -135,6 +138,7 @@ echo head("MMI Companion | Profil");
         <div style="height:30px"></div>
     </main>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="../assets/js/menu-navigation.js"></script>
     <script src="../assets/js/app.js"></script>
@@ -160,7 +164,8 @@ echo head("MMI Companion | Profil");
         document.addEventListener('DOMContentLoaded', () => {
             let input = document.querySelector('#profil_picture-input');
             let editButton = document.querySelector('#edit_profil_picture');
-
+            let image = document.querySelector('#preview');
+            let downloadButton = document.querySelector('#downloadButton');
 
             // Ajoutez un gestionnaire d'événements clic à l'élément editButton
             editButton.addEventListener('click', () => {
@@ -168,16 +173,41 @@ echo head("MMI Companion | Profil");
                 input.click();
             });
 
+            let cropper; // Variable pour stocker l'instance Cropper
+
             input.addEventListener('change', (event) => {
                 let file = event.target.files[0];
-                // On compresse la photo en js en utilisant la bibliothèque CompressorJS, parce que bon, on a pas la fibre non plus
-                new Compressor(file, {
+                
+                if (cropper) {
+                    // Si une instance Cropper existe déjà, détruisez-la
+                    cropper.destroy();
+                }
+                
+                // Affichez l'image sélectionnée dans l'élément image
+                image.src = URL.createObjectURL(file);
+
+                // Créez une nouvelle instance Cropper pour l'image
+                cropper = new Cropper(image, {
+                    aspectRatio: 1, // Vous pouvez définir le rapport hauteur/largeur souhaité ici
+                    viewMode: 2, // Mode d'affichage, 2 pour maximiser le rognage
+                    autoCropArea: 1, // Pour que l'image soit automatiquement rognée pour couvrir la zone de prévisualisation
+                });
+            });
+        });
+
+        // Ajoutez un gestionnaire d'événements clic à l'élément de téléchargement
+        downloadButton.addEventListener('click', () => {
+            // Obtenez les données de l'image rognée au format Blob
+            cropper.getCroppedCanvas().toBlob((blob) => {
+                // Utilisez Compressor.js pour comprimer l'image
+                new Compressor(blob, {
                     quality: 0.6, // Réglez la qualité souhaitée ici (0.1 - 1)
                     maxWidth: 400, // Définissez la largeur maximale souhaitée ici
                     maxHeight: 400, // Définissez la hauteur maximale souhaitée ici
                     success(result) {
+                        // Créez un objet FormData pour envoyer le Blob compressé au serveur
                         let formData = new FormData();
-                        formData.append('profil-picture', result, result.name);
+                        formData.append('profil-picture', result, 'profil-picture.png');
 
                         let xhr = new XMLHttpRequest();
                         xhr.open('POST', 'update-profil-picture.php', true);
@@ -205,6 +235,7 @@ echo head("MMI Companion | Profil");
                 });
             });
         });
+
     </script>
 </body>
 
