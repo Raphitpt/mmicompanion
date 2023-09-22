@@ -37,7 +37,9 @@ main {
     flex-direction: column;
 }
 
-
+.fc-event{
+    user-select: auto !important;
+}
 /* HEADER */
 
 .content_header {
