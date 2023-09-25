@@ -32,6 +32,10 @@ $stmt_event->execute([
     'id_event' => $id_event
 ]);
 $event = $stmt_event->fetch(PDO::FETCH_ASSOC);
+if (!$event) {
+    header('Location: ./calendar.php');
+    exit();
+}
 
 
 if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_start']) && !empty($_POST['date_end'])) {
