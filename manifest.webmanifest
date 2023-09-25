@@ -110,7 +110,7 @@
 	],
 
 
-	"start_url": "/pages/calendar.php",
+	"start_url": "/pages/calendar.php?version=3",
 
 	"background_color": "#ffffff",
 
