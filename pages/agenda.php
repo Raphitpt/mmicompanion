@@ -357,9 +357,6 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     count++;
                 }
             });
-            console.log(count);
-            console.log(checkboxes.length);
-
             if (count === 0) {
                 resultParagraph.textContent = `Aucune tâche à faire`;
             } else if (count === 1) {
