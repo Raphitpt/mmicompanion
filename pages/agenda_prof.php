@@ -70,12 +70,6 @@ $agenda_cont = count($agenda);
 usort($agenda, 'compareDates');
 
 
-$sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
-$stmt_chef = $dbh->prepare($sql_chef);
-$stmt_chef->execute([
-    'edu_group' => $user_sql['edu_group']
-]);
-$chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
 
 // Tableaux pour traduire les dates en français
 // --------------------
@@ -107,13 +101,7 @@ $mois = array(
 
 // Tableau pour regrouper les éléments par date
 $agendaByDate = [];
-$tachesNonTermineesRestantes = 0 - $eval_cont;
 
-foreach ($agenda as $agendas) {
-    if ($agendas['checked'] != 1) {
-        $tachesNonTermineesRestantes++;
-    }
-}
 
 
 // --------------------
@@ -242,13 +230,9 @@ echo head("MMI Companion | Agenda");
         
             <div class="agenda_title_flexbottom-agenda">
                 <?php
-                echo "<p style='font-weight: bold;'>Groupe : " . $user_sql['edu_group'] . "</p>";
-                if (!empty($chef)){
-                    echo "<p style='font-weight: bold;'>Responsable : " . $chef['pname'] . " " . $chef['name'] . "</p>";
-                }
-                else{
-                    echo "<p style='font-weight: bold;'>Responsable : Aucun</p>";
-                }
+                // Affiche le responsable de l'agenda
+                    echo "<p style='font-weight: bold;' id='responsable'>Responsable : " . viewChef($dbh, "BUT1-TP1") . "</p>";
+
                 ?>
                 <div style="height:15px"></div>
                 <?php
@@ -256,22 +240,6 @@ echo head("MMI Companion | Agenda");
                 // On compte le nombre d'occurences de taches non terminées
                 // Cette variable est aussi utile pour savoir si la tache est checked ou pas
                 // Ca incrémente la valeur si on coche ou pas en js
-                $tachesNonTerminees = 0;
-                if ($tachesNonTermineesRestantes == 0) {
-                    echo "<p id='compteTaches'>Aucune tache à faire</p>";
-                } else if ($tachesNonTermineesRestantes == 1) {
-                    echo "<p id='compteTaches'>" . $tachesNonTermineesRestantes . " tâche à faire</p>";
-                } else {
-                    echo "<p id='compteTaches'>" . $tachesNonTermineesRestantes . " tâches non faites</p>";
-                }
-
-                if ($eval_cont == 0) {
-                    echo "<p>Aucune évaluation prévue</p>";
-                } else if ($eval_cont == 1) {
-                    echo "<p>" . $eval_cont . " évaluation prévue</p>";
-                } else {
-                    echo "<p>" . $eval_cont . " évaluations prévues</p>";
-                }
 
                 // Gère l'affichage des taches en affichant la date en français qui correspond à la date finale de la tache
                 // Elle ajoute la date en français au tableau $agendaByDate qui repertorie toute les taches
@@ -316,8 +284,17 @@ echo head("MMI Companion | Agenda");
             const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    // const response = JSON.parse();
-                    agendaMain.innerHTML = xhr.responseText;
+                    const response = JSON.parse(xhr.responseText);
+                    const viewChefValue = response.viewChef;
+                    const agendaHtmlValue = response.agendaHtml;
+                    console.log(viewChefValue);
+                    if (viewChefValue != false){
+                        document.getElementById('responsable').innerHTML = "Responsable : " + viewChefValue.pname +" "+ viewChefValue.name;
+                    }
+                    else{
+                        document.getElementById('responsable').innerHTML = "Responsable : Aucun";
+                    };
+                    agendaMain.innerHTML = agendaHtmlValue;
                 }
             };
 

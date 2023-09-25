@@ -127,7 +127,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $agenda_html .= $html;
     }
-
-    echo $agenda_html;
+    $response = array(
+        'viewChef' => viewChef($dbh, $edu_group),
+        'agendaHtml' => $agenda_html
+    );
+    echo json_encode($response);
 }
 ?>
