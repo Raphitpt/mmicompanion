@@ -17,7 +17,8 @@ $user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
-if ($user['role'] == "role") {
+if ($user['role'] == "prof") {
+
     header('Location: ./calendar.php');
     exit;
 }
