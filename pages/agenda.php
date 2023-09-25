@@ -17,7 +17,10 @@ $user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
-
+if ($user['role'] == "admin") {
+    header('Location: ./calendar.php');
+    exit;
+}
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
 $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
