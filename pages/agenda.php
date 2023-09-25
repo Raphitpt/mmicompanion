@@ -232,7 +232,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     }
                     ?>
                     <div style="height:15px"></div>
-                    <p id='compteTaches'>Aucune tache à faire</p>
+                    <p id='compteTaches'></p>
                     <?php
                     // Systeme de compteur de taches non terminées ou terminées
                     // On compte le nombre d'occurences de taches non terminées
@@ -357,25 +357,32 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     count++;
                 }
             });
+            console.log(count);
+            console.log(checkboxes.length);
+
             if (count === 0) {
                 resultParagraph.textContent = `Aucune tâche à faire`;
             } else if (count === 1) {
                 resultParagraph.textContent = `${count} tâche à faire`;
-            } else if (count === checkboxes.length) {
+            } else {
                 resultParagraph.textContent = `${count} tâches à faire`;
             }
         }
 
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', countChecked);
-        });
 
             window.addEventListener("DOMContentLoaded", function() {
-                countChecked();
+                
+                const resultParagraph = document.getElementById('compteTaches');
                 let checkboxes = document.querySelectorAll(".checkbox");
                 checkboxes.forEach(checkbox => {
                     checkbox.addEventListener('change', countChecked);
+
+                    // Vérification initiale de l'état de la case à cocher
+                    handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
                 });
+
+                // Appel initial pour afficher le nombre de tâches au chargement de la page
+                countChecked();
                 checkboxes.forEach(function(checkbox) {
                     // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
                     checkbox.addEventListener("change", function() {
