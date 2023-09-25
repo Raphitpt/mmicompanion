@@ -143,7 +143,7 @@ echo head("MMI Companion | Profil");
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script src="../assets/js/app.js"></script>
     <?php
-    if ($user_sql['role'] == "chef") { ?>
+    if (str_contains($user_sql['role'], 'chef')) { ?>
         <script>
             let form_transmit_role = document.querySelector('.form_transmit_role-profil');
             form_transmit_role.addEventListener("submit", function(event) {
