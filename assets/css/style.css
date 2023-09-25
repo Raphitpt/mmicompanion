@@ -1098,7 +1098,7 @@ h1 {
     border-radius: 30px;
     background: #FFF;
     padding: 15px 30px;
-    width: 100%;
+    width: 80%;
     border: none;
     color: #252525;
     font-family: Montserrat;
@@ -1106,7 +1106,6 @@ h1 {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    max-width: 375px;
 }
 
 .content_inputs-calendar_add{
