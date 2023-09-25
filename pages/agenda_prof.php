@@ -208,8 +208,16 @@ echo head("MMI Companion | Agenda");
                     <h1>L'agenda</h1>
                     <div></div>
                 </div>
-      </div>
-      <div class="select_but_agenda">
+            
+      
+        <div class="agenda_title_flextopright-agenda">
+            <a href="./agenda_add.php">Ajouter</a>
+        </div>
+    </div>
+
+    <div style="height:20px"></div>
+        
+        <div class="select_but_agenda">
           <select name="but" id="but">
             <option value="BUT1">BUT1</option>
             <option value="BUT2">BUT2</option>
@@ -221,9 +229,6 @@ echo head("MMI Companion | Agenda");
             <option value="TP3">TP3</option>
             <option value="TP4">TP4</option>
           </select>
-        </div>
-        <div class="agenda_title_flextopright-agenda">
-            <a href="./agenda_add.php">Ajouter</a>
         </div>
             
         <div style="height:15px"></div>
