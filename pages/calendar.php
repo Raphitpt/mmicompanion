@@ -244,7 +244,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </div>
 
-      <?php generateBurgerMenuContent() ?>
+      <?php generateBurgerMenuContent($user_sql['role']) ?>
 
     </header> -->
 
@@ -258,7 +258,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           <h1>Emploi du temps</h1>
         </div>
       </div>
-      <?php generateBurgerMenuContent() ?>
+      <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
 
     <div style="height:15px"></div>
@@ -310,7 +310,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
-        slotLabelInterval: '1:00:00',
         views: {
           timeGridWeek: {
             type: 'timeGrid',
@@ -329,7 +328,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           }
         },
         allDaySlot: false,
-        eventMinHeight: 50,
+        eventMinHeight: 70,
         height: 'calc(98vh - 95px)',
         nowIndicator: true,
         initialView: "timeGridDay",
@@ -424,6 +423,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           let eventTitle = arg.event.title;
           let eventLocation = arg.event.extendedProps.location;
           let eventDescription = arg.event.extendedProps.description;
+          let eventHour = arg.timeText;
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
           let eventContent = "";
@@ -445,6 +445,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             eventContent += '<div class="fc-location" style="font-size:0.52rem">' + eventLocation + '</div>';
           } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
+          }
+          if (eventLocation && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-time" style="font-size:0.8rem">' + eventHour + '</div>';
           }
 
           return {

@@ -89,7 +89,7 @@ echo head('MMI Companion | Informations');
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
     <main class="main-informations">
         <div style="height:30px"></div>

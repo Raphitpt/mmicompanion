@@ -32,6 +32,10 @@ $stmt_event->execute([
     'id_event' => $id_event
 ]);
 $event = $stmt_event->fetch(PDO::FETCH_ASSOC);
+if (!$event) {
+    header('Location: ./calendar.php');
+    exit();
+}
 
 
 if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_start']) && !empty($_POST['date_end'])) {
@@ -75,14 +79,14 @@ echo head("MMI Companion | Emploi du temps");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
     <main class="main-calendar_add">
         <div style="height:30px"></div>
         <div class="title_trait">
-            <h1>Ajouter un évènement</h1>
+            <h1>Éditer un évènement</h1>
             <div></div>
         </div>
         <div style="height:25px"></div>
@@ -140,7 +144,10 @@ echo head("MMI Companion | Emploi du temps");
                 <input type="submit" name="submit" value="Valider">
             </div>
             <div style="height:20px"></div>
-
+            <div class="form_button-calendar_delete">
+                <a role="button" href='./calendar_delete.php?id_event=<?= $event['id_event'] ?>&id_user=<?= $user['id_user'] ?>' class="profil_form-button_logout">Supprimer</a>
+            </div>
+            <div style="height:20px"></div>
         </form>
 
 

@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
     $agendaByDate = [];
-
     // Tableaux pour traduire les dates en français
     $semaine = array(
         " Dimanche ",
@@ -57,13 +56,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Créer un tableau de réponse JSON
     $agenda_html = "";
-
     foreach ($agendaByDate as $date => $agendas) {
         $events = [];
 
         foreach ($agendas as $agenda) {
             $event = [
+                'id_task' => $agenda['id_task'],
                 'type' => $agenda['type'],
+                'id_subject' => $agenda['id_subject'],
                 'title' => $agenda['title'],
                 'name_subject' => $agenda['name_subject'],
                 'color' => '', // Vous pouvez ajouter la couleur ici si nécessaire
@@ -94,23 +94,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($event['type'] == "eval") {
                 $html .= "<i class='fi fi-br-comment-info'></i>";
             }
-            $html .= "<div>";
+            $html .= "<div class='agenda_title_content_list_item_flexleft-agenda'>";
             if ($event['type'] == "eval") {
-                $html .= "<h3 class='title_subject-agenda'>[Évaluation] " . $event['title'] . "</h3>";
+                $html .= "<label for='checkbox-".$event['id_task']."' class='title_subject-agenda'>[Évaluation] " . $event['title'] . "</label>";
             }
             if ($event['type'] == "devoir" or $event['type'] == "autre") {
-                $html .= "<h3 class='title_subject-agenda'>" . $event['title'] . "</h3>";
+                $html .= "<label for='checkbox-".$event['id_task']."' class='title_subject-agenda'>" . $event['title'] . "</label>";
             }
             $html .= "<div class='agenda_content_subject-agenda'>";
-            $html .= "<div class='container_circle_subject-agenda'>";
             foreach ($colors as $color) {
-                if ($color['id_subject'] == $agenda['id_subject']) {
-                    $html .= "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
+                if ($color['id_subject'] == $event['id_subject']) {
+                    $html .= "<p style='background-color:". $color['color_ressource'] . "'>" . $event['name_subject'] . "</p>";
                     break;
                 }
             }
-            $html .= "</div>";
-            $html .= "<p>" . $event['name_subject'] . "</p>";
             $html .= "</div>";
             $html .= "</div>";
             $html .= "</div>";
@@ -129,7 +126,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $agenda_html .= $html;
     }
-
-    echo $agenda_html;
+    $response = array(
+        'viewChef' => viewChef($dbh, $edu_group),
+        'agendaHtml' => $agenda_html
+    );
+    echo json_encode($response);
 }
 ?>

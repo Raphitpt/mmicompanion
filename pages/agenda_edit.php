@@ -122,7 +122,7 @@ echo head("MMI Companion | Agenda");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
         
     </header>
     <!-- Fin du menu de navigation -->
@@ -130,7 +130,7 @@ echo head("MMI Companion | Agenda");
     <main class="main-agenda">
         <div style="height:30px"></div>
         <div class="title_trait">
-            <h1>Ajouter une tâche</h1>
+            <h1>Éditer une tâche</h1>
             <div></div>
         </div>
         <div style="height:25px"></div>
@@ -153,7 +153,7 @@ echo head("MMI Companion | Agenda");
 
                 
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
-                <?php if ($user_sql['role'] == "chef" || $user_sql['role'] == "admin") { ?>
+                <?php if (str_contains($user_sql['role'], 'chef') || str_contains($user_sql['role'], 'admin')) { ?>
                     <div style="height:15px"></div>
                     <label for="type" class="label-agenda_add">
                         <h2>Type de tâche</h2>
