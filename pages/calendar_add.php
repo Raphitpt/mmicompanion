@@ -72,7 +72,7 @@ echo head("MMI Companion | Emploi du temps");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent($user_sql['role']) ?>r_sql['role']) ?>
+        <?php generateBurgerMenuContent($user_sql['role'])?>
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
