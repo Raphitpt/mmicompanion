@@ -139,6 +139,7 @@ echo head("MMI Companion | Emploi du temps");
                 <a role="button" href='./calendar.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
             </div>
+            <div style="height:20px"></div>
 
         </form>
 

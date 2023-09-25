@@ -1072,6 +1072,12 @@ h1 {
     white-space: nowrap;
 }
 
+.fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
+    background-color: #56b8d6 !important;
+    color: #004a5a !important;
+    border-radius: 20px !important;
+    width: 60px !important;
+}
 
 
 /* CALENDAR_ADD.PHP */
