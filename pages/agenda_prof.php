@@ -292,7 +292,6 @@ echo head("MMI Companion | Agenda");
                     const response = JSON.parse(xhr.responseText);
                     const viewChefValue = response.viewChef;
                     const agendaHtmlValue = response.agendaHtml;
-                    console.log(viewChefValue);
                     if (viewChefValue != false){
                         document.getElementById('responsable').innerHTML = "Responsable : " + viewChefValue.pname +" "+ viewChefValue.name;
                     }

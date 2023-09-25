@@ -12,7 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
     $agendaByDate = [];
-
     // Tableaux pour traduire les dates en français
     $semaine = array(
         " Dimanche ",
@@ -57,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Créer un tableau de réponse JSON
     $agenda_html = "";
-
     foreach ($agendaByDate as $date => $agendas) {
         $events = [];
 
@@ -65,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $event = [
                 'id_task' => $agenda['id_task'],
                 'type' => $agenda['type'],
+                'id_subject' => $agenda['id_subject'],
                 'title' => $agenda['title'],
                 'name_subject' => $agenda['name_subject'],
                 'color' => '', // Vous pouvez ajouter la couleur ici si nécessaire
@@ -104,8 +103,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $html .= "<div class='agenda_content_subject-agenda'>";
             foreach ($colors as $color) {
-                if ($color['id_subject'] == $agenda['id_subject']) {
-                    $html .= "<p style='background-color:". $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
+                if ($color['id_subject'] == $event['id_subject']) {
+                    $html .= "<p style='background-color:". $color['color_ressource'] . "'>" . $event['name_subject'] . "</p>";
                     break;
                 }
             }
