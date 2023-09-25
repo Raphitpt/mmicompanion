@@ -233,11 +233,13 @@ echo head("MMI Companion | Agenda");
             <option value="TP3">TP3</option>
             <option value="TP4">TP4</option>
           </select>
-                <div class="agenda_title_flextopright-agenda">
-                    <a href="./agenda_add.php">Ajouter</a>
-                </div>
-            </div>
-            <div style="height:15px"></div>
+        </div>
+        <div class="agenda_title_flextopright-agenda">
+            <a href="./agenda_add.php">Ajouter</a>
+        </div>
+            
+        <div style="height:15px"></div>
+        
             <div class="agenda_title_flexbottom-agenda">
                 <?php
                 echo "<p style='font-weight: bold;'>Groupe : " . $user_sql['edu_group'] . "</p>";

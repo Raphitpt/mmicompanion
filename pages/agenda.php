@@ -342,6 +342,8 @@ echo head("MMI Companion | Agenda");
                     echo "</div>";
                     echo "<div style='height:10px'></div>";
                 }
+
+                echo "</div>";
             }
             ?>
         </div>
