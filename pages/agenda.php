@@ -334,8 +334,9 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             }
             ?>
         </div>
+        <div style="height:20px"></div>
     </main>
-    <div style="height:20px"></div>
+    
     <script src="../assets/js/menu-navigation.js"></script>
     <script>
 
