@@ -8,6 +8,13 @@ $user = decodeJWT($jwt, $secret_key);
 
 date_default_timezone_set('Europe/Paris');
 
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
+$stmt->execute([
+  'id_user' => $user['id_user']
+]);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+
 // Date de début
 $dateActuelle = date("Y-m-d H:i");
 $timestamp = strtotime($dateActuelle);

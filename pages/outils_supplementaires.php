@@ -7,6 +7,12 @@ if (!isset($_COOKIE['jwt'])) {
     header('Location: ./index.php');
     exit;
 }
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
+$stmt->execute([
+  'id_user' => $user['id_user']
+]);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
