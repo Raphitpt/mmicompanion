@@ -56,7 +56,7 @@ echo head("MMI Companion | Profil");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
 
     <main class="main-profil">

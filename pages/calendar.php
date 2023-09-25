@@ -244,7 +244,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </div>
 
-      <?php generateBurgerMenuContent() ?>
+      <?php generateBurgerMenuContent($user_sql['role']) ?>
 
     </header> -->
 
@@ -258,7 +258,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           <h1>Emploi du temps</h1>
         </div>
       </div>
-      <?php generateBurgerMenuContent() ?>
+      <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
 
     <div style="height:15px"></div>

@@ -105,7 +105,7 @@ echo head("MMI Companion | Agenda");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
