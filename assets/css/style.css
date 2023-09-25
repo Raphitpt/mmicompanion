@@ -1198,7 +1198,7 @@ h1 {
 }
 
 
-.form_button-agenda_delete a {
+.form_button-calendar_delete a {
     border-radius: 18px;
     background: var(--bleu-trs-clair-background, #D65656);
     color: #f8f8f8;
