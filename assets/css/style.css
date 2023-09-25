@@ -1024,7 +1024,7 @@ h1 {
 }
 
 .fc-timegrid-slot {
-    height: 1.55em !important;
+    height: 1.75em !important;
 }
 
 .fc-theme-standard .fc-scrollgrid {
@@ -1034,11 +1034,11 @@ h1 {
 .fc-v-event {
     /* background-color: #56B8D6 !important; */
     border: none !important;
-    border-radius: 15px !important;
+    border-radius: 5px !important;
     color: #004A5A !important;
     font-weight: 600 !important;
-    font-size: 0.8rem;
-    padding: 0.5vh 1vw !important;
+    font-size: 0.70rem;
+    padding: 0.25vh 1vw !important;
     margin-top: 0.5vh !important;
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
