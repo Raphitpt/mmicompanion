@@ -15,10 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_user']) && isset($_G
         'id_event' => $id_event,
         'id_user' => $id_user
     ]);
-    header('Location: ../calendar.php');
+    header('Location: ./calendar.php');
     exit();
 }
 else{
-    header('Location: ../calendar.php');
+    header('Location: ./calendar.php');
     exit();
 }
