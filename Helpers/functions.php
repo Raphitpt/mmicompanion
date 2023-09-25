@@ -419,6 +419,18 @@ function sendNotification($message, $body, $groups)
         }
     }
 }
+function viewChef($dbh, $edu_group){
+
+$sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
+$stmt_chef = $dbh->prepare($sql_chef);
+$stmt_chef->execute([
+    'edu_group' => $edu_group,
+]);
+$chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
+return $chef;
+
+}
+
 function generate_activation_code(): string
 {
     return bin2hex(random_bytes(16));
