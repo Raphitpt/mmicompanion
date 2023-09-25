@@ -130,7 +130,7 @@ echo head("MMI Companion | Agenda");
     <main class="main-agenda">
         <div style="height:30px"></div>
         <div class="title_trait">
-            <h1>Ajouter une tâche</h1>
+            <h1>Éditer une tâche</h1>
             <div></div>
         </div>
         <div style="height:25px"></div>

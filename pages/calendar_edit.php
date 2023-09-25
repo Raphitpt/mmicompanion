@@ -82,7 +82,7 @@ echo head("MMI Companion | Emploi du temps");
     <main class="main-calendar_add">
         <div style="height:30px"></div>
         <div class="title_trait">
-            <h1>Ajouter un évènement</h1>
+            <h1>Éditer un évènement</h1>
             <div></div>
         </div>
         <div style="height:25px"></div>
