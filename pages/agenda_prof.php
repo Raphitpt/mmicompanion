@@ -146,7 +146,7 @@ echo head("MMI Companion | Agenda");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
 
     <main class="main_tuto-agenda">
@@ -196,7 +196,7 @@ echo head("MMI Companion | Agenda");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
 
     <!-- Corps de la page -->

@@ -153,7 +153,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 </div>
             </div>
 
-            <?php generateBurgerMenuContent() ?>
+            <?php generateBurgerMenuContent($user_sql['role']) ?>
         </header>
 
         <main class="main_tuto-agenda">
@@ -204,7 +204,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 </div>
             </div>
 
-            <?php generateBurgerMenuContent() ?>
+            <?php generateBurgerMenuContent($user_sql['role']) ?>
         </header>
 
         <!-- Corps de la page -->

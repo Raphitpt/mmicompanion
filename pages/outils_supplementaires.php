@@ -36,7 +36,7 @@ echo head("MMI Companion | Outils supplémentaires");
             </div>
         </div>
 
-        <?php generateBurgerMenuContent() ?>
+        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
 
     <main class="main-outils">
