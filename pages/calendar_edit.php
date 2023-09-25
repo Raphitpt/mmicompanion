@@ -143,6 +143,7 @@ echo head("MMI Companion | Emploi du temps");
             <div class="form_button-agenda_delete">
                 <a role="button" href='./calendar_delete.php?id_event=<?= $event['id_event'] ?>&id_user=<?= $user['id_user'] ?>' class="profil_form-button_logout">Supprimer</a>
             </div>
+            <div style="height:20px"></div>
         </form>
 
 

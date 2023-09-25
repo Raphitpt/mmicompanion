@@ -1198,7 +1198,19 @@ h1 {
 }
 
 
-
+.form_button-agenda_delete a {
+    border-radius: 18px;
+    background: var(--bleu-trs-clair-background, #D65656);
+    color: #f8f8f8;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    width: 150px;
+    height: 35px;
+}
 
 
 
@@ -1678,33 +1690,6 @@ h1 {
     font-weight: 800;
     line-height: normal;
     border: none;
-}
-.form_button-agenda_delete {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    gap: 20px;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.form_button-agenda_delete a {
-    border-radius: 18px;
-    background: var(--bleu-trs-clair-background, #D65656);
-    padding: 10px 40px;
-    color: #f8f8f8;
-    text-align: center;
-    font-family: Montserrat;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 800;
-    line-height: normal;
 }
 
 
