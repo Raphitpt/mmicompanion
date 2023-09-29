@@ -21,7 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $confirm_password = strip_tags($_POST['confirm_password']);
 
         $ve = new hbattat\VerifyEmail($edu_mail, 'no-reply@mmi-companion.fr');
-        dd($ve->verify());
+        var_dump($ve->verify());
+        print_r($ve->get_debug());
+        die();
         if ($ve->verify() === false) {
             $error_message = "L'email n'est pas valide ou n'existe pas. Contacte-nous si il y a un problème !";
             header('Location: ./register.php?error_message='.$error_message.'');
@@ -107,7 +109,7 @@ echo head('MMI Companion | Register');
         <div style="height:30px"></div>
         <form action="" method="post" class="form-login">
             <div class="form-register">
-                <input type="text" name="pname" placeholder="prénom1" class="input-login" required>
+                <input type="text" name="pname" placeholder="prénom12" class="input-login" required>
                 <div style="height:20px"></div>
                 <input type="text" name="name" placeholder="nom" class="input-login" required>
                 <div style="height:20px"></div>
