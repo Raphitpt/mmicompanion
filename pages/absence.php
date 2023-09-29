@@ -43,7 +43,7 @@ echo head("Absences");
         }
         ?>
     </select>
-    <button>Get</button>
+    <button>recup</button>
     <div id="absences"></div>
 </body>
 
