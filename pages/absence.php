@@ -56,7 +56,7 @@ async function getAbsences(url) {
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      Authorization: `Basic ${base64(<?php echo $USER_name . ':' . $USER_password; ?>)}`,
+      Authorization: `Basic <?php echo base64_encode($USER_name . ':' . $USER_password); ?>`,
     },
   };
   try {
