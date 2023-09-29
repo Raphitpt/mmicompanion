@@ -43,7 +43,7 @@ echo head("Absences");
         }
         ?>
     </select>
-    <button>recup</button>
+    <button>recupa</button>
     <div id="absences"></div>
 </body>
 
@@ -80,7 +80,11 @@ const url1 = apiUrl.replace('{semestre}', semestre)
 getAbsences(url1)
   .then(data => {
     // Faites quelque chose avec les données obtenues
-    absences.innerHTML = JSON.stringify(data);
+    absences.innerHTML = `
+      <b>${data.total}</b> absences au total,<br>
+      <b>${data.unjustified}</b> absences injustifiées,<br>
+      ${details ? JSON.stringify(data.detailled) : ''}
+    `;
     console.log(data);
   })
   .catch(error => {
