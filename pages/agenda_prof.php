@@ -278,7 +278,10 @@ echo head("MMI Companion | Agenda");
         const butSelect = document.getElementById('but');
         const tpSelect = document.getElementById('tp');
         const agendaMain = document.querySelector('.agenda_content-agenda');
+        
+        // Écouteur d'événement pour charger l'agenda au chargement de la page
         window.addEventListener('load', loadAgenda);
+
         // Fonction pour effectuer la requête XHR en utilisant POST
         function loadAgenda() {
             const selectedBut = butSelect.value;
