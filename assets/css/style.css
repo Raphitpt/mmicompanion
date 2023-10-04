@@ -1732,6 +1732,12 @@ p {
 .scol_info_absence {
     font-weight: 700;
 }
+.scol_info_container{
+    margin-bottom: 2vh;
+}
+#justif{
+    margin-bottom: 1vh;
+}
 #semestre {
     margin: 2vh 0;
     margin-bottom: 1vh;
@@ -1749,6 +1755,35 @@ p {
     line-height: normal;
     padding: 0px 20px;
 }
+.collapsible {
+    cursor: pointer;
+    background: none;
+    text-decoration: none;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-weight: 700;
+    text-align: left;
+    border: none;
+    text-align: left;
+    outline: none;
+    margin-bottom: 5px;
+}
+
+.content {
+    display: none;
+    padding: 10px;
+    background-color: #ffffff65;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.6s ease-in-out;
+}
+
+.collapsible.active + .content {
+    display: block;
+    max-height: 1000px; /* La valeur maximale doit être suffisamment grande pour contenir votre contenu */
+    overflow: visible;
+}
+
 
 /* INFORMATIONS.PHP */
 
