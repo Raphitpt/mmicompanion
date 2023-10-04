@@ -283,29 +283,27 @@ echo head('MMI Companion | Informations');
         },
         });
 
-
-    // Sélectionnez les boutons radio
-    let radioInputs = document.querySelectorAll("input[name=role]");
+// Sélectionnez les boutons radio
+let radioInputs = document.querySelectorAll("input[name=role]");
     console.log(radioInputs);
 
     // Sélectionnez l'élément .form_groupe_input-informations_add
     let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
     radioInputs.forEach(radioInput => {
-        if (radioInput.checked) {
-            formGroupe.classList.add("hidden");
-        }
         
+        if (radioInput.id == "chef") {
+            formGroupe.classList.add("hidden");
+        } else{
+            formGroupe.classList.remove("hidden");
+        }
+
         radioInput.addEventListener("change", function () {
-            if (radioInput.id == "admin") {
-                formGroupe.classList.remove("hidden");
-            } if (radioInput.id == "chef") {
+            if (radioInput.id == "chef") {
                 formGroupe.classList.add("hidden");
-            } if (radioInput.id == "BDE") {
+            } else {
                 formGroupe.classList.remove("hidden");
-            } if (radioInput.id == "user") {
-                formGroupe.classList.remove("hidden");
-            }
+            } 
         });
         
     });
