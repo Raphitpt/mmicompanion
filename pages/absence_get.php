@@ -10,7 +10,7 @@ $USER_name = $_ENV['ABSENCE_USERNAME'];
 $USER_password = $_ENV['ABSENCE_PASSWORD'];
 
 if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
+    header('Location: ./login.php');
     exit;
   }
 
@@ -29,14 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
     if (curl_error($ch)) {
         $error_msg = curl_error($ch);
         echo $error_msg;
     }
-    // dd($error_msg);
     $result = curl_exec($ch);
+
+    // if ($result == null) {
+    //     $result = "Aucune absence n'a été trouvée pour ce semestre.";
+    // }
     curl_close($ch);
-    $result = json_decode($result, true);
-    dd($result);
+    echo $result;
 }

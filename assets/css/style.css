@@ -1717,8 +1717,38 @@ h1 {
 }
 
 
+/* SCOLARITÉ.PHP (absence.php pour le moment) CSS à refaire !!! */
+.main-scolarite {
+    width: 80vw;
+    max-width: 550px;
+}
 
-
+p {
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 500;
+}
+.scol_info_absence {
+    font-weight: 700;
+}
+#semestre {
+    margin: 2vh 0;
+    margin-bottom: 1vh;
+    width:50%;
+    height: 35px;
+    border-radius: 19.5px;
+    border: none;
+    outline: none;
+    text-align: center;
+    color: var(--texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    padding: 0px 20px;
+}
 
 /* INFORMATIONS.PHP */
 
@@ -1919,13 +1949,6 @@ h1 {
 .item_content_text-information ul {
     list-style-position: inside;
  }
-
-
-
-
-
-
-
 
 
 /* INFORMATIONS_ADD.PHP */
