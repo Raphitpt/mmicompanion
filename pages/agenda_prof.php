@@ -278,7 +278,7 @@ echo head("MMI Companion | Agenda");
         const butSelect = document.getElementById('but');
         const tpSelect = document.getElementById('tp');
         const agendaMain = document.querySelector('.agenda_content-agenda');
-
+        window.addEventListener('load', loadAgenda);
         // Fonction pour effectuer la requête XHR en utilisant POST
         function loadAgenda() {
             const selectedBut = butSelect.value;
@@ -310,7 +310,7 @@ echo head("MMI Companion | Agenda");
             xhr.open('POST', 'agenda_index.php', true);
             xhr.send(data);
             }
-            
+        
         // Écouteurs d'événements pour les changements d'options
         butSelect.addEventListener('change', loadAgenda);
         tpSelect.addEventListener('change', loadAgenda);
