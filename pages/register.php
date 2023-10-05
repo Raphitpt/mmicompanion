@@ -109,7 +109,7 @@ echo head('MMI Companion | Register');
         <div style="height:30px"></div>
         <form action="" method="post" class="form-login">
             <div class="form-register">
-                <input type="text" name="pname" placeholder="prénom12" class="input-login" required>
+                <input type="text" name="pname" placeholder="prénom" class="input-login" required>
                 <div style="height:20px"></div>
                 <input type="text" name="name" placeholder="nom" class="input-login" required>
                 <div style="height:20px"></div>
