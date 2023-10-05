@@ -34,10 +34,11 @@ $query_informations->execute([
 ]);
 
 if ($user_sql['role'] === "prof") {
-    $sql_informations = "SELECT informations.*, users.role, users.name, users.pname FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.id_user = :id_user ORDER BY date DESC";
+    $sql_informations = "SELECT informations.*, users.role, users.name, users.pname FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.id_user = :id_user OR informations.group_info = :edu_group_common ORDER BY date DESC";
     $query_informations = $dbh->prepare($sql_informations);
     $query_informations->execute([
         'id_user' => $user['id_user'],
+        'edu_group_common' => 'BUT1-TP1,BUT1-TP2,BUT1-TP3,BUT1-TP4,BUT2-TP1,BUT2-TP2,BUT2-TP3,BUT2-TP4,BUT3-TP1,BUT3-TP2,BUT3-TP3,BUT3-TP4'
     ]);
 }
 
