@@ -56,6 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 $prof_name = $name . " " . $pname;
                 $trigra = findTrigramme($prof_name);
+                if($trigra == "undefined"){
+                    $error_message = "Impossible de vous trouver dans la base de donnée. Contacter-nous pour remédier au problème !";
+                    header('Location: ./register.php?error_message='.$error_message.'');
+                    exit();
+                }
                 $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link, role) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link, :role)";
                 $stmt = $dbh->prepare($sql_register);
                 $stmt->execute([

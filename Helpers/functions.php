@@ -140,7 +140,7 @@ function findTrigramme($profName){
             echo "Nom : $name, Code : $code<br>";
         }
     } else {
-        echo "Aucun professeur contenant '$search_term' n'a été trouvé.";
+        echo "undefined";
     }
     
     return $code;
