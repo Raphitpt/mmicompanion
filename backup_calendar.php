@@ -14,7 +14,7 @@ $ical_links = [
     "BUT3-TP3" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2452&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
     "BUT3-TP4" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2451&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
 ];
-
+$
 
 $backupDir = '/home/gmdb3109/app.mmi-companion.fr/backup_cal/';
 

@@ -31,18 +31,21 @@ $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 $cal_link = calendar($user_sql['edu_group']);
 
 // On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
-if (isset($_POST['annee']) && isset($_POST['tp'])) {
-  $annee = $_POST['annee'];
-  $tp = $_POST['tp'];
-  $update_user = "UPDATE users SET edu_group = :edu_group WHERE id_user = :id_user";
-  $stmt = $dbh->prepare($update_user);
-  $stmt->execute([
-    'edu_group' => $annee . "-" . $tp,
-    'id_user' => $user['id_user']
-  ]);
-  header('Location: ./calendar.php');
-  exit();
-}
+  if (isset($_POST['annee']) && isset($_POST['tp'])) {
+    $annee = $_POST['annee'];
+    $tp = $_POST['tp'];
+    $update_user = "UPDATE users SET edu_group = :edu_group WHERE id_user = :id_user";
+    $stmt = $dbh->prepare($update_user);
+    $stmt->execute([
+      'edu_group' => $annee . "-" . $tp,
+      'id_user' => $user['id_user']
+    ]);
+    header('Location: ./calendar.php');
+    exit();
+  }
+
+
+
 
 $color_subjects = "SELECT * FROM sch_ressource";
 $stmt = $dbh->prepare($color_subjects);
@@ -96,7 +99,6 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             <div id="button_page1-validate" class="button_welcome-index">Valider</div>
           </div>
         </section>
-
         <section class="welcome_page2-index">
           <div class="back_btn" id="button_page2-back">
             <i class="fi fi-br-arrow-alt-right"></i>
@@ -213,8 +215,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     })
   </script>
 <?php } else {
-?>
 
+?>
   <body class="body-all">
 
     <!-- <header class="header-calendar">

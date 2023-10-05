@@ -53,6 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $pp_profile = 'https://ui-avatars.com/api/?background=56b8d6&color=004a5a&bold=true&name='.$pname.'+'.$name.'&rounded=true&size=128';
 
             if(str_contains($edu_mail, "@univ-poitiers.fr")){
+
+                $prof_name = $name . " " . $pname;
+                $trigra = findTrigramme($prof_name);
                 $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link, role) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link, :role)";
                 $stmt = $dbh->prepare($sql_register);
                 $stmt->execute([
@@ -60,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     ':name' => $name,
                     ':pass' => $hash_password,
                     ':edu_mail' => $edu_mail,
-                    ':edu_group' => $edu_group,
+                    ':edu_group' => $trigra,
                     ':activation_code' => $activation_code,
                     ':pp_link' => $pp_profile,
                     'role' => 'prof'
