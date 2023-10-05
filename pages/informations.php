@@ -107,55 +107,7 @@ echo head("MMI Companion | Informations");
         </div>
         <div style="height:20px"></div> 
         <div class="container-informations">
-            <?php 
-            if ( $user['role']==="prof") { ?>
-                <div class="form_groupe_input-informations">
-                    <p>Choisir les groupes ou cliquez sur valider sans case cochée pour voir toutes vos informations.</p>
-                    <div class="form_groupe_content_input-informations"></div>
-                    <form action="" method="post" class="informations-group">
-                        <input type="hidden" name="group_info" id="group_info">
-                        <div class="form_button-informations">
-                            <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
-                        </div>
-                    </form>
-                </div>
-                <?php foreach ($informations_prof as $information_prof ) {
-                    $name_color = "";
-                    $timestamp = strtotime($information_prof['date']); // Convertit la date en timestamp
-                    $newDate = date("d-m-Y H:i", $timestamp);
-                    $userRole = $information_prof['user_role'];
-                    if (str_contains($information_prof['user_role'], "prof")) {
-                        $name_color = "#5cceff";
-                        $userRole = $information_prof['user'];
-                    } elseif (str_contains($information_prof['user_role'], "admin")) {
-                        $name_color = "#FF3333";
-                    } elseif (str_contains($information_prof['user_role'], "BDE")) {
-                        $name_color = "#bca5ff";
-                    }
-                    ?>
-                    
-                    <div class="item-information">
-                        <div class="item_content_title-information">
-                            <div class="item_content_title_flextop-information">
-                                <h2><?= $information_prof['titre'] ?></h2>
-                            </div>
-                            <div class="item_content_title_flexbottom-information">
-                                <p><?= $newDate ?></p>
-                                <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
-                            </div>
-                        </div>
-                        <div class="item_content_text-information">
-                            <p><?= $information_prof['content'] ?></p>
-                        </div>
-                        <?php if($information_prof['id_user'] === $user['id_user']){ ?>
-                        <div class="item_button-informations">
-                            <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information_prof['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
-                            <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information_prof['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>
-                        </div>
-                        <?php } ?>
-                    </div>
-                <?php }
-            } else{    
+            <?php  
                 foreach ($informations as $information) : 
                     $name_color = "";
                     $timestamp = strtotime($information['date']); // Convertit la date en timestamp
@@ -197,7 +149,7 @@ echo head("MMI Companion | Informations");
                         <?php } ?>
                     </div>
                 <?php endforeach; 
-            }
+
             ?>
         </div>
         <div style="height:30px"></div>
