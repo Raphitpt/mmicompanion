@@ -33,6 +33,14 @@ $query_informations->execute([
     'edu_group_perso' => '%' . $user_sql['edu_group'] . '%'
 ]);
 
+if ($user_sql['role'] === "prof") {
+    $sql_informations = "SELECT informations.*, users.role, users.name, users.pname FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.id_user = :id_user ORDER BY date DESC";
+    $query_informations = $dbh->prepare($sql_informations);
+    $query_informations->execute([
+        'id_user' => $user['id_user'],
+    ]);
+}
+
 $informations = $query_informations->fetchAll();
 
 if (isset($_POST['submit'])) {
