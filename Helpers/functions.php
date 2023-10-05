@@ -139,11 +139,12 @@ function findTrigramme($profName){
         foreach ($found_professors as $name => $code) {
             echo "Nom : $name, Code : $code<br>";
         }
+        return $code;
     } else {
         echo "undefined";
+        return null;
     }
     
-    return $code;
 }
 
 

@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                 $prof_name = $name . " " . $pname;
                 $trigra = findTrigramme($prof_name);
-                if($trigra == "undefined"){
+                if($trigra == null){
                     $error_message = "Impossible de vous trouver dans la base de donnée. Contacter-nous pour remédier au problème !";
                     header('Location: ./register.php?error_message='.$error_message.'');
                     exit();
