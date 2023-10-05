@@ -211,7 +211,7 @@ echo head("MMI Companion | Agenda");
             
       
         <div class="agenda_title_flextopright-agenda">
-            <a href="./agenda_add.php">Ajouter</a>
+            <a href="./agenda_add_prof.php">Ajouter</a>
         </div>
     </div>
 

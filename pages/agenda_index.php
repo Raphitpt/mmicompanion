@@ -4,13 +4,14 @@ require '../bootstrap.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $edu_group = $_POST['edu_group'];
-    $sql_agenda = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND (a.type = 'devoir' OR a.type = 'eval') AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
+    $edu_group_all = substr($_POST['edu_group'], 0, 4);
+    $sql_agenda = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND (a.type = 'devoir' OR a.type = 'eval') AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
     $stmt_agenda = $dbh->prepare($sql_agenda);
     $stmt_agenda->execute([
-        'edu_group' => $edu_group
+        'edu_group' => $edu_group,
+        'edu_group_all' => $edu_group_all
     ]);
     $agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-
     $agendaByDate = [];
     // Tableaux pour traduire les dates en français
     $semaine = array(
@@ -42,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt_color->execute();
     $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
+
     foreach ($agenda as $agendas) {
         $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
         $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
@@ -66,6 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'id_subject' => $agenda['id_subject'],
                 'title' => $agenda['title'],
                 'name_subject' => $agenda['name_subject'],
+                'name' => $agenda['name'],
+                'pname' => $agenda['pname'],
+                'role' => $agenda['role'],
                 'color' => '', // Vous pouvez ajouter la couleur ici si nécessaire
             ];
 
@@ -102,6 +107,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $html .= "<label for='checkbox-".$event['id_task']."' class='title_subject-agenda'>" . $event['title'] . "</label>";
             }
             $html .= "<div class='agenda_content_subject-agenda'>";
+            if ($event['role'] == "prof") {
+                $html .= "<p class='name_subject-agenda'>De : <span>" . substr($event['pname'], 0, 1) . '. ' . $event['name'] . "</span></p></br>";
+            }
             foreach ($colors as $color) {
                 if ($color['id_subject'] == $event['id_subject']) {
                     $html .= "<p style='background-color:". $color['color_ressource'] . "'>" . $event['name_subject'] . "</p>";
