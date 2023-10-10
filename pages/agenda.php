@@ -311,9 +311,9 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
                         }
                         echo "<div class='agenda_content_subject-agenda'>";
-                        if ($agenda['role'] == "prof") {
-                            echo "<p class='name_subject-agenda'>De : <span>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
-                        }
+                        //if ($agenda['role'] == "prof") {
+                            //echo "<p class='name_subject-agenda'>De : <span>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                        //}
                         foreach ($colors as $color) {
                             if ($color['id_subject'] == $agenda['id_subject']) {
                                 echo "<p style='background-color:" . $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
