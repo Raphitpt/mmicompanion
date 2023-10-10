@@ -33,6 +33,15 @@ $query_informations->execute([
     'edu_group_perso' => '%' . $user_sql['edu_group'] . '%'
 ]);
 
+if ($user_sql['role'] === "prof") {
+    $sql_informations = "SELECT informations.*, users.role, users.name, users.pname FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.id_user = :id_user OR informations.group_info = :edu_group_common ORDER BY date DESC";
+    $query_informations = $dbh->prepare($sql_informations);
+    $query_informations->execute([
+        'id_user' => $user['id_user'],
+        'edu_group_common' => 'BUT1-TP1,BUT1-TP2,BUT1-TP3,BUT1-TP4,BUT2-TP1,BUT2-TP2,BUT2-TP3,BUT2-TP4,BUT3-TP1,BUT3-TP2,BUT3-TP3,BUT3-TP4'
+    ]);
+}
+
 $informations = $query_informations->fetchAll();
 
 if (isset($_POST['submit'])) {
@@ -99,55 +108,7 @@ echo head("MMI Companion | Informations");
         </div>
         <div style="height:20px"></div> 
         <div class="container-informations">
-            <?php 
-            if ( $user['role']==="prof") { ?>
-                <div class="form_groupe_input-informations">
-                    <p>Choisir les groupes ou cliquez sur valider sans case cochée pour voir toutes vos informations.</p>
-                    <div class="form_groupe_content_input-informations"></div>
-                    <form action="" method="post" class="informations-group">
-                        <input type="hidden" name="group_info" id="group_info">
-                        <div class="form_button-informations">
-                            <input type="submit" name="submit" class="form_butttonValidate-informations" value="Valider">
-                        </div>
-                    </form>
-                </div>
-                <?php foreach ($informations_prof as $information_prof ) {
-                    $name_color = "";
-                    $timestamp = strtotime($information_prof['date']); // Convertit la date en timestamp
-                    $newDate = date("d-m-Y H:i", $timestamp);
-                    $userRole = $information_prof['user_role'];
-                    if (str_contains($information_prof['user_role'], "prof")) {
-                        $name_color = "#5cceff";
-                        $userRole = $information_prof['user'];
-                    } elseif (str_contains($information_prof['user_role'], "admin")) {
-                        $name_color = "#FF3333";
-                    } elseif (str_contains($information_prof['user_role'], "BDE")) {
-                        $name_color = "#bca5ff";
-                    }
-                    ?>
-                    
-                    <div class="item-information">
-                        <div class="item_content_title-information">
-                            <div class="item_content_title_flextop-information">
-                                <h2><?= $information_prof['titre'] ?></h2>
-                            </div>
-                            <div class="item_content_title_flexbottom-information">
-                                <p><?= $newDate ?></p>
-                                <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
-                            </div>
-                        </div>
-                        <div class="item_content_text-information">
-                            <p><?= $information_prof['content'] ?></p>
-                        </div>
-                        <?php if($information_prof['id_user'] === $user['id_user']){ ?>
-                        <div class="item_button-informations">
-                            <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information_prof['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
-                            <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information_prof['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>
-                        </div>
-                        <?php } ?>
-                    </div>
-                <?php }
-            } else{    
+            <?php  
                 foreach ($informations as $information) : 
                     $name_color = "";
                     $timestamp = strtotime($information['date']); // Convertit la date en timestamp
@@ -189,7 +150,7 @@ echo head("MMI Companion | Informations");
                         <?php } ?>
                     </div>
                 <?php endforeach; 
-            }
+
             ?>
         </div>
         <div style="height:30px"></div>

@@ -211,7 +211,7 @@ echo head("MMI Companion | Agenda");
             
       
         <div class="agenda_title_flextopright-agenda">
-            <a href="./agenda_add.php">Ajouter</a>
+            <a href="./agenda_add_prof.php">Ajouter</a>
         </div>
     </div>
 
@@ -278,6 +278,9 @@ echo head("MMI Companion | Agenda");
         const butSelect = document.getElementById('but');
         const tpSelect = document.getElementById('tp');
         const agendaMain = document.querySelector('.agenda_content-agenda');
+        
+        // Écouteur d'événement pour charger l'agenda au chargement de la page
+        window.addEventListener('load', loadAgenda);
 
         // Fonction pour effectuer la requête XHR en utilisant POST
         function loadAgenda() {
@@ -310,7 +313,7 @@ echo head("MMI Companion | Agenda");
             xhr.open('POST', 'agenda_index.php', true);
             xhr.send(data);
             }
-            
+        
         // Écouteurs d'événements pour les changements d'options
         butSelect.addEventListener('change', loadAgenda);
         tpSelect.addEventListener('change', loadAgenda);

@@ -9,6 +9,13 @@ $user = decodeJWT($jwt, $secret_key);
 $USER_name = $_ENV['ABSENCE_USERNAME'];
 $USER_password = $_ENV['ABSENCE_PASSWORD'];
 
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
+$stmt->execute([
+    'id_user' => $user['id_user']
+]);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+
 if (!isset($_COOKIE['jwt'])) {
     header('Location: ./login.php');
     exit;
@@ -16,7 +23,7 @@ if (!isset($_COOKIE['jwt'])) {
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $semestre = $_POST['semestre'];
-    $edu_mail = $user['edu_mail'];
+    $edu_mail = $user_sql['edu_mail'];
 
     $credentials = base64_encode($USER_name . ':' . $USER_password);
 

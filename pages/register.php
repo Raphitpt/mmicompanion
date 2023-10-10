@@ -53,6 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $pp_profile = 'https://ui-avatars.com/api/?background=56b8d6&color=004a5a&bold=true&name='.$pname.'+'.$name.'&rounded=true&size=128';
 
             if(str_contains($edu_mail, "@univ-poitiers.fr")){
+
+                $prof_name = $name . " " . $pname;
+                $trigra = findTrigramme($prof_name);
+                if($trigra == null){
+                    $error_message = "Impossible de vous trouver dans la base de donnée. Contacter-nous pour remédier au problème !";
+                    header('Location: ./register.php?error_message='.$error_message.'');
+                    exit();
+                }
                 $sql_register = "INSERT INTO users (pname, name, password, edu_mail, edu_group, verification_code_mail, pp_link, role) VALUES (:pname, :name, :pass, :edu_mail, :edu_group, :activation_code, :pp_link, :role)";
                 $stmt = $dbh->prepare($sql_register);
                 $stmt->execute([
@@ -60,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     ':name' => $name,
                     ':pass' => $hash_password,
                     ':edu_mail' => $edu_mail,
-                    ':edu_group' => $edu_group,
+                    ':edu_group' => $trigra,
                     ':activation_code' => $activation_code,
                     ':pp_link' => $pp_profile,
                     'role' => 'prof'
@@ -106,7 +114,7 @@ echo head('MMI Companion | Register');
         <div style="height:30px"></div>
         <form action="" method="post" class="form-login">
             <div class="form-register">
-                <input type="text" name="pname" placeholder="prénom12" class="input-login" required>
+                <input type="text" name="pname" placeholder="prénom" class="input-login" required>
                 <div style="height:20px"></div>
                 <input type="text" name="name" placeholder="nom" class="input-login" required>
                 <div style="height:20px"></div>

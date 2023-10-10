@@ -33,6 +33,7 @@ $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
+$edu_group_all = substr($user_sql['edu_group'], 0, 4);
 // --------------------
 $sql_agenda = "SELECT a.*, s.*
         FROM agenda a 
@@ -50,20 +51,22 @@ $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
 // Requetes pour récupérer les évaluations de son TP
 // --------------------
-$sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
+$sql_eval = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
-    'edu_group' => $user_sql['edu_group']
+    'edu_group' => $user_sql['edu_group'],
+    'edu_group_all' => $edu_group_all
 ]);
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
 // Fin de la récupération des évaluations
 
 // Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
-$sql_devoir = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
+$sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_devoir = $dbh->prepare($sql_devoir);
 $stmt_devoir->execute([
-    'edu_group' => $user_sql['edu_group']
+    'edu_group' => $user_sql['edu_group'],
+    'edu_group_all' => $edu_group_all
 ]);
 $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
@@ -308,6 +311,9 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
                         }
                         echo "<div class='agenda_content_subject-agenda'>";
+                        if ($agenda['role'] == "prof") {
+                            echo "<p class='name_subject-agenda'>De : <span>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                        }
                         foreach ($colors as $color) {
                             if ($color['id_subject'] == $agenda['id_subject']) {
                                 echo "<p style='background-color:" . $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
