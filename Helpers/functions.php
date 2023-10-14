@@ -443,7 +443,7 @@ $stmt_chef->execute([
     'edu_group' => $edu_group,
 ]);
 $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
-return $chef[0];
+return $chef['role'];
 
 }
 
