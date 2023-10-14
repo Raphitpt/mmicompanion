@@ -236,6 +236,7 @@ echo head("MMI Companion | Agenda");
             <div class="agenda_title_flexbottom-agenda">
                 <?php
                 // Affiche le responsable de l'agenda
+                  var_dump(viewChef($dbh, "BUT1-TP1"));
                     echo "<p style='font-weight: bold;' id='responsable'>Responsable : " . viewChef($dbh, "BUT1-TP1") . "</p>";
 
                 ?>
