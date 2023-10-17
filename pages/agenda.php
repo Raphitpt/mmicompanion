@@ -310,7 +310,11 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
                         }
+                        if (isset($agenda['content']) && !empty($agenda['content'])) {
+                            echo "<p class='content'><span>". $agenda['content'] . "</span></p>";
+                        }
                         echo "<div class='agenda_content_subject-agenda'>";
+
                         if (isset($agenda['role']) && $agenda['role'] == "prof") {
                             echo "<p class='name_subject-agenda'>De : <span>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
                         }
@@ -335,24 +339,25 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-trash red'></i></a>";
                         }
 
+                        echo "</div>";
+                        echo "</div>";
+                        echo "<div style='height:10px'></div>";
+                    }
+
                     echo "</div>";
-                    echo "</div>";
-                    echo "<div style='height:10px'></div>";
                 }
+                ?>
+            </div>
+            <div style="height:20px"></div>
+        </main>
 
-                echo "</div>";
-            }
-            ?>
-        </div>
-        <div style="height:20px"></div>
-    </main>
-    
-    <script src="../assets/js/menu-navigation.js"></script>
-    <script>
+        <script src="../assets/js/menu-navigation.js"></script>
 
-        // Faire apparaître le background dans le menu burger
-        let select_background_profil = document.querySelector('#select_background_agenda-header');
-        select_background_profil.classList.add('select_link-header');
+
+        <script>
+            // Faire apparaître le background dans le menu burger
+            let select_background_profil = document.querySelector('#select_background_agenda-header');
+            select_background_profil.classList.add('select_link-header');
 
 
             // Fonction pour mettre à jour le compteur de tâches
@@ -361,25 +366,25 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             let checkboxes = document.querySelectorAll(".checkbox");
 
             function countChecked() {
-            let count = 0;
+                let count = 0;
 
-            checkboxes.forEach(checkbox => {
-                if (!checkbox.checked) {
-                    count++;
+                checkboxes.forEach(checkbox => {
+                    if (!checkbox.checked) {
+                        count++;
+                    }
+                });
+                if (count === 0) {
+                    resultParagraph.textContent = `Aucune tâche à faire`;
+                } else if (count === 1) {
+                    resultParagraph.textContent = `${count} tâche à faire`;
+                } else {
+                    resultParagraph.textContent = `${count} tâches à faire`;
                 }
-            });
-            if (count === 0) {
-                resultParagraph.textContent = `Aucune tâche à faire`;
-            } else if (count === 1) {
-                resultParagraph.textContent = `${count} tâche à faire`;
-            } else {
-                resultParagraph.textContent = `${count} tâches à faire`;
             }
-        }
 
 
             window.addEventListener("DOMContentLoaded", function() {
-                
+
                 const resultParagraph = document.getElementById('compteTaches');
                 let checkboxes = document.querySelectorAll(".checkbox");
                 checkboxes.forEach(checkbox => {

@@ -1628,6 +1628,7 @@ h1 {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    justify-content: center;
 }
 
 .label-agenda_add i {

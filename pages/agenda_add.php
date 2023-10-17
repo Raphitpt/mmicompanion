@@ -37,8 +37,14 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     } else {
         $type = "autre";
     }
+    if (isset($_POST['content']) && !empty($_POST['content'])) {
+        $content = $_POST['content'];
+    } else {
+        $content = "";
+    }
+
     $school_subject = $_POST['school_subject'];
-    $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group)";
+    $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'title' => $title,
@@ -46,7 +52,8 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'id_user' => $user['id_user'],
         'type' => $type,
         'id_subject' => $school_subject,
-        'edu_group' => $user_sql['edu_group']
+        'edu_group' => $user_sql['edu_group'],
+        'content' => $content
     ]);
     header('Location: ./agenda.php');
     exit();
@@ -118,12 +125,15 @@ echo head("MMI Companion | Agenda");
         <div style="height:25px"></div>
         <div class="agenda-agenda_add">
             <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
-            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)"> 
+            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda"> 
 
                 <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre" required>
                 <div class="trait_agenda_add"></div>
                 <div class="form_content-informations_add">
-                <p>Contenu</p>
+                <label for="content" class="label-agenda_add">
+                    <h2>Ajouter un contenu</h2>
+                </label>
+                <div style="height:5px"></div>
                 <textarea class="form_content_input-informations_add" id="editor"></textarea>
                 <input name="content" id="content" type="hidden">
                 </div>
@@ -206,7 +216,7 @@ echo head("MMI Companion | Agenda");
         $('#editor').trumbowyg();
         
         $(document).ready(function() {
-            $('#formtest').submit(function(event) {
+            $('#formagenda').submit(function(event) {
                 var contenuTexte = $('#editor').trumbowyg('html');
                 $('#content').val(contenuTexte);
             });

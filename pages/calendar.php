@@ -312,6 +312,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
+        weekNumbers: true,
         views: {
           timeGridWeek: {
             type: 'timeGrid',
