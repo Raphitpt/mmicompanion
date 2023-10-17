@@ -4,7 +4,7 @@ require '../bootstrap.php';
 if (!isset($_COOKIE['jwt'])) {
     header('Location: ./index.php');
     exit;
-  }
+}
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
@@ -106,37 +106,37 @@ echo head('MMI Companion | Informations');
                 <label for="user_input">Utilisateur</label>
                 <input type="text" name="user" id="user_input" placeholder="Utilisateur" value="<?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?>" readonly>
             </div>
-            <?php 
-                if(str_contains($user_sql['role'], 'admin')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='admin' id='admin' checked>";
-                    echo "<label for='admin'>Je veux que mon rôle s'affiche en tant qu'administrateur</label>";
-                    echo "</div>";
-                }
-                if (str_contains($user_sql['role'], 'chef')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='chef' id='chef' checked>";
-                    echo "<label for='chef'>Je veux que mon rôle s'affiche en tant que chef du TP</label>";
-                    echo "</div>";
-                }
-                if (str_contains($user_sql['role'], 'BDE')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='radio' name='role' value='BDE' id='bde' checked>";
-                    echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
-                    echo "</div>";
-                }
-                if (str_contains($user_sql['role'], 'prof')){
-                    echo "<div class='form_role_input-informations_add'>";
-                    echo "<input type='hidden' name='role' value='prof' id='prof' checked>";
-                    echo "</div>";
-                }
-                // if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
-                //     echo "<div class='form_role_input-informations_add'>";
-                //     echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
-                //     echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
-                //     echo "</div>";
-                // }
-            
+            <?php
+            if (str_contains($user_sql['role'], 'admin')) {
+                echo "<div class='form_role_input-informations_add'>";
+                echo "<input type='radio' name='role' value='admin' id='admin' checked>";
+                echo "<label for='admin'>Je veux que mon rôle s'affiche en tant qu'administrateur</label>";
+                echo "</div>";
+            }
+            if (str_contains($user_sql['role'], 'chef')) {
+                echo "<div class='form_role_input-informations_add'>";
+                echo "<input type='radio' name='role' value='chef' id='chef' checked>";
+                echo "<label for='chef'>Je veux que mon rôle s'affiche en tant que chef du TP</label>";
+                echo "</div>";
+            }
+            if (str_contains($user_sql['role'], 'BDE')) {
+                echo "<div class='form_role_input-informations_add'>";
+                echo "<input type='radio' name='role' value='BDE' id='bde' checked>";
+                echo "<label for='bde'>Je veux que mon rôle s'affiche en tant que BDE</label>";
+                echo "</div>";
+            }
+            if (str_contains($user_sql['role'], 'prof')) {
+                echo "<div class='form_role_input-informations_add'>";
+                echo "<input type='hidden' name='role' value='prof' id='prof' checked>";
+                echo "</div>";
+            }
+            // if (str_contains($user_sql['role'], 'BDE') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'chef')){
+            //     echo "<div class='form_role_input-informations_add'>";
+            //     echo "<input type='radio' name='role' value='" . substr($user['pname'], 0, 1) . '. ' . $user['name'] . "'id='user' checked>";
+            //     echo "<label for='user'>Je veux que mon rôle s'affiche avec mon nom d'utilisateur</label>";
+            //     echo "</div>";
+            // }
+
             ?>
 
 
@@ -145,7 +145,7 @@ echo head('MMI Companion | Informations');
                 <textarea class="form_content_input-informations_add" id="editor"></textarea>
                 <input name="content" id="content" type="hidden">
             </div>
-            
+
             <div class="form_groupe_input-informations_add">
                 <p>Groupe</p>
                 <div class="form_groupe_content_input-informations_add"></div>
@@ -172,50 +172,15 @@ echo head('MMI Companion | Informations');
 
 
         $('#editor').trumbowyg();
-        // let contenuTexte = $('#editor').trumbowyg('html');
-        // let about = document.querySelector('#content');
-        // about.value = contenuTexte;
-
+        
         $(document).ready(function() {
-    $('#formtest').submit(function(event) {
-        var contenuTexte = $('#editor').trumbowyg('html');
-        $('#content').val(contenuTexte);
-    });
-});
-        // let quill = new Quill('#editor', {
-        // modules: {
-        //     toolbar: [
-        //     ['bold', 'italic'],
-        //     ['link', 'blockquote', 'code-block', 'image'],
-        //     [{ list: 'ordered' }, { list: 'bullet' }]
-        //     ]
-        // },
-        // placeholder: 'Contenu de l\'information',
-        // theme: 'snow'
-        // });
-
+            $('#formtest').submit(function(event) {
+                var contenuTexte = $('#editor').trumbowyg('html');
+                $('#content').val(contenuTexte);
+            });
+        });
         let form = document.querySelector('.form_informations_add');
         console.log(form);
-        // form.onsubmit = function() {
-        // // Populate hidden form on submit
-        // 
-        // about.value = JSON.stringify(quill.getContents());
-        // // about.value = JSON.parse(about.value).ops[0].insert;
-
-        // };
-
-
-
-
-
-
-
-
-
-
-
-
-
         const treeData = [{
                 id: 'BUT1',
                 text: 'BUT1',
@@ -290,36 +255,33 @@ echo head('MMI Companion | Informations');
             },
         });
 
-    
-    // Cacher les groupes qui ne sont pas dans le groupe du chef
 
-    // Sélectionnez les boutons radio
-    let radioInputs = document.querySelectorAll("input[name=role]");
-    console.log(radioInputs);
+        // Cacher les groupes qui ne sont pas dans le groupe du chef
 
-    // Sélectionnez l'élément .form_groupe_input-informations_add
-    let formGroupe = document.querySelector(".form_groupe_input-informations_add");
+        // Sélectionnez les boutons radio
+        let radioInputs = document.querySelectorAll("input[name=role]");
+        console.log(radioInputs);
 
-    radioInputs.forEach(radioInput => {
-        
-        if (radioInput.id == "chef") {
-            formGroupe.classList.add("hidden");
-        } else{
-            formGroupe.classList.remove("hidden");
-        }
+        // Sélectionnez l'élément .form_groupe_input-informations_add
+        let formGroupe = document.querySelector(".form_groupe_input-informations_add");
 
-        radioInput.addEventListener("change", function () {
+        radioInputs.forEach(radioInput => {
+
             if (radioInput.id == "chef") {
                 formGroupe.classList.add("hidden");
             } else {
                 formGroupe.classList.remove("hidden");
-            } 
+            }
+
+            radioInput.addEventListener("change", function() {
+                if (radioInput.id == "chef") {
+                    formGroupe.classList.add("hidden");
+                } else {
+                    formGroupe.classList.remove("hidden");
+                }
+            });
+
         });
-        
-    });
-
-
-
     </script>
 
 </body>

@@ -91,7 +91,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 // Obligatoire pour afficher la page
 echo head("MMI Companion | Agenda");
 ?>
-
+<link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 <body class="body-all">
     <!-- Menu de navigation -->
     <header>
@@ -122,7 +122,12 @@ echo head("MMI Companion | Agenda");
 
                 <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre" required>
                 <div class="trait_agenda_add"></div>
-
+                <div class="form_content-informations_add">
+                <p>Contenu</p>
+                <textarea class="form_content_input-informations_add" id="editor"></textarea>
+                <input name="content" id="content" type="hidden">
+                </div>
+                <div class="trait_agenda_add"></div>
                 <label for="date" class="label-agenda_add">
                     <h2>Ajouter une date</h2>
                 </label>
@@ -179,6 +184,7 @@ echo head("MMI Companion | Agenda");
 
     </main>
     <script src="../assets/js/menu-navigation.js"></script>
+    <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -197,6 +203,14 @@ echo head("MMI Companion | Agenda");
             // Supprimer le padding-left
             inputElement.style.paddingLeft = '0';
         }
+        $('#editor').trumbowyg();
+        
+        $(document).ready(function() {
+            $('#formtest').submit(function(event) {
+                var contenuTexte = $('#editor').trumbowyg('html');
+                $('#content').val(contenuTexte);
+            });
+        });
 
     </script>
 </body>
