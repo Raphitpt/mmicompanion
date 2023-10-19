@@ -53,8 +53,13 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     } else {
         $type = "autre";
     }
+    if (isset($_POST['content']) && !empty($_POST['content'])) {
+        $content = $_POST['content'];
+    } else {
+        $content = "";
+    }
     $school_subject = $_POST['school_subject'];
-    $sql = "UPDATE agenda SET title=:title, date_finish=:date, type=:type, id_user=:id_user, id_subject=:id_subject, edu_group=:edu_group WHERE id_task=:id_agenda";
+    $sql = "UPDATE agenda SET title=:title, date_finish=:date, type=:type, id_user=:id_user, id_subject=:id_subject, edu_group=:edu_group, content=:content WHERE id_task=:id_agenda";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'title' => $title,
@@ -63,7 +68,8 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'type' => $type,
         'id_subject' => $school_subject,
         'edu_group' => $user_sql['edu_group'],
-        'id_agenda' => $id_task
+        'id_agenda' => $id_task,
+        'content' => $content
     ]);
     header('Location: ./agenda.php');
     exit();
@@ -108,7 +114,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 echo head("MMI Companion | Agenda");
 
 ?>
-
+<link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 <body class="body-all">
     <!-- Menu de navigation -->
     <header>
@@ -136,11 +142,18 @@ echo head("MMI Companion | Agenda");
         <div style="height:25px"></div>
         <div class="agenda-agenda_add">
             <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
-            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)"> 
+            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda"> 
 
                 <input type="text" name="title" class="input_title-agenda_add" value="<?php echo $task['title'] ?>" required>
                 <div class="trait_agenda_add"></div>
-
+                <div class="form_content-informations_add">
+                <label for="content" class="label-agenda_add">
+                    <h2>Ajouter un contenu</h2>
+                </label>
+                <div style="height:5px"></div>
+                <textarea class="form_content_input-informations_add" id="editor"><?php echo $task['content']?></textarea>
+                <input name="content" id="content" type="hidden">
+                </div>
                 <label for="date" class="label-agenda_add">
                     <h2>Ajouter une date</h2>
                 </label>
@@ -201,6 +214,7 @@ echo head("MMI Companion | Agenda");
 
     </main>
     <script src="../assets/js/menu-navigation.js"></script>
+    <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -219,6 +233,14 @@ echo head("MMI Companion | Agenda");
             // Supprimer le padding-left
             inputElement.style.paddingLeft = '0';
         }
+        $('#editor').trumbowyg();
+        
+        $(document).ready(function() {
+            $('#formagenda').submit(function(event) {
+                var contenuTexte = $('#editor').trumbowyg('html');
+                $('#content').val(contenuTexte);
+            });
+        });
     </script>
     
 </body>

@@ -201,6 +201,12 @@ h1 {
     line-height: normal;
     z-index: 2;
 }
+.burger_disabled p{
+    color: var(--texte, #004a5a54);
+}
+.burger_disabled i{
+    color: var(--texte, #004a5a54);
+}
 
 .select_link-header {
     border-radius: 19.5px;
@@ -211,6 +217,8 @@ h1 {
     background: var(--bleu-trs-clair-background, #B9E0FF);
     z-index: 1;
 }
+
+
 
 
 .logout-header i {
@@ -1620,6 +1628,7 @@ h1 {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    justify-content: center;
 }
 
 .label-agenda_add i {

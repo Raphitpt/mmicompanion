@@ -236,6 +236,7 @@ echo head("MMI Companion | Agenda");
             <div class="agenda_title_flexbottom-agenda">
                 <?php
                 // Affiche le responsable de l'agenda
+                //   var_dump(viewChef($dbh, "BUT1-TP1"));
                     echo "<p style='font-weight: bold;' id='responsable'>Responsable : " . viewChef($dbh, "BUT1-TP1") . "</p>";
 
                 ?>
@@ -294,9 +295,10 @@ echo head("MMI Companion | Agenda");
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     const response = JSON.parse(xhr.responseText);
                     const viewChefValue = response.viewChef;
+                    console.log(viewChefValue);
                     const agendaHtmlValue = response.agendaHtml;
                     if (viewChefValue != false){
-                        document.getElementById('responsable').innerHTML = "Responsable : " + viewChefValue.pname +" "+ viewChefValue.name;
+                        document.getElementById('responsable').innerHTML = "Responsable : " + viewChefValue;
                     }
                     else{
                         document.getElementById('responsable').innerHTML = "Responsable : Aucun";

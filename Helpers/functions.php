@@ -194,15 +194,26 @@ function generateBurgerMenuContent($role)
             </div>
         </a>';
     }
-    $menuHtml .= '
-            <div class="burger_content_trait_header"></div>
+    if ($role == "prof") {
+        $menuHtml .= '
+        <div class="burger_content_trait_header"></div>
+                <div class="burger_content_link-header burger_disabled">
+                    <i class="fi fi-br-book-alt"></i>
+                    <p>Scolarité (bêta)</p>
+                    <div id="select_background_vie_sco-header" class=""></div>
+                </div>';
+    } else {
+        $menuHtml .= '
+        <div class="burger_content_trait_header"></div>
             <a href="./absences.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-book-alt"></i>
                     <p>Scolarité (bêta)</p>
                     <div id="select_background_vie_sco-header" class=""></div>
                 </div>
-            </a>
+            </a>';
+    }
+    $menuHtml .= '
             <a href="./informations.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-info"></i>
@@ -443,9 +454,9 @@ $stmt_chef->execute([
     'edu_group' => $edu_group,
 ]);
 $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
-return $chef;
-
+return $chef['pname']." ".$chef['name'];
 }
+
 
 function generate_activation_code(): string
 {
