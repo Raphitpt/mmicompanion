@@ -318,6 +318,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         if (isset($agenda['role']) && $agenda['role'] == "prof") {
                             echo "<p class='name_subject-agenda'>De : <span>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
                         }
+
                         foreach ($colors as $color) {
                             if ($color['id_subject'] == $agenda['id_subject']) {
                                 echo "<p style='background-color:" . $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
