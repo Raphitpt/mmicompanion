@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'name' => $agenda['name'],
                 'pname' => $agenda['pname'],
                 'role' => $agenda['role'],
+                'content' => $agenda['content'],
                 'color' => '', // Vous pouvez ajouter la couleur ici si nécessaire
             ];
 
@@ -105,6 +106,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             if ($event['type'] == "devoir" or $event['type'] == "autre") {
                 $html .= "<label for='checkbox-".$event['id_task']."' class='title_subject-agenda'>" . $event['title'] . "</label>";
+            }
+            if ($event['content'] != "") {
+                $html .= "<p class='content'><span>". $event['content'] . "</span></p>";
             }
             $html .= "<div class='agenda_content_subject-agenda'>";
             if ($event['role'] == "prof") {
