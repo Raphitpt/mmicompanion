@@ -154,7 +154,7 @@ echo head("MMI Companion | Agenda");
                     <i class="fi fi-br-calendar"></i>
                     <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
                 </div>
-                <div>
+                <div id="cocheWeek">
                     <input type="checkbox" id="choosenWeek" name="choosenWeek" />
                     <label for="choosenWeek">Afficher les semaines</label>
                 </div>
@@ -305,6 +305,7 @@ echo head("MMI Companion | Agenda");
     <script>
         const dateInput = document.querySelector('[name="date"]');
         const choosenWeekCheckbox = document.querySelector('#choosenWeek');
+        const cocheWeek = document.querySelector('#cocheWeek');
 
         function isSafari() {
             return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
@@ -312,7 +313,7 @@ echo head("MMI Companion | Agenda");
         // Vérifiez si le navigateur est Safari
         if (isSafari()) {
             // Masquez la case à cocher sur Safari
-            choosenWeekCheckbox.style.display = 'none';
+            cocheWeek.style.display = 'none';
         }
         choosenWeekCheckbox.addEventListener('change', function() {
             if (choosenWeekCheckbox.checked) {
