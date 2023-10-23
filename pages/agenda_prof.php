@@ -122,7 +122,7 @@ if (isset($_POST['button-validate'])) {
     $stmt->execute([
       'id_user' => $user['id_user']
     ]);
-    header('Location: ./agenda.php');
+    header('Location: ./agenda_prof.php');
     exit();
   }
 
@@ -312,7 +312,7 @@ echo head("MMI Companion | Agenda");
             data.append('edu_group', edu_group);
 
             // Envoyer la requête POST vers agenda.php
-            xhr.open('POST', 'agenda_prof.php', true);
+            xhr.open('POST', 'agenda_index.php', true);
             xhr.send(data);
             }
         
