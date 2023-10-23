@@ -293,6 +293,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
       const url1 = './../backup_cal/<?php echo $user_sql['edu_group'] ?>.ics';
       let calendarEl = document.querySelector("#calendar");
+
       let eventColors = {
         <?php
         foreach ($color_subjects as $color_subject) {
@@ -476,7 +477,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
 
       });
-
+      <?php if (isset($_SESSION['date'])) { ?>
+        let sessionDate = <?php echo json_encode($_SESSION['date']); ?>;
+        calendar.gotoDate(sessionDate);
+      <?php
+        unset($_SESSION['date']);
+    } ?>
       calendar.render();
       let touchStartX = 0;
       let touchEndX = 0;

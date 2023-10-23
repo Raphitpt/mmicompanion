@@ -55,8 +55,12 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_st
         'description' => $description,
         'color' => $color
     ]);
-    header('Location: ./calendar.php');
-    exit();
+    if($stmt->rowCount() > 0){
+        $_SESSION['date'] = $dateStart;
+        header('Location: ./calendar.php');
+        exit();
+    }
+
 }
 // Fin de la vérification du formulaire
 
