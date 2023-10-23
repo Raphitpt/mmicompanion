@@ -2010,6 +2010,24 @@ p {
     height: auto;
 }
 
+.item_content_text-information iframe {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    zoom: 2.6;
+    border: none;
+}
+
+.item_content_text-information .strawpoll-embed-footer{
+    display: none !important;
+}
+
+.custom-box-primary, .embed .custom-box-primary{
+    border-top-width: none !important;
+}
+
 .item_button-informations{
     display: flex;
     justify-content: center;
