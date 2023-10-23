@@ -358,7 +358,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           addEvent: {
             text: '+',
             click: function() {
-              window.location.href = './calendar_add.php';
+              let date = calendar.getDate();
+              let formattedDate = date.toISOString().split('T')[0];
+              window.location.href = './calendar_add.php?date=' + formattedDate;
             }
           },
           custom1day: {

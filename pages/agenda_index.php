@@ -5,11 +5,15 @@ require '../bootstrap.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $edu_group = $_POST['edu_group'];
     $edu_group_all = substr($_POST['edu_group'], 0, 4);
-    $sql_agenda = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND (a.type = 'devoir' OR a.type = 'eval') AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
+    $current_week_year = date('o-W');
+    $today = new DateTime();
+    $sql_agenda = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND (a.type = 'devoir' OR a.type = 'eval') AND (DATE_FORMAT(STR_TO_DATE(a.date_finish, '%X-W%V'), '%o-%W') = :current_week_year OR a.date_finish >= :current_date) ORDER BY a.date_finish ASC, a.title ASC";
     $stmt_agenda = $dbh->prepare($sql_agenda);
     $stmt_agenda->execute([
         'edu_group' => $edu_group,
-        'edu_group_all' => $edu_group_all
+        'edu_group_all' => $edu_group_all,
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d')
     ]);
     $agenda = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
     $agendaByDate = [];
@@ -44,21 +48,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 
+    $agendaByWeek = [];
+    $agendaByDate = [];
+
     foreach ($agenda as $agendas) {
         $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
-        $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
-        $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
 
-        // Ajoute l'élément à l'array correspondant à la date
-        if (!isset($agendaByDate[$formattedDateFr])) {
-            $agendaByDate[$formattedDateFr] = [];
+        if (preg_match('/^\d{4}-W\d{2}$/', $agendas['date_finish'])) {
+            // Si la date est au format "YYYY-Www", extrayez l'année et le numéro de semaine
+            $year = intval(substr($agendas['date_finish'], 0, 4));
+            $week = intval(substr($agendas['date_finish'], -2));
+            $formattedDateFr = "Semaine $week";
+
+            if (!isset($agendaByWeek[$formattedDateFr])) {
+                $agendaByWeek[$formattedDateFr] = [];
+            }
+            $agendaByWeek[$formattedDateFr][] = $agendas;
+        } else {
+            // Si la date n'est pas au format "YYYY-Www", formatez-la en français
+            $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
+
+            if (!isset($agendaByDate[$formattedDateFr])) {
+                $agendaByDate[$formattedDateFr] = [];
+            }
+            $agendaByDate[$formattedDateFr][] = $agendas;
         }
-        $agendaByDate[$formattedDateFr][] = $agendas;
     }
+    $agendaMerged = $agendaByWeek + $agendaByDate;
 
     // Créer un tableau de réponse JSON
     $agenda_html = "";
-    foreach ($agendaByDate as $date => $agendas) {
+    foreach ($agendaMerged as $date => $agendas) {
         $events = [];
 
         foreach ($agendas as $agenda) {
@@ -102,13 +122,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             $html .= "<div class='agenda_title_content_list_item_flexleft-agenda'>";
             if ($event['type'] == "eval") {
-                $html .= "<label for='checkbox-".$event['id_task']."' class='title_subject-agenda'>[Évaluation] " . $event['title'] . "</label>";
+                $html .= "<label for='checkbox-" . $event['id_task'] . "' class='title_subject-agenda'>[Évaluation] " . $event['title'] . "</label>";
             }
             if ($event['type'] == "devoir" or $event['type'] == "autre") {
-                $html .= "<label for='checkbox-".$event['id_task']."' class='title_subject-agenda'>" . $event['title'] . "</label>";
+                $html .= "<label for='checkbox-" . $event['id_task'] . "' class='title_subject-agenda'>" . $event['title'] . "</label>";
             }
             if ($event['content'] != "") {
-                $html .= "<p class='content'><span>". $event['content'] . "</span></p>";
+                $html .= "<p class='content'><span>" . $event['content'] . "</span></p>";
             }
             $html .= "<div class='agenda_content_subject-agenda'>";
             if ($event['role'] == "prof") {
@@ -116,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
             foreach ($colors as $color) {
                 if ($color['id_subject'] == $event['id_subject']) {
-                    $html .= "<p style='background-color:". $color['color_ressource'] . "'>" . $event['name_subject'] . "</p>";
+                    $html .= "<p style='background-color:" . $color['color_ressource'] . "'>" . $event['name_subject'] . "</p>";
                     break;
                 }
             }
@@ -144,4 +164,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     );
     echo json_encode($response);
 }
-?>

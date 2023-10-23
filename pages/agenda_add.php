@@ -144,7 +144,11 @@ echo head("MMI Companion | Agenda");
                 <div style="height:5px"></div>
                 <div class="container_input_date-agenda_add">
                     <i class="fi fi-br-calendar"></i>
-                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
+                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                </div>
+                <div id="cocheWeek">
+                    <input type="checkbox" id="choosenWeek" name="choosenWeek" />
+                    <label for="choosenWeek">Afficher les semaines</label>
                 </div>
                 
 
@@ -222,6 +226,32 @@ echo head("MMI Companion | Agenda");
             });
         });
 
+    </script>
+    <script>
+        const dateInput = document.querySelector('[name="date"]');
+        const choosenWeekCheckbox = document.querySelector('#choosenWeek');
+        const cocheWeek = document.querySelector('#cocheWeek');
+
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+        // Vérifiez si le navigateur est Safari
+        if (isSafari()) {
+            // Masquez la case à cocher sur Safari
+            cocheWeek.style.display = 'none';
+        }
+        choosenWeekCheckbox.addEventListener('change', function() {
+            if (choosenWeekCheckbox.checked) {
+                dateInput.type = 'week';
+                dateInput.min = '<?php echo date('Y-\WW') ?>';
+                dateInput.placeholder = 'yyyy-Www';
+                dateInput.value = '<?php echo date('Y-\WW') ?>';
+            } else {
+                dateInput.type = 'date';
+                dateInput.value = '<?php echo date('Y-m-d'); ?>'
+                dateInput.min = '<?php echo date("Y-m-d"); ?>'; // Rétablissez la valeur min
+            }
+        });
     </script>
 </body>
 
