@@ -306,6 +306,14 @@ echo head("MMI Companion | Agenda");
         const dateInput = document.querySelector('[name="date"]');
         const choosenWeekCheckbox = document.querySelector('#choosenWeek');
 
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+        // Vérifiez si le navigateur est Safari
+        if (isSafari()) {
+            // Masquez la case à cocher sur Safari
+            choosenWeekCheckbox.style.display = 'none';
+        }
         choosenWeekCheckbox.addEventListener('change', function() {
             if (choosenWeekCheckbox.checked) {
                 dateInput.type = 'week';
