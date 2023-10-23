@@ -57,7 +57,6 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
             $edu_group = $_POST['but'] . "-" . $tpValue;
 
             $school_subject = $_POST['school_subject'];
-
             $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
             $stmt = $dbh->prepare($sql);
             $stmt->execute([

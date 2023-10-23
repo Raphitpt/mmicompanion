@@ -31,6 +31,8 @@ $stmt->execute([
 ]);
 $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
+$current_week_year = date('o-W');
+$today = new DateTime();
 
 // Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
 $edu_group_all = substr($user_sql['edu_group'], 0, 4);
@@ -38,12 +40,14 @@ $edu_group_all = substr($user_sql['edu_group'], 0, 4);
 $sql_agenda = "SELECT a.*, s.*
         FROM agenda a 
         JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir' AND a.date_finish >= CURDATE()
+        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir' AND (DATE_FORMAT(STR_TO_DATE(a.date_finish, '%X-W%V'), '%o-%W') = :current_week_year OR a.date_finish >= :current_date)
         ORDER BY a.date_finish ASC, a.title ASC";
 
 $stmt_agenda = $dbh->prepare($sql_agenda);
 $stmt_agenda->execute([
-    'id_user' => $user['id_user']
+    'id_user' => $user['id_user'],
+    'current_week_year' => $current_week_year,
+    'current_date' => $today->format('Y-m-d')
 ]);
 $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
@@ -51,22 +55,38 @@ $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
 
 // Requetes pour récupérer les évaluations de son TP
 // --------------------
-$sql_eval = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
+
+$sql_eval = "SELECT a.*, s.*, u.name, u.pname, u.role 
+FROM agenda a 
+JOIN sch_subject s ON a.id_subject = s.id_subject 
+JOIN users u ON a.id_user = u.id_user 
+WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) 
+AND a.type = 'eval' 
+AND (
+    DATE_FORMAT(STR_TO_DATE(a.date_finish, '%X-W%V'), '%o-%W') = :current_week_year
+    OR a.date_finish >= :current_date
+) 
+ORDER BY a.date_finish ASC, a.title ASC";
+
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
     'edu_group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all
+    'edu_group_all' => $edu_group_all,
+    'current_week_year' => $current_week_year,
+    'current_date' => $today->format('Y-m-d')
 ]);
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // --------------------
 // Fin de la récupération des évaluations
 
 // Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
-$sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
+$sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir' AND (DATE_FORMAT(STR_TO_DATE(a.date_finish, '%X-W%V'), '%o-%W') = :current_week_year OR a.date_finish >= :current_date) ORDER BY a.date_finish ASC, a.title ASC";
 $stmt_devoir = $dbh->prepare($sql_devoir);
 $stmt_devoir->execute([
     'edu_group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all
+    'edu_group_all' => $edu_group_all,
+    'current_week_year' => $current_week_year,
+    'current_date' => $today->format('Y-m-d')
 ]);
 $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
@@ -257,17 +277,37 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
                     // Gère l'affichage des taches en affichant la date en français qui correspond à la date finale de la tache
                     // Elle ajoute la date en français au tableau $agendaByDate qui repertorie toute les taches
+                    // dd($agenda);
+                    $agendaByWeek = [];
+                    $agendaByDate = [];
+                    
                     foreach ($agenda as $agendas) {
                         $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
-                        $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
-                        $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
-
-                        // Ajoute l'élément à l'array correspondant à la date
-                        if (!isset($agendaByDate[$formattedDateFr])) {
-                            $agendaByDate[$formattedDateFr] = [];
+                    
+                        if (preg_match('/^\d{4}-W\d{2}$/', $agendas['date_finish'])) {
+                            // Si la date est au format "YYYY-Www", extrayez l'année et le numéro de semaine
+                            $year = intval(substr($agendas['date_finish'], 0, 4));
+                            $week = intval(substr($agendas['date_finish'], -2));
+                            $formattedDateFr = "Semaine $week";
+                    
+                            if (!isset($agendaByWeek[$formattedDateFr])) {
+                                $agendaByWeek[$formattedDateFr] = [];
+                            }
+                            $agendaByWeek[$formattedDateFr][] = $agendas;
+                        } else {
+                            // Si la date n'est pas au format "YYYY-Www", formatez-la en français
+                            $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
+                    
+                            if (!isset($agendaByDate[$formattedDateFr])) {
+                                $agendaByDate[$formattedDateFr] = [];
+                            }
+                            $agendaByDate[$formattedDateFr][] = $agendas;
                         }
-                        $agendaByDate[$formattedDateFr][] = $agendas;
                     }
+                    
+                    // Fusionnez les deux tableaux (semaines d'abord)
+                    $agendaMerged = $agendaByWeek + $agendaByDate;
+
                     ?>
                 </div>
             </div>
@@ -276,14 +316,14 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 <?php
 
                 // Si il n'y a pas d'évènements dans l'agenda, afficher un message
-                if (empty($agendaByDate)) {
+                if (empty($agendaMerged)) {
                     echo "<div class='agenda_content_list-agenda'>";
                     echo "<h2>Aucune tâche de prévu</h2>";
                     echo "</div>";
                 }
 
                 // Parcours les éléments par date et les affiche
-                foreach ($agendaByDate as $date => $agendas) {
+                foreach ($agendaMerged as $date => $agendas) {
                     echo "<div class='agenda_content_list-agenda'>";
                     echo "<h2>$date</h2>";
                     echo "<div style='height:10px'></div>";
@@ -311,7 +351,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
                         }
                         if (isset($agenda['content']) && !empty($agenda['content'])) {
-                            echo "<p class='content'><span>". $agenda['content'] . "</span></p>";
+                            echo "<p class='content'><span>" . $agenda['content'] . "</span></p>";
                         }
                         echo "<div class='agenda_content_subject-agenda'>";
 
