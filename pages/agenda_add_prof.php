@@ -248,7 +248,20 @@ echo head("MMI Companion | Agenda");
             return /iPhone|iPad|iPod/i.test(navigator.userAgent);
         }
 
-        $('#editor').trumbowyg();
+        $('#editor').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['undo', 'redo'],
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['link'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+        });
 
         $(document).ready(function() {
             $('#formagenda').submit(function(event) {
@@ -327,41 +340,6 @@ echo head("MMI Companion | Agenda");
             }
         });
     </script>
-
-    <!-- <script>
-        $(document).ready(function() {
-            var subjectData; // Variable pour stocker les données d'autocomplétion
-
-            $('#search_subject').autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        type: 'POST',
-                        url: './recherche_subject.php',
-                        data: {
-                            subject: request.term
-                        },
-                        success: function(data) {
-                            subjectData = JSON.parse(data); // Stockez les données d'autocomplétion dans la variable subjectData
-                            response(subjectData.map(function(item) {
-                                return item.name_subject;
-                            }));
-                        }
-                    });
-                },
-                minLength: 2,
-                select: function(event, ui) {
-                    // Lorsque l'utilisateur sélectionne une suggestion
-                    var selectedValue = ui.item.value; // Récupérez le nom du sujet sélectionné
-                    var idSubject = subjectData.find(function(item) {
-                        return item.name_subject === selectedValue;
-                    }).id_subject; // Trouvez l'id_subject correspondant dans les données
-                    console.log(idSubject);
-                    // Définissez la valeur de l'input avec l'id_subject
-                    $('#subject').val(idSubject);
-                }
-            });
-        });
-    </script> -->
 </body>
 
 </html>

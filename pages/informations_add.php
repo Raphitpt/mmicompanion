@@ -171,11 +171,25 @@ echo head('MMI Companion | Informations');
         select_background_profil.classList.add('select_link-header');
 
 
-        $('#editor').trumbowyg();
-        
+        $('#editor').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['undo', 'redo'],
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['link'],
+                ['insertImage'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+        });
+
         $(document).ready(function() {
             $('#formtest').submit(function(event) {
-                var contenuTexte = $('#editor').trumbowyg('html');
+                let contenuTexte = $('#editor').trumbowyg('html');
                 $('#content').val(contenuTexte);
             });
         });

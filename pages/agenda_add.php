@@ -6,7 +6,7 @@ require "../bootstrap.php";
 if (!isset($_COOKIE['jwt'])) {
     header('Location: ./index.php');
     exit;
-  }
+}
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
@@ -99,6 +99,7 @@ $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 echo head("MMI Companion | Agenda");
 ?>
 <link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
+
 <body class="body-all">
     <!-- Menu de navigation -->
     <header>
@@ -125,17 +126,17 @@ echo head("MMI Companion | Agenda");
         <div style="height:25px"></div>
         <div class="agenda-agenda_add">
             <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
-            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda"> 
+            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda">
 
                 <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre" required>
                 <div class="trait_agenda_add"></div>
                 <div class="form_content-informations_add">
-                <label for="content" class="label-agenda_add">
-                    <h2>Ajouter un contenu</h2>
-                </label>
-                <div style="height:5px"></div>
-                <textarea class="form_content_input-informations_add" id="editor"></textarea>
-                <input name="content" id="content" type="hidden">
+                    <label for="content" class="label-agenda_add">
+                        <h2>Ajouter un contenu</h2>
+                    </label>
+                    <div style="height:5px"></div>
+                    <textarea class="form_content_input-informations_add" id="editor"></textarea>
+                    <input name="content" id="content" type="hidden">
                 </div>
                 <div class="trait_agenda_add"></div>
                 <label for="date" class="label-agenda_add">
@@ -150,9 +151,9 @@ echo head("MMI Companion | Agenda");
                     <input type="checkbox" id="choosenWeek" name="choosenWeek" />
                     <label for="choosenWeek">Afficher les semaines</label>
                 </div>
-                
 
-                
+
+
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
                 <?php if (str_contains($user_sql['role'], 'chef') || str_contains($user_sql['role'], 'admin')) { ?>
                     <div style="height:15px"></div>
@@ -181,18 +182,17 @@ echo head("MMI Companion | Agenda");
                         <?php
                         foreach ($subject as $subjects) {
                             echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
-                        }
-                        ; ?>
+                        }; ?>
                     </select>
                 </div>
-                
+
                 <div style="height:25px"></div>
                 <div class="form_button-agenda">
                     <a role="button" href='./agenda.php'>Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
                 <div style="height:20px"></div>
-                
+
             </form>
         </div>
 
@@ -217,15 +217,27 @@ echo head("MMI Companion | Agenda");
             // Supprimer le padding-left
             inputElement.style.paddingLeft = '0';
         }
-        $('#editor').trumbowyg();
-        
+        $('#editor').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['undo', 'redo'],
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['link'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+        });
+
         $(document).ready(function() {
             $('#formagenda').submit(function(event) {
                 var contenuTexte = $('#editor').trumbowyg('html');
                 $('#content').val(contenuTexte);
             });
         });
-
     </script>
     <script>
         const dateInput = document.querySelector('[name="date"]');

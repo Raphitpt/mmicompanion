@@ -2002,6 +2002,12 @@ p {
     font-weight: 500;
     line-height: normal;
 }
+.item_content_text-information img{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: auto;
+}
 
 .item_button-informations{
     display: flex;
