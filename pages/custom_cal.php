@@ -11,7 +11,7 @@ if ($start !== null && $end !== null) {
     $endDateTime = new DateTime($end);
 
     // Chemin du fichier VCS
-    $vcsFile = './../vcs_combined.vcs';
+    $vcsFile = './../other_cal/vcs_combined.vcs';
 
     if (file_exists($vcsFile)) {
         $vcsContent = file_get_contents($vcsFile);
