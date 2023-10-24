@@ -31,18 +31,18 @@ $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 $cal_link = calendar($user_sql['edu_group']);
 
 // On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
-  if (isset($_POST['annee']) && isset($_POST['tp'])) {
-    $annee = $_POST['annee'];
-    $tp = $_POST['tp'];
-    $update_user = "UPDATE users SET edu_group = :edu_group WHERE id_user = :id_user";
-    $stmt = $dbh->prepare($update_user);
-    $stmt->execute([
-      'edu_group' => $annee . "-" . $tp,
-      'id_user' => $user['id_user']
-    ]);
-    header('Location: ./calendar.php');
-    exit();
-  }
+if (isset($_POST['annee']) && isset($_POST['tp'])) {
+  $annee = $_POST['annee'];
+  $tp = $_POST['tp'];
+  $update_user = "UPDATE users SET edu_group = :edu_group WHERE id_user = :id_user";
+  $stmt = $dbh->prepare($update_user);
+  $stmt->execute([
+    'edu_group' => $annee . "-" . $tp,
+    'id_user' => $user['id_user']
+  ]);
+  header('Location: ./calendar.php');
+  exit();
+}
 
 
 
@@ -217,6 +217,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 <?php } else {
 
 ?>
+
   <body class="body-all">
 
     <!-- <header class="header-calendar">
@@ -287,11 +288,30 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     select_background_profil.classList.add('select_link-header');
 
     // -----------------------
+    let url1 = './../backup_cal/<?php echo $user_sql['edu_group'] ?>.ics';
+    // let url2 = "";
+
+    if ("<?php echo $user_sql['role'] ?>" === "autre") {
+      url1 = './custom_cal.php';
+    }
 
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
+      let eventSources = [{
+        url: url1
+      }];
 
-      const url1 = './../backup_cal/<?php echo $user_sql['edu_group'] ?>.ics';
+      if (url1 === './custom_cal.php') {
+        eventSources[0].format = 'json';
+      } else {
+        eventSources[0].format = 'ics';
+      }
+
+      eventSources.push({
+        url: './calendar_event.php'
+      });
+
+
       let calendarEl = document.querySelector("#calendar");
 
       let eventColors = {
@@ -417,14 +437,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         // slotEventOverlap: false,
         // plugins: [DayGridPlugin, iCalendarPlugin],
-        eventSources: [{
-            url: url1,
-            format: "ics",
-          },
-          {
-            url: './calendar_event.php',
-          },
-        ],
+        eventSources: eventSources,
         eventContent: function(arg) {
           let eventTitle = arg.event.title;
           let eventLocation = arg.event.extendedProps.location;
@@ -482,7 +495,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         calendar.gotoDate(sessionDate);
       <?php
         unset($_SESSION['date']);
-    } ?>
+      } ?>
       calendar.render();
       let touchStartX = 0;
       let touchEndX = 0;

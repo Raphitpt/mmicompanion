@@ -194,7 +194,7 @@ function generateBurgerMenuContent($role)
             </div>
         </a>';
     }
-    if ($role == "prof") {
+    if ($role == "prof" || $role == "autre") {
         $menuHtml .= '
         <div class="burger_content_trait_header"></div>
                 <div class="burger_content_link-header burger_disabled">
@@ -213,14 +213,24 @@ function generateBurgerMenuContent($role)
                 </div>
             </a>';
     }
-    $menuHtml .= '
+    if ($role == "autre"){
+        $menuHtml .= '
+                <div class="burger_content_link-header burger_disabled">
+                    <i class="fi fi-br-info"></i>
+                    <p>Informations</p>
+                    <div id="select_background_informations-header" class=""></div>
+                </div>';
+    } else {
+        $menuHtml .= '
             <a href="./informations.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-info"></i>
                     <p>Informations</p>
                     <div id="select_background_informations-header" class=""></div>
                 </div>
-            </a>
+            </a>';
+    }
+    $menuHtml .= '
             <a href="./outils_supplementaires.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-link-alt"></i>
