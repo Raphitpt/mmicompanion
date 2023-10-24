@@ -39,7 +39,7 @@ function head(string $title = ''): string
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=1.1" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=1.2" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
@@ -194,7 +194,7 @@ function generateBurgerMenuContent($role)
             </div>
         </a>';
     }
-    if ($role == "prof") {
+    if ($role == "prof" || $role == "autre") {
         $menuHtml .= '
         <div class="burger_content_trait_header"></div>
                 <div class="burger_content_link-header burger_disabled">
@@ -213,14 +213,24 @@ function generateBurgerMenuContent($role)
                 </div>
             </a>';
     }
-    $menuHtml .= '
+    if ($role == "autre"){
+        $menuHtml .= '
+                <div class="burger_content_link-header burger_disabled">
+                    <i class="fi fi-br-info"></i>
+                    <p>Informations</p>
+                    <div id="select_background_informations-header" class=""></div>
+                </div>';
+    } else {
+        $menuHtml .= '
             <a href="./informations.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-info"></i>
                     <p>Informations</p>
                     <div id="select_background_informations-header" class=""></div>
                 </div>
-            </a>
+            </a>';
+    }
+    $menuHtml .= '
             <a href="./outils_supplementaires.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-link-alt"></i>

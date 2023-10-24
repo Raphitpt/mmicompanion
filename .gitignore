@@ -4,3 +4,4 @@ composer.lock
 composer.json
 database/
 backup_cal/
+update.sh

@@ -211,7 +211,7 @@ echo head("MMI Companion | Agenda");
             
       
         <div class="agenda_title_flextopright-agenda">
-            <a href="./agenda_add_prof.php">Ajouter</a>
+            <button id="ajouter_agenda_prof">Ajouter</button>
         </div>
     </div>
 
@@ -279,6 +279,7 @@ echo head("MMI Companion | Agenda");
         const butSelect = document.getElementById('but');
         const tpSelect = document.getElementById('tp');
         const agendaMain = document.querySelector('.agenda_content-agenda');
+        const ajouterAgenda = document.getElementById('ajouter_agenda_prof');
         
         // Écouteur d'événement pour charger l'agenda au chargement de la page
         window.addEventListener('load', loadAgenda);
@@ -319,6 +320,10 @@ echo head("MMI Companion | Agenda");
         // Écouteurs d'événements pour les changements d'options
         butSelect.addEventListener('change', loadAgenda);
         tpSelect.addEventListener('change', loadAgenda);
+
+        ajouterAgenda.addEventListener('click', function(){
+            window.location.href = "./agenda_add_prof.php?but=" + butSelect.value + "&tp=" + tpSelect.value;
+        });
             </script>
 
 </body>

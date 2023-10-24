@@ -1345,11 +1345,6 @@ h1 {
     background: #56B8D6;
 }
 
-
-
-
-
-
 /* AGENDA.PHP */
 
 .main-agenda {
@@ -1372,6 +1367,18 @@ h1 {
     background: var(--bleu-moyen, #56B8D6);
     border-radius: 18px;
     padding: 6px 30px;
+}
+.agenda_title_flextopright-agenda button {
+    color: var(--texte, #004A5A);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-weight: 800;
+    background: var(--bleu-moyen, #56B8D6);
+    border-radius: 18px;
+    padding: 6px 30px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
 }
 
 .agenda_title_flexbottom-agenda {
@@ -1994,6 +2001,31 @@ p {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+.item_content_text-information img{
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+.item_content_text-information iframe {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    zoom: 2.6;
+    border: none;
+}
+
+.item_content_text-information .strawpoll-embed-footer{
+    display: none !important;
+}
+
+.custom-box-primary, .embed .custom-box-primary{
+    border-top-width: none !important;
 }
 
 .item_button-informations{
