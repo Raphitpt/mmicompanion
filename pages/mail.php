@@ -45,8 +45,8 @@ echo head("MMI Companion | Vérification du mail");
             <img src="../assets/img/verif_mail.svg" alt="Illustration diverse">
         </div>
         <div class="title-mail">
-            <h1>Vérifie tes mails</h1>
-            <p>Un mail vient d’être envoyé à <span style="font-weight: 600;"><?php echo $mail_user; ?></span> pour vérifier ton adresse mail et activer ton compte.</p>
+            <h1>Vérifiez vos mails</h1>
+            <p>Un mail vient d’être envoyé à <span style="font-weight: 600;"><?php echo $mail_user; ?></span> pour vérifier votre adresse mail et activer votre compte.</p>
         </div>
         <div style="height:20px"></div>
         <div class="trait-mail"></div>
@@ -61,7 +61,7 @@ echo head("MMI Companion | Vérification du mail");
         else { ?>
             <div class="button-accueil">
                 <a role="button" href="./login.php" class="button_register">Se connecter</a>
-                <p>Ton mail vient d'être vérifié, tu peux maintenant te connecter.</p>
+                <p>Votre mail vient d'être vérifié, vous pouvez maintenant vous connecter.</p>
             </div>
         <?php }
         ?>
