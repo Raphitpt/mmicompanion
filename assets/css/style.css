@@ -8,7 +8,18 @@
 }
 
 :root{
-    --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+    --fc-today-bg-color: rgba(255, 211, 144, 0.192);
+    --bleu-trs-clair-background: #fff1dd;
+    --bleu-clair-background: #ffca84;
+    --bleu-moyen: #d38842;
+    --texte: #5a3600;
+
+    /* Thème bleu */
+    /* --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+    --bleu-trs-clair-background: #DDF0FF;
+    --bleu-clair-background: #B9E0FF;
+    --bleu-moyen: #56B8D6;
+    --texte: #004A5A; */
 }
 
 a {
@@ -29,7 +40,7 @@ main {
 }
 
 .body-all {
-    background-color: #DDF0FF;
+    background-color: var(--bleu-trs-clair-background);
     height: 100vh;
     display: flex;
     justify-content: start;
@@ -47,7 +58,7 @@ main {
     height: 80px;
     flex-shrink: 0;
     border-radius: 0px 0px 20px 20px;
-    background: var(--bleu-trs-clair-background, #B9E0FF);
+    background: var(--bleu-clair-background);
 }
 
 /* HEADER ALL */
@@ -82,11 +93,11 @@ main {
 .content_title-header .burger-header i {
     font-size: 25px;
     flex-shrink: 0;
-    color: #004A5A;
+    color: var(--texte);
 }
 
 .content_title-header h1 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 19px;
     font-family: Montserrat;
     font-style: normal;
@@ -94,7 +105,7 @@ main {
     line-height: normal;
 }
 h1 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 19px;
     font-family: Montserrat;
     font-style: normal;
@@ -114,7 +125,7 @@ h1 {
     width: 80vw;
     max-width: 350px;
     height: 100vh;
-    background: var(--bleu-trs-clair-background, #DDF0FF);
+    background: var(--bleu-trs-clair-background, var(--bleu-trs-clair-background));
     z-index: 100;
     border-radius: 0px 25px 0px 0px;
     display: flex;
@@ -144,7 +155,7 @@ h1 {
 }
 
 .burger_content_titleleft-header h1 {
-    color: var(--bleu-moyen, #56B8D6);
+    color: var(--bleu-moyen);
     text-align: right;
     font-size: 17px;
     font-family: Montserrat;
@@ -154,7 +165,7 @@ h1 {
 }
 
 .burger_content_titleright-header i{
-    color: var(--bleu-moyen, #56B8D6);
+    color: var(--bleu-moyen);
     font-size: 23px;
 }
 
@@ -170,7 +181,7 @@ h1 {
 .burger_content_trait_header {
     width: 198px;
     height: 0.5px;
-    background: #56B8D6;
+    background: var(--bleu-moyen);
     margin: 20px 0;
 }
 
@@ -187,13 +198,13 @@ h1 {
 
 .burger_content_link-header i {
     font-size: 20px;
-    color: #004A5A;
+    color: var(--texte);
     margin-right: 10px;
     z-index: 2;
 }
 
 .burger_content_link-header p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-style: normal;
@@ -214,7 +225,7 @@ h1 {
     right: -10px;
     height: 42px;
     position: absolute;
-    background: var(--bleu-trs-clair-background, #B9E0FF);
+    background: var(--bleu-clair-background);
     z-index: 1;
 }
 
@@ -230,7 +241,7 @@ h1 {
 }
 
 .score{
-    color: #004A5A !important;
+    color: var(--texte) !important;
     margin-top: -3vh;
     font-weight: 800;
 }
@@ -261,7 +272,7 @@ h1 {
 }
 
 .main-desktop h1{
-    color: #004A5A;
+    color: var(--texte);
     font-size: 17px;
     font-weight: 500;
     font-family: Montserrat;
@@ -270,7 +281,7 @@ h1 {
 }
 
 .main-desktop p{
-    color: #004A5A;
+    color: var(--texte);
     font-size: 13px;
     font-weight: 500;
     font-family: Montserrat;
@@ -306,14 +317,14 @@ h1 {
 .title-accueil h1 {
     font-size: 26px;
     font-weight: 900;
-    color: #004A5A;
+    color: var(--texte);
     font-family: Montserrat;
 }
 
 .title-accueil p {
     text-align: center;
     font-weight: 500;
-    color: #004A5A;
+    color: var(--texte);
     font-size: 10px;
     padding: 0px 5px;
     font-family: Montserrat;
@@ -327,8 +338,8 @@ h1 {
 }
 
 .button_register {
-    background-color: #56B8D6;
-    color: #004A5A;
+    background-color: var(--bleu-moyen);
+    color: var(--texte);
     border: none;
     border-radius: 25px;
     width: 210px;
@@ -348,7 +359,7 @@ h1 {
     font-size: 11px;
     font-family: Montserrat;
     text-decoration: underline;
-    color: #004A5A;
+    color: var(--texte);
 }
 
 
@@ -359,7 +370,7 @@ h1 {
 /* LOGIN.PHP */
 
 .body-login {
-    background-color: #B9E0FF;
+    background-color: var(--bleu-clair-background);
     font-family: 'Montserrat', sans-serif;
     box-sizing: border-box;
     height: 100vh;
@@ -385,13 +396,13 @@ h1 {
     left: 0px;
     padding: 30px;
     transform: rotate(180deg);
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 20px;
 }
 
 
 .title-login {
-    color: #004A5A;
+    color: var(--texte);
     font-weight: 900;
     font-size: 19px;
     font-family: Montserrat;
@@ -430,7 +441,7 @@ h1 {
 
 .button_forget-login a {
     display: flex;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
 }
@@ -478,7 +489,7 @@ h1 {
 }
 
 .button_next-register p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 15px;
     font-style: normal;
@@ -487,7 +498,7 @@ h1 {
 }
 
 .button_next-register i {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 15px;
     transform: translateY(3px);
 }
@@ -501,7 +512,7 @@ h1 {
 }
 
 .label_edu-register label {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 13px;
     font-style: normal;
@@ -513,7 +524,7 @@ h1 {
     width: 20%;
     height: 1px;
     border-radius: 15px;
-    background-color: #004A5A;
+    background-color: var(--texte);
     margin: 30px 0;
 }
 
@@ -526,7 +537,7 @@ h1 {
 }
 
 .button_before-register p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -535,7 +546,7 @@ h1 {
 }
 
 .button_before-register i {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 12px;
     transform: translateY(-3px);
     transform: rotate(180deg);
@@ -547,7 +558,7 @@ h1 {
 /* LOST_PASSWORD.PHP */
 
 .success_message-lost_password {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-weight: 500;
@@ -581,14 +592,14 @@ h1 {
 .title-mail h1 {
     font-size: 16px;
     font-weight: 800;
-    color: #004A5A;
+    color: var(--texte);
     font-family: Montserrat;
 }
 
 .title-mail p {
     text-align: center;
     font-weight: 500;
-    color: #004A5A;
+    color: var(--texte);
     font-size: 11px;
     padding: 0px 5px;
     font-family: Montserrat;
@@ -599,12 +610,12 @@ h1 {
     width: 15%;
     height: 1px;
     border-radius: 15px;
-    background-color: #004A5A;
+    background-color: var(--texte);
 }
 
 .button-accueil p {
     margin-top: 10px;
-    color: #004A5A;
+    color: var(--texte);
     font-size: 11px;
     font-weight: 500;
     font-family: Montserrat;
@@ -632,7 +643,7 @@ h1 {
 /* Tutoriel - Page de bienvenue */
 
 .body-welcome {
-    background-color: #DDF0FF;
+    background-color: var(--bleu-trs-clair-background);
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -669,7 +680,7 @@ h1 {
 }
 
 .title_content_welcome_page1-index h1 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     text-align: center;
     font-family: Montserrat;
     font-size: 20px;
@@ -684,7 +695,7 @@ h1 {
 }
 
 .title_welcome_page1-index p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     text-align: center;
     font-family: Montserrat;
     font-size: 14px;
@@ -696,7 +707,7 @@ h1 {
 .trait_title_welcome-index {
     width: 50vw;
     height: 0.5px;
-    background: #004A5A;
+    background: var(--texte);
     border-radius: 20px;
 }
 
@@ -709,7 +720,7 @@ h1 {
 }
 
 .content_welcome_page1-index p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     text-align: center;
     font-family: Montserrat;
     font-size: 13px;
@@ -736,7 +747,7 @@ h1 {
 }
 
 .content_welcome_questions_content_page1-index label {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 13px;
     font-style: normal;
@@ -751,7 +762,7 @@ h1 {
     border: none;
     outline: none;
     text-align: center;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -763,7 +774,7 @@ h1 {
 .trait_content_welcome-index {
     width: 20vw;
     height: 0.5px;
-    background: #004A5A;
+    background: var(--texte);
     border-radius: 20px;
 }
 
@@ -771,7 +782,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #004A5A;
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -783,7 +794,7 @@ h1 {
     height: 30px;
     flex-shrink: 0;
     border-radius: 20px;
-    background: #56B8D6;
+    background: var(--bleu-moyen);
 }
 
 /* Page 2 */
@@ -815,11 +826,11 @@ h1 {
 .title_content_welcome_page2-index i {
     width: 22px;
     height: auto;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
 }
 
 .title_content_welcome_page2-index h1 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     text-align: left;
     font-family: Montserrat;
     font-size: 17px;
@@ -828,7 +839,7 @@ h1 {
 
 .title_welcome_page2-index p {
     position: relative;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -845,12 +856,12 @@ h1 {
     width: 1px;
     height: 100%;
     border-radius: 20px;
-    background-color: #004A5A;
+    background-color: var(--texte);
 }
 
 .content_welcome_page2-index{
     border-radius: 40px;
-    background: var(--bleu-moyen, #56B8D6);
+    background: var(--bleu-moyen);
 }
 
 .content_welcome_page2-index ul {
@@ -863,7 +874,7 @@ h1 {
 }
 
 .content_welcome_page2-index ul li {
-    color: #004A5A;
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -932,7 +943,7 @@ h1 {
 }
 
 .title_trait h1 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 19px;
     font-family: Montserrat;
     font-weight: 700;
@@ -943,7 +954,7 @@ h1 {
     height: 1.5px;
     width: 46px;
     border-radius: 10px;
-    background: var(--texte, #004A5A);
+    background: var(--texte);
     margin-bottom: 3px;
 }
 
@@ -968,7 +979,7 @@ h1 {
 }
 
 .fc-footer-toolbar .fc-toolbar-chunk button{
-    color: #004A5A !important;
+    color: var(--texte) !important;
     border: none !important;
     padding: 5px 10px !important;
     width: 100px !important;
@@ -999,7 +1010,7 @@ h1 {
     margin-bottom: 0.5em !important;
 }
 .fc-toolbar-title {
-    color: #004A5A !important;
+    color: var(--texte) !important;
     font-weight: 600 !important;
     font-size: 0.95em !important;
     font-family: Montserrat !important;
@@ -1022,7 +1033,7 @@ h1 {
 .fc .fc-button {
     background-color: transparent !important;
     border: none !important;
-    color: #004A5A !important;
+    color: var(--texte) !important;
     font-size: 0.75em !important;
 }
 
@@ -1040,10 +1051,10 @@ h1 {
 }
 
 .fc-v-event {
-    /* background-color: #56B8D6 !important; */
+    /* background-color: var(--bleu-moyen) !important; */
     border: none !important;
     border-radius: 5px !important;
-    color: #004A5A !important;
+    color: var(--texte) !important;
     font-weight: 600 !important;
     font-size: 0.70rem;
     padding: 0.25vh 1vw !important;
@@ -1081,8 +1092,8 @@ h1 {
 }
 
 .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
-    background-color: #56b8d6 !important;
-    color: #004a5a !important;
+    background-color: var(--bleu-moyen) !important;
+    color: var(--texte) !important;
     border-radius: 20px !important;
     width: 60px !important;
 }
@@ -1145,7 +1156,7 @@ h1 {
 
 
 .label-calendar_add h2 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -1231,7 +1242,7 @@ h1 {
 /* TUTO AGENDA.PHP */
 
 .body-tuto_agenda {
-    background-color: #DDF0FF;
+    background-color: var(--bleu-trs-clair-background);
     height: calc(100vh - 90px);
     display: flex;
     justify-content: start;
@@ -1258,7 +1269,7 @@ h1 {
 }
 
 .main_tuto-agenda p {
-    color: #004A5A;
+    color: var(--texte);
     font-size: 13px;
     font-weight: 500;
     font-family: Montserrat;
@@ -1278,7 +1289,7 @@ h1 {
 }
 
 .title_tuto-agenda h1{
-    color: #004A5A;
+    color: var(--texte);
     font-size: 19px;
     font-weight: 800;
     font-family: Montserrat;
@@ -1297,7 +1308,7 @@ h1 {
     width: 1px;
     height: 100%;
     border-radius: 20px;
-    background-color: #004A5A;
+    background-color: var(--texte);
 }
 
 .title_content_tuto-agenda{
@@ -1313,7 +1324,7 @@ h1 {
 }
 
 .title_content_tuto-agenda h2{
-    color: #004A5A;
+    color: var(--texte);
     font-size: 13px;
     font-weight: 700;
     font-family: Montserrat;
@@ -1330,7 +1341,7 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #004A5A;
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -1342,7 +1353,7 @@ h1 {
     height: 30px;
     flex-shrink: 0;
     border-radius: 20px;
-    background: #56B8D6;
+    background: var(--bleu-moyen);
 }
 
 /* AGENDA.PHP */
@@ -1360,20 +1371,20 @@ h1 {
 }
 
 .agenda_title_flextopright-agenda a {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 800;
-    background: var(--bleu-moyen, #56B8D6);
+    background: var(--bleu-moyen);
     border-radius: 18px;
     padding: 6px 30px;
 }
 .agenda_title_flextopright-agenda button {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 800;
-    background: var(--bleu-moyen, #56B8D6);
+    background: var(--bleu-moyen);
     border-radius: 18px;
     padding: 6px 30px;
     text-decoration: none;
@@ -1387,7 +1398,7 @@ h1 {
 }
 
 .agenda_title_flexbottom-agenda p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 500;
@@ -1402,7 +1413,7 @@ h1 {
 
 
 .agenda_content_list-agenda h2 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 500;
@@ -1444,7 +1455,7 @@ h1 {
     content: url(./../img/check-mark-icon.svg);
     animation: animation_check 0.25s ease;
     transform: scale(0.11);
-    color: #004A5A;
+    color: var(--texte);
 }
 
 @keyframes animation_check {
@@ -1505,7 +1516,7 @@ h1 {
     
 }
 .name_subject-agenda{
-    color: var(--texte, #004A5A) !important;
+    color: var(--texte) !important;
     padding: 0 !important;
 }
 .name_subject-agenda > span {
@@ -1522,7 +1533,7 @@ h1 {
 }
 
 .agenda_content_list_item_flexright-agenda i.blue {
-    color: #004A5A;
+    color: var(--texte);
 }
 
 .agenda_content_list_item_flexright-agenda i.red {
@@ -1545,7 +1556,7 @@ h1 {
     border: none;
     outline: none;
     text-align: center;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -1569,7 +1580,7 @@ h1 {
     border: none;
     outline: none;
     text-align: center;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -1639,14 +1650,14 @@ h1 {
 }
 
 .label-agenda_add i {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-weight: 500;
 }
 
 .label-agenda_add h2 {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -1677,7 +1688,7 @@ h1 {
 }
 
 .container_input-agenda_add i, .container_input_date-agenda_add i{
-    color: #004A5A;
+    color: var(--texte);
     padding: 10px;
     padding-left:30px;
     font-size: 15px;
@@ -1737,9 +1748,9 @@ h1 {
 
 .form_button-agenda a {
     border-radius: 18px;
-    background: var(--bleu-trs-clair-background, #B9E0FF);
+    background: var(--bleu-clair-background);
     padding: 10px 40px;
-    color: #004A5A;
+    color: var(--texte);
     text-align: center;
     font-family: Montserrat;
     font-size: 12px;
@@ -1750,10 +1761,10 @@ h1 {
 
 .form_button-agenda input[type="submit"] {
     border-radius: 18px;
-    background: var(--bleu-moyen, #56B8D6);
+    background: var(--bleu-moyen);
     width: 131px;
     height: 35px;
-    color: #004A5A;
+    color: var(--texte);
     text-align: center;
     font-family: Montserrat;
     font-size: 12px;
@@ -1771,7 +1782,7 @@ h1 {
 }
 
 p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 500;
@@ -1794,7 +1805,7 @@ p {
     border: none;
     outline: none;
     text-align: center;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -1806,7 +1817,7 @@ p {
     cursor: pointer;
     background: none;
     text-decoration: none;
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-weight: 700;
     text-align: left;
@@ -1847,11 +1858,11 @@ p {
 }
 
 .info_title_flextopright-informations a {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 800;
-    background: var(--bleu-moyen, #56B8D6);
+    background: var(--bleu-moyen);
     border-radius: 18px;
     padding: 6px 30px;
 }
@@ -1862,7 +1873,7 @@ p {
 }
 
 .info_title_flexbottom-informations p {
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 500;
@@ -1884,7 +1895,7 @@ p {
 }
 
 .form_groupe_input-informations p{
-    color: var(--texte, #004A5A);
+    color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
     font-weight: 500;
@@ -1899,7 +1910,7 @@ p {
     justify-content: start;
     font-family: Montserrat;
     font-weight: 500;
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     gap: 10px;
 }
 
@@ -1947,7 +1958,7 @@ p {
 }
 
 .item_content_title_flextop-information h2{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -1995,7 +2006,7 @@ p {
 }
 
 .item_content_text-information p{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -2037,7 +2048,7 @@ p {
 }
 
 .item_button-informations i.blue {
-    color: #004A5A;
+    color: var(--texte);
 }
 
 .item_button-informations i.red {
@@ -2045,7 +2056,7 @@ p {
 }
 
 .item_content_text-information {
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
@@ -2097,7 +2108,7 @@ p {
 }
 
 .form_input-informations_add label{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -2130,7 +2141,7 @@ p {
     justify-content: start;
     font-family: Montserrat;
     font-weight: 500;
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     gap: 20px;
 }
 
@@ -2151,7 +2162,7 @@ p {
 }
 
 .form_role_input-informations_add label{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -2161,7 +2172,7 @@ p {
 
 
 .form_content-informations_add p{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -2215,7 +2226,7 @@ p {
 }
 
 .form_groupe_content_input-informations_add label{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -2244,9 +2255,9 @@ p {
 
 .form_button-informations_add a {
     border-radius: 18px;
-    background: var(--bleu-trs-clair-background, #B9E0FF);
+    background: var(--bleu-clair-background);
     padding: 10px 40px;
-    color: #004A5A;
+    color: var(--texte);
     text-align: center;
     font-family: Montserrat;
     font-size: 12px;
@@ -2257,10 +2268,10 @@ p {
 
 .form_butttonValidate-informations {
     border-radius: 18px;
-    background: var(--bleu-moyen, #56B8D6);
+    background: var(--bleu-moyen);
     width: 131px;
     height: 35px;
-    color: #004A5A;
+    color: var(--texte);
     text-align: center;
     font-family: Montserrat;
     font-size: 12px;
@@ -2277,7 +2288,7 @@ p {
 }
 
 .form_groupe_input-informations_add p{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 14px;
     font-style: normal;
@@ -2421,8 +2432,8 @@ p {
 }
 
 .edit_profil_picture-img i{
-    background-color: #56b8d6;
-    color: #004a5a;
+    background-color: var(--bleu-moyen);
+    color: var(--texte);
     padding: 10px;
     border-radius: 50%;
 }
@@ -2433,13 +2444,13 @@ p {
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    color: #004A5A;
+    color: var(--texte);
     width: 100%;
     max-width: 220px;
     height: 40px;
     border-radius: 30px;
     border: none;
-    background-color: #56B8D6;
+    background-color: var(--bleu-moyen);
     padding: 0px 20px;
     text-align: center;
 }
@@ -2487,7 +2498,7 @@ p {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    color: #004A5A;
+    color: var(--texte);
 }
 
 .profil_form-input_disabled input {
@@ -2508,7 +2519,7 @@ p {
 .trait-profil {
     width: 50%;
     height: 1px;
-    background-color: #004A5A;
+    background-color: var(--texte);
     margin: 15px auto;
     border-radius: 20px;
 }
@@ -2537,7 +2548,7 @@ p {
     font-style: normal;
     font-weight: 600;
     line-height: normal;
-    color: #004A5A;
+    color: var(--texte);
 }
 
 .profil_form-input_password input[type="password"] {
@@ -2561,13 +2572,13 @@ p {
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    color: #004A5A;
+    color: var(--texte);
     width: 70%;
     max-width: 220px;
     height: 40px;
     border-radius: 30px;
     border: none;
-    background-color: #56B8D6;
+    background-color: var(--bleu-moyen);
     padding: 0px 20px;
 }
 
@@ -2601,7 +2612,7 @@ p {
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    color: #004A5A;
+    color: var(--texte);
     text-align: center;
 }
 
@@ -2634,14 +2645,14 @@ p {
     height: 40px;
     border-radius: 25px;
     border: none;
-    background-color: #56B8D6;
+    background-color: var(--bleu-moyen);
     padding: 0px 20px;
     font-family: Montserrat;
     font-size: 12px;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    color: #004A5A;
+    color: var(--texte);
 }
 
 .profil_form-button_logout {
