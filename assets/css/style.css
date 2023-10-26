@@ -956,6 +956,24 @@ main {
     margin-bottom: 3px;
 }
 
+.welcome_title-calendar_prof{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+}
+
+.welcome_title-calendar_prof p{
+    color: var(--texte);
+    font-size: 15px;
+    font-family: Montserrat;
+    font-weight: 600;
+}
+
+.welcome_title-calendar_prof img{
+    width: 20px;
+}
+
 .section_calendar-calendar .title_trait{
     margin-left: 40px;
 }

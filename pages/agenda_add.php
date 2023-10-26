@@ -222,6 +222,7 @@ echo head("MMI Companion | Agenda");
             // Supprimer le padding-left
             inputElement.style.paddingLeft = '0';
         }
+        
         $('#editor').trumbowyg({
             btns: [
                 ['viewHTML'],
