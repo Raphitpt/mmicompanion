@@ -1675,6 +1675,16 @@ h1 {
     max-width: 290px;
 }
 
+.container_date-agenda_add{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    width: 100%;
+}
+
 .container_input_date-agenda_add{
     display: flex;
     align-items: center;
@@ -1726,6 +1736,21 @@ h1 {
 
 .input_date-agenda_add{
     width: 100%;
+}
+
+.container_input_week-agenda_add{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.container_input_week-agenda_add label{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
 }
 
 
