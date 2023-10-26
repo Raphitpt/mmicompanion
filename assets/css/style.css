@@ -1498,6 +1498,16 @@ h1 {
     -webkit-box-orient: vertical; */
 }
 
+.agenda_description-agenda{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    width: 100%;
+}
+
 .agenda_content_subject-agenda{
     width: 100%;
     transition: all 0.3s ease-in-out;

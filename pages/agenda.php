@@ -347,12 +347,15 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         if ($agenda['type'] == "eval") {
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</label>";
                         }
+                        
                         if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
                         }
+                        echo "<div class='agenda_description-agenda'>";
                         if (isset($agenda['content']) && !empty($agenda['content'])) {
                             echo "<p class='content'><span>" . $agenda['content'] . "</span></p>";
                         }
+                        echo "</div>";
                         echo "<div class='agenda_content_subject-agenda'>";
 
                         if (isset($agenda['role']) && $agenda['role'] == "prof") {
