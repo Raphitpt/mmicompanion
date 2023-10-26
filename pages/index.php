@@ -19,7 +19,7 @@ echo head('MMI Companion | Accueil');
     </main>
     <main class="main-accueil">
         <div class="illustration-login">
-            <img src="./../assets/img/accueil_haloween.webp" alt="Illustration diverse">
+            <img src="./../assets/img/accueil_halloween.webp" alt="Illustration diverse">
         </div>
         <div style="height:20px"></div>
         <div class="title-accueil">

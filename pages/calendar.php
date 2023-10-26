@@ -262,6 +262,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </div>
       <?php generateBurgerMenuContent($user_sql['role']) ?>
+      <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
     </header>
 
     <div style="height:15px"></div>

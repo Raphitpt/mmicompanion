@@ -43,6 +43,8 @@ echo head("MMI Companion | Outils supplémentaires");
         </div>
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
+
+        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
     </header>
 
     <main class="main-outils">

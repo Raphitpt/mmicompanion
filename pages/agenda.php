@@ -232,6 +232,8 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             </div>
 
             <?php generateBurgerMenuContent($user_sql['role']) ?>
+
+            <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
         </header>
 
         <!-- Corps de la page -->
