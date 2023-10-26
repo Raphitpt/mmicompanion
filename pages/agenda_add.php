@@ -241,8 +241,8 @@ echo head("MMI Companion | Agenda");
                 $('#content').val(contenuTexte);
             });
         });
-    </script>
-    <script>
+
+        
         const dateInput = document.querySelector('[name="date"]');
         const choosenWeekCheckbox = document.querySelector('#choosenWeek');
         const cocheWeek = document.querySelector('#cocheWeek');
