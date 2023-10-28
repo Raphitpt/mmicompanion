@@ -262,11 +262,20 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </div>
       <?php generateBurgerMenuContent($user_sql['role']) ?>
+      <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
     </header>
 
     <div style="height:15px"></div>
 
     <main class="main-calendar">
+        <?php if ($user_sql['role'] == "prof") { ?>
+        <div class="welcome_title-calendar_prof">
+            <p>Bienvenue <span style="font-weight:900"><?php echo strtoupper(substr($user['pname'], 0, 1)) . "." . ucfirst($user['name']) ?></span> sur votre espace professeur</p>
+            <img src="./../assets/img/hello_emoji.webp" alt="">
+        </div>
+        <div style="height:15px"></div>
+        <?php } ?>
+      
       <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
           <div id="calendar"></div>
@@ -353,7 +362,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         allDaySlot: false,
         eventMinHeight: 70,
+        <?php if ($user_sql['role'] == "prof") { ?>
+        height: 'calc(98vh - 130px)',
+        <?php } else{ ?>
         height: 'calc(98vh - 95px)',
+        <?php } ?>
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {

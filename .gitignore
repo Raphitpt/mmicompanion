@@ -5,3 +5,4 @@ composer.json
 database/
 backup_cal/
 update.sh
+other_cal/vcs_combined.vcs

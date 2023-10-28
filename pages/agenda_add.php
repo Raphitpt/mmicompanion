@@ -114,6 +114,8 @@ echo head("MMI Companion | Agenda");
         </div>
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
+
+        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
@@ -143,14 +145,17 @@ echo head("MMI Companion | Agenda");
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="container_input_date-agenda_add">
-                    <i class="fi fi-br-calendar"></i>
-                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                <div class="container_date-agenda_add">
+                    <div class="container_input_date-agenda_add">
+                        <i class="fi fi-br-calendar"></i>
+                        <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                    </div>
+                    <div id="cocheWeek" class="container_input_week-agenda_add">
+                        <input type="checkbox" id="choosenWeek" name="choosenWeek" />
+                        <label for="choosenWeek">Afficher les semaines</label>
+                    </div>
                 </div>
-                <div id="cocheWeek">
-                    <input type="checkbox" id="choosenWeek" name="choosenWeek" />
-                    <label for="choosenWeek">Afficher les semaines</label>
-                </div>
+                
 
 
 
@@ -217,6 +222,7 @@ echo head("MMI Companion | Agenda");
             // Supprimer le padding-left
             inputElement.style.paddingLeft = '0';
         }
+        
         $('#editor').trumbowyg({
             btns: [
                 ['viewHTML'],
@@ -238,8 +244,8 @@ echo head("MMI Companion | Agenda");
                 $('#content').val(contenuTexte);
             });
         });
-    </script>
-    <script>
+
+        
         const dateInput = document.querySelector('[name="date"]');
         const choosenWeekCheckbox = document.querySelector('#choosenWeek');
         const cocheWeek = document.querySelector('#cocheWeek');

@@ -39,6 +39,8 @@ echo head("MMI Companion | Scolarité");
         </div>
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
+
+        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
     </header>
     <main class="main-scolarite">
         <div style="height:30px"></div>

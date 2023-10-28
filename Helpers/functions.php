@@ -157,7 +157,7 @@ function generateBurgerMenuContent($role)
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
             <div class="burger_content_titleleft-header">
-                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
+                <img src="./../assets/img/mmicompanion_halloween.webp" alt="Logo de MMI Comapanion">
                 <h1>MMI Companion</h1>
             </div>
             <div class="burger_content_titleright-header burger-header" id="close_burger-header">

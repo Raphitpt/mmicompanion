@@ -129,6 +129,8 @@ echo head("MMI Companion | Agenda");
         </div>
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
+
+        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
         
     </header>
     <!-- Fin du menu de navigation -->
@@ -158,9 +160,15 @@ echo head("MMI Companion | Agenda");
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="container_input_date-agenda_add">
-                    <i class="fi fi-br-calendar"></i>
-                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo $task['date_finish'] ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d")?>" required>
+                <div class="container_date-agenda_add">
+                    <div class="container_input_date-agenda_add">
+                        <i class="fi fi-br-calendar"></i>
+                        <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo $task['date_finish'] ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                    </div>
+                    <div id="cocheWeek" class="container_input_week-agenda_add">
+                        <input type="checkbox" id="choosenWeek" name="choosenWeek" />
+                        <label for="choosenWeek">Afficher les semaines</label>
+                    </div>
                 </div>
                 
 
@@ -233,7 +241,21 @@ echo head("MMI Companion | Agenda");
             // Supprimer le padding-left
             inputElement.style.paddingLeft = '0';
         }
-        $('#editor').trumbowyg();
+
+        $('#editor').trumbowyg({
+            btns: [
+                ['viewHTML'],
+                ['undo', 'redo'],
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['link'],
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+                ['fullscreen']
+            ],
+        });
         
         $(document).ready(function() {
             $('#formagenda').submit(function(event) {
@@ -241,6 +263,32 @@ echo head("MMI Companion | Agenda");
                 $('#content').val(contenuTexte);
             });
         });
+
+        const dateInput = document.querySelector('[name="date"]');
+        const choosenWeekCheckbox = document.querySelector('#choosenWeek');
+        const cocheWeek = document.querySelector('#cocheWeek');
+
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+        // Vérifiez si le navigateur est Safari
+        if (isSafari()) {
+            // Masquez la case à cocher sur Safari
+            cocheWeek.style.display = 'none';
+        }
+        choosenWeekCheckbox.addEventListener('change', function() {
+            if (choosenWeekCheckbox.checked) {
+                dateInput.type = 'week';
+                dateInput.min = '<?php echo date('Y-\WW') ?>';
+                dateInput.placeholder = 'yyyy-Www';
+                dateInput.value = '<?php echo date('Y-\WW') ?>';
+            } else {
+                dateInput.type = 'date';
+                dateInput.value = '<?php echo date('Y-m-d'); ?>'
+                dateInput.min = '<?php echo date("Y-m-d"); ?>'; // Rétablissez la valeur min
+            }
+        });
+
     </script>
     
 </body>

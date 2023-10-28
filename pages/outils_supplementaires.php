@@ -43,6 +43,8 @@ echo head("MMI Companion | Outils supplémentaires");
         </div>
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
+
+        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
     </header>
 
     <main class="main-outils">
@@ -57,7 +59,13 @@ echo head("MMI Companion | Outils supplémentaires");
                         <img src="./../assets/img/messagerie.webp" alt="Une personne envoyant un email">
                     </div>
                     <div class="item_flexbottom-outils">
-                        <p>Ta messagerie de l’université de Poitiers</p>
+                        <?php 
+                        if ($user_sql['role'] == "prof") {
+                            echo "<p>Votre messagerie de l’université de Poitiers</p>";
+                        }else{
+                            echo "<p>Ta messagerie de l’université de Poitiers</p>";
+                        }
+                        ?>
                     </div>
                 </div>
             </a>
@@ -68,7 +76,13 @@ echo head("MMI Companion | Outils supplémentaires");
                         <img src="./../assets/img/ENT.webp" alt="Une personne qui travaille">
                     </div>
                     <div class="item_flexbottom-outils">
-                        <p>Ton espace numérique de travail</p>
+                        <?php 
+                        if ($user_sql['role'] == "prof") {
+                            echo "<p>Votre espace numérique de travail</p>";
+                        }else{
+                            echo "<p>Ton espace numérique de travail</p>";
+                        }   
+                        ?>
                     </div>
                 </div>
             </a>
@@ -79,7 +93,13 @@ echo head("MMI Companion | Outils supplémentaires");
                         <img src="./../assets/img/UPdago.webp" alt="Logo de UPdago">
                     </div>
                     <div class="item_flexbottom-outils">
-                        <p>Ta plateforme d’enseignement en ligne</p>
+                        <?php 
+                        if ($user_sql['role'] == "prof") {
+                            echo "<p>Votre plateforme d’enseignement en ligne</p>";
+                        }else{
+                            echo "<p>Ta plateforme d’enseignement en ligne</p>";
+                        }
+                        ?>
                     </div>
                 </div>
             </a>
