@@ -1238,7 +1238,7 @@ main {
 
 .form_button-calendar_delete a {
     border-radius: 18px;
-    background: var(--bleu-trs-clair-background, #D65656);
+    background: #D65656;
     color: #f8f8f8;
     text-align: center;
     font-family: Montserrat;
