@@ -2,9 +2,7 @@
 session_start();
 include './../bootstrap.php';
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY'];
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 $sql_events = "SELECT * FROM calendar_event WHERE id_user = :user_id";
 $stmt = $dbh->prepare($sql_events);

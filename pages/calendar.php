@@ -3,17 +3,13 @@
 session_start();
 require '../bootstrap.php';
 
-// Si le cookie n'existe pas, on redirige vers la page d'accueil
-if (!isset($_COOKIE['jwt'])) {
-  header('Location: ./index.php');
-  exit;
-}
+$user = onConnect($dbh);
+
+
 unset($_SESSION['mail_message']);
 // La on récupère le cookie que l'on à crée à la connection, voir login.php et fonction.php
 // --------------------
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$user = decodeJWT($jwt, $secret_key);
+
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
@@ -392,8 +388,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           addEvent: {
             text: '+',
             click: function() {
-              let date = calendar.getDate();
-              let formattedDate = date.toISOString().split('T')[0];
+              let datetoday = calendar.getDate();
+              let formattedDate = calendar.formatDate(datetoday, 'YYYY-MM-DD');
+              console.log(datetoday);
+              console.log(formattedDate);
               window.location.href = './calendar_add.php?date=' + formattedDate;
             }
           },
@@ -416,9 +414,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
                 });
               } else {
                 let daysToAdvance = 1;
+                
                 calendar.incrementDate({
                   days: daysToAdvance
                 });
+                let date = calendar.getDate();
+                console.log(date);
               }
             }
           },
@@ -427,6 +428,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             click: function() {
               if (calendar.view.type === 'timeGridWeek') {
                 let daysToGoBack = -7; // Revenir à la vue de jour (-7 jours)
+                
                 calendar.incrementDate({
                   days: daysToGoBack
                 });

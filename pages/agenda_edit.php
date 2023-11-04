@@ -3,10 +3,7 @@
 <?php
 session_start();
 require "../bootstrap.php";
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-  }
+$user = onConnect($dbh);
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
@@ -163,10 +160,18 @@ echo head("MMI Companion | Agenda");
                 <div class="container_date-agenda_add">
                     <div class="container_input_date-agenda_add">
                         <i class="fi fi-br-calendar"></i>
-                        <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo $task['date_finish'] ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                        <?php if (str_contains($task['date_finish'], "W")) { ?>
+                            <input type="week" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo $task['date_finish'] ?>" placeholder="yyyy-Www" min="<?php echo date('Y-\WW') ?>" required>
+                        <?php } else { ?>
+                            <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo $task['date_finish'] ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                        <?php } ?>
                     </div>
                     <div id="cocheWeek" class="container_input_week-agenda_add">
+                        <?php if(str_contains($task['date_finish'], "W")) { ?>
+                            <input type="checkbox" id="choosenWeek" name="choosenWeek" checked/>
+                        <?php } else { ?>
                         <input type="checkbox" id="choosenWeek" name="choosenWeek" />
+                        <?php } ?>
                         <label for="choosenWeek">Afficher les semaines</label>
                     </div>
                 </div>

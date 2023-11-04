@@ -2,15 +2,7 @@
 session_start();
 require "../bootstrap.php";
 
-
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-}
-
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
 
 // Recupération du lien de la photo de profil en base de donnée, en local ça ne fonctionnera pas, il faut quel soit en ligne, sauf si l'ajout de la photo et en local

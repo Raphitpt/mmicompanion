@@ -1,16 +1,7 @@
 <?php
 
 require '../bootstrap.php';
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-  }
-
-// La on récupère le cookie que l'on à crée à la connection
-// --------------------
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
 $stmt = $dbh->prepare($user_sql);

@@ -8,6 +8,12 @@
 session_start();
 require "../bootstrap.php";
 
+if (isset($_COOKIE['jwt'])) {
+    header('Location: ./calendar.php');
+    exit;
+}
+
+
 echo head('MMI Companion | Accueil');
 ?>
 

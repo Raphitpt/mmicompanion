@@ -2,8 +2,10 @@
 session_start();
 require '../bootstrap.php';
 unset($_SESSION['mail_message']);
+
 // On initialise la bibliothèque Firebase JWT pour PHP avec Composer et on y ajoute la clé secrète qui est dans le fichier .env (ne pas push le fichier .env sur GitHub)
 use Firebase\JWT\JWT;
+use Ramsey\Uuid\Uuid;
 
 $secret_key = $_ENV['SECRET_KEY'];
 
@@ -37,6 +39,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 exit();
             }
             // Si on veut ajouter un champs dans le cookie il faut l'ajouter dans le tableau ci-dessous puis dans le fichier function.php
+            $uuid = Uuid::uuid4();
+            $session_id = $uuid->toString();
             $payload = [
                 'id_user' => $user['id_user'],
                 'pname' => $user['pname'],
@@ -44,6 +48,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 'edu_group' => $user['edu_group'],
                 'edu_mail' => $user['edu_mail'],
                 'role' => $user['role'],
+                'session_id' => $session_id,
             ];
             // La on encode le JWT avec la clé secrète qui est dans le fichier .env, ne pas toucher
             $jwt = JWT::encode($payload, $secret_key, 'HS256');
@@ -54,8 +59,17 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             header('Content-Type: application/json');
             // le cookie est valable 30 jours mais il peut être valable plus ou moins longtemps
             // Pour plus d'info, voir le detail de la fonction setcookie() sur le site de PHP
-            setcookie('jwt', $jwt, time() + (86400 * 30), "/", "", false, true);
+            setcookie('jwt', $jwt, time() + (86400 * 260), "/", "", false, true);
             // On renvoie la réponse au client
+            $session_sql = "INSERT INTO sessions (user_id, session_id, expires_at, last_login) VALUES (:user_id, :session_id, :expires_at, :last_login)";
+            $stmt = $dbh->prepare($session_sql);
+            $stmt->execute([
+                'user_id' => $user['id_user'],
+                'session_id' => $session_id,
+                'expires_at' => date('Y-m-d H:i:s',strtotime('+260 days')),
+                'last_login' => date('Y-m-d H:i:s'),
+            ]);
+
             echo json_encode($response);
             exit();
         } else {
@@ -81,6 +95,8 @@ echo head("MMI Companion | Connexion");
     </a>
     <main class="main-login">
         <h1 class="title-login">SE CONNECTER</h1>
+        <div style="height:30px"></div>
+        <p style="color: red; text-align: center;">Bonjour, suite à l'amélioration de notre système de connexion, vous avez été déconnecté. Nous nous excusons pour cette interruption, mais cela a été fait afin de garantir la sécurité de vos données.</p>
         <div style="height:30px"></div>
         <form method="POST" class="form-login">
             <input type="text" name="username" placeholder="email" id="username" class="input-login" required>
@@ -164,7 +180,7 @@ echo head("MMI Companion | Connexion");
                             form.submit();
                         } else {
                             // Stockage du JWT dans le localStorage
-                            localStorage.setItem('jwt', response.jwt);
+                            // localStorage.setItem('jwt', response.jwt);
 
                             // Redirection vers la page d'accueil ou autre page sécurisée
                             window.location.href = './calendar.php';

@@ -2451,6 +2451,13 @@ p {
     line-height: normal;
 }
 
+.meal{
+    display: none;
+}
+.active{
+    display: block;
+}
+
 
 
 

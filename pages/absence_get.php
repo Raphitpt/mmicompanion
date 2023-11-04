@@ -2,9 +2,7 @@
 session_start();
 require '../bootstrap.php';
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 $USER_name = $_ENV['ABSENCE_USERNAME'];
 $USER_password = $_ENV['ABSENCE_PASSWORD'];

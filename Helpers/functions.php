@@ -341,6 +341,7 @@ function decodeJWT($jwt, $secret_key)
         $id_user = $decoded->id_user;
         $edu_mail = $decoded->edu_mail;
         $role = $decoded->role;
+        $session_id = $decoded->session_id;
 
         // Retourner les valeurs sous forme d'un tableau associatif
         return array(
@@ -349,12 +350,48 @@ function decodeJWT($jwt, $secret_key)
             'name' => $name,
             'id_user' => $id_user,
             'edu_mail' => $edu_mail,
-            'role' => $role
+            'role' => $role,
+            'session_id' => $session_id,
         );
     } catch (Exception $e) {
         // Gérer les erreurs de décodage du JWT ici
         echo "Erreur de décodage du JWT : " . $e->getMessage();
     }
+}
+/**
+ * Vérifie si l'utilisateur est connecté.
+ * Si l'utilisateur n'est pas connecté, il est redirigé vers la page de connexion.
+ * Si l'utilisateur est connecté, la fonction retourne les informations de l'utilisateur.
+ */
+function onConnect($dbh) {
+    if (!isset($_COOKIE['jwt'])) {
+        header('Location: ./index.php');
+        exit;
+    }
+
+    $jwt = $_COOKIE['jwt'];
+    $secret_key = $_ENV['SECRET_KEY'];
+    $user = decodeJWT($jwt, $secret_key);
+
+    // Extrait le session_id du JWT
+    $session_id = $user['session_id'];
+
+    // Mise à jour de la date de dernière connexion de l'utilisateur
+    $sql_update_last_connection = "UPDATE users SET last_connection = NOW() WHERE id_user = :id_user";
+    $stmt = $dbh->prepare($sql_update_last_connection);
+    $stmt->execute(['id_user' => $user['id_user']]);
+
+    // Vérification de l'identifiant de session
+    $sql_session_id_verify = "SELECT session_id FROM sessions WHERE user_id = :user_id AND session_id = :session_id";
+    $stmt = $dbh->prepare($sql_session_id_verify);
+    $stmt->execute(['user_id' => $user['id_user'], 'session_id' => $session_id]);
+
+    if ($stmt->rowCount() == 0) {
+        header('Location: ./../pages/logout.php');
+        exit;
+    }
+
+    return $user;
 }
 
 function checkEvent($id_event, $id_user)

@@ -2,10 +2,7 @@
 session_start();
 require "../bootstrap.php";
 
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./login.php');
-    exit;
-}
+$user = onConnect($dbh);
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     if (isset($_POST['but'])){

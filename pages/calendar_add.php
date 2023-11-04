@@ -2,9 +2,7 @@
 session_start();
 include './../bootstrap.php';
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY'];
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
 
@@ -158,6 +156,7 @@ echo head("MMI Companion | Emploi du temps");
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_calendar-header');
         select_background_profil.classList.add('select_link-header');
+        
         const dateStartInput = document.getElementById('date_start');
         const dateEndInput = document.getElementById('date_end');
 
@@ -169,7 +168,7 @@ echo head("MMI Companion | Emploi du temps");
             dateStartValue.setMinutes(dateStartValue.getMinutes() + 15);
 
             // Ajoutez 2 heures pour corriger le décalage
-            dateStartValue.setHours(dateStartValue.getHours() + 2);
+            dateStartValue.setHours(dateStartValue.getHours() + 1);
 
             // Mettez à jour la date de fin
             dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
