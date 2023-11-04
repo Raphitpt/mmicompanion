@@ -387,7 +387,7 @@ function onConnect($dbh) {
     $stmt->execute(['user_id' => $user['id_user'], 'session_id' => $session_id]);
 
     if ($stmt->rowCount() == 0) {
-        header('Location: ./../pages/logout.php');
+        unset($_COOKIE['jwt']);
         exit;
     }
 
