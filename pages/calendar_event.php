@@ -8,6 +8,7 @@ $sql_events = "SELECT * FROM calendar_event WHERE id_user = :user_id";
 $stmt = $dbh->prepare($sql_events);
 $stmt->bindParam(':user_id', $user['id_user']);
 $stmt->execute();
+
 $events = [];
 
 while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -19,6 +20,7 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
         'description' => $row['description'],
         'location' => $row['location'],
         'color' => $row['color'],
+        'timeText' => ''.date('H:i', strtotime($row['start'])) . ' - ' . date('H:i', strtotime($row['end'])),
     ];
     array_push($events, $event);
 }

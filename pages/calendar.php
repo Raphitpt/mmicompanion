@@ -264,14 +264,14 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     <div style="height:15px"></div>
 
     <main class="main-calendar">
-        <?php if ($user_sql['role'] == "prof") { ?>
+      <?php if ($user_sql['role'] == "prof") { ?>
         <div class="welcome_title-calendar_prof">
-            <p>Bienvenue <span style="font-weight:900"><?php echo strtoupper(substr($user['pname'], 0, 1)) . "." . ucfirst($user['name']) ?></span> sur votre espace professeur</p>
-            <img src="./../assets/img/hello_emoji.webp" alt="">
+          <p>Bienvenue <span style="font-weight:900"><?php echo strtoupper(substr($user['pname'], 0, 1)) . "." . ucfirst($user['name']) ?></span> sur votre espace professeur</p>
+          <img src="./../assets/img/hello_emoji.webp" alt="">
         </div>
         <div style="height:15px"></div>
-        <?php } ?>
-      
+      <?php } ?>
+
       <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
           <div id="calendar"></div>
@@ -358,11 +358,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         allDaySlot: false,
         eventMinHeight: 70,
-        <?php if ($user_sql['role'] == "prof") { ?>
-        height: 'calc(98vh - 130px)',
-        <?php } else{ ?>
-        height: 'calc(98vh - 95px)',
-        <?php } ?>
+          height: 'calc(98vh - 95px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
@@ -388,11 +384,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           addEvent: {
             text: '+',
             click: function() {
-              let datetoday = calendar.getDate();
-              let formattedDate = calendar.formatDate(datetoday, 'YYYY-MM-DD');
-              console.log(datetoday);
-              console.log(formattedDate);
-              window.location.href = './calendar_add.php?date=' + formattedDate;
+              let dateOriginale = calendar.getDate();
+              const annee = dateOriginale.getFullYear();
+              const mois = (dateOriginale.getMonth() + 1).toString().padStart(2, '0');
+              const jour = dateOriginale.getDate().toString().padStart(2, '0');
+              const dateFormatee = `${annee}-${mois}-${jour}`;
+              window.location.href = './calendar_add.php?date=' + dateFormatee;
             }
           },
           custom1day: {
@@ -414,7 +411,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
                 });
               } else {
                 let daysToAdvance = 1;
-                
+
                 calendar.incrementDate({
                   days: daysToAdvance
                 });
@@ -428,7 +425,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             click: function() {
               if (calendar.view.type === 'timeGridWeek') {
                 let daysToGoBack = -7; // Revenir à la vue de jour (-7 jours)
-                
+
                 calendar.incrementDate({
                   days: daysToGoBack
                 });
@@ -480,7 +477,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
           }
-          if (eventLocation && calendar.view.type === 'timeGridDay') {
+          if (eventHour && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-time" style="font-size:0.8rem">' + eventHour + '</div>';
           }
 

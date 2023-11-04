@@ -160,7 +160,7 @@ echo head("MMI Companion | Emploi du temps");
         const dateStartInput = document.getElementById('date_start');
         const dateEndInput = document.getElementById('date_end');
 
-        dateStartInput.addEventListener('input', () => {
+        function fixLimitDate(dateStartInput, dateEndInput){
             // Obtenez la nouvelle valeur de date de début
             const dateStartValue = new Date(dateStartInput.value);
 
@@ -173,6 +173,13 @@ echo head("MMI Companion | Emploi du temps");
             // Mettez à jour la date de fin
             dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
             dateEndInput.value = dateStartValue.toISOString().slice(0, 16);
+        }
+
+        dateStartInput.addEventListener('input', () => {
+            fixLimitDate(dateStartInput, dateEndInput);
+        });
+        window.addEventListener('load', () => {
+            fixLimitDate(dateStartInput, dateEndInput);
         });
     </script>
 </body>
