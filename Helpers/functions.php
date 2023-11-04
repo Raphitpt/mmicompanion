@@ -365,7 +365,7 @@ function decodeJWT($jwt, $secret_key)
  */
 function onConnect($dbh) {
     if (!isset($_COOKIE['jwt'])) {
-        header('Location: ./index.php');
+        header('Location: ./login.php');
         exit;
     }
 
