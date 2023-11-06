@@ -2751,3 +2751,97 @@ p {
     font-weight: 800;
     line-height: normal;
 }
+/* Modal StrawPoll */
+/* Styles pour la fenêtre modale */
+.trumbowyg-modal-box {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.trumbowyg-modal-title {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+/* Styles pour le formulaire dans la fenêtre modale */
+.trumbowyg-modal-box>form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Styles pour les labels et les champs de saisie */
+.trumbowyg-modal-box>form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.trumbowyg-modal-box>form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+/* Style du bouton "Ajouter une option" */
+#addOption {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#addOption:hover {
+    background-color: #235a93;
+}
+
+/* Style des boutons "Créer ce sondage" et "Annuler" */
+#customConfirm,
+#customCancel {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+#customConfirm:hover,
+#customCancel:hover {
+    background-color: #235a93;
+}
+
+/* Style de l'iframe du StrawPoll */
+.trumbowyg-modal-box>form iframe {
+    width: 100%;
+    height: 300px;
+    border: none;
+}
+
+/* Règles de média queries pour la réactivité */
+@media (max-width: 768px) {
+    .trumbowyg-modal-box>form {
+        padding: 10px;
+    }
+
+    .trumbowyg-modal-box>form input[type="text"] {
+        padding: 8px;
+    }
+}
+
+
