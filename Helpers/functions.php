@@ -88,7 +88,8 @@ function head(string $title = ''): string
 </head>
 HTML_HEAD;
 }
-function findTrigramme($profName){
+function findTrigramme($profName)
+{
     $profs = [
         "Mehrez Hanen" => "HMEH",
         "Barré Marielle" => "MBA",
@@ -122,18 +123,18 @@ function findTrigramme($profName){
         "Cauvin-Doumic Frédérique" => "FCAU",
         "Hautot Adrian" => "AHAU"
     ];
-    
-    
+
+
     $search_term = $profName;
-    
+
     $found_professors = [];
-    
+
     foreach ($profs as $name => $code) {
         if (stripos($name, $search_term) !== false) {
             $found_professors[$name] = $code;
         }
     }
-    
+
     if (!empty($found_professors)) {
         // Afficher les codes associés aux professeurs trouvés
         foreach ($found_professors as $name => $code) {
@@ -144,7 +145,6 @@ function findTrigramme($profName){
         echo "undefined";
         return null;
     }
-    
 }
 
 
@@ -213,7 +213,7 @@ function generateBurgerMenuContent($role)
                 </div>
             </a>';
     }
-    if ($role == "autre"){
+    if ($role == "autre") {
         $menuHtml .= '
                 <div class="burger_content_link-header burger_disabled">
                     <i class="fi fi-br-info"></i>
@@ -363,7 +363,8 @@ function decodeJWT($jwt, $secret_key)
  * Si l'utilisateur n'est pas connecté, il est redirigé vers la page de connexion.
  * Si l'utilisateur est connecté, la fonction retourne les informations de l'utilisateur.
  */
-function onConnect($dbh) {
+function onConnect($dbh)
+{
     if (!isset($_COOKIE['jwt'])) {
         header('Location: ./login.php');
         exit;
@@ -413,11 +414,10 @@ function unCheckEvent($id_event, $id_user)
     $sql = "DELETE FROM event_check WHERE id_event = :id_event AND id_user = :id_user";
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['id_event' => $id_event, 'id_user' => $id_user]);
-
-
 }
 // Fonction pour vérifier si un enregistrement existe pour l'événement et l'utilisateur
-function getEventCheckedStatus($dbh, $idAgenda, $idUser) {
+function getEventCheckedStatus($dbh, $idAgenda, $idUser)
+{
     // Assurez-vous de sécuriser vos paramètres
     $idAgenda = intval($idAgenda);
     $idUser = intval($idUser);
@@ -427,11 +427,11 @@ function getEventCheckedStatus($dbh, $idAgenda, $idUser) {
 
     // Préparez la requête SQL en utilisant la variable de connexion
     $stmt = $dbh->prepare($sql);
-    
+
     // Liez les valeurs des paramètres
     $stmt->bindParam(":idAgenda", $idAgenda, PDO::PARAM_INT);
     $stmt->bindParam(":idUser", $idUser, PDO::PARAM_INT);
-    
+
     // Exécutez la requête SQL
     $stmt->execute();
 
@@ -499,15 +499,16 @@ function sendNotification($message, $body, $groups)
         }
     }
 }
-function viewChef($dbh, $edu_group){
+function viewChef($dbh, $edu_group)
+{
 
-$sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
-$stmt_chef = $dbh->prepare($sql_chef);
-$stmt_chef->execute([
-    'edu_group' => $edu_group,
-]);
-$chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
-return $chef['pname']." ".$chef['name'];
+    $sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
+    $stmt_chef = $dbh->prepare($sql_chef);
+    $stmt_chef->execute([
+        'edu_group' => $edu_group,
+    ]);
+    $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
+    return $chef['pname'] . " " . $chef['name'];
 }
 
 
@@ -628,9 +629,26 @@ function compareDates($a, $b)
 {
     $dateA = strtotime($a['date_finish']);
     $dateB = strtotime($b['date_finish']);
+    $year = date('o'); // Obtenez l'année actuelle au format ISO-8601
+    $week = date('W'); // Obtenez le numéro de semaine actuel
 
+    // Formatez la date au format "YYYY-Www"
+    $dateFormat = $year . '-W' . $week;
+
+    // Vérifiez si $a est la semaine courante
+    if ($a['date_finish'] === $dateFormat) {
+        return -1; // $a est la semaine courante, placez-la en première position
+    }
+
+    // Vérifiez si $b est la semaine courante
+    if ($b['date_finish'] === $dateFormat) {
+        return 1; // $b est la semaine courante, placez-la en première position
+    }
+
+    // Comparez les dates de fin pour les autres cas
     if ($dateA == $dateB) {
         return 0;
     }
+
     return ($dateA < $dateB) ? -1 : 1;
 }
