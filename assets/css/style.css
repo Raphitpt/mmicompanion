@@ -59,7 +59,7 @@ main {
 
 .content_header {
     width: 100vw;
-    height: 80px;
+    height: 65px;
     flex-shrink: 0;
     border-radius: 0px 0px 20px 20px;
     background: var(--bleu-clair-background);

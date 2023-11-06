@@ -491,10 +491,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           if (eventHour && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-time" style="font-size:0.8rem">' + eventHour + '</div>';
           }
-          if (duration >= 1800000 && duration <= 3600000) {
-            console.log(duration);
+          if (duration >= 1800000 && duration <= 4500000) {
+            if (eventLocation && calendar.view.type === 'timeGridWeek') {
+              eventContent = '<div class="fc-description" style="font-size:0.52rem">'+ eventTitle +' - ' + eventLocation +'</div>';
+          } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent = '<div class="fc-description" style="font-size:0.8rem">'+ eventTitle +' - '+ test +' - ' + eventLocation + ' - ' + eventHour + '</div>';
-          }
+          }}
           return {
             html: eventContent
           };
