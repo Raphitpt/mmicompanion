@@ -1118,7 +1118,9 @@ main {
     border-radius: 20px !important;
     width: 60px !important;
 }
-
+.last_backup_cal{
+    margin-bottom: 7px;
+}
 
 /* CALENDAR_ADD.PHP */
 

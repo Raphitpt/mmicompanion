@@ -48,6 +48,8 @@ $stmt = $dbh->prepare($color_subjects);
 $stmt->execute();
 $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+
+
 echo head('MMI Companion | Emploi du temps');
 ?>
 
@@ -258,7 +260,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </div>
       <?php generateBurgerMenuContent($user_sql['role']) ?>
-       
+
     </header>
 
     <div style="height:15px"></div>
@@ -271,9 +273,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
         <div style="height:15px"></div>
       <?php } ?>
-
+      <p class="last_backup_cal">Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
+
           <div id="calendar"></div>
         </div>
       </section>
@@ -294,7 +297,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     // -----------------------
     let url1 = './../backup_cal/<?php echo $user_sql['edu_group'] ?>.ics';
-    // let url2 = "";
+
 
     if ("<?php echo $user_sql['role'] ?>" === "autre") {
       url1 = './custom_cal.php';
@@ -358,7 +361,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         allDaySlot: false,
         eventMinHeight: 30,
-          height: 'calc(98vh - 95px)',
+        height: 'calc(98vh - 95px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {

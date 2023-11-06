@@ -301,10 +301,10 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             // Si la date est au format "YYYY-Www", extrayez l'année et le numéro de semaine
                             $week = intval(substr($agendas['date_finish'], -2));
                             $formattedDateFr = "Semaine $week";
-                    
+                            
                             // Vérifiez si c'est la semaine actuelle
-                            if ($week == $current_week_year) {
-                                $formattedDateFr .= " (Cette semaine)";
+                            if ($agendas['date_finish'] == $current_week_year) {
+                                $formattedDateFr = "Cette semaine";
                             }
                         } else {
                             // Si la date n'est pas au format "YYYY-Www", formatez-la en français
