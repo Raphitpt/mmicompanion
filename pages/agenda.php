@@ -3,11 +3,7 @@
 session_start();
 require "../bootstrap.php";
 
-// Si la personne ne possède pas le cookie, on la redirige vers la page d'accueil pour se connecter
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-}
+$user = onConnect($dbh);
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
@@ -31,17 +27,27 @@ $stmt->execute([
 ]);
 $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
-$current_week_year = date('o-W');
+$year_here = date('o'); // Obtenez l'année actuelle au format ISO-8601
+$week_here = date('W'); // Obtenez le numéro de semaine actuel
+// Formatez la date au format "YYYY-Www"
+$current_week_year = $year_here . '-W' . $week_here;
 $today = new DateTime();
-
 // Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
 $edu_group_all = substr($user_sql['edu_group'], 0, 4);
 // --------------------
 $sql_agenda = "SELECT a.*, s.*
-        FROM agenda a 
-        JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir' AND (DATE_FORMAT(STR_TO_DATE(a.date_finish, '%X-W%V'), '%o-%W') = :current_week_year OR a.date_finish >= :current_date)
-        ORDER BY a.date_finish ASC, a.title ASC";
+FROM agenda a
+JOIN sch_subject s ON a.id_subject = s.id_subject
+WHERE a.id_user = :id_user
+  AND a.type != 'eval'
+  AND a.type != 'devoir'
+  AND (
+    (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
+    OR
+    (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
+  )
+ORDER BY a.title ASC;
+";
 
 $stmt_agenda = $dbh->prepare($sql_agenda);
 $stmt_agenda->execute([
@@ -63,10 +69,12 @@ JOIN users u ON a.id_user = u.id_user
 WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) 
 AND a.type = 'eval' 
 AND (
-    DATE_FORMAT(STR_TO_DATE(a.date_finish, '%X-W%V'), '%o-%W') = :current_week_year
-    OR a.date_finish >= :current_date
-) 
-ORDER BY a.date_finish ASC, a.title ASC";
+    (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
+    OR
+    (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
+  ) 
+ORDER BY a.title ASC";
+
 
 $stmt_eval = $dbh->prepare($sql_eval);
 $stmt_eval->execute([
@@ -80,7 +88,7 @@ $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 // Fin de la récupération des évaluations
 
 // Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
-$sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir' AND (DATE_FORMAT(STR_TO_DATE(a.date_finish, '%X-W%V'), '%o-%W') = :current_week_year OR a.date_finish >= :current_date) ORDER BY a.date_finish ASC, a.title ASC";
+$sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir'AND ((a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)OR(a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)) ORDER BY a.title ASC";
 $stmt_devoir = $dbh->prepare($sql_devoir);
 $stmt_devoir->execute([
     'edu_group' => $user_sql['edu_group'],
@@ -94,7 +102,6 @@ $agenda = array_merge($agenda_user, $eval);
 $agenda = array_merge($agenda, $devoir);
 $eval_cont = count($eval);
 $agenda_cont = count($agenda);
-usort($agenda, 'compareDates');
 
 
 $sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
@@ -233,7 +240,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
             <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-            <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+
         </header>
 
         <!-- Corps de la page -->
@@ -280,35 +287,47 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     // Gère l'affichage des taches en affichant la date en français qui correspond à la date finale de la tache
                     // Elle ajoute la date en français au tableau $agendaByDate qui repertorie toute les taches
                     // dd($agenda);
-                    $agendaByWeek = [];
-                    $agendaByDate = [];
+                    $agendaMerged = [];
+
+                    // Obtenez la date d'aujourd'hui au format Y-m-d
+                    $currentDate = date('Y-m-d');
+                    
+                    usort($agenda, 'compareDates');
                     
                     foreach ($agenda as $agendas) {
                         $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
                     
                         if (preg_match('/^\d{4}-W\d{2}$/', $agendas['date_finish'])) {
                             // Si la date est au format "YYYY-Www", extrayez l'année et le numéro de semaine
-                            $year = intval(substr($agendas['date_finish'], 0, 4));
                             $week = intval(substr($agendas['date_finish'], -2));
                             $formattedDateFr = "Semaine $week";
-                    
-                            if (!isset($agendaByWeek[$formattedDateFr])) {
-                                $agendaByWeek[$formattedDateFr] = [];
+                            
+                            // Vérifiez si c'est la semaine actuelle
+                            if ($agendas['date_finish'] == $current_week_year) {
+                                $formattedDateFr = "Cette semaine";
                             }
-                            $agendaByWeek[$formattedDateFr][] = $agendas;
                         } else {
                             // Si la date n'est pas au format "YYYY-Www", formatez-la en français
                             $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
                     
-                            if (!isset($agendaByDate[$formattedDateFr])) {
-                                $agendaByDate[$formattedDateFr] = [];
+                            // Vérifiez si c'est aujourd'hui
+                            if ($agendas['date_finish'] == $currentDate) {
+                                $formattedDateFr = "Aujourd'hui";
                             }
-                            $agendaByDate[$formattedDateFr][] = $agendas;
-                        }
-                    }
                     
-                    // Fusionnez les deux tableaux (semaines d'abord)
-                    $agendaMerged = $agendaByWeek + $agendaByDate;
+                            // Vérifiez si c'est demain
+                            $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+                            if ($agendas['date_finish'] == $tomorrowDate) {
+                                $formattedDateFr = "Demain";
+                            }
+                        }
+                    
+                        // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
+                        if (!isset($agendaMerged[$formattedDateFr])) {
+                            $agendaMerged[$formattedDateFr] = [];
+                        }
+                        $agendaMerged[$formattedDateFr][] = $agendas;
+                    }
 
                     ?>
                 </div>
@@ -349,7 +368,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         if ($agenda['type'] == "eval") {
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</label>";
                         }
-                        
+
                         if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
                             echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
                         }
@@ -380,9 +399,9 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'eleve')) {
                             echo "<i class='fi fi-br-trash red' hidden></i>";
                         } elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
-                            echo "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-trash red'></i></a>";
+                            echo "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'id='delete-trash'><i class='fi fi-br-trash red'></i></a>";
                         } else {
-                            echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-trash red'></i></a>";
+                            echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'id='delete-trash'><i class='fi fi-br-trash red'></i></a>";
                         }
 
                         echo "</div>";
@@ -404,7 +423,16 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             // Faire apparaître le background dans le menu burger
             let select_background_profil = document.querySelector('#select_background_agenda-header');
             select_background_profil.classList.add('select_link-header');
+            const deleteTrash = document.querySelectorAll('#delete-trash');
 
+            deleteTrash.forEach(function(trash) {
+                trash.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm("Voulez-vous vraiment supprimer cette tâche ?")) {
+                        window.location.href = this.getAttribute('href');
+                    }
+                });
+            });
 
             // Fonction pour mettre à jour le compteur de tâches
 

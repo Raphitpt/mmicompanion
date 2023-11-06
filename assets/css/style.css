@@ -8,18 +8,22 @@
 }
 
 :root{
-    --fc-today-bg-color: rgba(255, 211, 144, 0.192);
+    /* Thème Halloween */
+    /* --fc-today-bg-color: rgba(255, 211, 144, 0.192);
     --bleu-trs-clair-background: #fff1dd;
     --bleu-clair-background: #ffca84;
     --bleu-moyen: #d38842;
-    --texte: #5a3600;
+    --texte: #5a3600; */
 
     /* Thème bleu */
-    /* --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+    --fc-today-bg-color: rgba(144, 222, 255, 0.192);
     --bleu-trs-clair-background: #DDF0FF;
     --bleu-clair-background: #B9E0FF;
     --bleu-moyen: #56B8D6;
-    --texte: #004A5A; */
+    --texte: #004A5A;
+
+    /* Thème Noël */
+
 }
 
 a {
@@ -55,7 +59,7 @@ main {
 
 .content_header {
     width: 100vw;
-    height: 80px;
+    height: 65px;
     flex-shrink: 0;
     border-radius: 0px 0px 20px 20px;
     background: var(--bleu-clair-background);
@@ -98,7 +102,7 @@ main {
 
 .content_title-header h1 {
     color: var(--texte);
-    font-size: 19px;
+    font-size: 17px;
     font-family: Montserrat;
     font-style: normal;
     font-weight: 700;
@@ -206,11 +210,12 @@ main {
     z-index: 2;
 }
 .burger_disabled p{
-    color: var(--texte, #004a5a54);
+    color: #004a5a5c;
 }
 .burger_disabled i{
-    color: var(--texte, #004a5a54);
+    color: #004a5a5c;
 }
+
 
 .select_link-header {
     border-radius: 19.5px;
@@ -931,6 +936,7 @@ main {
     max-width: 550px;
     height: calc(100vh - 70px);
     overflow-y: hidden;
+    margin-top: -5px;
 }
 
 
@@ -1073,7 +1079,7 @@ main {
     color: var(--texte) !important;
     font-weight: 600 !important;
     font-size: 0.70rem;
-    padding: 0.25vh 1vw !important;
+    padding: 0.09vh 1vw !important;
     margin-top: 0.5vh !important;
     margin-bottom: 0.5vh !important;
     margin-left: 0.5vw !important;
@@ -1113,7 +1119,10 @@ main {
     border-radius: 20px !important;
     width: 60px !important;
 }
-
+.last_backup_cal{
+    margin-top: -3px;
+    margin-bottom: 7px;
+}
 
 /* CALENDAR_ADD.PHP */
 
@@ -1238,7 +1247,7 @@ main {
 
 .form_button-calendar_delete a {
     border-radius: 18px;
-    background: var(--bleu-trs-clair-background, #D65656);
+    background: #D65656;
     color: #f8f8f8;
     text-align: center;
     font-family: Montserrat;
@@ -2449,6 +2458,13 @@ p {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.meal{
+    display: none;
+}
+.active{
+    display: block;
 }
 
 

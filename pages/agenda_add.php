@@ -3,10 +3,8 @@
 <?php
 session_start();
 require "../bootstrap.php";
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-}
+
+$user = onConnect($dbh);
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------
@@ -115,7 +113,7 @@ echo head("MMI Companion | Agenda");
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+         
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->

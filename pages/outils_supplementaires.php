@@ -2,17 +2,7 @@
 session_start();
 require "../bootstrap.php";
 
-// Si la personne ne possède pas le cookie, on la redirige vers la page d'accueil pour se connecter
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-}
-
-// La on récupère le cookie que l'on à crée à la connection
-// --------------------
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
@@ -44,7 +34,7 @@ echo head("MMI Companion | Outils supplémentaires");
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+         
     </header>
 
     <main class="main-outils">
@@ -96,6 +86,7 @@ echo head("MMI Companion | Outils supplémentaires");
                         <?php 
                         if ($user_sql['role'] == "prof") {
                             echo "<p>Votre plateforme d’enseignement en ligne</p>";
+                            
                         }else{
                             echo "<p>Ta plateforme d’enseignement en ligne</p>";
                         }
@@ -103,6 +94,15 @@ echo head("MMI Companion | Outils supplémentaires");
                     </div>
                 </div>
             </a>
+            <!-- <div>
+               <h1>Menu du RU</h1>
+                <div style="height:10px"></div>
+                <button id="precedent" class="button_menu_jour">Précédent</button>
+               <div id="menu_jour">
+
+               </div>
+                <button id="suivant" class="button_menu_jour">Suivant</button>
+            </div> -->
             
         </div>
     </main>
@@ -112,6 +112,44 @@ echo head("MMI Companion | Outils supplémentaires");
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_outils-supplementaires-header');
         select_background_profil.classList.add('select_link-header');
+
+        // const menu_jour = document.querySelector('#menu_jour');
+        // const precedent = document.querySelector('#precedent');
+        // const suivant = document.querySelector('#suivant');
+        // const xhr = new XMLHttpRequest();
+        // xhr.open('POST', '../pages/menus.php');
+        // xhr.onload = () => {
+        //     if (xhr.status === 200) {
+        //         const data = JSON.parse(xhr.responseText);
+        //         menu_jour.innerHTML = data;
+
+                
+        //     }
+        // }
+        // xhr.send();
+
+        // precedent.addEventListener('click', function(){
+        //     const mealJourney = document.querySelectorAll('.meal');
+        //     mealJourney.forEach(meal => {
+        //         if (meal.classList.contains('active')) {
+        //             meal.classList.remove('active');
+        //             // selectionne la div précédente qui à la classe meal
+        //             meal.previousElementSibling.classList.add('active');
+        //         }
+        //     })
+
+        // });
+
+        // suivant.addEventListener('click', function(){
+        //     const mealJourney = document.querySelectorAll('.meal');
+        //     mealJourney.forEach(meal => {
+        //         if (meal.classList.contains('active')) {
+        //             meal.classList.remove('active');
+        //             meal.nextElementSibling.classList.add('active');
+        //         }
+        //     })
+        // });
+
     </script>
 </body>
 </html>

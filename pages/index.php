@@ -8,6 +8,12 @@
 session_start();
 require "../bootstrap.php";
 
+if (isset($_COOKIE['jwt'])) {
+    header('Location: ./calendar.php');
+    exit;
+}
+
+
 echo head('MMI Companion | Accueil');
 ?>
 
@@ -19,7 +25,7 @@ echo head('MMI Companion | Accueil');
     </main>
     <main class="main-accueil">
         <div class="illustration-login">
-            <img src="./../assets/img/accueil_halloween.webp" alt="Illustration diverse">
+            <img src="./../assets/img/accueil.webp" alt="Illustration diverse">
         </div>
         <div style="height:20px"></div>
         <div class="title-accueil">

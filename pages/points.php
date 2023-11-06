@@ -3,9 +3,7 @@
 session_start();
 require './../bootstrap.php';
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 if(isset($_POST['points'])){
     $points = $_POST['points'];

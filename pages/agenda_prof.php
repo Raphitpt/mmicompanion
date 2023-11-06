@@ -4,10 +4,7 @@ session_start();
 require "../bootstrap.php";
 
 // Si la personne ne possède pas le cookie, on la redirige vers la page d'accueil pour se connecter
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-}
+$user = onConnect($dbh);
 
 // La on récupère le cookie que l'on à crée à la connection
 // --------------------

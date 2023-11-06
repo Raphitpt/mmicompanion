@@ -16,7 +16,7 @@ $ical_links = [
 ];
 
 
-$backupDir = '/home/gmdb3109/app.mmi-companion.fr/backup_cal/';
+$backupDir = __DIR__ . '/backup_cal/';
 
 foreach ($ical_links as $group => $calendar_link) {
     $icalData = file_get_contents($calendar_link);

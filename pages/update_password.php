@@ -2,9 +2,9 @@
 session_start();
 require "../bootstrap.php";
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // Remplacez par votre clé secrète
-$user = decodeJWT($jwt, $secret_key);
+use Ramsey\Uuid\Uuid;
+use Firebase\JWT\JWT;
+$user = onConnect($dbh);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français
 
 $error_password = "";
@@ -34,6 +34,35 @@ if (isset($_POST['password'])) {
             'password' => $password,
             'id_user' => $user['id_user']
         ]);
+        $uuid = Uuid::uuid4();
+        $session_id = $uuid->toString();
+        $sql_session = "UPDATE sessions SET session_id = :session_id WHERE user_id = :user_id AND session_id = :session_id_old";
+        $stmt_session = $dbh->prepare($sql_session);
+        $stmt_session->execute([
+            'session_id' => $session_id,
+            'user_id' => $user['id_user'],
+            'session_id_old' => $user['session_id']
+        ]);
+        // update existant JWT token with new session_id
+        $payload = [
+            'id_user' => $user['id_user'],
+            'pname' => $user['pname'],
+            'name' => $user['name'],
+            'edu_group' => $user['edu_group'],
+            'edu_mail' => $user['edu_mail'],
+            'role' => $user['role'],
+            'session_id' => $session_id,
+        ];
+        $jwt = JWT::encode($payload, $secret_key, 'HS256');
+        setcookie('jwt', $jwt, time() + (86400 * 260), "/", "", false, true);
+
+        $sql_delete = "DELETE FROM sessions WHERE user_id = :user_id AND session_id != :session_id";
+        $stmt_delete = $dbh->prepare($sql_delete);
+        $stmt_delete->execute([
+            'user_id' => $user['id_user'],
+            'session_id' => $session_id
+        ]);
+
         $success_password = "Mot de passe modifié avec succès !";
 
     }

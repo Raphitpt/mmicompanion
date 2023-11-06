@@ -2,9 +2,7 @@
 session_start();
 include './../bootstrap.php';
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY'];
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
 
@@ -88,7 +86,7 @@ echo head("MMI Companion | Emploi du temps");
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+         
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
@@ -167,6 +165,23 @@ echo head("MMI Companion | Emploi du temps");
         let select_background_profil = document.querySelector('#select_background_calendar-header');
         select_background_profil.classList.add('select_link-header');
 
+        const dateStartInput = document.getElementById('date_start');
+        const dateEndInput = document.getElementById('date_end');
+
+        dateStartInput.addEventListener('input', () => {
+            // Obtenez la nouvelle valeur de date de début
+            const dateStartValue = new Date(dateStartInput.value);
+
+            // Ajoutez 15 minutes à la nouvelle date de début
+            dateStartValue.setMinutes(dateStartValue.getMinutes() + 15);
+
+            // Ajoutez 2 heures pour corriger le décalage
+            dateStartValue.setHours(dateStartValue.getHours() + 1);
+
+            // Mettez à jour la date de fin
+            dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
+            dateEndInput.value = dateStartValue.toISOString().slice(0, 16);
+        });
 
     </script>
 </body>

@@ -39,18 +39,17 @@ function head(string $title = ''): string
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=1.4" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=1.5" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
-  <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
 
-  <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
+<link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_landscape.png">
@@ -88,7 +87,8 @@ function head(string $title = ''): string
 </head>
 HTML_HEAD;
 }
-function findTrigramme($profName){
+function findTrigramme($profName)
+{
     $profs = [
         "Mehrez Hanen" => "HMEH",
         "Barré Marielle" => "MBA",
@@ -122,18 +122,18 @@ function findTrigramme($profName){
         "Cauvin-Doumic Frédérique" => "FCAU",
         "Hautot Adrian" => "AHAU"
     ];
-    
-    
+
+
     $search_term = $profName;
-    
+
     $found_professors = [];
-    
+
     foreach ($profs as $name => $code) {
         if (stripos($name, $search_term) !== false) {
             $found_professors[$name] = $code;
         }
     }
-    
+
     if (!empty($found_professors)) {
         // Afficher les codes associés aux professeurs trouvés
         foreach ($found_professors as $name => $code) {
@@ -144,7 +144,6 @@ function findTrigramme($profName){
         echo "undefined";
         return null;
     }
-    
 }
 
 
@@ -157,7 +156,7 @@ function generateBurgerMenuContent($role)
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
             <div class="burger_content_titleleft-header">
-                <img src="./../assets/img/mmicompanion_halloween.webp" alt="Logo de MMI Comapanion">
+                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
                 <h1>MMI Companion</h1>
             </div>
             <div class="burger_content_titleright-header burger-header" id="close_burger-header">
@@ -213,7 +212,7 @@ function generateBurgerMenuContent($role)
                 </div>
             </a>';
     }
-    if ($role == "autre"){
+    if ($role == "autre") {
         $menuHtml .= '
                 <div class="burger_content_link-header burger_disabled">
                     <i class="fi fi-br-info"></i>
@@ -341,6 +340,7 @@ function decodeJWT($jwt, $secret_key)
         $id_user = $decoded->id_user;
         $edu_mail = $decoded->edu_mail;
         $role = $decoded->role;
+        $session_id = $decoded->session_id;
 
         // Retourner les valeurs sous forme d'un tableau associatif
         return array(
@@ -349,12 +349,55 @@ function decodeJWT($jwt, $secret_key)
             'name' => $name,
             'id_user' => $id_user,
             'edu_mail' => $edu_mail,
-            'role' => $role
+            'role' => $role,
+            'session_id' => $session_id,
         );
     } catch (Exception $e) {
         // Gérer les erreurs de décodage du JWT ici
         echo "Erreur de décodage du JWT : " . $e->getMessage();
     }
+}
+/**
+ * Vérifie si l'utilisateur est connecté.
+ * Si l'utilisateur n'est pas connecté, il est redirigé vers la page de connexion.
+ * Si l'utilisateur est connecté, la fonction retourne les informations de l'utilisateur.
+ */
+function onConnect($dbh)
+{
+    if (!isset($_COOKIE['jwt'])) {
+        header('Location: ./login.php');
+        exit;
+    }
+
+    $jwt = $_COOKIE['jwt'];
+    $secret_key = $_ENV['SECRET_KEY'];
+    $user = decodeJWT($jwt, $secret_key);
+
+    // SI le cookie n'a pas le clé session_id, on le supprime et on le redirige vers la connection
+    if (!isset($user['session_id'])) {
+        unset($_COOKIE['jwt']);
+        header('Location: ./login.php');
+        exit;
+    }
+    // Extrait le session_id du JWT
+    $session_id = $user['session_id'];
+
+    // Mise à jour de la date de dernière connexion de l'utilisateur
+    $sql_update_last_connection = "UPDATE users SET last_connection = NOW() WHERE id_user = :id_user";
+    $stmt = $dbh->prepare($sql_update_last_connection);
+    $stmt->execute(['id_user' => $user['id_user']]);
+
+    // Vérification de l'identifiant de session
+    $sql_session_id_verify = "SELECT session_id FROM sessions WHERE user_id = :user_id AND session_id = :session_id";
+    $stmt = $dbh->prepare($sql_session_id_verify);
+    $stmt->execute(['user_id' => $user['id_user'], 'session_id' => $session_id]);
+
+    if ($stmt->rowCount() == 0) {
+        unset($_COOKIE['jwt']);
+        exit;
+    }
+
+    return $user;
 }
 
 function checkEvent($id_event, $id_user)
@@ -370,11 +413,10 @@ function unCheckEvent($id_event, $id_user)
     $sql = "DELETE FROM event_check WHERE id_event = :id_event AND id_user = :id_user";
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['id_event' => $id_event, 'id_user' => $id_user]);
-
-
 }
 // Fonction pour vérifier si un enregistrement existe pour l'événement et l'utilisateur
-function getEventCheckedStatus($dbh, $idAgenda, $idUser) {
+function getEventCheckedStatus($dbh, $idAgenda, $idUser)
+{
     // Assurez-vous de sécuriser vos paramètres
     $idAgenda = intval($idAgenda);
     $idUser = intval($idUser);
@@ -384,11 +426,11 @@ function getEventCheckedStatus($dbh, $idAgenda, $idUser) {
 
     // Préparez la requête SQL en utilisant la variable de connexion
     $stmt = $dbh->prepare($sql);
-    
+
     // Liez les valeurs des paramètres
     $stmt->bindParam(":idAgenda", $idAgenda, PDO::PARAM_INT);
     $stmt->bindParam(":idUser", $idUser, PDO::PARAM_INT);
-    
+
     // Exécutez la requête SQL
     $stmt->execute();
 
@@ -456,15 +498,16 @@ function sendNotification($message, $body, $groups)
         }
     }
 }
-function viewChef($dbh, $edu_group){
+function viewChef($dbh, $edu_group)
+{
 
-$sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
-$stmt_chef = $dbh->prepare($sql_chef);
-$stmt_chef->execute([
-    'edu_group' => $edu_group,
-]);
-$chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
-return $chef['pname']." ".$chef['name'];
+    $sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
+    $stmt_chef = $dbh->prepare($sql_chef);
+    $stmt_chef->execute([
+        'edu_group' => $edu_group,
+    ]);
+    $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
+    return $chef['pname'] . " " . $chef['name'];
 }
 
 
@@ -585,9 +628,26 @@ function compareDates($a, $b)
 {
     $dateA = strtotime($a['date_finish']);
     $dateB = strtotime($b['date_finish']);
+    $year = date('o'); // Obtenez l'année actuelle au format ISO-8601
+    $week = date('W'); // Obtenez le numéro de semaine actuel
 
+    // Formatez la date au format "YYYY-Www"
+    $dateFormat = $year . '-W' . $week;
+
+    // Vérifiez si $a est la semaine courante
+    if ($a['date_finish'] === $dateFormat) {
+        return -1; // $a est la semaine courante, placez-la en première position
+    }
+
+    // Vérifiez si $b est la semaine courante
+    if ($b['date_finish'] === $dateFormat) {
+        return 1; // $b est la semaine courante, placez-la en première position
+    }
+
+    // Comparez les dates de fin pour les autres cas
     if ($dateA == $dateB) {
         return 0;
     }
+
     return ($dateA < $dateB) ? -1 : 1;
 }

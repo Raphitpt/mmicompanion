@@ -2,9 +2,7 @@
 session_start();
 require "../bootstrap.php";
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY'];
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 if (isset($_FILES['profil-picture'])) {
   $uploadedFile = $_FILES['profil-picture'];

@@ -1,18 +1,7 @@
 <?php
 session_start();
 require '../bootstrap.php';
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./index.php');
-    exit;
-  }
-
-
-
-// La on récupère le cookie que l'on à crée à la connection
-// --------------------
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 
 
@@ -90,7 +79,7 @@ echo head("MMI Companion | Informations");
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+         
     </header>
     <main class="main-informations">
         <div style="height:30px"></div>
@@ -146,8 +135,8 @@ echo head("MMI Companion | Informations");
                         </div>
                         <?php if($information['id_user'] === $user['id_user'] || str_contains($user_sql['role'], "admin")){ ?>
                         <div class="item_button-informations">
-                            <a href='./information_edit.php?id_user=<?php echo $user['id_user'] ?>&id_information=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
-                            <a href='./information_delete.php?id_user=<?php echo $user['id_user'] ?>&id_infos=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-trash red'></i></a>
+                            <a href='./information_edit.php?id_user=<?php echo $information['id_user'] ?>&id_information=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
+                            <a href='./information_delete.php?id_user=<?php echo $information['id_user'] ?>&id_infos=<?php echo $information['id_infos'] ?>' id="delete-trash"><i class='fi fi-br-trash red'></i></a>
                         </div>
                         <?php } ?>
                     </div>
@@ -164,7 +153,17 @@ echo head("MMI Companion | Informations");
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
         select_background_profil.classList.add('select_link-header');
+        const deleteTrash = document.querySelectorAll('#delete-trash');
 
+        deleteTrash.forEach(element => {
+            element.addEventListener('click', function(e){
+                e.preventDefault();
+                if (confirm("Voulez-vous vraiment supprimer cette information ?")) {
+                    window.location.href = element.getAttribute('href');
+                    console.log(element.getAttribute('href'));
+                }
+            })
+        });
 
         const treeData = [{
                 id: 'BUT1',

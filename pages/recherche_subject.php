@@ -2,14 +2,7 @@
 session_start();
 require '../bootstrap.php';
 
-if (!isset($_COOKIE['jwt'])) {
-    header('Location: ./login.php');
-    exit;
-}
-
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY'];
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     $subject = '%' . $_POST['subject'] . '%';

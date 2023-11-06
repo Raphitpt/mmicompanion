@@ -3,17 +3,13 @@
 session_start();
 require '../bootstrap.php';
 
-// Si le cookie n'existe pas, on redirige vers la page d'accueil
-if (!isset($_COOKIE['jwt'])) {
-  header('Location: ./index.php');
-  exit;
-}
+$user = onConnect($dbh);
+
+
 unset($_SESSION['mail_message']);
 // La on récupère le cookie que l'on à crée à la connection, voir login.php et fonction.php
 // --------------------
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$user = decodeJWT($jwt, $secret_key);
+
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
@@ -51,6 +47,8 @@ $color_subjects = "SELECT * FROM sch_ressource";
 $stmt = $dbh->prepare($color_subjects);
 $stmt->execute();
 $color_subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
 
 echo head('MMI Companion | Emploi du temps');
 ?>
@@ -262,22 +260,23 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </div>
       <?php generateBurgerMenuContent($user_sql['role']) ?>
-      <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+
     </header>
 
     <div style="height:15px"></div>
 
     <main class="main-calendar">
-        <?php if ($user_sql['role'] == "prof") { ?>
+      <?php if ($user_sql['role'] == "prof") { ?>
         <div class="welcome_title-calendar_prof">
-            <p>Bienvenue <span style="font-weight:900"><?php echo strtoupper(substr($user['pname'], 0, 1)) . "." . ucfirst($user['name']) ?></span> sur votre espace professeur</p>
-            <img src="./../assets/img/hello_emoji.webp" alt="">
+          <p>Bienvenue <span style="font-weight:900"><?php echo strtoupper(substr($user['pname'], 0, 1)) . "." . ucfirst($user['name']) ?></span> sur votre espace professeur</p>
+          <img src="./../assets/img/hello_emoji.webp" alt="">
         </div>
         <div style="height:15px"></div>
-        <?php } ?>
-      
+      <?php } ?>
+      <p class="last_backup_cal">Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
+
           <div id="calendar"></div>
         </div>
       </section>
@@ -298,7 +297,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     // -----------------------
     let url1 = './../backup_cal/<?php echo $user_sql['edu_group'] ?>.ics';
-    // let url2 = "";
+
 
     if ("<?php echo $user_sql['role'] ?>" === "autre") {
       url1 = './custom_cal.php';
@@ -361,12 +360,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           }
         },
         allDaySlot: false,
-        eventMinHeight: 70,
-        <?php if ($user_sql['role'] == "prof") { ?>
-        height: 'calc(98vh - 130px)',
-        <?php } else{ ?>
+        eventMinHeight: 30,
         height: 'calc(98vh - 95px)',
-        <?php } ?>
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
@@ -392,9 +387,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           addEvent: {
             text: '+',
             click: function() {
-              let date = calendar.getDate();
-              let formattedDate = date.toISOString().split('T')[0];
-              window.location.href = './calendar_add.php?date=' + formattedDate;
+              let dateOriginale = calendar.getDate();
+              const annee = dateOriginale.getFullYear();
+              const mois = (dateOriginale.getMonth() + 1).toString().padStart(2, '0');
+              const jour = dateOriginale.getDate().toString().padStart(2, '0');
+              const dateFormatee = `${annee}-${mois}-${jour}`;
+              window.location.href = './calendar_add.php?date=' + dateFormatee;
             }
           },
           custom1day: {
@@ -416,9 +414,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
                 });
               } else {
                 let daysToAdvance = 1;
+
                 calendar.incrementDate({
                   days: daysToAdvance
                 });
+                let date = calendar.getDate();
+                console.log(date);
               }
             }
           },
@@ -427,6 +428,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             click: function() {
               if (calendar.view.type === 'timeGridWeek') {
                 let daysToGoBack = -7; // Revenir à la vue de jour (-7 jours)
+
                 calendar.incrementDate({
                   days: daysToGoBack
                 });
@@ -459,6 +461,15 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
           let eventContent = "";
+          // Accédez aux dates de début et de fin de l'événement via arg.event
+          let startDate = new Date(arg.event.start);
+          let endDate = new Date(arg.event.end);
+          // Calculez la différence en millisecondes entre les dates de début et de fin
+          let duration = endDate - startDate;
+          // Convertissez la durée en heures et minutes
+          let hours = Math.floor(duration / 3600000); // 1 heure = 3600000 millisecondes
+          let minutes = Math.floor((duration % 3600000) / 60000); // 1 minute = 60000 millisecondes
+          // Si la durée est entre 30 minutes et 1 heure, affichez un contenu personnalisé
 
           if (eventTitle && calendar.view.type === 'timeGridWeek') {
             eventContent += '<div class="fc-title" style="font-size:0.52rem">' + eventTitle + '</div>';
@@ -466,9 +477,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             eventContent += '<div class="fc-title" style="font-size:0.8rem">' + eventTitle + '</div>';
           }
 
-          // if (eventDescription && calendar.view.type === 'timeGridWeek') {
-          //   eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
-          // } else 
+
+
           if (eventDescription && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-description" style="font-size:0.8rem">' + test + '</div>';
           }
@@ -478,10 +488,15 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
           }
-          if (eventLocation && calendar.view.type === 'timeGridDay') {
+          if (eventHour && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-time" style="font-size:0.8rem">' + eventHour + '</div>';
           }
-
+          if (duration >= 1800000 && duration <= 4500000) {
+            if (eventLocation && calendar.view.type === 'timeGridWeek') {
+              eventContent = '<div class="fc-description" style="font-size:0.52rem">'+ eventTitle +' - ' + eventLocation +'</div>';
+          } else if (eventLocation && calendar.view.type === 'timeGridDay') {
+            eventContent = '<div class="fc-description" style="font-size:0.8rem">'+ eventTitle +' - '+ test +' - ' + eventLocation + ' - ' + eventHour + '</div>';
+          }}
           return {
             html: eventContent
           };

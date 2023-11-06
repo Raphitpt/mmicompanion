@@ -5,9 +5,14 @@ require './../bootstrap.php';
 $USER_name = $_ENV['ABSENCE_USERNAME'];
 $USER_password = $_ENV['ABSENCE_PASSWORD'];
 
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY'];
-$user = decodeJWT($jwt, $secret_key);
+$user = onConnect($dbh);
+
+// Si la personne ne possède pas le cookie, on la redirige vers la page d'accueil pour se connecter
+if (!isset($_COOKIE['jwt'])) {
+    header('Location: ./index.php');
+    exit;
+}
+
 
 $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
 $stmt = $dbh->prepare($user_sql);
@@ -40,7 +45,7 @@ echo head("MMI Companion | Scolarité");
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+         
     </header>
     <main class="main-scolarite">
         <div style="height:30px"></div>
