@@ -165,7 +165,7 @@ echo head("MMI Companion | Emploi du temps");
             const dateStartValue = new Date(dateStartInput.value);
 
             // Ajoutez 15 minutes à la nouvelle date de début
-            dateStartValue.setMinutes(dateStartValue.getMinutes() + 15);
+            dateStartValue.setMinutes(dateStartValue.getMinutes() + 30);
 
             // Ajoutez 2 heures pour corriger le décalage
             dateStartValue.setHours(dateStartValue.getHours() + 1);
