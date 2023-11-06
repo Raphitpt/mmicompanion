@@ -23,7 +23,7 @@
     --texte: #004A5A;
 
     /* Thème Noël */
-    
+
 }
 
 a {
@@ -210,11 +210,12 @@ main {
     z-index: 2;
 }
 .burger_disabled p{
-    color: var(--texte, #004a5a54);
+    color: #004a5a5c;
 }
 .burger_disabled i{
-    color: var(--texte, #004a5a54);
+    color: #004a5a5c;
 }
+
 
 .select_link-header {
     border-radius: 19.5px;

@@ -113,7 +113,7 @@ echo head("MMI Companion | Agenda");
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+         
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->

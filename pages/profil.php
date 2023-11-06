@@ -50,7 +50,7 @@ echo head("MMI Companion | Profil");
 
         <?php generateBurgerMenuContent($user_sql['role']) ?>
 
-        <img class="img_halloween-header" src="./../assets/img/araignee.webp" alt="">
+         
     </header>
 
     <main class="main-profil">
