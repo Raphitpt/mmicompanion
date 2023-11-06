@@ -461,6 +461,15 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
           let eventContent = "";
+          // Accédez aux dates de début et de fin de l'événement via arg.event
+          let startDate = new Date(arg.event.start);
+          let endDate = new Date(arg.event.end);
+          // Calculez la différence en millisecondes entre les dates de début et de fin
+          let duration = endDate - startDate;
+          // Convertissez la durée en heures et minutes
+          let hours = Math.floor(duration / 3600000); // 1 heure = 3600000 millisecondes
+          let minutes = Math.floor((duration % 3600000) / 60000); // 1 minute = 60000 millisecondes
+          // Si la durée est entre 30 minutes et 1 heure, affichez un contenu personnalisé
 
           if (eventTitle && calendar.view.type === 'timeGridWeek') {
             eventContent += '<div class="fc-title" style="font-size:0.52rem">' + eventTitle + '</div>';
@@ -468,9 +477,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             eventContent += '<div class="fc-title" style="font-size:0.8rem">' + eventTitle + '</div>';
           }
 
-          // if (eventDescription && calendar.view.type === 'timeGridWeek') {
-          //   eventContent += '<div class="fc-description" style="font-size:0.52rem">' + test + '</div>';
-          // } else 
+
+
           if (eventDescription && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-description" style="font-size:0.8rem">' + test + '</div>';
           }
@@ -483,7 +491,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           if (eventHour && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-time" style="font-size:0.8rem">' + eventHour + '</div>';
           }
-
+          if (duration >= 1800000 && duration <= 3600000) {
+            console.log(duration);
+            eventContent = '<div class="fc-description" style="font-size:0.8rem">'+ eventTitle +' - '+ test +' - ' + eventLocation + ' - ' + eventHour + '</div>';
+          }
           return {
             html: eventContent
           };
