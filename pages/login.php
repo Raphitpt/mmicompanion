@@ -61,13 +61,14 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             // Pour plus d'info, voir le detail de la fonction setcookie() sur le site de PHP
             setcookie('jwt', $jwt, time() + (86400 * 260), "/", "", false, true);
             // On renvoie la réponse au client
-            $session_sql = "INSERT INTO sessions (user_id, session_id, expires_at, last_login) VALUES (:user_id, :session_id, :expires_at, :last_login)";
+            $session_sql = "INSERT INTO sessions (user_id, session_id, expires_at, ip_address, info_device) VALUES (:user_id, :session_id, :expires_at, :ip_address, :info_device)";
             $stmt = $dbh->prepare($session_sql);
             $stmt->execute([
                 'user_id' => $user['id_user'],
                 'session_id' => $session_id,
                 'expires_at' => date('Y-m-d H:i:s',strtotime('+260 days')),
-                'last_login' => date('Y-m-d H:i:s'),
+                'ip_address' => $_SERVER['REMOTE_ADDR'],
+                'info_device' => $_SERVER["HTTP_USER_AGENT"]
             ]);
 
             echo json_encode($response);

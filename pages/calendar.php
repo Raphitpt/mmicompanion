@@ -357,7 +357,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           }
         },
         allDaySlot: false,
-        eventMinHeight: 70,
+        eventMinHeight: 30,
           height: 'calc(98vh - 95px)',
         nowIndicator: true,
         initialView: "timeGridDay",
