@@ -8,18 +8,22 @@
 }
 
 :root{
-    --fc-today-bg-color: rgba(255, 211, 144, 0.192);
+    /* Thème Halloween */
+    /* --fc-today-bg-color: rgba(255, 211, 144, 0.192);
     --bleu-trs-clair-background: #fff1dd;
     --bleu-clair-background: #ffca84;
     --bleu-moyen: #d38842;
-    --texte: #5a3600;
+    --texte: #5a3600; */
 
     /* Thème bleu */
-    /* --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+    --fc-today-bg-color: rgba(144, 222, 255, 0.192);
     --bleu-trs-clair-background: #DDF0FF;
     --bleu-clair-background: #B9E0FF;
     --bleu-moyen: #56B8D6;
-    --texte: #004A5A; */
+    --texte: #004A5A;
+
+    /* Thème Noël */
+    
 }
 
 a {

@@ -38,7 +38,7 @@ require 'Helpers/functions.php';
 try {
     // mettre en place la variable $dsn (Data Source Name) qui contient
     // les informations pour se connecter à la base
-    $dsn = 'mysql:host=' . APP_DB_HOST . ';dbname=' . APP_DB_NAME . ';charset=UTF8';
+    $dsn = 'mysql:host=' . APP_DB_HOST . ';dbname=' . APP_DB_NAME . ';charset=UTF8MB4';
     // la variable GLOBALE $dbh (Data Base Handler) est importante
     // c'est elle qui permet de dialoguer avec la base
     $dbh = new PDO(
