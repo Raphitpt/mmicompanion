@@ -936,6 +936,7 @@ main {
     max-width: 550px;
     height: calc(100vh - 70px);
     overflow-y: hidden;
+    margin-top: -5px;
 }
 
 
@@ -1119,6 +1120,7 @@ main {
     width: 60px !important;
 }
 .last_backup_cal{
+    margin-top: -3px;
     margin-bottom: 7px;
 }
 
