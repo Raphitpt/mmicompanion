@@ -21,7 +21,7 @@ if (isset($_SESSION['post_data'])) {
     // Récupérer les données depuis le formulaire
     $mail_user = $_POST['mail_user'];
     $activation_code = $_POST['activation_code'];
-    $name = $_POST['pname'];
+    $name = $_POST['id_user'];
     send_activation_email($mail_user, $activation_code, $name);
 }
 
