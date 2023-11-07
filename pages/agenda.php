@@ -497,13 +497,17 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 let checkbox = this;
                 let heading = checkbox.parentNode.querySelector(".title_subject-agenda");
                 let subject_agenda = checkbox.parentNode.querySelector(".agenda_content_subject-agenda");
+                let content = checkbox.parentNode.querySelector(".agenda_description-agenda");
 
                 if (checkbox.checked) {
                     heading.style.textDecoration = "line-through";
                     subject_agenda.style.opacity = "0.5";
+                    content.style.display = "none";
+
                 } else {
                     heading.style.textDecoration = "none";
                     subject_agenda.style.opacity = "1";
+                    content.style.display = "block";
                 }
             }
 
