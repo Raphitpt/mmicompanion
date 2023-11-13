@@ -34,7 +34,18 @@ function head(string $title = ''): string
 
   gtag('config', 'G-FX70LE2MCM');
 </script>
-
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("./../sw.js")
+      .then(serviceWorker => {
+        console.log("Service Worker registered: ", serviceWorker);
+      })
+      .catch(error => {
+        console.error("Error registering the Service Worker: ", error);
+      });
+  }
+</script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg">
@@ -48,7 +59,6 @@ function head(string $title = ''): string
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
-  <script src="./../assets/js/app.js"></script>
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_landscape.png">
