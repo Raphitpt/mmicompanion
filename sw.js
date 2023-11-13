@@ -7,8 +7,6 @@ self.addEventListener("install", () => {
 	event.waitUntil(
     self.registration.showNotification(data.title, {
       body: data.body,
-    })
-  );
 
     }));
   });

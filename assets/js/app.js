@@ -13,16 +13,14 @@ function main() {
   permission.appendChild(button);
   button.addEventListener("click", askPermission);
 }
-
 async function askPermission() {
   const permission = await Notification.requestPermission();
   if (permission == "granted") {
     registerServiceWorker();
   }
 }
-
 async function registerServiceWorker() {
-  const registrations = await navigator.serviceWorker.register("./../../sw.js");
+  const registrations = await navigator.serviceWorker.register("./../sw.js");
   let subscription = await registrations.pushManager.getSubscription();
   if (!subscription) {
     subscription = await registrations.pushManager.subscribe({
