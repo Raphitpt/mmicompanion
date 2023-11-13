@@ -43,6 +43,7 @@ function head(string $title = ''): string
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
+  <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
