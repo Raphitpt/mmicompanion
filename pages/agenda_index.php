@@ -92,7 +92,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 'pname' => $agenda['pname'],
                 'role' => $agenda['role'],
                 'content' => $agenda['content'],
-                'id_user' => $agenda['id_user'],
                 'color' => '', // Vous pouvez ajouter la couleur ici si nécessaire
             ];
 
@@ -145,7 +144,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $html .= "</div>";
             $html .= "</div>";
             $html .= "<div class='agenda_content_list_item_flexright-agenda'>";
-            $html .= "<a href='./agenda_edit_prof.php?id_user=".$event['id_user']."&id_task=".$event['id_task']."'><i class='fi fi-br-pencil blue'></i></a>";
+            // if (isset($event['trash']) && $event['trash'] === false) {
+            //     $html .= "<i class='fi fi-br-trash red' hidden></i>";
+            // } else {
+            //     $html .= "<a href='" . $event['edit_link'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='" . $event['delete_link'] . "'><i class='fi fi-br-trash red'></i></a>";
+            // }
             $html .= "</div>";
             $html .= "</div>";
             $html .= "<div style='height:10px'></div>";

@@ -53,15 +53,6 @@ function toggleMenu() {
     menu.style.transform = 'translateX(0%)';
   }
 }
-const menuElement = document.querySelector('.notification-badge');
-
-// Enregistrement pour recevoir les messages du service worker
-navigator.serviceWorker.addEventListener('message', (event) => {
-  // Mettre à jour le contenu du badge avec le nombre de notifications
-  const numberOfNotifications = event.data.numberOfNotifications || 0;
-  menuElement.textContent = numberOfNotifications;
-});
-
 
 // Animation du bouton burger
 
