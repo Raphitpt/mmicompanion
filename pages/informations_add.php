@@ -57,8 +57,8 @@ if (isset($_POST['submit'])) {
         } else {
             $_SESSION['error'] = "Une erreur est survenue";
         }
-        // header('Location: ./informations.php');
-        // exit();
+        header('Location: ./informations.php');
+        exit();
     }
 }
 
