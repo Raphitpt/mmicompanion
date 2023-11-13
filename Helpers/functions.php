@@ -224,7 +224,8 @@ function generateBurgerMenuContent($role)
             <a href="./informations.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-info"></i>
-                    <p>Informations</p>
+                    <p>Informations <span class="notification-badge"></span></p>
+                    
                     <div id="select_background_informations-header" class=""></div>
                 </div>
             </a>';

@@ -2843,5 +2843,18 @@ p {
         padding: 8px;
     }
 }
+.notification-badge {
+    top: 0;
+    right: 0;
+    display: inline-block; /* Pour permettre la définition de largeur/hauteur */
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 16px; /* Ajustez la largeur selon vos besoins */
+    height: 16px; /* Ajustez la hauteur selon vos besoins */
+    text-align: center;
+    line-height: 16px; /* Assurez-vous que la ligne est centrée verticalement */
+    font-size: small;
+}
 
 
