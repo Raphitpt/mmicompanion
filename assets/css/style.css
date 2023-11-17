@@ -2448,8 +2448,7 @@ p {
     height: auto;
 }
 .item_flextop-outils.iut_img img{
-    width: 80px;
-    height: auto;
+    margin-right: 1.2rem;
 }
 
 .item_flexbottom-outils{
