@@ -413,11 +413,11 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'eleve')) {
                             echo "<i class='fi fi-br-trash red' hidden></i>";
                         } elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
-                            echo "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a>";
-                            echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'><i class='fi fi-br-trash red'></i></a>";
+                            echo "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                            echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'><i class='fi fi-br-trash red'></i>Supprimer</a>";
                         } else {
-                            echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a>";
-                            echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'><i class='fi fi-br-trash red'></i></a>";
+                            echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                            echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'><i class='fi fi-br-trash red'></i>Supprimer</a>";
                         }
 
                         echo "</div>"; // Fin du dropdown menu container
@@ -506,22 +506,22 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
                     });
                 });
-                
+
                 let dropdowns = document.querySelectorAll(".agenda_dropdown_menu_edit-agenda");
 
                 dropdowns.forEach(function(dropdown) {
-                    dropdown.addEventListener("click", function() {
-                        // Change la couleur du bouton du dropdown menu
+                    dropdown.addEventListener("click", function(event) {
+                        event.stopPropagation(); // Empêche la propagation de l'événement de clic à la fenêtre
                         let dropdownContent = dropdown.querySelector(".dropdown-content");
                         dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
                     });
                 });
 
-                // Ferme le dropdown menu si on clique en dehors
+                // Ferme le menu déroulant lors d'un clic à l'extérieur de celui-ci
                 window.addEventListener("click", function(event) {
                     dropdowns.forEach(function(dropdown) {
                         let dropdownContent = dropdown.querySelector(".dropdown-content");
-                        if (!dropdown.contains(event.target) && !event.target.matches(".agenda_dropdown_menu_edit-agenda")) {
+                        if (!dropdown.contains(event.target)) {
                             dropdownContent.style.display = "none";
                         }
                     });
