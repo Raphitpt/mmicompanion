@@ -404,9 +404,14 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         echo "</div>";
                         echo "<div class='agenda_content_list_item_flexright-agenda'>";
                         echo "<div class='agenda_dropdown_menu_edit-agenda'>";
+                        if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'eleve')){
+                            echo "";
+                        } else{
                         echo "<span class='button_circle_dropdown-agenda'></span>";
                         echo "<span class='button_circle_dropdown-agenda'></span>";
                         echo "<span class='button_circle_dropdown-agenda'></span>";
+                        }
+                        
                         echo "<div class='dropdown-content'>"; // Début du dropdown menu container
 
                         // Condition pour afficher le bouton edit et delete en fonction du role de l'utilisateur

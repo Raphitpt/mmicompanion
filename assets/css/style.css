@@ -1619,13 +1619,9 @@ main {
     min-width: 160px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     z-index: 1;
+    transition: all 0.3s ease-in-out;
 }
 
-/* Show the dropdown content on hover */
-.agenda_dropdown_menu_edit-agenda:hover .dropdown-content {
-    display: block;
-    
-}
 
 /* Style the dropdown links */
 .dropdown-content a {
