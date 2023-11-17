@@ -2418,6 +2418,9 @@ p {
 .item-outils.orange{
     background: linear-gradient(90deg, #BF5C00 20.33%, rgba(191, 92, 0, 0.10) 101.93%);
 }
+.item-outils.blue{
+    background: linear-gradient(90deg, #0063BF 20.33%, rgba(191, 92, 0, 0.10) 101.93%);
+}
 
 .item_flextop-outils{
     display: flex;
@@ -2442,6 +2445,10 @@ p {
 
 .item_flextop-outils.updago_img img{
     width: 100px;
+    height: auto;
+}
+.item_flextop-outils.iut_img img{
+    width: 80px;
     height: auto;
 }
 
