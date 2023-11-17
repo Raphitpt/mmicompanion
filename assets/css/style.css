@@ -1388,7 +1388,7 @@ main {
 /* AGENDA.PHP */
 
 .main-agenda {
-    width: 80vw;
+    width: 89vw;
     max-width: 550px;
 }
 
@@ -1581,7 +1581,7 @@ main {
 .subject-agenda{
     color: var(--texte) !important;
     font-family: Montserrat;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
