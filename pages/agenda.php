@@ -346,7 +346,9 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 // Parcours les éléments par date et les affiche
                 foreach ($agendaMerged as $date => $agendas) {
                     echo "<div class='agenda_content_list-agenda'>";
+                    // affichage de la date et de son trait
                     echo "<h2>$date</h2>";
+                    echo "<div class='ligne_agenda'></div>";
                     echo "<div style='height:10px'></div>";
 
                     foreach ($agendas as $agenda) {
@@ -356,6 +358,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         if ($agenda['type'] == "eval") {
                             echo "<i class='fi fi-br-comment-info'></i>";
                         }
+                        // Affichage de la coche ou de l'indication rouge si c'est une évaluation
                         if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
                             if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
                                 echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
@@ -364,32 +367,38 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             }
                         }
 
-                        echo "<div class='agenda_title_content_list_item_flexleft-agenda'>";
-                        if ($agenda['type'] == "eval") {
-                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</label>";
-                        }
+                        echo "<div class='agenda_title_content_list_item_flexleft-agenda'>";                        
+                        // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                        foreach ($colors as $color) {
+                            if ($color['id_subject'] == $agenda['id_subject']) {
+                                echo "<div class='header_title_subject-agenda'>";
+                                echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
+                                if ($agenda['type'] == "eval") {
+                                    echo "<p class='subject-agenda'>[Évaluation] " . $agenda['name_subject'] . "</p>";
+                                } else {
+                                    echo "<p class='subject-agenda'>" . $agenda['name_subject'] . "</p>";
+                                }
+                                
+                                echo "</div>";
+                                break;
+                            }
 
-                        if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
-                        }
+                        };
+                        // Affichage du tire de l'event de l'agenda
+                        echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
+
+                        // Affichage du contenu de l'event de l'agenda
                         echo "<div class='agenda_description-agenda'>";
                         if (isset($agenda['content']) && !empty($agenda['content'])) {
-                            echo "<p class='content'><span>" . $agenda['content'] . "</span></p>";
+                            echo $agenda['content'];
                         }
                         echo "</div>";
                         echo "<div class='agenda_content_subject-agenda'>";
 
+                        // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
                         if (isset($agenda['role']) && $agenda['role'] == "prof") {
                             echo "<p class='name_subject-agenda'>De : <span>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
                         }
-
-                        foreach ($colors as $color) {
-                            if ($color['id_subject'] == $agenda['id_subject']) {
-                                echo "<p style='background-color:" . $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
-                                // echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
-                                break;
-                            }
-                        };
                         // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
                         echo "</div>";
                         echo "</div>";

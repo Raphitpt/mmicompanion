@@ -1445,7 +1445,15 @@ main {
     color: var(--texte);
     font-size: 13px;
     font-family: Montserrat;
-    font-weight: 500;
+    font-weight: 700;
+}
+.ligne_agenda {
+    display: block;
+    width: 100%;
+    height: 0.0625rem;
+    border-radius: 2px;
+    background: var(--texte);
+    margin: 4px 0;
 }
 
 .agenda_content_list_item-agenda {
@@ -1464,6 +1472,7 @@ main {
 
 .agenda_content_list_item_flexleft-agenda i {
     margin-right: 10px;
+    margin-top: 5px;
     color: #CB0000;
 }
 
@@ -1478,6 +1487,7 @@ main {
     place-content: center;
     border-radius: 50px;
     margin-right: 10px;
+    margin-top: 5px;
 }
 
 .agenda_content_list_item_flexleft-agenda input[type="checkbox"]:checked::before {
@@ -1511,9 +1521,10 @@ main {
 .agenda_title_content_list_item_flexleft-agenda label {
     color: #252525;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: 0.8rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
+    margin-left: 0.75rem;
     /* overflow: clip;
     text-overflow: ellipsis;
     white-space: normal; */
@@ -1523,14 +1534,15 @@ main {
     -webkit-box-orient: vertical; */
 }
 
-.agenda_description-agenda{
-    color: var(--texte);
+.agenda_description-agenda>p{
+    color: #252525;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: 0.6875rem;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 400;
     line-height: normal;
     width: 100%;
+    margin-left: 0.8rem;
 }
 
 .agenda_content_subject-agenda{
@@ -1553,6 +1565,26 @@ main {
     border-radius: 10px;
     padding: 1px 7px;
     
+}
+.header_title_subject-agenda{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 5px;
+}
+.circle_subject-agenda{
+    display: inline-block;
+    width: 0.4375rem;
+    height: 1rem;
+    border-radius: 0.625rem;
+}
+.subject-agenda{
+    color: var(--texte) !important;
+    font-family: Montserrat;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
 }
 .name_subject-agenda{
     color: var(--texte) !important;
