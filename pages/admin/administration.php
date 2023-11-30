@@ -3,7 +3,7 @@ session_start();
 require '../../bootstrap.php';
 
 $user = onConnect($dbh);
-if ($user['role'] != 'admin' && ($user['edu_mail'] != 'raphael.tiphonet@etu.univ-poitiers.fr' || $user['edu_mail'] != 'arnaud.graciet@etu.univ-poitiers.fr' ) ) {
+if (str_contains($user['role'],'admin') == true && ($user['edu_mail'] != 'raphael.tiphonet@etu.univ-poitiers.fr' || $user['edu_mail'] != 'arnaud.graciet@etu.univ-poitiers.fr' ) ) {
   header('Location: ./../index.php');
   exit;
 }
