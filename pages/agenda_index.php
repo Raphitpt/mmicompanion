@@ -1,6 +1,15 @@
 <?php
 session_start();
 require '../bootstrap.php';
+$user = onConnect($dbh);
+
+// Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
+$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+$stmt = $dbh->prepare($user_sql);
+$stmt->execute([
+    'id_user' => $user['id_user']
+]);
+$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $edu_group = $_POST['edu_group'];
@@ -112,43 +121,72 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Créer la structure HTML pour chaque date
         $html = "<div class='agenda_content_list-agenda'>";
         $html .= "<h2>$date</h2>";
+        $html .= "<div class='ligne_agenda'></div>";
         $html .= "<div style='height:10px'></div>";
 
         foreach ($events as $event) {
             $html .= "<div class='agenda_content_list_item-agenda'>";
             $html .= "<div class='agenda_content_list_item_flexleft-agenda'>";
+
             if ($event['type'] == "eval") {
                 $html .= "<i class='fi fi-br-comment-info'></i>";
             }
+            // Affichage de la coche ou de l'indication rouge si c'est une évaluation
+            if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                $html .= "<i class='fi fi-br-comment-info' style='visibility: hidden;'></i>";
+            }
+
             $html .= "<div class='agenda_title_content_list_item_flexleft-agenda'>";
-            if ($event['type'] == "eval") {
-                $html .= "<label for='checkbox-" . $event['id_task'] . "' class='title_subject-agenda'>[Évaluation] " . $event['title'] . "</label>";
+
+            foreach ($colors as $color) {
+                if ($color['id_subject'] == $event['id_subject']) {
+                    $html .= "<div class='header_title_subject-agenda'>";
+                    $html .= "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
+                    if ($agenda['type'] == "eval") {
+                        $html .= "<p class='subject-agenda'>[Évaluation] " . $agenda['name_subject'] . "</p>";
+                    } else {
+                        $html .= "<p class='subject-agenda'>" . $agenda['name_subject'] . "</p>";
+                    }
+
+                    $html .= "</div>";
+                    break;
+                }
             }
-            if ($event['type'] == "devoir" or $event['type'] == "autre") {
-                $html .= "<label for='checkbox-" . $event['id_task'] . "' class='title_subject-agenda'>" . $event['title'] . "</label>";
+            // Affichage du tire de l'event de l'agenda
+            $html .= "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
+
+            // Affichage du contenu de l'event de l'agenda
+            $html .= "<div class='agenda_description-agenda'>";
+            if (isset($agenda['content']) && !empty($agenda['content'])) {
+                $html .= $agenda['content'];
             }
-            if ($event['content'] != "") {
-                $html .= "<p class='content'><span>" . $event['content'] . "</span></p>";
-            }
+            $html .= "</div>";
             $html .= "<div class='agenda_content_subject-agenda'>";
             if ($event['role'] == "prof") {
                 $html .= "<p class='name_subject-agenda'>De : <span>" . substr($event['pname'], 0, 1) . '. ' . $event['name'] . "</span></p></br>";
             }
-            foreach ($colors as $color) {
-                if ($color['id_subject'] == $event['id_subject']) {
-                    $html .= "<p style='background-color:" . $color['color_ressource'] . "'>" . $event['name_subject'] . "</p>";
-                    break;
-                }
-            }
             $html .= "</div>";
             $html .= "</div>";
             $html .= "</div>";
+            
             $html .= "<div class='agenda_content_list_item_flexright-agenda'>";
-            // if (isset($event['trash']) && $event['trash'] === false) {
-            //     $html .= "<i class='fi fi-br-trash red' hidden></i>";
-            // } else {
-            //     $html .= "<a href='" . $event['edit_link'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='" . $event['delete_link'] . "'><i class='fi fi-br-trash red'></i></a>";
-            // }
+            $html .= "<div class='agenda_dropdown_menu_edit-agenda'>";
+            $html .= "<i class='fi fi-br-menu-dots'></i>";
+            // $html .= "<span class=''></span>";
+            // $html .= "<span class='button_circle_dropdown-agenda'></span>";
+            // $html .= "<span class='button_circle_dropdown-agenda'></span>";
+
+            
+            $html .= "<div class='dropdown-content'>"; // Début du dropdown menu container
+
+            // Condition pour afficher le bouton edit et delete en fonction du role de l'utilisateur
+            if ($user_sql['role'] == "prof") {
+                $html .= "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                $html .= "<a href='agenda_del.php/?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash' class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
+            }
+
+            $html .= "</div>"; // Fin du dropdown menu container
+            $html .= "</div>"; // Fin du dropdown menu
             $html .= "</div>";
             $html .= "</div>";
             $html .= "<div style='height:10px'></div>";

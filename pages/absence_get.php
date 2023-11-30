@@ -19,7 +19,7 @@ if (!isset($_COOKIE['jwt'])) {
     exit;
   }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty($_POST['semestre'])){
     $semestre = $_POST['semestre'];
     $edu_mail = $user_sql['edu_mail'];
 
