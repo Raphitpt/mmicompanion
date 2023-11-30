@@ -225,7 +225,7 @@ function generateBurgerMenuContent($role)
         if ($role == "admin") {
             $menuHtml .=' 
             <div class="burger_content_trait_header"></div>
-            <a href="./administration.php">
+            <a href="./admin/administration.php">
             <div class="burger_content_link-header">
             <i class="fi fi-br-tool-box"></i>
                 <p>Administration</p>
