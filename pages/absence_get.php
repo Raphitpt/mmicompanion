@@ -38,8 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty(
 
     // sauvegarde les logs
     curl_setopt($ch, CURLOPT_VERBOSE, 1);
-    curl_setopt($ch, CURLOPT_STDERR, $fp);
-    $fp = fopen(dirname(__DIR__).'/errorlog.txt', 'w');
+    curl_setopt($ch, CURLOPT_STDERR, fopen(dirname(__DIR__).'/errorlog.txt', 'w'));
 
     if (curl_error($ch)) {
         $error_msg = curl_error($ch);
