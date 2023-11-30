@@ -36,21 +36,18 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">Accueil</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Élèves
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Voir un élève</a></li>
+              <li><a class="dropdown-item" href="./eleve/view_eleve.php">Voir un élève</a></li>
               <li><a class="dropdown-item" href="#">Modifier un élève</a></li>
               <li><a class="dropdown-item" href="#">Supprimer un élève</a></li>
               <li>
@@ -126,7 +123,7 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo '<td>' . $eleve['score'] . '</td>';
             echo '<td>' . $eleve['active'] . '</td>';
             echo '<td>' . $eleve['last_connection'] . '</td>';
-            echo '<td><a href="#">Voir</a> <a href="#">Modifier</a> <a href="#">Supprimer</a></td>';
+            echo '<td><a href="./eleve/view_eleve.php?id='.$eleve['id_user'].'">Voir</a> <a href="#">Modifier</a> <a href="#">Supprimer</a></td>';
             echo '</tr>';
           }
           
@@ -134,9 +131,13 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
       </table>
     </div>
+    <div style="height:30px"></div>
     <div>
       <h2>Liste du personnel</h2>
-      <table class="table" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
+      <div class="toolbar">
+        <button class="btn btn-primary" id="order1">Ajouter un personnel</button>
+      </div>
+      <table class="table" data-toolbar=".toolbar" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
         <thead style="background-color: #AAAAAA !important;">
           <tr>
             <th scope="col">#</th>
