@@ -19,7 +19,7 @@ if (!isset($_COOKIE['jwt'])) {
     exit;
   }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty($_POST['semestre']) && !empty($user_sql['edu_mail'])){
     $semestre = $_POST['semestre'];
     $edu_mail = $user_sql['edu_mail'];
 
@@ -35,6 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    // sauvegarde les logs
+    curl_setopt($ch, CURLOPT_VERBOSE, 1);
+    curl_setopt($ch, CURLOPT_STDERR, $fp);
+    $fp = fopen(dirname(__FILE__).'/errorlog.txt', 'w');
 
     if (curl_error($ch)) {
         $error_msg = curl_error($ch);
