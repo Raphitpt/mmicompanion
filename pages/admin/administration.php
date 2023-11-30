@@ -3,7 +3,7 @@ session_start();
 require '../../bootstrap.php';
 
 $user = onConnect($dbh);
-if (str_contains($user['role'],'admin') == true && ($user['edu_mail'] != 'raphael.tiphonet@etu.univ-poitiers.fr' || $user['edu_mail'] != 'arnaud.graciet@etu.univ-poitiers.fr' ) ) {
+if (str_contains($user['role'],'admin') == false && ($user['edu_mail'] != 'raphael.tiphonet@etu.univ-poitiers.fr' || $user['edu_mail'] != 'arnaud.graciet@etu.univ-poitiers.fr' ) ) {
   header('Location: ./../index.php');
   exit;
 }
@@ -95,6 +95,7 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
   <div class="container my-5">
     <h1>Accueil de l'interface d'administration</h1>
+    <div style="height:30px"></div>
     <div>
       <h2>Liste des élèves</h2>
       <table class="table" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">

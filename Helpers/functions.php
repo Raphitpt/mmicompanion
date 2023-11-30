@@ -222,7 +222,7 @@ function generateBurgerMenuContent($role)
                     <div id="select_background_profil-header" class=""></div>
                 </div>
             </a>';
-        if ($role == "admin") {
+        if (str_contains($role, 'admin')) {
             $menuHtml .=' 
             <div class="burger_content_trait_header"></div>
             <a href="./admin/administration.php">
