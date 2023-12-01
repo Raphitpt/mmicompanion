@@ -487,16 +487,16 @@ function sendNotification($message, $body, $groups)
 
     $webPush->flush();
 
-    foreach ($webPush->flush() as $report) {
-        $endpoint = $report->getRequest()->getUri()->__toString();
+    //foreach ($webPush->flush() as $report) {
+       // $endpoint = $report->getRequest()->getUri()->__toString();
 
-        if ($report->isSuccess()) {
-            echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
-        } else {
-            echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
+        //if ($report->isSuccess()) {
+            //echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
+        //} else {
+            // echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
             // Handle the failure, remove the subscription from your server, etc.
-        }
-    }
+        //}
+    //}
 }
 function viewChef($dbh, $edu_group)
 {
