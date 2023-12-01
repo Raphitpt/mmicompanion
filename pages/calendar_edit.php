@@ -73,21 +73,8 @@ echo head("MMI Companion | Emploi du temps");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header" id="burger-header">
-                <div class="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Emploi du temps</h1>
-            </div>
-        </div>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
 
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-         
-    </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
     <main class="main-calendar_add">

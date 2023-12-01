@@ -148,10 +148,20 @@ function findTrigramme($profName)
 
 
 
-function generateBurgerMenuContent($role)
+function generateBurgerMenuContent($role, $title)
 {
 
     $menuHtml = '
+    <header>
+    <div class="content_header">
+        <div class="content_title-header">
+            <div class="burger-header" id="burger-header">
+                <i class="fi fi-br-bars-sort"></i>
+            </div>
+            <div style="width:20px"></div>
+            <h1>'.$title.'</h1>
+        </div>
+    </div>
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
@@ -253,10 +263,13 @@ function generateBurgerMenuContent($role)
                 </div>
             </a>
         </div>
-    </div>';
+    </div>
+    </header>';
 
     echo $menuHtml; // Affiche le menu HTML
 }
+
+
 
 
 /**

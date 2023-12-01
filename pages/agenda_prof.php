@@ -132,19 +132,7 @@ echo head("MMI Companion | Agenda");
   if ($user_sql['tuto_agenda'] == 0) { ?>
   <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header">
-                <div class="burger-header" id="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Agenda</h1>
-            </div>
-        </div>
-
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-    </header>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
 
     <main class="main_tuto-agenda">
       <form action="" method="post" class="form-tuto_agenda">

@@ -101,20 +101,9 @@ echo head("MMI Companion | Agenda");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header" id="burger-header">
-                <div class="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Agenda</h1>
-            </div>
-        </div>
-
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-    </header>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
     <!-- Fin du menu de navigation -->
+    
     <!-- Corps de la page -->
     <main class="main-agenda">
         <div style="height:30px"></div>

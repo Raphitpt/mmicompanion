@@ -37,21 +37,7 @@ echo head("MMI Companion | Profil");
 
 <body class="body-all">
 
-    <header>
-        <div class="content_header">
-            <div class="content_title-header">
-                <div class="burger-header" id="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Compte</h1>
-            </div>
-        </div>
-
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-         
-    </header>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Profil') ?>
 
     <main class="main-profil">
     <div class="profil_picture-profil">

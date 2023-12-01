@@ -134,7 +134,7 @@ echo head("MMI Companion | Connexion");
 
             // Effectuez une requête AJAX vers le script "login.php" pour obtenir le JWT
             // Assurez-vous d'ajuster l'URL et les paramètres de la requête AJAX selon votre configuration
-            let url = window.location.origin + '/pages/login.php';
+            let url = window.location.origin + '/mmicompanion/pages/login.php';
 
             // Exemple d'utilisation de la bibliothèque jQuery pour la requête AJAX
             $.ajax({

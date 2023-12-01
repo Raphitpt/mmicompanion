@@ -21,21 +21,7 @@ echo head("MMI Companion | Outils supplémentaires");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header">
-                <div class="burger-header" id="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Outils supplémentaires</h1>
-            </div>
-        </div>
-
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-         
-    </header>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Outils supplémentaires') ?>
 
     <main class="main-outils">
         <div style="height:30px"></div>

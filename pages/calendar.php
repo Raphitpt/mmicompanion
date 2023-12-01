@@ -218,50 +218,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-all">
 
-    <!-- <header class="header-calendar">
-      <div class="content_header-calendar">
-
-        <div class="burger-header-calendar" id="burger-header">
-          <i class="fi fi-br-bars-sort"></i>
-        </div>
-
-        <div class="content-header-calendar">
-          <div class="content_title-header-calendar">
-            <h1>Salut <span style="font-weight:800">
-                <?php //echo ucfirst($user['pname']) 
-                ?><span></h1>
-            <p>en ligne</p>
-          </div>
-          <div style="width:10px"></div>
-          <a href="./profil.php">
-            <div class="content_img-header-calendar">
-              <div class="rounded-img">
-                <img src="<?php //echo $user_sql['pp_link'] 
-                          ?>" alt="Photo de profil">
-              </div>
-              <div class="green_circle"></div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-    </header> -->
-
-    <header>
-      <div class="content_header">
-        <div class="content_title-header">
-          <div class="burger-header" id="burger-header">
-            <i class="fi fi-br-bars-sort"></i>
-          </div>
-          <div style="width:20px"></div>
-          <h1>Emploi du temps</h1>
-        </div>
-      </div>
-      <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-    </header>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
 
     <div style="height:15px"></div>
 

@@ -66,21 +66,8 @@ echo head("MMI Companion | Informations");
 ?>
 <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header">
-                <div class="burger-header" id="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Informations</h1>
-            </div>
-        </div>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Informations') ?>
 
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-         
-    </header>
     <main class="main-informations">
         <div style="height:30px"></div>
         <div class="info_title_flextop-informations">
