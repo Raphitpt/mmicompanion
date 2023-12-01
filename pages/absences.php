@@ -97,9 +97,10 @@ echo head("MMI Companion | Scolarité");
         </div>
         <div style="height:30px"></div>
         <p>Le relevé de notes arrive prochainement</p>
-    </main>
+    <div id="snow-container"></div></main>
 </body>
 <script src="../assets/js/menu-navigation.js"></script>
+<script src="../assets/js/snow.js"></script>
 <script>
     // Faire apparaître le background dans le menu burger
     let select_background_profil = document.querySelector('#select_background_vie_sco-header');

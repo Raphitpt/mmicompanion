@@ -153,7 +153,7 @@ echo head("MMI Companion | Agenda");
             <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
         </div>
       </form>
-    </main>
+    <div id="snow-container"></div></main>
 
 </body>
 
@@ -251,9 +251,9 @@ echo head("MMI Companion | Agenda");
         <div style="height:25px"></div>
         <div class="agenda_content-agenda">
         </div>
-    </main>
+    <div id="snow-container"></div></main>
     <div style="height:20px"></div>
-    <script src="../assets/js/menu-navigation.js"></script>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <script>
 
         // Faire apparaître le background dans le menu burger

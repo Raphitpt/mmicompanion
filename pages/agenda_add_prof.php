@@ -213,8 +213,8 @@ echo head("MMI Companion | Agenda");
             </form>
         </div>
 
-    </main>
-    <script src="../assets/js/menu-navigation.js"></script>
+    <div id="snow-container"></div></main>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>

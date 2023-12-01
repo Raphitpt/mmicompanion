@@ -115,11 +115,11 @@ echo head("MMI Companion | Profil");
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
         </div>
         <div style="height:30px"></div>
-    </main>
+    <div id="snow-container"></div></main>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="../assets/js/menu-navigation.js"></script>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
     <script src="../assets/js/app.js"></script>
     <?php

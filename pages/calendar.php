@@ -161,7 +161,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </form>
 
 
-    </main>
+    <div id="snow-container"></div></main>
 
   </body>
 
@@ -230,14 +230,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
         <div style="height:15px"></div>
       <?php } ?>
-      <p class="last_backup_cal">Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
 
           <div id="calendar"></div>
         </div>
       </section>
-    </main>
+      <div style="height:10px"></div>
+      <div class="last_backup_cal">
+        <p>Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
+      </div>
+
+      
+    <div id="snow-container"></div></main>
 
   </body>
 
@@ -245,9 +250,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
   <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
-  <script src="../assets/js/menu-navigation.js"></script>
+  <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
+
+
     // Faire apparaître le background dans le menu burger
     let select_background_profil = document.querySelector('#select_background_calendar-header');
     select_background_profil.classList.add('select_link-header');

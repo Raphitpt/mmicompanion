@@ -198,11 +198,11 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
                 </div>
             </form>
-        </main>
+        <div id="snow-container"></div></main>
 
     </body>
 
-    <script src="../assets/js/menu-navigation.js"></script>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -388,9 +388,9 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 ?>
             </div>
             <div style="height:20px"></div>
-        </main>
+        <div id="snow-container"></div></main>
 
-        <script src="../assets/js/menu-navigation.js"></script>
+        <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
 
 
         <script>

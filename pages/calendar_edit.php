@@ -145,8 +145,8 @@ echo head("MMI Companion | Emploi du temps");
         </form>
 
 
-    </main>
-    <script src="../assets/js/menu-navigation.js"></script>
+    <div id="snow-container"></div></main>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_calendar-header');

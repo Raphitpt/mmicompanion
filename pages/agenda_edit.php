@@ -211,8 +211,8 @@ echo head("MMI Companion | Agenda");
             </form>
         </div>
 
-    </main>
-    <script src="../assets/js/menu-navigation.js"></script>
+    <div id="snow-container"></div></main>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
