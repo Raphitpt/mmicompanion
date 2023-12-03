@@ -69,21 +69,8 @@ echo head('MMI Companion | Informations');
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header" id="burger-header">
-                <div class="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Informations</h1>
-            </div>
-        </div>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Informations') ?>
 
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-         
-    </header>
     <main class="main-informations">
         <div style="height:30px"></div>
         <div class="title_trait">
@@ -152,9 +139,9 @@ echo head('MMI Companion | Informations');
 
         </form>
 
-    </main>
+    <div id="snow-container"></div></main>
 
-    <script src="../assets/js/menu-navigation.js"></script>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <script src="../assets/js/tree.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
