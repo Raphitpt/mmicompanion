@@ -7,7 +7,7 @@
 	"shortcuts" : [
 		{
 		  "name": "Se connecter",
-		  "url": "/mmicompanion/pages/login.php"
+		  "url": "/pages/login.php"
 		},
 		{
 		  "name": "S'inscrire",
