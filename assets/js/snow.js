@@ -18,6 +18,12 @@ function startSnowfall() {
         createSnowflake();
     }
 }
+function stopSnowfall() {
+    const snowflakes = document.getElementsByClassName("snowflake");
+    for (let i = 0; i < snowflakes.length; i++) {
+        snowflakes[i].remove();
+    }
+}
 
 startSnowfall();
 

@@ -136,7 +136,7 @@ function acceptCGU() {
 
 }
 
-const CGUbtn = document.querySelector('.button_CGU-validate');
+const CGUbtn = document.querySelector('#button_CGU-validate');
 CGUbtn.addEventListener('click', function() {
   acceptCGU();
   console.log('click');
