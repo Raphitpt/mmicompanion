@@ -509,7 +509,7 @@ function onConnect($dbh)
               <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.php">CGU</a> de MMI Companion.</strong></p>
             </div>
             <div class="trait_content_CGU-index"></div>
-            <button id="button_CGU-validate" class="button_CGU-index" onclick="acceptCGU();">C'est parti !<button>
+            <button id="button_CGU-validate" class="button_CGU-index" onclick="acceptCGU();">C'est parti !</button>
           </section>
         <?php
         }
@@ -604,16 +604,16 @@ function sendNotification($message, $body, $groups)
 
     $webPush->flush();
 
-    foreach ($webPush->flush() as $report) {
-        $endpoint = $report->getRequest()->getUri()->__toString();
+    //foreach ($webPush->flush() as $report) {
+       // $endpoint = $report->getRequest()->getUri()->__toString();
 
-        if ($report->isSuccess()) {
-            echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
-        } else {
-            echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
+        //if ($report->isSuccess()) {
+            //echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
+        //} else {
+            // echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
             // Handle the failure, remove the subscription from your server, etc.
-        }
-    }
+        //}
+    //}
 }
 function viewChef($dbh, $edu_group)
 {
