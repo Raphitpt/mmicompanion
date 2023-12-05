@@ -39,7 +39,7 @@ function head(string $title = ''): string
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=1.6" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=1.8" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
@@ -509,7 +509,7 @@ function onConnect($dbh)
               <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.php">CGU</a> de MMI Companion.</strong></p>
             </div>
             <div class="trait_content_CGU-index"></div>
-            <input id="button_CGU-validate" class="button_CGU-index" value="C'est parti !" onclick="acceptCGU();">
+            <button id="button_CGU-validate" class="button_CGU-index" onclick="acceptCGU();">C'est parti !<button>
           </section>
         <?php
         }
