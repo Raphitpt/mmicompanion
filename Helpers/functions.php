@@ -509,7 +509,7 @@ function onConnect($dbh)
               <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.php">CGU</a> de MMI Companion.</strong></p>
             </div>
             <div class="trait_content_CGU-index"></div>
-            <input id="button_CGU-validate" class="button_CGU-index" value="C'est parti !" onclick="acceptCGU();">
+            <input type="submit" id="button_CGU-validate" class="button_CGU-index" value="C'est parti !" onclick="acceptCGU();">
           </section>
         <?php
         }
