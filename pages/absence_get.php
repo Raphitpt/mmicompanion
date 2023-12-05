@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty(
     //curl_setopt($ch, CURLOPT_VERBOSE, true);
     //curl_setopt($ch, CURLOPT_STDERR, fopen(dirname(__FILE__) . '/' . $logFileName, 'w'));
 
+
     if (curl_error($ch)) {
         $error_msg = curl_error($ch);
         echo $error_msg;

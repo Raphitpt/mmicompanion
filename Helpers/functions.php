@@ -43,6 +43,7 @@ function head(string $title = ''): string
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
+  <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -87,42 +88,18 @@ function head(string $title = ''): string
 </head>
 HTML_HEAD;
 }
-function findTrigramme($profName)
+function findTrigramme($profName, $dbh)
 {
-    $profs = [
-        "Mehrez Hanen" => "HMEH",
-        "Barré Marielle" => "MBA",
-        "Bachir Smail" => "SBA",
-        "Badulescu Cristina" => "CBA",
-        "Calou Bastien" => "BCA",
-        "Calvez Yann" => "YCAL",
-        "Chaulet Bernadette" => "BCH",
-        "Couegnas Carole" => "CCO",
-        "Burn Jean Baptiste" => "JBB",
-        "Daghmi Fathallah" => "FDA",
-        "Domont Éric" => "EDO",
-        "Henry Simon" => "SHE",
-        "Glénison Émilie" => "EGL",
-        "Galonnier Didier" => "DGA",
-        "Delayre Stéphanie" => "SDE",
-        "Gineste Olivier" => "OGI",
-        "Gourceau Carine" => "CGOU",
-        "Hénin Jean Luc" => "JLH",
-        "Henry Yann" => "YHE",
-        "Le folgoc Cyrille" => "CFO",
-        "Louet François" => "FLT",
-        "Bui Quoc Marion" => "MBUI",
-        "Vallade Christophe" => "CVAL",
-        "Scutella Soline" => "SSCU",
-        "Combot Mathilde" => "MCOMB",
-        "Sulaiman Hamid" => "HSUL",
-        "Chapeau Julie" => "JCHA",
-        "Poyrault Matthieu" => "MPOY",
-        "Brunie Julia" => "JBRU",
-        "Cauvin-Doumic Frédérique" => "FCAU",
-        "Hautot Adrian" => "AHAU"
-    ];
+    $sql_prof = "SELECT nom, pnom, trigramme FROM personnels";
+    $stmt_prof = $dbh->prepare($sql_prof);
+    $stmt_prof->execute();
+    $profs_data = $stmt_prof->fetchAll(PDO::FETCH_ASSOC);
 
+    $profs = [];
+
+    foreach ($profs_data as $prof) {
+        $profs[$prof['nom'] . " " . $prof['pnom']] = $prof['trigramme'];
+    }
 
     $search_term = $profName;
 
@@ -258,7 +235,18 @@ function generateBurgerMenuContent($role, $title)
                     <p>Mon profil</p>
                     <div id="select_background_profil-header" class=""></div>
                 </div>
-            </a>
+            </a>';
+        if (str_contains($role, 'admin')) {
+            $menuHtml .=' 
+            <div class="burger_content_trait_header"></div>
+            <a href="./admin/administration.php">
+            <div class="burger_content_link-header">
+            <i class="fi fi-br-tool-box"></i>
+                <p>Administration</p>
+                <div id="select_background_profil-header" class=""></div>
+            </div>
+        </a>';}
+            $menuHtml .= '
             <div class="burger_content_trait_header"></div>
             <a href="./logout.php">
                 <div class="burger_content_link-header logout-header">
