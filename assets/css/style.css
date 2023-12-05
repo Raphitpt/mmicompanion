@@ -1028,6 +1028,7 @@ main {
     text-align: justify;
     margin-bottom: 1vh;
     border-radius: 20px;
+    text-decoration: none;
 }
 .button_CGU-index{
     display: flex;
