@@ -30,7 +30,7 @@ startSnowfall();
 // Empêcher le défilement horizontal
 document.body.style.overflowX = 'hidden';
 
-// Rafraîchir la page lors du redimensionnement de la fenêtre pour recalculer les positions
-window.addEventListener('resize', function() {
-    location.reload();
-});
+// // Rafraîchir la page lors du redimensionnement de la fenêtre pour recalculer les positions
+// window.addEventListener('resize', function() {
+//     location.reload();
+// });
