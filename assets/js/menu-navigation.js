@@ -135,3 +135,8 @@ function acceptCGU() {
   xhr.send(data);
 
 }
+
+const CGUbtn = document.querySelector('.button_CGU-validate');
+CGUbtn.addEventListener('click', function() {
+  acceptCGU();
+});
