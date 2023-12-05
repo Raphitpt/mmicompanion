@@ -999,13 +999,13 @@ main {
 
 /* Page de CGU */
 
-.CGU-index{
+.CGU-index {
     position: absolute;
-	top: 0;
-	left: 0;
+    top: 0;
+    left: 0;
     background-color: var(--bleu-clair-background);
-	width: 100%;
-	height: 100%;
+    width: 100%;
+    height: 100vh; /* Modification ici */
     z-index: 100;
     font-family: Montserrat;
     text-align: center;
