@@ -512,6 +512,7 @@ function onConnect($dbh)
             <button id="button_CGU-validate" class="button_CGU-index">C'est parti !</button>
           </section>
         <?php
+        exit;
         }
 
     return $user;
