@@ -413,6 +413,106 @@ function onConnect($dbh)
         unset($_COOKIE['jwt']);
         exit;
     }
+    $cgu_check = "SELECT CGU FROM users WHERE id_user = :id_user";
+    $stmt = $dbh->prepare($cgu_check);
+    $stmt->execute(['id_user' => $user['id_user']]);
+    $cgu_check = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($cgu_check['CGU'] == 0) {
+        ?><section class="CGU-index">
+            <div class="title_CGU-index">
+              <div class="title_content_CGU-index">
+                <h1>Conditions générales d'utilisation</h1>
+              </div>
+              <div class="CGU_content">
+                <p><strong>Conditions G&eacute;n&eacute;rales d'Utilisation</strong></p>
+                <br>
+                <p><strong>En vigueur au 01/01/2024</strong></p>
+                <br>
+                <p>Les pr&eacute;sentes Conditions G&eacute;n&eacute;rales d'Utilisation (ci-apr&egrave;s d&eacute;nomm&eacute;es "CGU") encadrent l'utilisation de l'application web MMI Companion, d&eacute;velopp&eacute;e par Arnaud Graciet et Rapha&euml;l Tiphonet. Elles d&eacute;finissent les conditions d'acc&egrave;s et d'utilisation des services propos&eacute;s par l'application par l'utilisateur. Ces CGU sont accessibles sur le site &agrave; la rubrique "CGU".</p>
+                <p>L'inscription ou l'utilisation de l'application implique l'acceptation sans r&eacute;serve des CGU par l'utilisateur. Lors de l'inscription via le Formulaire d&rsquo;inscription, chaque utilisateur accepte express&eacute;ment ces CGU en cochant la case pr&eacute;c&eacute;dant le texte suivant : &laquo; Je reconnais avoir lu et compris les CGU et je les accepte &raquo;. En cas de non-acceptation, l'utilisateur doit renoncer &agrave; l'acc&egrave;s aux services de l'application. https://www.mmi-companion.fr se r&eacute;serve le droit de modifier unilat&eacute;ralement le contenu des CGU &agrave; tout moment.</p>
+                <br>
+                <p><strong>ARTICLE 1 : MENTIONS L&Eacute;GALES</strong></p>
+                <p>L'&eacute;dition et la direction de la publication de l'application MMI Companion sont assur&eacute;es par&nbsp;:</p>
+                <br>
+                <p><strong>TIPHONET Rapha&euml;l</strong></p>
+                <p>5 ALL DES VIGNES</p>
+                <p>16730 TROIS-PALIS</p>
+                <p>07 71 18 59 89</p>
+                <p><a href="mailto:rtiphonet@gmail.com">rtiphonet@gmail.com</a></p>
+                <br>
+                <p>et par</p>
+                <br>
+                <p><strong>GRACIET Arnaud</strong></p>
+                <p>32 R DU PORT THUREAU</p>
+                <p>16000 ANGOULEME</p>
+                <p>06 52 55 15 18</p>
+                <p><a href="mailto:arnaud.graciet@gmail.com">arnaud.graciet@gmail.com</a></p>
+                <br>
+                <p>MMI Companion est h&eacute;berg&eacute; sur le sol fran&ccedil;ais et par la soci&eacute;t&eacute; fran&ccedil;aise&nbsp;:</p>
+                <br>
+                <p><strong>O2SWITCH</strong></p>
+                <p>CHE DES PARDIAUX</p>
+                <p>63000 CLERMONT-FERRAND</p>
+                <p>04 44 44 60 40</p>
+                <br>
+                <p><strong>ARTICLE 2 : ACC&Egrave;S &Agrave; L'APPLICATION</strong></p>
+                <p>L'application MMI Companion offre un acc&egrave;s gratuit &agrave; ses services, regroupant divers outils universitaires tels que l'emploi du temps, l'agenda, le relev&eacute; de notes, ainsi que les absences, dans le but de simplifier la vie des &eacute;tudiants. Cet acc&egrave;s est gratuit pour tout utilisateur disposant d'une connexion Internet, et tous les frais associ&eacute;s &agrave; cette connexion sont &agrave; la charge de l'utilisateur.</p>
+                <p>Pour b&eacute;n&eacute;ficier des services de l'application, les utilisateurs non-membres doivent s'inscrire en remplissant le formulaire avec des informations sinc&egrave;res et exactes. L'acc&egrave;s aux fonctionnalit&eacute;s requiert une identification via un identifiant et un mot de passe, qui sont communiqu&eacute;s apr&egrave;s l'inscription. Tout utilisateur a la possibilit&eacute; de demander sa d&eacute;sinscription &agrave; tout moment.</p>
+                <p>Il est important de noter que l'acc&egrave;s &agrave; l'application est exclusivement r&eacute;serv&eacute; aux &eacute;tudiants, aux professeurs et au personnel appartenant ou intervenant au sein de la formation M&eacute;tiers du multim&eacute;dia et de l'internet &agrave; l'IUT d'Angoul&ecirc;me.</p>
+                <br>
+                <p><strong>ARTICLE 3 : COLLECTE DES DONN&Eacute;ES</strong></p>
+                <p>L'application assure la collecte et le traitement des informations personnelles dans le plus strict respect de la vie priv&eacute;e, en conformit&eacute; avec la loi n&deg;78-17 du 6 janvier 1978. Les donn&eacute;es collect&eacute;es englobent les &eacute;l&eacute;ments suivants :</p>
+                <br>
+                <ul>
+                  <li><strong> - Le nom</strong></li>
+                  <li><strong> - Le pr&eacute;nom</strong></li>
+                  <li><strong> - L&rsquo;adresse e-mail &eacute;tudiante</strong></li>
+                  <li><strong> - L&rsquo;emploi du temps universitaire via l&rsquo;application ADE</strong></li>
+                  <li><strong> - Les moyennes des 5 comp&eacute;tences, ainsi que le rang dans la promotion</strong></li>
+                  <li><strong> - Les absences des &eacute;tudiants</strong></li>
+                </ul>
+                <br>
+                <p>Ces donn&eacute;es sont conserv&eacute;es pendant une p&eacute;riode de 3 ans avant leur suppression. En ce qui concerne les absences et le relev&eacute; des notes, l'application MMI Companion n'y acc&egrave;de pas et n'enregistre pas ces donn&eacute;es. Seul l'utilisateur peut y acc&eacute;der. L&rsquo;utilisation des donn&eacute;es n'est pas &agrave; des fins commerciales.</p>
+                <p>L'utilisateur dispose du droit d'acc&egrave;s, de rectification, de suppression et d'opposition sur ses donn&eacute;es personnelles, droits qu'il peut exercer par mail &agrave; l'adresse rgpd@mmi-companion.fr, via un formulaire de contact, ou directement depuis son espace personnel. La prise en charge de cette demande sera effectu&eacute;e dans un d&eacute;lai maximal de 48 heures ouvr&eacute;es.</p>
+                <p>En acceptant ces conditions, vous autorisez la collecte des donn&eacute;es d&rsquo;absences et de notes par le secr&eacute;tariat et les professeurs de la formation via l&rsquo;interm&eacute;diaire du site : https://mmi-angouleme-dashboard.alwaysdata.net/ sous l&rsquo;autorit&eacute; de M. LOUET Fran&ccedil;ois, site h&eacute;berg&eacute; chez&nbsp;:</p>
+                  <br>
+                  <p><strong>ALWAYSDATA</strong></p>
+                <p>91 RUE DU FAUBOURG SAINT HONORE</p>
+                <p>75008 PARIS 8</p>
+                <p>0 1 84 16 23 40</p>
+                <br>
+                <p><strong>ARTICLE 4 : PROPRI&Eacute;T&Eacute; INTELLECTUELLE</strong></p>
+                <p>Les contenus de l'application MMI Companion (marques, logos, textes, images, son) sont prot&eacute;g&eacute;s par le Code de la propri&eacute;t&eacute; intellectuelle. Toute reproduction, publication ou copie n&eacute;cessite l'autorisation pr&eacute;alable de l'application. L'utilisation &agrave; des fins commerciales et publicitaires est strictement interdite.</p>
+                <br>
+                <p><strong>ARTICLE 5 : RESPONSABILIT&Eacute;</strong></p>
+                <p>Malgr&eacute; les efforts d&eacute;ploy&eacute;s par l'application pour fournir des informations fiables, il est important de noter que leur fiabilit&eacute; n'est pas garantie. Des d&eacute;fauts, erreurs ou omissions peuvent survenir dans les informations fournies, lesquelles sont pr&eacute;sent&eacute;es &agrave; titre indicatif et g&eacute;n&eacute;ral. Ces donn&eacute;es n'ont aucune valeur contractuelle, et l'application d&eacute;cline toute responsabilit&eacute; en cas de force majeure, d'interruption ou de modification du service.</p>
+                <p>Concernant le relev&eacute; de notes et les absences, il est crucial de souligner que seule l'information officielle d&eacute;livr&eacute;e par l'universit&eacute; en fin de semestre est consid&eacute;r&eacute;e comme valide. Les donn&eacute;es relatives aux notes et aux absences pr&eacute;sentes dans l'application sont fournies &agrave; titre informatif uniquement et ne doivent en aucun cas &ecirc;tre consid&eacute;r&eacute;es comme exhaustives ou d&eacute;finitives.</p>
+                <p>Nous d&eacute;clinons toute responsabilit&eacute; en cas d'erreurs qui pourraient survenir lors de la saisie des informations.</p>
+                <br>
+                <p><strong>ARTICLE 6 : LIENS HYPERTEXTES</strong></p>
+                <p>L'application peut contenir des liens hypertextes vers des pages externes. L'utilisateur est inform&eacute; qu'en cliquant sur ces liens, il quittera l'application MMI Companion. Cette derni&egrave;re n'a aucun contr&ocirc;le sur ces pages et ne saurait &ecirc;tre responsable de leur contenu.</p>
+                <br>
+                <p><strong>ARTICLE 7 : COOKIES</strong></p>
+                <p>L'utilisateur est inform&eacute; de l'utilisation de cookies lors de sa navigation sur l'application MMI Companion. Ces cookies am&eacute;liorent l'exp&eacute;rience utilisateur. L'utilisateur peut les d&eacute;sactiver depuis les param&egrave;tres de son navigateur.</p>
+                <br>
+                <p><strong>ARTICLE 8 : PUBLICATION PAR L&rsquo;UTILISATEUR</strong></p>
+                <p>Les membres peuvent publier des contenus sur l'application MMI Companion, tels que des informations diverses, des t&acirc;ches ou des &eacute;valuations dans l&rsquo;agenda. En publiant un contenu, le membre s'engage &agrave; respecter les r&egrave;gles de la Netiquette et les r&egrave;gles de droit en vigueur. L'application peut exercer une mod&eacute;ration sur les publications et se r&eacute;serve le droit de refuser leur mise en ligne sans justification aupr&egrave;s du membre.</p>
+                <p>Le membre reste titulaire de l'int&eacute;gralit&eacute; de ses droits de propri&eacute;t&eacute; intellectuelle. En publiant un contenu sur l'application, il c&egrave;de &agrave; la soci&eacute;t&eacute; &eacute;ditrice le droit non exclusif et gratuit de repr&eacute;senter, reproduire, adapter, modifier, diffuser et distribuer sa publication, directement ou par un tiers autoris&eacute;, dans le monde entier, sur tout support (num&eacute;rique ou physique), pour la dur&eacute;e de la propri&eacute;t&eacute; intellectuelle. Le membre c&egrave;de notamment le droit d'utiliser sa publication sur Internet et sur les r&eacute;seaux de t&eacute;l&eacute;phonie mobile.</p>
+                <p>La soci&eacute;t&eacute; &eacute;ditrice s'engage &agrave; faire figurer le nom du membre &agrave; proximit&eacute; de chaque utilisation de sa publication. Tout contenu mis en ligne par l'utilisateur est de sa seule responsabilit&eacute;. L'utilisateur s'engage &agrave; ne pas mettre en ligne de contenus pouvant porter atteinte aux int&eacute;r&ecirc;ts de tierces personnes. Tout recours en justice engag&eacute; par un tiers l&eacute;s&eacute; contre l'application sera pris en charge par l'utilisateur. Le contenu de l'utilisateur peut &ecirc;tre &agrave; tout moment et pour n'importe quelle raison supprim&eacute; ou modifi&eacute; par l'application, sans pr&eacute;avis.</p>
+                <br>
+                <p><strong>ARTICLE 9 : DROIT APPLICABLE ET JURIDICTION COMP&Eacute;TENTE</strong></p>
+                <p>La l&eacute;gislation fran&ccedil;aise s'applique au pr&eacute;sent contrat. En cas d'absence de r&eacute;solution amiable d'un litige n&eacute; entre les parties, les tribunaux fran&ccedil;ais seront seuls comp&eacute;tents pour en conna&icirc;tre. Pour toute question relative &agrave; l'application des pr&eacute;sentes CGU, vous pouvez joindre l'&eacute;diteur aux coordonn&eacute;es indiqu&eacute;es &agrave; l'ARTICLE 1.</p>
+                <p>Ces Conditions G&eacute;n&eacute;rales d'Utilisation ont &eacute;t&eacute; &eacute;tablies en accord avec la r&eacute;glementation fran&ccedil;aise et europ&eacute;enne en vigueur, notamment le RGPD, pour assurer la protection des droits et de la vie priv&eacute;e des utilisateurs de l'application MMI Companion.</p>
+                <p>En acceptant ces CGU, vous reconnaissez avoir pris connaissance et accept&eacute; les dispositions qui y sont contenues.</p>
+              </div>
+              <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.php">CGU</a> de MMI Companion.</strong></p>
+            </div>
+            <div class="trait_content_CGU-index"></div>
+            <input id="button_CGU-validate" class="button_CGU-index" value="C'est parti !" onclick="acceptCGU();">
+          </section>
+        <?php
+        }
 
     return $user;
 }

@@ -161,7 +161,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </form>
 
 
-    <div id="snow-container"></div></main>
+      <div id="snow-container"></div>
+    </main>
 
   </body>
 
@@ -214,7 +215,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   </script>
 <?php } else {
 
-?>
+  ?>
 
   <body class="body-all">
 
@@ -241,8 +242,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         <p>Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       </div>
 
-      
-    <div id="snow-container"></div></main>
+
+      <div id="snow-container"></div>
+    </main>
 
   </body>
 
@@ -250,11 +252,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
   <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
-  <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
+  <script src="../assets/js/menu-navigation.js"></script>
+  <script src="../assets/js/snow.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
-
-
     // Faire apparaître le background dans le menu burger
     let select_background_profil = document.querySelector('#select_background_calendar-header');
     select_background_profil.classList.add('select_link-header');
@@ -457,10 +458,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           }
           if (duration >= 1800000 && duration <= 4500000) {
             if (eventLocation && calendar.view.type === 'timeGridWeek') {
-              eventContent = '<div class="fc-description" style="font-size:0.52rem">'+ eventTitle +' - ' + eventLocation +'</div>';
-          } else if (eventLocation && calendar.view.type === 'timeGridDay') {
-            eventContent = '<div class="fc-description" style="font-size:0.8rem">'+ eventTitle +' - '+ test +' - ' + eventLocation + ' - ' + eventHour + '</div>';
-          }}
+              eventContent = '<div class="fc-description" style="font-size:0.52rem">' + eventTitle + ' - ' + eventLocation + '</div>';
+            } else if (eventLocation && calendar.view.type === 'timeGridDay') {
+              eventContent = '<div class="fc-description" style="font-size:0.8rem">' + eventTitle + ' - ' + test + ' - ' + eventLocation + ' - ' + eventHour + '</div>';
+            }
+          }
           return {
             html: eventContent
           };
