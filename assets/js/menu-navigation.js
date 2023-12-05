@@ -139,9 +139,8 @@ function acceptCGU() {
 const CGUbtn = document.querySelector('#button_CGU-validate');
 CGUbtn.addEventListener('click', function() {
   acceptCGU();
-  console.log('click');
 });
+
 CGUbtn.addEventListener('touchstart', function() {
   acceptCGU();
-  console.log('touch');
 });
