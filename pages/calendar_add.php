@@ -68,23 +68,9 @@ echo head("MMI Companion | Emploi du temps");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header" id="burger-header">
-                <div class="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Emploi du temps</h1>
-            </div>
-        </div>
-
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-         
-
-    </header>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
     <!-- Fin du menu de navigation -->
+    
     <!-- Corps de la page -->
     <main class="main-calendar_add">
         <div style="height:30px"></div>
@@ -150,8 +136,8 @@ echo head("MMI Companion | Emploi du temps");
         </form>
 
 
-    </main>
-    <script src="../assets/js/menu-navigation.js"></script>
+    <div id="snow-container"></div></main>
+    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_calendar-header');

@@ -36,11 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty(
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-    $logFileName = 'errorlog_' . date('Ymd_His') . '.txt';
+    //$logFileName = 'errorlog_' . date('Ymd_His') . '.txt';
 
     // sauvegarde les logs
-    // curl_setopt($ch, CURLOPT_VERBOSE, true);
-    // curl_setopt($ch, CURLOPT_STDERR, fopen(dirname(__FILE__) . '/' . $logFileName, 'w'));
+    //curl_setopt($ch, CURLOPT_VERBOSE, true);
+    //curl_setopt($ch, CURLOPT_STDERR, fopen(dirname(__FILE__) . '/' . $logFileName, 'w'));
+
 
     if (curl_error($ch)) {
         $error_msg = curl_error($ch);

@@ -16,13 +16,18 @@
     --texte: #5a3600; */
 
     /* Thème bleu */
-    --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+    /* --fc-today-bg-color: rgba(144, 222, 255, 0.192);
     --bleu-trs-clair-background: #DDF0FF;
     --bleu-clair-background: #B9E0FF;
     --bleu-moyen: #56B8D6;
-    --texte: #004A5A;
+    --texte: #004A5A; */
 
     /* Thème Noël */
+    --fc-today-bg-color: rgba(255, 144, 144, 0.192);
+    --bleu-trs-clair-background: #ffdddd;
+    --bleu-clair-background: #ffb9b9;
+    --bleu-moyen: #d65656;
+    --texte: #5a0000;
 
 }
 
@@ -32,11 +37,11 @@ a {
 }
 
 body {
-    touch-action: manipulation
+    touch-action: manipulation;
 }
 
 main {
-    touch-action: manipulation
+    touch-action: manipulation;
 }
 
 .no-scroll {
@@ -58,12 +63,71 @@ main {
 /* HEADER */
 
 .content_header {
+    position: relative;
     width: 100vw;
     height: 65px;
     flex-shrink: 0;
     border-radius: 0px 0px 20px 20px;
     background: var(--bleu-clair-background);
 }
+
+
+.img_neige-header {
+    position: absolute;
+    bottom: -37px;
+    right: 20px;
+
+    width: 230px;
+}
+
+.img_guirlande-header{
+    position: absolute;
+    top: -70px;
+    right: 0px;
+
+    width: 150px;
+    overflow: hidden;
+}
+
+
+
+
+.snowflake {
+    position: absolute;
+    background: #fff;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: fall linear infinite;
+
+    z-index: -1;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(100vh);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* HEADER ALL */
 
@@ -77,8 +141,17 @@ main {
 }
 
 .burger-header{
+    position: relative;
     transform: rotate(0);
     transition: transform 0.4s ease-in-out;
+}
+
+.img_bonnet_noel-header{
+    position: absolute;
+    top: -10px;
+    left: -15px;
+    width: 30px;
+    transform: rotate(-30deg);
 }
 
 .burger-header.active {
@@ -108,6 +181,7 @@ main {
     font-weight: 700;
     line-height: normal;
 }
+
 
 
 
@@ -923,9 +997,60 @@ main {
 }
 
 
+/* Page de CGU */
 
-
-
+.CGU-index{
+    position: absolute;
+	top: 0;
+	left: 0;
+    background-color: var(--bleu-clair-background);
+	width: 100%;
+	height: 100%;
+    z-index: 100;
+    font-family: Montserrat;
+    text-align: center;
+    color: var(--texte);
+}
+.title_content_CGU-index{
+    margin-top: 2vh;
+}
+.CGU_content{
+    width: 90vw;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+    height: 75vh;
+    overflow-y: scroll;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    background-color: var(--bleu-trs-clair-background);
+    text-align: justify;
+    margin-bottom: 1vh;
+    border-radius: 20px;
+    text-decoration: none;
+}
+.button_CGU-index{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    text-align: center;
+    border: none;
+    width: 120px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: var(--bleu-moyen);
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 
 
@@ -1119,9 +1244,9 @@ main {
     border-radius: 20px !important;
     width: 60px !important;
 }
+
 .last_backup_cal{
-    margin-top: -3px;
-    margin-bottom: 7px;
+    text-align: center;
 }
 
 /* CALENDAR_ADD.PHP */

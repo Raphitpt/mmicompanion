@@ -161,6 +161,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </form>
 
 
+      <div id="snow-container"></div>
     </main>
 
   </body>
@@ -214,54 +215,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   </script>
 <?php } else {
 
-?>
+  ?>
 
   <body class="body-all">
 
-    <!-- <header class="header-calendar">
-      <div class="content_header-calendar">
-
-        <div class="burger-header-calendar" id="burger-header">
-          <i class="fi fi-br-bars-sort"></i>
-        </div>
-
-        <div class="content-header-calendar">
-          <div class="content_title-header-calendar">
-            <h1>Salut <span style="font-weight:800">
-                <?php //echo ucfirst($user['pname']) 
-                ?><span></h1>
-            <p>en ligne</p>
-          </div>
-          <div style="width:10px"></div>
-          <a href="./profil.php">
-            <div class="content_img-header-calendar">
-              <div class="rounded-img">
-                <img src="<?php //echo $user_sql['pp_link'] 
-                          ?>" alt="Photo de profil">
-              </div>
-              <div class="green_circle"></div>
-            </div>
-          </a>
-        </div>
-      </div>
-
-      <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-    </header> -->
-
-    <header>
-      <div class="content_header">
-        <div class="content_title-header">
-          <div class="burger-header" id="burger-header">
-            <i class="fi fi-br-bars-sort"></i>
-          </div>
-          <div style="width:20px"></div>
-          <h1>Emploi du temps</h1>
-        </div>
-      </div>
-      <?php generateBurgerMenuContent($user_sql['role']) ?>
-
-    </header>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
 
     <div style="height:15px"></div>
 
@@ -273,13 +231,19 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
         <div style="height:15px"></div>
       <?php } ?>
-      <p class="last_backup_cal">Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
 
           <div id="calendar"></div>
         </div>
       </section>
+      <div style="height:10px"></div>
+      <div class="last_backup_cal">
+        <p>Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
+      </div>
+
+
+      <div id="snow-container"></div>
     </main>
 
   </body>
@@ -289,6 +253,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
   <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
   <script src="../assets/js/menu-navigation.js"></script>
+  <script src="../assets/js/snow.js"></script>
   <script src="../assets/js/app.js"></script>
   <script>
     // Faire apparaître le background dans le menu burger
@@ -502,10 +467,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           }
           if (duration >= 1800000 && duration <= 4500000) {
             if (eventLocation && calendar.view.type === 'timeGridWeek') {
-              eventContent = '<div class="fc-description" style="font-size:0.52rem">'+ eventTitle +' - ' + eventLocation +'</div>';
-          } else if (eventLocation && calendar.view.type === 'timeGridDay') {
-            eventContent = '<div class="fc-description" style="font-size:0.8rem">'+ eventTitle +' - '+ test +' - ' + eventLocation + ' - ' + eventHour + '</div>';
-          }}
+              eventContent = '<div class="fc-description" style="font-size:0.52rem">' + eventTitle + ' - ' + eventLocation + '</div>';
+            } else if (eventLocation && calendar.view.type === 'timeGridDay') {
+              eventContent = '<div class="fc-description" style="font-size:0.8rem">' + eventTitle + ' - ' + test + ' - ' + eventLocation + ' - ' + eventHour + '</div>';
+            }
+          }
           return {
             html: eventContent
           };

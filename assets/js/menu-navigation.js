@@ -113,3 +113,30 @@ function updatePoints(x) {
   let data = 'points=' + encodeURIComponent(points);
   xhr.send(data);
 }
+
+function acceptCGU() {
+  let xhr = new XMLHttpRequest();
+
+  xhr.open('POST', './../pages/acceptCGU.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+  xhr.onreadystatechange = function() {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+              console.log('CGU acceptées avec succès !');
+              document.querySelector('.CGU-index').style.display = 'none';
+          } else {
+              console.error('Erreur lors de l\'acceptation des CGU');
+          }
+      }
+  };
+
+  let data = 'CGU=' + encodeURIComponent('true');
+  xhr.send(data);
+
+}
+
+const CGUbtn = document.querySelector('.button_CGU-validate');
+CGUbtn.addEventListener('click', function() {
+  acceptCGU();
+});

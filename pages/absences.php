@@ -31,22 +31,9 @@ echo head("MMI Companion | Scolarité");
 
 
 <body class="body-all">
-    <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header">
-                <div class="burger-header" id="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Scolarité</h1>
-            </div>
-        </div>
 
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Scolarité') ?>
 
-         
-    </header>
     <main class="main-scolarite">
         <div style="height:30px"></div>
         <div class="scol_info_container">
@@ -102,17 +89,19 @@ echo head("MMI Companion | Scolarité");
                 <div id="absences"></div>
             </div>
         </div>
-        <!-- <div class="info_title_flextop-informations">
+       <div class="info_title_flextop-informations">
             <div class="title_trait">
                 <h1>Notes</h1>
                 <div></div>
             </div>
         </div>
         <div style="height:30px"></div>
-        <p>Le relevé de notes arrive prochainement</p> -->
-    </main>
+        <p>Le relevé de notes arrive prochainement</p>
+    <div id="snow-container"></div></main>
+
 </body>
 <script src="../assets/js/menu-navigation.js"></script>
+<script src="../assets/js/snow.js"></script>
 <script>
     // Faire apparaître le background dans le menu burger
     let select_background_profil = document.querySelector('#select_background_vie_sco-header');
