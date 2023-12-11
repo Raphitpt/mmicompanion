@@ -28,8 +28,10 @@
     --bleu-clair-background: #ffb9b9;
     --bleu-moyen: #d65656;
     --texte: #5a0000;
+    --blanc: #fff;
 
 }
+
 
 a {
     text-decoration: none;
@@ -1145,11 +1147,12 @@ main {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--blanc);
     border-radius: 20px;
     padding: 10px;
     padding-top: 20px;
     max-height: 900px;
+    color: var(--texte);
 }
 
 .fc .fc-toolbar.fc-header-toolbar{
@@ -1221,7 +1224,8 @@ main {
 
 .fc-timegrid-slot-label-cushion{
     transform: translateY(-11px) translateX(-5px);
-    background-color: white;
+    background-color: var(--blanc);
+    color: var(--texte);
     text-align: left;
     font-size: 13px !important;
 }
@@ -1560,7 +1564,7 @@ main {
 
 .agenda_content-agenda {
     border-radius: 20px;
-    background: #FFF;
+    background: var(--blanc);
     padding: 20px;
 }
 
@@ -1595,7 +1599,7 @@ main {
     appearance: none;
     background-color: #fff;
     width: 18px !important;
-    height: 18px;
+    height: 18px !important;
     aspect-ratio: 1 / 1;
     border: 1.5px solid currentColor;
     display: grid;
@@ -2015,7 +2019,7 @@ p {
 .content {
     display: none;
     padding: 10px;
-    background-color: #ffffff65;
+    background-color: var(--bleu-clair-background);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.6s ease-in-out;
@@ -2395,6 +2399,7 @@ p {
 
 .trumbowyg-box, .trumbowyg-editor-box {
     border: none !important;
+    max-width: 80vw !important;
 }
 
 .trumbowyg-button-pane{
@@ -2875,6 +2880,62 @@ p {
     font-weight: 800;
     line-height: normal;
 }
+.profil_theme-profil{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+.profil_theme-profil label{
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--texte);
+}
+.profil_theme-switch{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.profil_theme-switch select{
+    width: 100%;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: #fefefe;
+    padding: 0px 20px;
+    font-family: Montserrat;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #858585;
+}
+
+.profil_themes-festifs{
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+.profil_cgu{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
 /* Modal StrawPoll */
 /* Styles pour la fenêtre modale */
 .trumbowyg-modal-box {
@@ -2967,5 +3028,82 @@ p {
         padding: 8px;
     }
 }
+[data-theme="dark"] {
+    --fc-today-bg-color: rgba(155, 155, 155, 0.192);
+    --bleu-trs-clair-background: #000000;
+    --bleu-clair-background: #323232;
+    --bleu-moyen: #ffffff;
+    --texte: #ffffff;
+}
 
+/* Styles spécifiques au thème sombre */
+[data-theme="dark"] .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
+    color: var(--bleu-trs-clair-background) !important;
+}
 
+[data-theme="dark"] .agenda_title_flextopright-agenda a {
+    color: var(--bleu-trs-clair-background) !important;
+}
+
+[data-theme="dark"] .form_button-agenda input[type="submit"] {
+    color: var(--bleu-trs-clair-background) !important;
+}
+
+[data-theme="dark"] .container_input-agenda_add i,
+[data-theme="dark"] .container_input_date-agenda_add i {
+    color: var(--bleu-trs-clair-background) !important;
+}
+
+[data-theme="dark"] #semestre {
+    color: var(--bleu-trs-clair-background) !important;
+}
+
+[data-theme="dark"] .item-information {
+    background: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .item_content_title_flexbottom-information p:nth-child(1) {
+    color: var(--texte) !important;
+}
+
+[data-theme="dark"] .info_title_flextopright-informations a {
+    color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .form_butttonValidate-informations {
+    color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .edit_profil_picture-img i {
+    color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .button_notifications-profil button {
+    background-color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .profil_form-password input[type="submit"] {
+    color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .button_register {
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .agenda_content-agenda {
+    background: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] #calendar {
+    background: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .fc-timegrid-slot-label-cushion{
+    background: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .agenda_title_content_list_item_flexleft-agenda label{
+    color: var(--texte) !important;
+}
+[data-theme="dark"] .form_content-informations_add p{
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .profil_cgu{
+    color: var(--texte) !important;
+}
