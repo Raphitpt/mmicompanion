@@ -2400,6 +2400,7 @@ p {
 
 .trumbowyg-box, .trumbowyg-editor-box {
     border: none !important;
+    max-width: 80vw !important;
 }
 
 .trumbowyg-button-pane{
@@ -3053,6 +3054,9 @@ p {
     }
     .agenda_title_content_list_item_flexleft-agenda label{
         color: var(--texte) !important;
+    }
+    .form_content-informations_add p{
+        color: var(--bleu-clair-background) !important;
     }
 }
 
