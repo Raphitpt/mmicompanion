@@ -89,7 +89,7 @@ echo head("MMI Companion | Scolarité");
                 <div id="absences"></div>
             </div>
         </div>
-        <div class="info_title_flextop-informations">
+       <div class="info_title_flextop-informations">
             <div class="title_trait">
                 <h1>Notes</h1>
                 <div></div>
@@ -98,6 +98,7 @@ echo head("MMI Companion | Scolarité");
         <div style="height:30px"></div>
         <p>Le relevé de notes arrive prochainement</p>
     <div id="snow-container"></div></main>
+
 </body>
 <script src="../assets/js/menu-navigation.js"></script>
 <script src="../assets/js/snow.js"></script>
