@@ -2928,6 +2928,14 @@ p {
     gap: 10px;
     width: 100%;
 }
+.profil_cgu{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
 
 /* Modal StrawPoll */
 /* Styles pour la fenêtre modale */
@@ -3096,4 +3104,7 @@ p {
 }
 [data-theme="dark"] .form_content-informations_add p{
     color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .profil_cgu{
+    color: var(--texte) !important;
 }
