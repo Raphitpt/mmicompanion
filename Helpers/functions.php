@@ -39,7 +39,7 @@ function head(string $title = ''): string
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=1.9" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=2.01" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
