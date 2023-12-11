@@ -140,6 +140,7 @@ const CGUbtn = document.querySelector('#button_CGU-validate');
 CGUbtn.addEventListener('click', function() {
   acceptCGU();
 });
+
 CGUbtn.addEventListener('touchstart', function() {
   acceptCGU();
 });
