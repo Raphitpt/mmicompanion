@@ -28,8 +28,10 @@
     --bleu-clair-background: #ffb9b9;
     --bleu-moyen: #d65656;
     --texte: #5a0000;
+    --blanc: #fff;
 
 }
+
 
 a {
     text-decoration: none;
@@ -1146,11 +1148,12 @@ main {
     font-family: 'Montserrat', sans-serif;
     font-size: 15px;
     width: 100%;
-    background-color: #fff;
+    background-color: var(--blanc);
     border-radius: 20px;
     padding: 10px;
     padding-top: 20px;
     max-height: 900px;
+    color: var(--texte);
 }
 
 .fc .fc-toolbar.fc-header-toolbar{
@@ -1222,7 +1225,8 @@ main {
 
 .fc-timegrid-slot-label-cushion{
     transform: translateY(-11px) translateX(-5px);
-    background-color: white;
+    background-color: var(--blanc);
+    color: var(--texte);
     text-align: left;
     font-size: 13px !important;
 }
@@ -1561,7 +1565,7 @@ main {
 
 .agenda_content-agenda {
     border-radius: 20px;
-    background: #FFF;
+    background: var(--blanc);
     padding: 20px;
 }
 
@@ -1596,7 +1600,7 @@ main {
     appearance: none;
     background-color: #fff;
     width: 18px !important;
-    height: 18px;
+    height: 18px !important;
     aspect-ratio: 1 / 1;
     border: 1.5px solid currentColor;
     display: grid;
@@ -2016,7 +2020,7 @@ p {
 .content {
     display: none;
     padding: 10px;
-    background-color: #ffffff65;
+    background-color: var(--bleu-clair-background);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.6s ease-in-out;
@@ -2968,5 +2972,87 @@ p {
         padding: 8px;
     }
 }
+@media (prefers-color-scheme: dark){
+    :root{
+        /* Thème Halloween */
+        /* --fc-today-bg-color: rgba(255, 211, 144, 0.192);
+        --bleu-trs-clair-background: #fff1dd;
+        --bleu-clair-background: #ffca84;
+        --bleu-moyen: #d38842;
+        --texte: #5a3600; */
 
+        /* Thème bleu */
+        /* --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+        --bleu-trs-clair-background: #DDF0FF;
+        --bleu-clair-background: #B9E0FF;
+        --bleu-moyen: #56B8D6;
+        --texte: #004A5A; */
+
+        /* Thème Noël Dark */
+        /* --fc-today-bg-color: rgba(255, 144, 144, 0.192);
+        --bleu-trs-clair-background: #ffdddd;
+        --bleu-clair-background: #ffb9b9;
+        --bleu-moyen: #d65656;
+        --texte: #5a0000; */
+        /* Theme dark */
+
+        --fc-today-bg-color: rgba(155, 155, 155, 0.192);
+        --bleu-trs-clair-background: #000000;
+        --bleu-clair-background: #323232;
+        --bleu-moyen: #ffffff;
+        --texte: #ffffff;
+
+    }
+    .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button{
+        color: var(--bleu-trs-clair-background) !important;
+    }
+    .agenda_title_flextopright-agenda a{
+        color: var(--bleu-trs-clair-background) !important;
+    }
+    .form_button-agenda input[type="submit"]{
+        color: var(--bleu-trs-clair-background) !important;
+    }
+    .container_input-agenda_add i, .container_input_date-agenda_add i{
+        color: var(--bleu-trs-clair-background) !important;
+    }
+    #semestre{
+        color: var(--bleu-trs-clair-background) !important;
+    }
+    .item-information{
+        background: var(--bleu-clair-background) !important;
+    }
+    .item_content_title_flexbottom-information p:nth-child(1){
+        color: var(--texte) !important;
+    }
+    .info_title_flextopright-informations a{
+        color: var(--bleu-clair-background) !important;
+    }
+    .form_butttonValidate-informations{
+        color: var(--bleu-clair-background) !important;
+    }
+    .edit_profil_picture-img i{
+        color: var(--bleu-clair-background) !important;
+    }
+    .button_notifications-profil button{
+        background-color: var(--bleu-clair-background) !important;
+    }
+    .profil_form-password input[type="submit"]{
+        color: var(--bleu-clair-background) !important;
+    }
+    .button_register{
+        color: var(--bleu-clair-background) !important;
+    }
+    .agenda_content-agenda{
+        background: var(--bleu-clair-background) !important;
+    }
+    #calendar{
+        background: var(--bleu-clair-background) !important;
+    }
+    .fc-timegrid-slot-label-cushion{
+        background: var(--bleu-clair-background) !important;
+    }
+    .agenda_title_content_list_item_flexleft-agenda label{
+        color: var(--texte) !important;
+    }
+}
 

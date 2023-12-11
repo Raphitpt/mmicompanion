@@ -506,7 +506,7 @@ function onConnect($dbh)
                 <p>Ces Conditions G&eacute;n&eacute;rales d'Utilisation ont &eacute;t&eacute; &eacute;tablies en accord avec la r&eacute;glementation fran&ccedil;aise et europ&eacute;enne en vigueur, notamment le RGPD, pour assurer la protection des droits et de la vie priv&eacute;e des utilisateurs de l'application MMI Companion.</p>
                 <p>En acceptant ces CGU, vous reconnaissez avoir pris connaissance et accept&eacute; les dispositions qui y sont contenues.</p>
               </div>
-              <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.php">CGU</a> de MMI Companion.</strong></p>
+              <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.html">CGU</a> de MMI Companion.</strong></p>
             </div>
             <div class="trait_content_CGU-index"></div>
             <button id="button_CGU-validate" class="button_CGU-index">C'est parti !</button>
