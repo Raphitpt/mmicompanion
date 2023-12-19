@@ -180,8 +180,6 @@ echo head("MMI Companion | Agenda");
                 <h1>Agenda</h1>
             </div>
         </div>
-
-        <?php generateBurgerMenuContent($user_sql['role']) ?>
     </header>
 
     <!-- Corps de la page -->
