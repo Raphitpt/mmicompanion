@@ -659,14 +659,15 @@ function send_activation_email(string $email, string $activation_code, string $n
 
     // send the email
     $_SESSION['mail_message'] = "";
-    if (mail($email, $subject, $message, $headers, '-f' . SENDER_EMAIL_ADDRESS)) {
+    mail($email, $subject, $message, $headers, '-f' . SENDER_EMAIL_ADDRESS);
+
+    // if () {
+    //     $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
         
-        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
-        
-    } else {
-        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
-        error_log("Error sending activation email to $email");
-    }
+    // } else {
+    //     $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+    //     error_log("Error sending activation email to $email");
+    // }
 }
 
 function send_reset_password(string $email, string $activation_code)
