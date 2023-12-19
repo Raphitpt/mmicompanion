@@ -89,15 +89,29 @@ echo head("MMI Companion | Scolarité");
                 <div id="absences"></div>
             </div>
         </div>
-       <div class="info_title_flextop-informations">
+        <div class="info_title_flextop-informations">
             <div class="title_trait">
                 <h1>Notes</h1>
-                <div></div>
+                
             </div>
+            <table id="tableauNotes">
+                    <thead>
+                        <tr>
+                            <th>UE</th>
+                            <th>Moyenne</th>
+                            <th>Rang</th>
+                            <th>Moyenne Promo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Les données seront insérées ici via JavaScript -->
+                    </tbody>
+                </table>
         </div>
         <div style="height:30px"></div>
-        <p>Le relevé de notes arrive prochainement</p>
-    <div id="snow-container"></div></main>
+        <div id="notes"></div>
+        <div id="snow-container"></div>
+    </main>
 
 </body>
 <script src="../assets/js/menu-navigation.js"></script>
@@ -113,85 +127,112 @@ echo head("MMI Companion | Scolarité");
     const justifMain = document.getElementById('justif');
     const totalMain = document.getElementById('total');
 
+    const tableau = document.getElementById('tableauNotes');
+    const tbody = tableau.getElementsByTagName("tbody")[0];
+
     window.addEventListener('load', loadAbsences);
 
     function loadAbsences() {
-    const semestreVal = semestre.value;
-    const xhr = new XMLHttpRequest();
+        const semestreVal = semestre.value;
+        const xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            const result = JSON.parse(xhr.responseText);
-            console.log(result);
-            totalMain.innerHTML = '';
-            justifMain.innerHTML = '';
-            absenceMain.innerHTML = '';
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                const result = JSON.parse(xhr.responseText);
+                console.log(result);
+                totalMain.innerHTML = '';
+                justifMain.innerHTML = '';
+                absenceMain.innerHTML = '';
 
-            const absences = result.absences;
-            const total = absences.total;
-            const unjustified = absences.unjustified;
-            const detailled = absences.detailled;
 
-            if (total == 0) {
-                const totalElement = document.createElement('p');
-                totalElement.textContent = `Aucune absence n'a été trouvée pour ce semestre.`;
-                totalMain.appendChild(totalElement);
-            } else {
-                const totalElement = document.createElement('p');
-                totalElement.textContent = `Tu as ${total} absence(s)`;
-                totalMain.appendChild(totalElement);
+                const absences = result.absences;
+                const total = absences.total;
+                const unjustified = absences.unjustified;
+                const detailled = absences.detailled;
 
-                // Créer un bouton de collapse unique pour toutes les semaines
-                const semaineElementButton = document.createElement('button');
-                semaineElementButton.setAttribute('class', 'collapsible');
-                semaineElementButton.textContent = `Voir le détail des absences`;
-                absenceMain.appendChild(semaineElementButton);
 
-                // Créer un conteneur pour le contenu des semaines
-                const semaineElementContent = document.createElement('div');
-                semaineElementContent.setAttribute('class', 'content');
-                absenceMain.appendChild(semaineElementContent);
+                // Boucle à travers les données et insérer dans le tableau
+                for (const ue in result.notes.ues) {
+                    if (result.notes.ues.hasOwnProperty(ue) && result.notes.ues[ue].moy !== null) {
+                        const ueData = result.notes.ues[ue];
 
-                if (unjustified > 0) {
-                    const unjustifiedElement = document.createElement('p');
-                    unjustifiedElement.textContent = `Tu as ${unjustified} absence(s) injustifiée(s)`;
-                    justifMain.appendChild(unjustifiedElement);
-                } else {
-                    const unjustifiedElement = document.createElement('p');
-                    unjustifiedElement.textContent = `Il n'y a aucune absence injustifiée.`;
-                    justifMain.appendChild(unjustifiedElement);
+                        // Créer une nouvelle ligne
+                        const row = tbody.insertRow();
+
+                        // Insérer les cellules avec les données correspondantes
+                        const cellUE = row.insertCell(0);
+                        const cellMoyenne = row.insertCell(1);
+                        const cellRang = row.insertCell(2);
+                        const cellMoyennePromo = row.insertCell(3);
+
+                        // Remplir les cellules avec les données
+                        cellUE.textContent = ue;
+                        cellMoyenne.textContent = ueData.moy !== null ? ueData.moy : "N/A";
+                        cellRang.textContent = ueData.rang;
+                        cellMoyennePromo.textContent = ueData.moy_promo.toFixed(2);
+                    }
                 }
 
-                // Pour chaque semaine, ajouter le détail au conteneur de contenu des semaines
-                for (const semaine in detailled) {
-                    if (detailled.hasOwnProperty(semaine)) {
-                        if (detailled[semaine].t > 0) {
-                            const semaineDetail = document.createElement('p');
-                            semaineDetail.textContent = `Semaine ${semaine}: Justifiées: ${detailled[semaine].j}, Total: ${detailled[semaine].t}`;
-                            semaineElementContent.appendChild(semaineDetail);
+                if (total == 0) {
+                    const totalElement = document.createElement('p');
+                    totalElement.textContent = `Aucune absence n'a été trouvée pour ce semestre.`;
+                    totalMain.appendChild(totalElement);
+                } else {
+                    const totalElement = document.createElement('p');
+                    totalElement.textContent = `Tu as ${total} absence(s)`;
+                    totalMain.appendChild(totalElement);
+
+                    // Créer un bouton de collapse unique pour toutes les semaines
+                    const semaineElementButton = document.createElement('button');
+                    semaineElementButton.setAttribute('class', 'collapsible');
+                    semaineElementButton.textContent = `Voir le détail des absences`;
+                    absenceMain.appendChild(semaineElementButton);
+
+                    // Créer un conteneur pour le contenu des semaines
+                    const semaineElementContent = document.createElement('div');
+                    semaineElementContent.setAttribute('class', 'content');
+                    absenceMain.appendChild(semaineElementContent);
+
+                    if (unjustified > 0) {
+                        const unjustifiedElement = document.createElement('p');
+                        unjustifiedElement.textContent = `Tu as ${unjustified} absence(s) injustifiée(s)`;
+                        justifMain.appendChild(unjustifiedElement);
+                    } else {
+                        const unjustifiedElement = document.createElement('p');
+                        unjustifiedElement.textContent = `Il n'y a aucune absence injustifiée.`;
+                        justifMain.appendChild(unjustifiedElement);
+                    }
+
+                    // Pour chaque semaine, ajouter le détail au conteneur de contenu des semaines
+                    for (const semaine in detailled) {
+                        if (detailled.hasOwnProperty(semaine)) {
+                            if (detailled[semaine].t > 0) {
+                                const semaineDetail = document.createElement('p');
+                                semaineDetail.textContent = `Semaine ${semaine}: Justifiées: ${detailled[semaine].j}, Total: ${detailled[semaine].t}`;
+                                semaineElementContent.appendChild(semaineDetail);
+                            }
                         }
                     }
+
+                    // Ajouter un gestionnaire d'événements pour le bouton de collapse
+                    semaineElementButton.addEventListener('click', function() {
+                        this.classList.toggle('active');
+                        if (semaineElementContent.style.display === 'block') {
+                            semaineElementContent.style.display = 'none';
+                        } else {
+                            semaineElementContent.style.display = 'block';
+                        }
+                    });
                 }
-
-                // Ajouter un gestionnaire d'événements pour le bouton de collapse
-                semaineElementButton.addEventListener('click', function () {
-                    this.classList.toggle('active');
-                    if (semaineElementContent.style.display === 'block') {
-                        semaineElementContent.style.display = 'none';
-                    } else {
-                        semaineElementContent.style.display = 'block';
-                    }
-                });
             }
-        }
-    };
+        };
 
-    const data = new FormData();
-    data.append('semestre', semestreVal);
+        const data = new FormData();
+        data.append('semestre', semestreVal);
 
-    xhr.open('POST', 'absence_get.php', true);
-    xhr.send(data);
-}
+        xhr.open('POST', 'absence_get.php', true);
+        xhr.send(data);
+    }
 
     semestre.addEventListener('change', loadAbsences);
 </script>

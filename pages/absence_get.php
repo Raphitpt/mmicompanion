@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty(
 
     $credentials = base64_encode($USER_name . ':' . $USER_password);
 
-    $url = "https://mmi-angouleme-dashboard.alwaysdata.net/api-v1/absences/". $semestre ."/". $edu_mail ."?detailled=true";
+    $url = "https://mmi-angouleme-dashboard.alwaysdata.net/api-v1/". $semestre ."/". $edu_mail ."?detailled=true";
     $headers = [
         'Accept: application/json',
         "Authorization: Basic $credentials",
