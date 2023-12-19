@@ -636,6 +636,9 @@ function generate_activation_code(): string
 
 const APP_URL = 'https://app.mmi-companion.fr/pages';
 const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 function send_activation_email(string $email, string $activation_code, string $name)
 {
     // create the activation link
@@ -659,7 +662,34 @@ function send_activation_email(string $email, string $activation_code, string $n
 
     // send the email
     $_SESSION['mail_message'] = "";
-    mail($email, $subject, $message, $headers, '-f' . SENDER_EMAIL_ADDRESS);
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = "mail.mmi-companion.fr";                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = "no-reply@mmi-companion.fr";                     // SMTP username
+        $mail->Password   = "v$2ZXeZq]Ebv";                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = "465";                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email, $name);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } catch (Exception $e) {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
+    // mail($email, $subject, $message, $headers, '-f' . SENDER_EMAIL_ADDRESS);
 
     // if () {
     //     $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
