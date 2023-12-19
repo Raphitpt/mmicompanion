@@ -667,7 +667,6 @@ function send_activation_email(string $email, string $activation_code, string $n
         $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
         error_log("Error sending activation email to $email");
     }
-    dd($_SESSION['mail_message']);
 }
 
 function send_reset_password(string $email, string $activation_code)
