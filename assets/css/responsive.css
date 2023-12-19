@@ -6,6 +6,9 @@
     .main-desktop {
         display: flex;
     }
+    #snow-container{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 1024px) {
