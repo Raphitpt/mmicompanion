@@ -99,7 +99,7 @@ echo head("MMI Companion | Scolarité");
         <p>Le relevé de notes arrive prochainement</p>
     <div id="snow-container"></div></main>
 </body>
-<script src="../assets/js/menu-navigation.js"></script>
+<script src="../assets/js/menu-navigation.js?v=1.1"></script>
 <script src="../assets/js/snow.js"></script>
 <script>
     // Faire apparaître le background dans le menu burger

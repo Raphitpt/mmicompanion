@@ -141,7 +141,7 @@ echo head('MMI Companion | Informations');
 
     <div id="snow-container"></div></main>
 
-    <script src="../assets/js/menu-navigation.js"></script><script src="../assets/js/snow.js"></script>
+    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
     <script src="../assets/js/tree.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>

@@ -39,14 +39,14 @@ function head(string $title = ''): string
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=2.1" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=2.02" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
+  
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
@@ -506,7 +506,7 @@ function onConnect($dbh)
                 <p>Ces Conditions G&eacute;n&eacute;rales d'Utilisation ont &eacute;t&eacute; &eacute;tablies en accord avec la r&eacute;glementation fran&ccedil;aise et europ&eacute;enne en vigueur, notamment le RGPD, pour assurer la protection des droits et de la vie priv&eacute;e des utilisateurs de l'application MMI Companion.</p>
                 <p>En acceptant ces CGU, vous reconnaissez avoir pris connaissance et accept&eacute; les dispositions qui y sont contenues.</p>
               </div>
-              <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.php">CGU</a> de MMI Companion.</strong></p>
+              <p>En cliquant sur "C'est parti !", <strong>vous avez lu et vous acceptez les <a href="https://mmi-companion.fr/cgu.html">CGU</a> de MMI Companion.</strong></p>
             </div>
             <div class="trait_content_CGU-index"></div>
             <button id="button_CGU-validate" class="button_CGU-index">C'est parti !</button>
