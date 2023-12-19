@@ -92,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 'pname' => $pname
             );
             $_SESSION['post_data'] = $data;
+            
             header('Location: ./mail.php');
             exit();
         }

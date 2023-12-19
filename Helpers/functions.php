@@ -641,7 +641,7 @@ function send_activation_email(string $email, string $activation_code, string $n
     // create the activation link
     $activation_link = APP_URL . "/verify_mail.php?email=$email&activation_code=$activation_code";
 
-    // set email subject
+    // set email subjectj
     $subject = 'Active ton compte dès maintenant !';
 
     // load HTML content from a file
@@ -651,21 +651,23 @@ function send_activation_email(string $email, string $activation_code, string $n
     $message = str_replace('{activation_link}', $activation_link, $message);
     $message = str_replace('{FirstName}', $name, $message);
 
-    // email header
     $headers  = 'MIME-Version: 1.0' . "\r\n";
     $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
-        'Reply-To:' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
         'Content-Type: text/html; charset="utf-8"' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
 
     // send the email
     $_SESSION['mail_message'] = "";
-    if (mail($email, $subject, $message, $headers)) {
+    if (mail($email, $subject, $message, $headers, '-f' . SENDER_EMAIL_ADDRESS)) {
+        
         $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+        
     } else {
         $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
         error_log("Error sending activation email to $email");
     }
+    dd($_SESSION['mail_message']);
 }
 
 function send_reset_password(string $email, string $activation_code)
