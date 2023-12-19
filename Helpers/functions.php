@@ -636,6 +636,9 @@ function generate_activation_code(): string
 
 const APP_URL = 'https://app.mmi-companion.fr/pages';
 const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 function send_activation_email(string $email, string $activation_code, string $name)
 {
     // create the activation link
@@ -659,15 +662,14 @@ function send_activation_email(string $email, string $activation_code, string $n
 
     // send the email
     $_SESSION['mail_message'] = "";
-    mail($email, $subject, $message, $headers, '-f' . SENDER_EMAIL_ADDRESS);
-
-    // if () {
-    //     $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    if (mail($email, $subject, $message, $headers, '-f' . SENDER_EMAIL_ADDRESS)) {
         
-    // } else {
-    //     $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
-    //     error_log("Error sending activation email to $email");
-    // }
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+        
+    } else {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
 }
 
 function send_reset_password(string $email, string $activation_code)
