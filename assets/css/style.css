@@ -3108,3 +3108,12 @@ p {
 [data-theme="dark"] .profil_cgu{
     color: var(--texte) !important;
 }
+[data-theme="dark"] #ajouter_agenda_prof{
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .select_but_agenda > #but, [data-theme="dark"] .select_but_agenda > #tp{
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] #validate_change_role{
+    color: var(--bleu-trs-clair-background) !important;
+}
