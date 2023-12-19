@@ -635,7 +635,7 @@ function generate_activation_code(): string
 }
 
 const APP_URL = 'https://app.mmi-companion.fr/pages';
-const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
+const SENDER_EMAIL_ADDRESS = 'raphael.tiphonet@etu.univ-poitiers.fr';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
