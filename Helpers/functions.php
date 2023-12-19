@@ -685,7 +685,7 @@ function send_activation_email(string $email, string $activation_code, string $n
         //Start Option 1: Use league/oauth2-client as OAuth2 token provider
         //Fill in authentication details here
         //Either the gmail account owner, or the user that gave consent
-        $email = $_ENV['MAIL_USERNAME'];
+        $emails = $_ENV['MAIL_USERNAME'];
         $clientId = $_ENV['CLIENT_ID'];
         $clientSecret = $_ENV['CLIENT_SECRET'];
         
@@ -709,7 +709,7 @@ function send_activation_email(string $email, string $activation_code, string $n
                     'clientId' => $clientId,
                     'clientSecret' => $clientSecret,
                     'refreshToken' => $refreshToken,
-                    'userName' => $email,
+                    'userName' => $emails,
                 ]
             )
         );
