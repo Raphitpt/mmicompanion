@@ -672,7 +672,9 @@ function send_activation_email(string $email, string $activation_code, string $n
         $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
         $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-        $mail->Port       = $_ENV['MAIL_PORT'];                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->Port       = $_ENV['MAIL_PORT'];                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";         
+        $mail->Encoding = "base64";                           
 
         //Recipients
         $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
