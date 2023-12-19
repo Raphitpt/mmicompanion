@@ -639,6 +639,8 @@ const SENDER_EMAIL_ADDRESS = 'no-reply@mmi-companion.fr';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\OAuth;
+use League\OAuth2\Client\Provider\Google;
 function send_activation_email(string $email, string $activation_code, string $name)
 {
     // create the activation link
@@ -669,10 +671,48 @@ function send_activation_email(string $email, string $activation_code, string $n
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host       = $_ENV['SERVEUR_MAIL'];                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
-        $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = $_ENV['MAIL_PORT'];                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+
+        //Whether to use SMTP authentication
+        $mail->SMTPAuth = true;
+        
+        //Set AuthType to use XOAUTH2
+        $mail->AuthType = 'XOAUTH2';
+        
+        //Start Option 1: Use league/oauth2-client as OAuth2 token provider
+        //Fill in authentication details here
+        //Either the gmail account owner, or the user that gave consent
+        $email = $_ENV['MAIL_USERNAME'];
+        $clientId = $_ENV['CLIENT_ID'];
+        $clientSecret = $_ENV['CLIENT_SECRET'];
+        
+        //Obtained by configuring and running get_oauth_token.php
+        //after setting up an app in Google Developer Console.
+        $refreshToken = $_ENV['REFRESH_TOKEN'];
+        
+        //Create a new OAuth2 provider instance
+        $provider = new Google(
+            [
+                'clientId' => $clientId,
+                'clientSecret' => $clientSecret,
+            ]
+        );
+        
+        //Pass the OAuth provider instance to PHPMailer
+        $mail->setOAuth(
+            new OAuth(
+                [
+                    'provider' => $provider,
+                    'clientId' => $clientId,
+                    'clientSecret' => $clientSecret,
+                    'refreshToken' => $refreshToken,
+                    'userName' => $email,
+                ]
+            )
+        );
 
         //Recipients
         $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
