@@ -106,9 +106,27 @@ echo head("MMI Companion | Profil");
                             <?php } ?>
 
                         </select>
-                        <input type="submit" value="Valider">
+                        <input type="submit" value="Valider" id="validate_change_role">
                     </form>
                 </div>
+            <?php } ?>
+            <?php if (str_contains($user_sql['role'], "admin")){ ?>
+            <div class="trait-profil"></div>
+            <div class="profil_theme-profil">
+                <label for="theme">Choix du thème : </label>
+                <div class="profil_theme-switch">
+                    <select name="theme" id="SelectTheme">
+                        <option value="light">Clair</option>
+                        <option value="dark">Sombre</option>
+                    </select>
+
+
+                </div>
+                <div class="profil_themes-festifs">
+                    <input type="checkbox" id="switchTheme" name="theme" checked disabled/>
+                    <p class="label" for="switch">Thèmes festifs</p>
+                </div>
+            </div>
             <?php } ?>
             <div class="trait-profil"></div>
             <div class="profil_theme-profil">
@@ -130,6 +148,8 @@ echo head("MMI Companion | Profil");
             <div class="trait-profil"></div>
 
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
+            <p class="profil_form-score">Version 0.9 - Alpha</p>
+            <a href="https://mmi-companion.fr/cgu.html" class="profil_cgu">conditions d'utilisation</a>
         </div>
         <div style="height:30px"></div>
         <div id="snow-container"></div>

@@ -998,7 +998,6 @@ main {
     gap: 10px;
 }
 
-
 /* Page de CGU */
 
 .CGU-index {
@@ -3006,6 +3005,16 @@ p {
     width: 100%;
 }
 
+.profil_cgu{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
 /* Modal StrawPoll */
 /* Styles pour la fenêtre modale */
 .trumbowyg-modal-box {
@@ -3097,6 +3106,7 @@ p {
     .trumbowyg-modal-box>form input[type="text"] {
         padding: 8px;
     }
+
 }
 [data-theme="dark"] {
     --fc-today-bg-color: rgba(155, 155, 155, 0.192);
@@ -3106,6 +3116,7 @@ p {
     --texte: #ffffff;
 }
 
+
 /* Styles spécifiques au thème sombre */
 [data-theme="dark"] .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
     color: var(--bleu-trs-clair-background) !important;
@@ -3113,6 +3124,7 @@ p {
 
 [data-theme="dark"] .agenda_title_flextopright-agenda a {
     color: var(--bleu-trs-clair-background) !important;
+
 }
 
 [data-theme="dark"] .form_button-agenda input[type="submit"] {
@@ -3173,4 +3185,18 @@ p {
 }
 [data-theme="dark"] .form_content-informations_add p{
     color: var(--bleu-clair-background) !important;
+
+}
+[data-theme="dark"] .profil_cgu{
+    color: var(--texte) !important;
+}
+[data-theme="dark"] #ajouter_agenda_prof{
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .select_but_agenda > #but, [data-theme="dark"] .select_but_agenda > #tp{
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] #validate_change_role{
+    color: var(--bleu-trs-clair-background) !important;
+
 }
