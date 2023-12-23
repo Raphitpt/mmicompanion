@@ -323,6 +323,15 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           if (info.event.source.url === './calendar_event.php') {
             window.location.href = './calendar_edit.php?id_event=' + info.event.id;
           }
+          if (info.event.source.url === url1) {
+            const title = info.el.querySelector('.fc-title').innerText;
+            const location = info.el.querySelector('.fc-location').innerText;
+            const description = info.el.querySelector('.fc-description').innerText;
+            const color = info.el.style.backgroundColor;
+            const start = info.event.start;
+            const end = info.event.end;
+            window.location.href = './calendar_view.php?title=' + title + '&location=' + location + '&description=' + description + '&color=' + color + '&start=' + start + '&end=' + end;
+          }
         },
         allDaySlot: false,
         eventMinHeight: 30,

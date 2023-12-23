@@ -1,31 +1,40 @@
 <?php
-// Définissez un tableau associatif avec les liens iCal pour chaque groupe
-$ical_links = [
-    "BUT1-TP1" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21314&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT1-TP2" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21315&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT1-TP3" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=21470&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT1-TP4" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24826&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT2-TP1" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24827&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT2-TP2" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24834&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT2-TP3" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24835&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT2-TP4" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=24836&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT3-TP1" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2465&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT3-TP2" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2454&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT3-TP3" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2452&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-    "BUT3-TP4" => 'https://upplanning.appli.univ-poitiers.fr/jsp/custom/modules/plannings/anonymous_cal.jsp?resources=2451&projectId=14&calType=ical&firstDate=2000-01-01&lastDate=2038-01-01',
-];
+require ('./bootstrap.php');
 
+// Définissez un tableau associatif avec les liens iCal pour chaque groupe
+$sql_but = "SELECT * FROM mmi_but";
+$stmt_but = $dbh->prepare($sql_but);
+$stmt_but->execute();
+$but_data = $stmt_but->fetchAll(PDO::FETCH_ASSOC);
 
 $backupDir = __DIR__ . '/backup_cal/';
 
-foreach ($ical_links as $group => $calendar_link) {
-    $icalData = file_get_contents($calendar_link);
+foreach ($but_data as $but) {
+    $group = $but['but_nom'];
+    $edt_link_s1 = $but['edt_link_s1'];
+    $edt_link_s2 = $but['edt_link_s2'];
 
-    if ($icalData !== false) {
+    // Téléchargez le contenu des liens EDT
+    $icalDataS1 = file_get_contents($edt_link_s1);
+    $icalDataS2 = file_get_contents($edt_link_s2);
+
+    // Vérifiez si le téléchargement a réussi
+    if ($icalDataS1 !== false && $icalDataS2 !== false) {
+        // Supprimez les en-têtes et pieds du deuxième fichier iCal
+        $icalDataS1 = preg_replace('/END:VCALENDAR/', '', $icalDataS1);
+        $icalDataS2 = preg_replace('/BEGIN:VCALENDAR[\s\S]+?CALSCALE:GREGORIAN/', '', $icalDataS2);
+
+
+        // Combinez les données iCal
+        $combinedData = $icalDataS1 . $icalDataS2;
+
+        // Enregistrez les données combinées dans un fichier
         $backupFileName = $group . '.ics';
-        file_put_contents($backupDir . $backupFileName, $icalData);
+        file_put_contents($backupDir . $backupFileName, $combinedData);
+
         echo "Sauvegarde réussie pour le groupe $group à " . date('Y-m-d H:i:s') . "\n";
     } else {
         echo "Erreur lors du téléchargement du fichier iCal pour le groupe $group\n";
     }
 }
+?>

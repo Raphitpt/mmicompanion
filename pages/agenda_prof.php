@@ -256,7 +256,27 @@ echo head("MMI Companion | Agenda");
         
         // Écouteur d'événement pour charger l'agenda au chargement de la page
         window.addEventListener('load', loadAgenda);
+        window.addEventListener('DOMContentLoaded', function(){
+            let dropdowns = document.querySelectorAll(".agenda_dropdown_menu_edit-agenda");
 
+                dropdowns.forEach(function(dropdown) {
+                    dropdown.addEventListener("click", function(event) {
+                        event.stopPropagation(); // Empêche la propagation de l'événement de clic à la fenêtre
+                        let dropdownContent = dropdown.querySelector(".dropdown-content");
+                        dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
+                    });
+                });
+
+                // Ferme le menu déroulant lors d'un clic à l'extérieur de celui-ci
+                window.addEventListener("click", function(event) {
+                    dropdowns.forEach(function(dropdown) {
+                        let dropdownContent = dropdown.querySelector(".dropdown-content");
+                        if (!dropdown.contains(event.target)) {
+                            dropdownContent.style.display = "none";
+                        }
+                    });
+                });
+        });
         // Fonction pour effectuer la requête XHR en utilisant POST
         function loadAgenda() {
             const selectedBut = butSelect.value;
