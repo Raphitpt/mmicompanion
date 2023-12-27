@@ -3027,6 +3027,7 @@ p {
     .trumbowyg-modal-box>form input[type="text"] {
         padding: 8px;
     }
+
 }
 [data-theme="dark"] {
     --fc-today-bg-color: rgba(155, 155, 155, 0.192);
@@ -3106,4 +3107,13 @@ p {
 }
 [data-theme="dark"] .profil_cgu{
     color: var(--texte) !important;
+}
+[data-theme="dark"] #ajouter_agenda_prof{
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] .select_but_agenda > #but, [data-theme="dark"] .select_but_agenda > #tp{
+    color: var(--bleu-clair-background) !important;
+}
+[data-theme="dark"] #validate_change_role{
+    color: var(--bleu-trs-clair-background) !important;
 }

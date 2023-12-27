@@ -106,7 +106,7 @@ echo head("MMI Companion | Profil");
                             <?php } ?>
 
                         </select>
-                        <input type="submit" value="Valider">
+                        <input type="submit" value="Valider" id="validate_change_role">
                     </form>
                 </div>
             <?php } ?>
