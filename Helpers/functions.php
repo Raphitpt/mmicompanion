@@ -180,20 +180,17 @@ function generateBurgerMenuContent($role, $title)
         <div class="content_title-header">
             <div class="burger-header" id="burger-header">
                 <i class="fi fi-br-bars-sort"></i>
-                <img class="img_bonnet_noel-header" src="./../assets/img/bonnet_noel.svg" alt="">
             </div>
             <div style="width:20px"></div>
             <h1>' . $title . '</h1>
         </div>
-        <img class="img_neige-header" src="./../assets/img/neige.svg" alt="">
-        <img class="img_guirlande-header" src="./../assets/img/guirlande.svg" alt="">
     </div>
 
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
             <div class="burger_content_titleleft-header">
-                <img src="./../assets/img/mmicompanion_noel.webp" alt="Logo de MMI Comapanion">
+                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
                 <h1>MMI Companion</h1>
             </div>
             <div class="burger_content_titleright-header burger-header" id="close_burger-header">

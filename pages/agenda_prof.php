@@ -157,7 +157,7 @@ echo head("MMI Companion | Agenda");
 
 </body>
 
-<script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+<script src="../assets/js/menu-navigation.js?v=1.1"></script> 
 <script>
     // Faire apparaître le background dans le menu burger
     let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -241,7 +241,7 @@ echo head("MMI Companion | Agenda");
         </div>
     <div id="snow-container"></div></main>
     <div style="height:20px"></div>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+    <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
     <script>
 
         // Faire apparaître le background dans le menu burger

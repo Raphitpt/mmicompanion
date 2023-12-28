@@ -16,19 +16,20 @@
     --texte: #5a3600; */
 
     /* Thème bleu */
-    /* --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+    --fc-today-bg-color: rgba(144, 222, 255, 0.192);
     --bleu-trs-clair-background: #DDF0FF;
     --bleu-clair-background: #B9E0FF;
     --bleu-moyen: #56B8D6;
-    --texte: #004A5A; */
+    --texte: #004A5A;
+    --blanc: #fff;
 
     /* Thème Noël */
-    --fc-today-bg-color: rgba(255, 144, 144, 0.192);
+    /* --fc-today-bg-color: rgba(255, 144, 144, 0.192);
     --bleu-trs-clair-background: #ffdddd;
     --bleu-clair-background: #ffb9b9;
     --bleu-moyen: #d65656;
     --texte: #5a0000;
-    --blanc: #fff;
+    --blanc: #fff; */
 
 }
 
