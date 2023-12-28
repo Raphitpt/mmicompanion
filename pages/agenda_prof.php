@@ -153,7 +153,7 @@ echo head("MMI Companion | Agenda");
             <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
         </div>
       </form>
-    <div id="snow-container"></div></main>
+      </main>
 
 </body>
 
@@ -239,7 +239,7 @@ echo head("MMI Companion | Agenda");
         <div style="height:25px"></div>
         <div class="agenda_content-agenda">
         </div>
-    <div id="snow-container"></div></main>
+      </main>
     <div style="height:20px"></div>
     <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
     <script>

@@ -161,7 +161,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </form>
 
 
-      <div id="snow-container"></div>
+        
     </main>
 
   </body>
@@ -243,7 +243,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </div>
 
 
-      <div id="snow-container"></div>
+        
     </main>
 
   </body>

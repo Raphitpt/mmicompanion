@@ -135,7 +135,7 @@ echo head("MMI Companion | Profil");
             <a href="https://mmi-companion.fr/cgu.html" class="profil_cgu">conditions d'utilisation</a>
         </div>
         <div style="height:30px"></div>
-        <div id="snow-container"></div>
+          
     </main>
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script> -->

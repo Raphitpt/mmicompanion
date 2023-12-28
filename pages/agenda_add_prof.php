@@ -213,7 +213,7 @@ echo head("MMI Companion | Agenda");
             </form>
         </div>
 
-    <div id="snow-container"></div></main>
+      </main>
     <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

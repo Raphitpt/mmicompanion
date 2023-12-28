@@ -145,7 +145,7 @@ echo head("MMI Companion | Emploi du temps");
         </form>
 
 
-    <div id="snow-container"></div></main>
+      </main>
     <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
     <script>
         // Faire apparaître le background dans le menu burger

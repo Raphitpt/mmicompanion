@@ -91,7 +91,7 @@ echo head("MMI Companion | Outils supplémentaires");
             </div> -->
             
         </div>
-    <div id="snow-container"></div></main>
+      </main>
 
     <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
     <script>

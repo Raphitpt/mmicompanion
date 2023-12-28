@@ -198,7 +198,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
                 </div>
             </form>
-        <div id="snow-container"></div></main>
+          </main>
 
     </body>
 
@@ -388,7 +388,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 ?>
             </div>
             <div style="height:20px"></div>
-        <div id="snow-container"></div></main>
+          </main>
 
         <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
 
