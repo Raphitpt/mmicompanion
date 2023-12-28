@@ -97,9 +97,11 @@ echo head("MMI Companion | Scolarité");
         </div>
         <div style="height:30px"></div>
         <p>Le relevé de notes arrive prochainement</p> -->
+        <canvas id="fireworks"></canvas>
       </main>
 </body>
 <script src="../assets/js/menu-navigation.js?v=1.1"></script>
+<script src="../assets/js/fireworks.js"></script>
  
 <script>
     // Faire apparaître le background dans le menu burger

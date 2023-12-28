@@ -243,6 +243,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </div>
 
 
+      <canvas id="fireworks"></canvas>
         
     </main>
 
@@ -253,6 +254,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
   <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
   <script src="../assets/js/menu-navigation.js?v=1.1"></script>
+  <script src="../assets/js/fireworks.js"></script>
    
   <script src="../assets/js/app.js"></script>
   <script>

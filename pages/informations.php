@@ -132,10 +132,15 @@ echo head("MMI Companion | Informations");
             ?>
         </div>
         <div style="height:30px"></div>
+
+        <canvas id="fireworks"></canvas>
+
       </main>
 
+    <script src="../assets/js/fireworks.js"></script>
     <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
     <script src='../assets/js/tree.min.js'></script>
+
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_informations-header');
@@ -234,35 +239,34 @@ echo head("MMI Companion | Informations");
         // buttonValidate.addEventListener('click', function() {
         //     groupInfo.value="";
         // })
+
         
-    </script>
-    <script>
         window.onload = function() {
-  // Crée un élément <link> pour le CSS
-  let link = document.createElement("link");
-  link.href = "style.css"; // URL de votre fichier CSS
-  link.rel = "stylesheet";
-  link.type = "text/css";
+        // Crée un élément <link> pour le CSS
+        let link = document.createElement("link");
+        link.href = "style.css"; // URL de votre fichier CSS
+        link.rel = "stylesheet";
+        link.type = "text/css";
 
-  // Obtient la référence de la première iframe sur la page
-  let iframe = document.getElementsByTagName("iframe")[0];
+        // Obtient la référence de la première iframe sur la page
+        let iframe = document.getElementsByTagName("iframe")[0];
 
-  // Vérifie que l'iframe existe
-  if (iframe) {
-    // Obtient le document de l'iframe
-    let iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-    
-    // Vérifie si le document de l'iframe est accessible (en raison des politiques de sécurité)
-    if (iframeDocument) {
-      // Ajoute le lien de style au document de l'iframe
-      iframeDocument.head.appendChild(link);
-    } else {
-      console.error("Impossible d'accéder au document de l'iframe.");
-    }
-  } else {
-    console.error("Aucune iframe trouvée sur la page.");
-  }
-}
+        // Vérifie que l'iframe existe
+        if (iframe) {
+            // Obtient le document de l'iframe
+            let iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            
+            // Vérifie si le document de l'iframe est accessible (en raison des politiques de sécurité)
+            if (iframeDocument) {
+            // Ajoute le lien de style au document de l'iframe
+            iframeDocument.head.appendChild(link);
+            } else {
+            console.error("Impossible d'accéder au document de l'iframe.");
+            }
+        } else {
+            console.log("Aucune iframe trouvée sur la page.");
+        }
+        }
 
     </script>
 </body>

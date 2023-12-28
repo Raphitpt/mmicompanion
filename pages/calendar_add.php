@@ -135,9 +135,11 @@ echo head("MMI Companion | Emploi du temps");
 
         </form>
 
+        <canvas id="fireworks"></canvas>
 
       </main>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+        <script src="../assets/js/fireworks.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_calendar-header');

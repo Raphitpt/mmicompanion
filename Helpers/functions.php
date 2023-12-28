@@ -69,7 +69,6 @@ function head(string $title = ''): string
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
@@ -182,7 +181,11 @@ function generateBurgerMenuContent($role, $title)
                 <i class="fi fi-br-bars-sort"></i>
             </div>
             <div style="width:20px"></div>
-            <h1>' . $title . '</h1>
+            <!--<h1>' . $title . '</h1>-->
+            <div class="title-header">
+                <h1>Bonne année 2024</h1>
+                <p>' . $title . '</p>
+            </div>
         </div>
     </div>
 
