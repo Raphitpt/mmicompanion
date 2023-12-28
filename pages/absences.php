@@ -89,18 +89,20 @@ echo head("MMI Companion | Scolarité");
                 <div id="absences"></div>
             </div>
         </div>
-        <div class="info_title_flextop-informations">
+        <!-- <div class="info_title_flextop-informations">
             <div class="title_trait">
                 <h1>Notes</h1>
                 <div></div>
             </div>
         </div>
         <div style="height:30px"></div>
-        <p>Le relevé de notes arrive prochainement</p>
-    <div id="snow-container"></div></main>
+        <p>Le relevé de notes arrive prochainement</p> -->
+        <canvas id="fireworks"></canvas>
+      </main>
 </body>
 <script src="../assets/js/menu-navigation.js?v=1.1"></script>
-<script src="../assets/js/snow.js"></script>
+<script src="../assets/js/fireworks.js"></script>
+ 
 <script>
     // Faire apparaître le background dans le menu burger
     let select_background_profil = document.querySelector('#select_background_vie_sco-header');
