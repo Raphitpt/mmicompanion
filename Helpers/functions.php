@@ -34,29 +34,7 @@ function head(string $title = ''): string
 
   gtag('config', 'G-FX70LE2MCM');
 </script>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCjTSvi2mReuoaSK9PlbFl-0Hvre04yj8M",
-    authDomain: "mmi-companion.firebaseapp.com",
-    projectId: "mmi-companion",
-    storageBucket: "mmi-companion.appspot.com",
-    messagingSenderId: "995711151734",
-    appId: "1:995711151734:web:7175344e2f03e3665bf957",
-    measurementId: "G-7F3M3RX1WJ"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
@@ -70,6 +48,7 @@ function head(string $title = ''): string
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
+  <script type="module" src="./../assets/js/firebase.js"></script>
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_landscape.png">
@@ -851,8 +830,12 @@ function nextCours($edu_group) {
     $firstEvent['description'] = preg_replace('/\([^)]*\)/', '', $firstEvent['description']);
     $firstEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $firstEvent['description']);
     $firstEvent['description'] = trim($firstEvent['description']);
-    $debut = new DateTime($firstEvent['dtstart_tz']);
-    $fin = new DateTime($firstEvent['dtend_tz']);
+    $timezone = new DateTimeZone('UTC');
+    
+    $debut = new DateTime($firstEvent['dtstart'], $timezone);
+    $debut->setTimezone(new DateTimeZone('Europe/Paris'));
+    $fin = new DateTime($firstEvent['dtend'], $timezone);
+    $fin->setTimezone(new DateTimeZone('Europe/Paris'));
 
     $firstEvent['debut'] = $debut->format('H:i');
     $firstEvent['fin'] = $fin->format('H:i');
@@ -861,9 +844,8 @@ function nextCours($edu_group) {
     unset($firstEvent['created']);
     unset($firstEvent['last_modified']);
     unset($firstEvent['sequence']);
-    unset($firstEvent['dtstart']);
+
     unset($firstEvent['dtend']);
-    unset($firstEvent['dtstart_tz']);
     unset($firstEvent['dtend_tz']);
     unset($firstEvent['duration']);
     unset($firstEvent['status']);
