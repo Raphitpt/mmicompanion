@@ -16,19 +16,20 @@
     --texte: #5a3600; */
 
     /* Thème bleu */
-    /* --fc-today-bg-color: rgba(144, 222, 255, 0.192);
+    --fc-today-bg-color: rgba(144, 222, 255, 0.192);
     --bleu-trs-clair-background: #DDF0FF;
     --bleu-clair-background: #B9E0FF;
     --bleu-moyen: #56B8D6;
-    --texte: #004A5A; */
+    --texte: #004A5A;
+    --blanc: #fff;
 
     /* Thème Noël */
-    --fc-today-bg-color: rgba(255, 144, 144, 0.192);
+    /* --fc-today-bg-color: rgba(255, 144, 144, 0.192);
     --bleu-trs-clair-background: #ffdddd;
     --bleu-clair-background: #ffb9b9;
     --bleu-moyen: #d65656;
     --texte: #5a0000;
-    --blanc: #fff;
+    --blanc: #fff; */
 
 }
 
@@ -74,7 +75,9 @@ main {
 }
 
 
-.img_neige-header {
+/* NEIGE */
+
+/* .img_neige-header {
     position: absolute;
     bottom: -37px;
     right: 20px;
@@ -90,9 +93,6 @@ main {
     width: 150px;
     overflow: hidden;
 }
-
-
-
 
 .snowflake {
     position: absolute;
@@ -114,18 +114,20 @@ main {
     100% {
         transform: translateY(100vh);
     }
+} */
+
+
+
+
+
+#fireworks{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100vh;
+    width: 100vw;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -148,13 +150,13 @@ main {
     transition: transform 0.4s ease-in-out;
 }
 
-.img_bonnet_noel-header{
+/* .img_bonnet_noel-header{
     position: absolute;
     top: -10px;
     left: -15px;
     width: 30px;
     transform: rotate(-30deg);
-}
+} */
 
 .burger-header.active {
     transform: rotate(180deg);
@@ -175,6 +177,13 @@ main {
     color: var(--texte);
 }
 
+.title-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
 .content_title-header h1 {
     color: var(--texte);
     font-size: 17px;
@@ -183,6 +192,17 @@ main {
     font-weight: 700;
     line-height: normal;
 }
+
+.content_title-header p {
+    color: var(--texte);
+    font-size: 13px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
 
 
 

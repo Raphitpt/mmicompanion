@@ -161,7 +161,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </form>
 
 
-      <div id="snow-container"></div>
+        
     </main>
 
   </body>
@@ -242,16 +242,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         <p>Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       </div>
 
-      <?php
-      $DayNow = date("Y-m-d");
-      $NewYear = date("2024-01-01");
-      if ($DayNow == $NewYear) { ?>
-        <div class="pyro">
-          <div class="before"></div>
-          <div class="after"></div>
-        </div>
-      <?php } ?>
 
+      <canvas id="fireworks"></canvas>
+        
     </main>
 
   </body>
@@ -261,7 +254,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
   <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
   <script src="../assets/js/menu-navigation.js?v=1.1"></script>
-  <script src="../assets/js/snow.js"></script>
+  <script src="../assets/js/fireworks.js"></script>
+   
   <script src="../assets/js/app.js"></script>
   <script>
     // Faire apparaître le background dans le menu burger

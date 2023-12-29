@@ -163,9 +163,12 @@ echo head('MMI Companion | Informations');
 
         </form>
     
-    <div id="snow-container"></div></main>
+        <canvas id="fireworks"></canvas>
 
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+      </main>
+
+      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+        <script src="../assets/js/fireworks.js"></script>
     <script src="../assets/js/tree.min.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>

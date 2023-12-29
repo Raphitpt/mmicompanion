@@ -61,7 +61,7 @@ function head(string $title = ''): string
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=2.03" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=2.1" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
@@ -69,7 +69,6 @@ function head(string $title = ''): string
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
@@ -180,20 +179,21 @@ function generateBurgerMenuContent($role, $title)
         <div class="content_title-header">
             <div class="burger-header" id="burger-header">
                 <i class="fi fi-br-bars-sort"></i>
-                <img class="img_bonnet_noel-header" src="./../assets/img/bonnet_noel.svg" alt="">
             </div>
             <div style="width:20px"></div>
-            <h1>' . $title . '</h1>
+            <!--<h1>' . $title . '</h1>-->
+            <div class="title-header">
+                <h1>Bonne année 2024</h1>
+                <p>' . $title . '</p>
+            </div>
         </div>
-        <img class="img_neige-header" src="./../assets/img/neige.svg" alt="">
-        <img class="img_guirlande-header" src="./../assets/img/guirlande.svg" alt="">
     </div>
 
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
             <div class="burger_content_titleleft-header">
-                <img src="./../assets/img/mmicompanion_noel.webp" alt="Logo de MMI Comapanion">
+                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
                 <h1>MMI Companion</h1>
             </div>
             <div class="burger_content_titleright-header burger-header" id="close_burger-header">
