@@ -129,6 +129,23 @@ echo head("MMI Companion | Profil");
             </div>
             <?php } ?>
             <div class="trait-profil"></div>
+            <div class="profil_theme-profil">
+                <label for="theme">Choix du thème : </label>
+                <div class="profil_theme-switch">
+                    <select name="theme" id="SelectTheme">
+                        <option value="light">Clair</option>
+                        <option value="dark">Sombre</option>
+                    </select>
+
+
+                </div>
+                <div class="profil_themes-festifs">
+                    <input type="checkbox" id="switchTheme" name="theme" checked disabled/>
+                    <p class="label" for="switch">Thèmes festifs</p>
+                </div>
+            </div>
+
+            <div class="trait-profil"></div>
 
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
             <p class="profil_form-score">Version 0.9 - Alpha</p>

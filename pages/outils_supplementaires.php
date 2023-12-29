@@ -80,6 +80,17 @@ echo head("MMI Companion | Outils supplémentaires");
                     </div>
                 </div>
             </a>
+            <a href="https://iut-angouleme.univ-poitiers.fr/" target="_blank">
+                <div class="item-outils blue">
+                    <div class="item_flextop-outils iut_img">
+                        <h1>IUT Angoulême</h1>
+                        <img src="./../assets/img/Logo_IUT_Angoulême.webp" alt="Logo de l'IUT d'Angoulême">
+                    </div>
+                    <div class="item_flexbottom-outils">
+                        <p>Site internet de l'IUT d'Angoulême</p>
+                    </div>
+                </div>
+            </a>
             <!-- <div>
                <h1>Menu du RU</h1>
                 <div style="height:10px"></div>
