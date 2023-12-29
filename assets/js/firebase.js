@@ -18,41 +18,49 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const messaging = getMessaging(app);
 
-// Relocalisez le service worker en utilisant un chemin absolu
-const serviceWorkerPath = '/mmicompanion/firebase-messaging-sw.js';
-navigator.serviceWorker.register(serviceWorkerPath)
-  .then((registration) => {
-    const myButton = document.querySelector("#push-permission-button");
-    myButton.addEventListener("click", requestPermission);
-  });
+// Register the service worker on page load
+document.addEventListener("DOMContentLoaded", () => {
+  const serviceWorkerPath = '/mmicompanion/firebase-messaging-sw.js';
+  navigator.serviceWorker.register(serviceWorkerPath)
+    .then((registration) => {
+      console.log('Service worker registered:', registration);
+    })
+    .catch((error) => {
+      console.error('Service worker registration failed:', error);
+    });
+});
+
+// Wait for the user to interact with the page before requesting notification permission
+document.addEventListener("click", () => {
+  const myButton = document.querySelector("#push-permission-button");
+  myButton.addEventListener("click", requestPermission);
+});
 
 function requestPermission() {
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
-      console.log('Notification permission granted.');
-
-      // Récupérez le jeton d'enregistrement FCM
+      // Retrieve the FCM registration token
       getToken(messaging, { vapidKey: "BFyDCKvv1s5q49SnH0-SVGJl2kJ5UHzaqq1d8YjSDCQtAY3ub38YyVxmlPXWZHNR6RVMH_YGFqvkBzzY9DBrIz8" })
         .then((currentToken) => {
           console.log('Token:', currentToken);
 
-          // Envoyez le jeton à votre serveur pour le stockage
+          // Send the token to your server for storage
           axios.post('./../Helpers/saveSubscription.php', { token: currentToken })
             .then(response => {
               console.log(response.data);
             })
             .catch(error => {
-              console.error('Erreur lors de l\'enregistrement du jeton :', error);
+              console.error('Error saving token:', error);
             });
         })
         .catch((err) => {
-          console.error('Impossible de récupérer le jeton :', err);
+          console.error('Unable to retrieve token:', err);
         });
     } else {
-      console.log('Impossible d\'obtenir l\'autorisation de notification.');
+      console.log('Unable to get permission to notify.');
     }
   });
 }
 
-// Appelez la fonction requestPermission au besoin
+// Call the requestPermission function when needed
 requestPermission();
