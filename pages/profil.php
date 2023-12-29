@@ -48,7 +48,9 @@ echo head("MMI Companion | Profil");
             <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
 
-        <div id="push-permission" class="button_notifications-profil"></div>
+        <div id="push-permission" class="button_notifications-profil">
+            <button id="push-permission-button" class="button_notifications-button-profil">Activer les notifications</button>
+        </div>
         <div style="height:25px"></div>
         <div class="profil_form-profil">
             <div class="profil_form-disabled">

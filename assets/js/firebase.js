@@ -20,15 +20,8 @@ const messaging = getMessaging(app);
 
 // getToken(messaging, {vapidKey : "BFyDCKvv1s5q49SnH0-SVGJl2kJ5UHzaqq1d8YjSDCQtAY3ub38YyVxmlPXWZHNR6RVMH_YGFqvkBzzY9DBrIz8"});
 
-const permission = document.querySelector("#push-permission");
-if (    !permission ||   !("Notification" in window) ||    !("serviceWorker" in navigator) || Notification.permission !== "default"  ) {
-    return;
-    }
-const button = document.createElement("button");
-button.textContent = "Activer les notifications";
-permission.appendChild(button);
-button.addEventListener("click", askPermission);
-
+const myButton = document.querySelector("#push-permission-button");
+myButton.addEventListener("click", requestPermission);
 
 function requestPermission() {
   Notification.requestPermission().then((permission) => {
