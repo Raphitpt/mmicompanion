@@ -18,17 +18,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const messaging = getMessaging(app);
 
-// Register the service worker on page load
-document.addEventListener("DOMContentLoaded", () => {
-  const serviceWorkerPath = '/mmicompanion/firebase-messaging-sw.js';
-  navigator.serviceWorker.register(serviceWorkerPath)
-    .then((registration) => {
-      console.log('Service worker registered:', registration);
-    })
-    .catch((error) => {
-      console.error('Service worker registration failed:', error);
-    });
-});
+
 
 // Wait for the user to interact with the page before requesting notification permission
 document.addEventListener("click", () => {
