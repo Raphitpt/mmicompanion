@@ -22,7 +22,7 @@ const messaging = getMessaging(app);
 
 
 
-avigator.serviceWorker.register('/mmicompanion/firebase-messaging-sw.js')
+navigator.serviceWorker.register('/mmicompanion/firebase-messaging-sw.js')
 .then((registration) => {
   const myButton = document.querySelector("#push-permission-button");
   myButton.addEventListener("click", requestPermission);
