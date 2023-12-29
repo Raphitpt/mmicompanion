@@ -20,9 +20,13 @@ const messaging = getMessaging(app);
 
 // getToken(messaging, {vapidKey : "BFyDCKvv1s5q49SnH0-SVGJl2kJ5UHzaqq1d8YjSDCQtAY3ub38YyVxmlPXWZHNR6RVMH_YGFqvkBzzY9DBrIz8"});
 
-const myButton = document.querySelector("#push-permission-button");
-myButton.addEventListener("click", requestPermission);
 
+
+avigator.serviceWorker.register('/mmicompanion/firebase-messaging-sw.js')
+.then((registration) => {
+  const myButton = document.querySelector("#push-permission-button");
+  myButton.addEventListener("click", requestPermission);
+});
 function requestPermission() {
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
