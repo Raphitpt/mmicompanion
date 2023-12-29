@@ -215,7 +215,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   </script>
 <?php } else {
 
-  ?>
+?>
 
   <body class="body-all">
 
@@ -242,8 +242,16 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         <p>Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       </div>
 
+      <?php
+      $DayNow = date("Y-m-d");
+      $NewYear = date("2024-01-01");
+      if ($DayNow == $NewYear) { ?>
+        <div class="pyro">
+          <div class="before"></div>
+          <div class="after"></div>
+        </div>
+      <?php } ?>
 
-      <div id="snow-container"></div>
     </main>
 
   </body>

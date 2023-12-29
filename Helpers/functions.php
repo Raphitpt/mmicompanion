@@ -829,3 +829,57 @@ function compareDates($a, $b)
 
     return ($dateA < $dateB) ? -1 : 1;
 }
+
+use ICal\ICal;
+function nextCours($edu_group) {
+    $ical = new ICal('./../backup_cal/'.$edu_group.'.ics', array(
+        'defaultSpan'                 => 2,     // Default value
+        'defaultTimeZone'             => 'UTC',
+        'defaultWeekStart'            => 'MO',  // Default value
+        'disableCharacterReplacement' => false, // Default value
+        'filterDaysAfter'             => null,  // Default value
+        'filterDaysBefore'            => null,  // Default value
+        'httpUserAgent'               => null,  // Default value
+        'skipRecurrence'              => false, // Default value
+    ));
+    $now = new DateTime();
+    $now->setTimezone(new DateTimeZone('Europe/Paris'));
+    $dateNow = $now->format('Y-m-d H:i:s');
+    $tomorrow = new DateTime();
+    $tomorrow->setTimezone(new DateTimeZone('Europe/Paris'));
+    $tomorrow->modify('+1 day');
+    $tomorrow = $tomorrow->format('Y-m-d H:i:s');
+    
+    $events = $ical->eventsFromRange($dateNow, '2024-01-26 17:00:00');
+    $events = json_decode(json_encode ( $events ) , true);
+    usort($events, function ($a, $b) {
+        $timeA = strtotime($a['dtstart_tz']);
+        $timeB = strtotime($b['dtstart_tz']);
+    
+        return $timeA - $timeB;
+    });
+    $firstEvent = reset($events);
+    $firstEvent['description'] = preg_replace('/\([^)]*\)/', '', $firstEvent['description']);
+    $firstEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $firstEvent['description']);
+    $firstEvent['description'] = trim($firstEvent['description']);
+    $debut = new DateTime($firstEvent['dtstart_tz']);
+    $fin = new DateTime($firstEvent['dtend_tz']);
+
+    $firstEvent['debut'] = $debut->format('H:i');
+    $firstEvent['fin'] = $fin->format('H:i');
+    unset($firstEvent['uid']);
+    unset($firstEvent['dtstamp']);
+    unset($firstEvent['created']);
+    unset($firstEvent['last_modified']);
+    unset($firstEvent['sequence']);
+    unset($firstEvent['dtstart']);
+    unset($firstEvent['dtend']);
+    unset($firstEvent['dtstart_tz']);
+    unset($firstEvent['dtend_tz']);
+    unset($firstEvent['duration']);
+    unset($firstEvent['status']);
+    unset($firstEvent['organizer']);
+    unset($firstEvent['transp']);
+    unset($firstEvent['attendee']);
+    return($firstEvent);
+}
