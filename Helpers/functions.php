@@ -61,7 +61,7 @@ function head(string $title = ''): string
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=2.03" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=2.1" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
   <link rel="manifest" href="../manifest.webmanifest" />
@@ -69,7 +69,6 @@ function head(string $title = ''): string
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
@@ -156,20 +155,21 @@ function generateBurgerMenuContent($role, $title)
         <div class="content_title-header">
             <div class="burger-header" id="burger-header">
                 <i class="fi fi-br-bars-sort"></i>
-                <img class="img_bonnet_noel-header" src="./../assets/img/bonnet_noel.svg" alt="">
             </div>
             <div style="width:20px"></div>
-            <h1>' . $title . '</h1>
+            <!--<h1>' . $title . '</h1>-->
+            <div class="title-header">
+                <h1>Bonne année 2024</h1>
+                <p>' . $title . '</p>
+            </div>
         </div>
-        <img class="img_neige-header" src="./../assets/img/neige.svg" alt="">
-        <img class="img_guirlande-header" src="./../assets/img/guirlande.svg" alt="">
     </div>
 
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
             <div class="burger_content_titleleft-header">
-                <img src="./../assets/img/mmicompanion_noel.webp" alt="Logo de MMI Comapanion">
+                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
                 <h1>MMI Companion</h1>
             </div>
             <div class="burger_content_titleright-header burger-header" id="close_burger-header">
@@ -817,4 +817,58 @@ function compareDates($a, $b)
     }
 
     return ($dateA < $dateB) ? -1 : 1;
+}
+
+use ICal\ICal;
+function nextCours($edu_group) {
+    $ical = new ICal('./../backup_cal/'.$edu_group.'.ics', array(
+        'defaultSpan'                 => 2,     // Default value
+        'defaultTimeZone'             => 'UTC',
+        'defaultWeekStart'            => 'MO',  // Default value
+        'disableCharacterReplacement' => false, // Default value
+        'filterDaysAfter'             => null,  // Default value
+        'filterDaysBefore'            => null,  // Default value
+        'httpUserAgent'               => null,  // Default value
+        'skipRecurrence'              => false, // Default value
+    ));
+    $now = new DateTime();
+    $now->setTimezone(new DateTimeZone('Europe/Paris'));
+    $dateNow = $now->format('Y-m-d H:i:s');
+    $tomorrow = new DateTime();
+    $tomorrow->setTimezone(new DateTimeZone('Europe/Paris'));
+    $tomorrow->modify('+1 day');
+    $tomorrow = $tomorrow->format('Y-m-d H:i:s');
+    
+    $events = $ical->eventsFromRange($dateNow, '2024-01-26 17:00:00');
+    $events = json_decode(json_encode ( $events ) , true);
+    usort($events, function ($a, $b) {
+        $timeA = strtotime($a['dtstart_tz']);
+        $timeB = strtotime($b['dtstart_tz']);
+    
+        return $timeA - $timeB;
+    });
+    $firstEvent = reset($events);
+    $firstEvent['description'] = preg_replace('/\([^)]*\)/', '', $firstEvent['description']);
+    $firstEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $firstEvent['description']);
+    $firstEvent['description'] = trim($firstEvent['description']);
+    $debut = new DateTime($firstEvent['dtstart_tz']);
+    $fin = new DateTime($firstEvent['dtend_tz']);
+
+    $firstEvent['debut'] = $debut->format('H:i');
+    $firstEvent['fin'] = $fin->format('H:i');
+    unset($firstEvent['uid']);
+    unset($firstEvent['dtstamp']);
+    unset($firstEvent['created']);
+    unset($firstEvent['last_modified']);
+    unset($firstEvent['sequence']);
+    unset($firstEvent['dtstart']);
+    unset($firstEvent['dtend']);
+    unset($firstEvent['dtstart_tz']);
+    unset($firstEvent['dtend_tz']);
+    unset($firstEvent['duration']);
+    unset($firstEvent['status']);
+    unset($firstEvent['organizer']);
+    unset($firstEvent['transp']);
+    unset($firstEvent['attendee']);
+    return($firstEvent);
 }

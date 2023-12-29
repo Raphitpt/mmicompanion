@@ -153,11 +153,12 @@ echo head("MMI Companion | Agenda");
             <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
         </div>
       </form>
-    <div id="snow-container"></div></main>
+      </main>
 
 </body>
 
-<script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+  <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+
 <script>
     // Faire apparaître le background dans le menu burger
     let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -239,9 +240,11 @@ echo head("MMI Companion | Agenda");
         <div style="height:25px"></div>
         <div class="agenda_content-agenda">
         </div>
-    <div id="snow-container"></div></main>
+        <canvas id="fireworks"></canvas>
+      </main>
     <div style="height:20px"></div>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+        <script src="../assets/js/fireworks.js"></script>
     <script>
 
         // Faire apparaître le background dans le menu burger

@@ -198,11 +198,11 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
                 </div>
             </form>
-        <div id="snow-container"></div></main>
+          </main>
 
     </body>
 
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -410,13 +410,18 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 }
                 ?>
             </div>
+            
+            <canvas id="fireworks"></canvas>
+
             <div style="height:20px"></div>
-        <div id="snow-container"></div></main>
+        </main>
 
-        <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
-
+          <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+        <script src="../assets/js/fireworks.js"></script>
+        
 
         <script>
+
             // Faire apparaître le background dans le menu burger
             let select_background_profil = document.querySelector('#select_background_agenda-header');
             select_background_profil.classList.add('select_link-header');
