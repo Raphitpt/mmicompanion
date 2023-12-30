@@ -237,8 +237,8 @@ function generateBurgerMenuContent($role, $title)
                     <div id="select_background_profil-header" class=""></div>
                 </div>
             </a>';
-        if (str_contains($role, 'admin')) {
-            $menuHtml .=' 
+    if (str_contains($role, 'admin')) {
+        $menuHtml .= ' 
             <div class="burger_content_trait_header"></div>
             <a href="./admin/administration.php">
             <div class="burger_content_link-header">
@@ -246,8 +246,9 @@ function generateBurgerMenuContent($role, $title)
                 <p>Administration</p>
                 <div id="select_background_profil-header" class=""></div>
             </div>
-        </a>';}
-            $menuHtml .= '
+        </a>';
+    }
+    $menuHtml .= '
             <div class="burger_content_trait_header"></div>
             <a href="./logout.php">
                 <div class="burger_content_link-header logout-header">
@@ -552,60 +553,39 @@ use Minishlink\WebPush\Subscription;
 function sendNotification($message, $body, $groups)
 {
     $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
-    // Assuming you already have a valid $dbh connection to your database
 
-    $groupsArray = explode(',', $groups); // Split the groups into an array
-
-    $auth = array(
-        'VAPID' => array(
-            'subject' => 'mailto:rtiphonet@gmail.com',
-            'publicKey' => $_ENV['VAPID_PUBLIC_KEY'],
-            'privateKey' => $_ENV['VAPID_PRIVATE_KEY'],
-        ),
-    );
-
-    $webPush = new WebPush($auth);
+    $groupsArray = explode(',', $groups);
 
     foreach ($groupsArray as $group) {
         $query = "SELECT s.* FROM subscriptions s
                   INNER JOIN users u ON s.id_user = u.id_user
                   WHERE u.edu_group = :group";
         $stmt = $dbh->prepare($query);
-        $stmt->execute(['group' => trim($group)]); // Trim to remove any leading/trailing whitespace
+        $stmt->execute(['group' => trim($group)]);
+
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $client = new \Fcm\FcmClient('AIzaSyCjTSvi2mReuoaSK9PlbFl-0Hvre04yj8M', "995711151734");
 
-        foreach ($subscriptions as $subscriptionData) {
-            $subscription = Subscription::create([
-                'endpoint' => $subscriptionData['endpoint'],
-                'keys' => [
-                    'p256dh' => $subscriptionData['p256dh'],
-                    'auth' => $subscriptionData['auth'],
-                ],
-                // You can add additional properties if needed, e.g., 'contentEncoding', 'expirationTime', etc.
-            ]);
+        // Instantiate the push notification request object.
+        $notification = new \Fcm\Push\Notification();
 
-            $payload = json_encode([
-                'body' => $body,
-                'title' => $message
-            ]);
+        // Enhance the notification object with our custom options.
+            // Instantiate the client with the project api_token and sender_id.
 
-            $webPush->queueNotification($subscription, $payload);
-        }
+            $notification
+                ->addRecipient($groups)
+                ->setTitle('Hello from php-fcm!')
+                ->setBody('Notification body')
+                ->addData('key', 'value');
+
+            // Send the notification to the Firebase servers for further handling.
+            $client->send($notification);
+
     }
 
-    $webPush->flush();
-
-    //foreach ($webPush->flush() as $report) {
-    // $endpoint = $report->getRequest()->getUri()->__toString();
-
-    //if ($report->isSuccess()) {
-    //echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
-    //} else {
-    // echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
-    // Handle the failure, remove the subscription from your server, etc.
-    //}
-    //}
+    return true;
 }
+
 function viewChef($dbh, $edu_group)
 {
 
@@ -799,8 +779,10 @@ function compareDates($a, $b)
 }
 
 use ICal\ICal;
-function nextCours($edu_group) {
-    $ical = new ICal('./../backup_cal/'.$edu_group.'.ics', array(
+
+function nextCours($edu_group)
+{
+    $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
         'defaultSpan'                 => 2,     // Default value
         'defaultTimeZone'             => 'UTC',
         'defaultWeekStart'            => 'MO',  // Default value
@@ -817,13 +799,13 @@ function nextCours($edu_group) {
     $tomorrow->setTimezone(new DateTimeZone('Europe/Paris'));
     $tomorrow->modify('+1 day');
     $tomorrow = $tomorrow->format('Y-m-d H:i:s');
-    
+
     $events = $ical->eventsFromRange($dateNow, '2024-01-26 17:00:00');
-    $events = json_decode(json_encode ( $events ) , true);
+    $events = json_decode(json_encode($events), true);
     usort($events, function ($a, $b) {
         $timeA = strtotime($a['dtstart_tz']);
         $timeB = strtotime($b['dtstart_tz']);
-    
+
         return $timeA - $timeB;
     });
     $firstEvent = reset($events);
@@ -831,7 +813,7 @@ function nextCours($edu_group) {
     $firstEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $firstEvent['description']);
     $firstEvent['description'] = trim($firstEvent['description']);
     $timezone = new DateTimeZone('UTC');
-    
+
     $debut = new DateTime($firstEvent['dtstart'], $timezone);
     $debut->setTimezone(new DateTimeZone('Europe/Paris'));
     $fin = new DateTime($firstEvent['dtend'], $timezone);
@@ -852,5 +834,5 @@ function nextCours($edu_group) {
     unset($firstEvent['organizer']);
     unset($firstEvent['transp']);
     unset($firstEvent['attendee']);
-    return($firstEvent);
+    return ($firstEvent);
 }

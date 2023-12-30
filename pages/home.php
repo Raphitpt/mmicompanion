@@ -3,7 +3,27 @@ session_start();
 require '../bootstrap.php';
 
 $nextCours = nextCours('BUT2-TP3');
+// si submit
+// if (isset($_POST['submit'])) {
+//     sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "cmqgfxf7Df_aJvJEVc2XB3:APA91bHoEOb8ucJfBURLDtMX9RI4Zwajab0Cf_NpUFxHQMD-bnhNA5BeV7q9Ko8FDctzED69YwkX49ofUinel-VRuPut5v8MyM-GXp8IZ9IT2_ixWcfeS5HdSqiU38yH3G32O2UxB1FY");
+//     var_dump(sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "cmqgfxf7Df_aJvJEVc2XB3:APA91bHoEOb8ucJfBURLDtMX9RI4Zwajab0Cf_NpUFxHQMD-bnhNA5BeV7q9Ko8FDctzED69YwkX49ofUinel-VRuPut5v8MyM-GXp8IZ9IT2_ixWcfeS5HdSqiU38yH3G32O2UxB1FY"));
+// }
+$client = new \Fcm\FcmClient('AIzaSyCjTSvi2mReuoaSK9PlbFl-0Hvre04yj8M', "995711151734");
 
+// Remove the second parameter for more basic device information
+$info = new \Fcm\Device\Info("cmqgfxf7Df_aJvJEVc2XB3:APA91bHoEOb8ucJfBURLDtMX9RI4Zwajab0Cf_NpUFxHQMD-bnhNA5BeV7q9Ko8FDctzED69YwkX49ofUinel-VRuPut5v8MyM-GXp8IZ9IT2_ixWcfeS5HdSqiU38yH3G32O2UxB1FY", true);
+$response =  $client->send($info);
+if (array_key_exists('error',$response)) {
+    // process error info here
+} else if (array_key_exists('rel',$response)) {
+    // process returned info here
+} else {
+    // ID exists but is not registered to any topics/groups/etc
+}
+// Shortcut function:
+// $info = $client->deviceInfo($deviceId, true);
+
+// $client->send($info);
 echo head('Accueil');
 ?>
 <main>
@@ -34,6 +54,9 @@ echo head('Accueil');
             </tr>
         </tbody>
     </table>
+    <form>
+        <button type="submit">send notification</button>
+    </form>
 </div>
 </main>
 </body>
