@@ -15,16 +15,9 @@ const messaging = firebase.messaging();
 
 
 
-// // Handle background messages
-// messaging.onBackgroundMessage((payload) => {
-//   console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  
-//   // Customize notification here
-//   const notificationTitle = 'Background Message Title';
-//   const notificationOptions = {
-//     body: 'Background Message body.',
-//     icon: '/firebase-logo.png'
-//   };
-
-//   self.registration.showNotification(notificationTitle, notificationOptions);
-// });
+// Handle background messages
+messaging.onBackgroundMessage(() => {
+  if ('setAppBadge' in navigator) {
+    navigator.setAppBadge(1); // Mettez à jour le badge avec le nombre souhaité
+  }
+});
