@@ -547,11 +547,27 @@ function getEventCheckedStatus($dbh, $idAgenda, $idUser)
     return $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
-use Minishlink\WebPush\WebPush;
-use Minishlink\WebPush\Subscription;
+use Google\Auth\CredentialsLoader;
+use Google\Auth\HttpHandler\HttpHandlerFactory;
+use GuzzleHttp\Client;
 
-function sendNotification($message, $body, $groups)
+
+function sendNotification($title, $body, $groups)
 {
+    $projectId = 'mmi-companion';
+    $apiKey = $_ENV['FCM_API_KEY'];
+
+    $client = new Google_Client();
+    $client->setApplicationName('MMI Companion');
+    $configJson = file_get_contents('./../mmi-companion-96ff21b60ece.json');
+    $config = json_decode($configJson, true);
+    $client->setAuthConfig($config);
+
+    $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
+
+    $httpClient = $client->authorize();
+    $uri = "https://fcm.googleapis.com/v1/projects/$projectId/messages:send";
+
     $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
 
     $groupsArray = explode(',', $groups);
@@ -564,27 +580,28 @@ function sendNotification($message, $body, $groups)
         $stmt->execute(['group' => trim($group)]);
 
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $client = new \Fcm\FcmClient('AIzaSyCjTSvi2mReuoaSK9PlbFl-0Hvre04yj8M', "995711151734");
-
-        // Instantiate the push notification request object.
-        $notification = new \Fcm\Push\Notification();
-
         // Enhance the notification object with our custom options.
-            // Instantiate the client with the project api_token and sender_id.
+        foreach ($subscriptions as $subscriptionData) {
+            $message = [
+                'message' => [
+                    'token' => $subscriptionData['token'],
+                    'notification' => [
+                        'title' => $title,
+                        'body' => $body,
 
-            $notification
-                ->addRecipient($groups)
-                ->setTitle('Hello from php-fcm!')
-                ->setBody('Notification body')
-                ->addData('key', 'value');
-
-            // Send the notification to the Firebase servers for further handling.
-            $client->send($notification);
-
+                    ],
+                ],
+            ];
+            $response = $httpClient->post($uri, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'body' => json_encode($message),
+            ]);
+        }
     }
-
-    return true;
 }
+
 
 function viewChef($dbh, $edu_group)
 {
