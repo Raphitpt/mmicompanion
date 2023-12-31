@@ -1,7 +1,7 @@
 // Function to determine the badge count based on the event data
 function determineBadgeCount() {
   return fetch('./pages/getNotifs.php', {
-    credentials: 'include',
+    method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
     },
