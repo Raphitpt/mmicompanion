@@ -187,5 +187,15 @@ loadTheme();
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
     .register('https://dev.mmi-companion.fr/mmicompanion/sw.js')
-    .then(() => { console.log('Service Worker Registered'); });
+    .then((registration) => {
+      // Mettre à jour le service worker si nécessaire
+      if (registration.installing) {
+        registration.installing.postMessage({ type: 'SKIP_WAITING' });
+      }
+      
+      console.log('Service Worker Registered');
+    })
+    .catch((error) => {
+      console.error('Service Worker Registration failed:', error);
+    });
 }
