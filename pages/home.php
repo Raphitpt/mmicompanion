@@ -64,7 +64,6 @@ const butSet = document.getElementById('butSet');
 const butClear = document.getElementById('butClear');
 const inputBadgeVal = document.getElementById('badgeVal');
 
-const butMakeXHR = document.getElementById('butMakeXHR');
 
 // Check if the API is supported.
 if ('setExperimentalAppBadge' in navigator) {
@@ -106,10 +105,6 @@ butSet.addEventListener('click', () => {
 // Click event handler for Clear button.
 butClear.addEventListener('click', () => {
   clearBadge();
-});
-
-butMakeXHR.addEventListener('click', () => {
-  fetch('manifest.json');
 });
 
 // Wrapper to support first and second origin trial
