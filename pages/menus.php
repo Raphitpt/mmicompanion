@@ -53,20 +53,18 @@ foreach ($menus as $menu) {
 $html = "";
 foreach ($menuDataByDay as $date => $menuInfo) {
     if ($date == array_key_first($menuDataByDay)) {
-        $html.= "<div class='meal active'>";
+        $html .= "<div class='meal active'>";
     } else {
-        $html.= "<div class='meal'>";
+        $html .= "<div class='meal'>";
     }
-    $html.= "<h2>$date</h2>";
+    $html .= "<h2>$date</h2>";
     foreach ($menuInfo as $menu) {
-        $html.= "<ul>";
+        $html .= "<ul>";
         foreach ($menu['Foods'] as $food) {
-            $html.= "<li>$food</li>";
+            $html .= "<li>$food</li>";
         }
-        $html.= "</ul></div>";
+        $html .= "</ul></div>";
     }
 }
 echo json_encode($html);
 
-
-?>

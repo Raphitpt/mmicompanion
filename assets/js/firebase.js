@@ -31,12 +31,10 @@ function requestPermission() {
       // Retrieve the FCM registration token
       getToken(messaging, { vapidKey: "BFyDCKvv1s5q49SnH0-SVGJl2kJ5UHzaqq1d8YjSDCQtAY3ub38YyVxmlPXWZHNR6RVMH_YGFqvkBzzY9DBrIz8" })
         .then((currentToken) => {
-          console.log('Token:', currentToken);
 
           // Send the token to your server for storage
           axios.post('./../Helpers/saveSubscription.php', { token: currentToken })
             .then(response => {
-              console.log(response.data);
             })
             .catch(error => {
               console.error('Error saving token:', error);

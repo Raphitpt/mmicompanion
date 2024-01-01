@@ -10,6 +10,7 @@ if (isset($_POST['submit'])) {
     
 }
 echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP2");
+echo getMenu();
 echo head('Accueil');
 ?>
 <main>
