@@ -45,3 +45,7 @@ self.addEventListener('message', (event) => {
     determineBadgeCount();
   }
 });
+
+if ('setAppBadge' in navigator) {
+  navigator.setAppBadge(42);
+}
