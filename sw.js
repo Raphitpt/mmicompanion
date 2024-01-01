@@ -16,7 +16,7 @@ function determineBadgeCount() {
     .then((data) => {
       if (data.notif_message !== undefined && data.notif_infos !== undefined) {
         const totalBadgeCount = data.notif_message + data.notif_infos;
-        setAppBadge(totalBadgeCount);
+        navigator.setAppBadge(totalBadgeCount);
       } else {
         throw new Error('Invalid data format received for badge count');
       }
