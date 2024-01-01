@@ -11,5 +11,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bindValue(':id_user', $id_user);
     $stmt->execute();
     $notifs = $stmt->fetch(PDO::FETCH_ASSOC);
-    return json_encode($notifs);
+    echo json_encode($notifs);
 }
