@@ -186,6 +186,6 @@ loadTheme();
 /* Service Worker */
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-    .register('./../../sw.js')
+    .register('https://dev.mmi-companion.fr/mmicompanion/sw.js')
     .then(() => { console.log('Service Worker Registered'); });
 }
