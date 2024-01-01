@@ -49,3 +49,7 @@ self.addEventListener('message', (event) => {
 if ('setAppBadge' in navigator) {
   navigator.setAppBadge(42);
 }
+
+self.addEventListener('push', (event) => {
+  navigator.setAppBadge(42);
+});
