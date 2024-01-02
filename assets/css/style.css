@@ -740,7 +740,7 @@ main {
 
 
 .main-home {
-    width: 80vw;
+    width: 90vw;
     max-width: 550px;
 }
 
@@ -866,6 +866,8 @@ main {
     justify-content: start;
     align-items: end;
     gap: 10px;
+
+    width: 100%;
 }
 
 .title_content_trait-home{
@@ -892,8 +894,9 @@ main {
 }
 
 .title_trait-home div:last-child {
+    flex-grow: 1;
     height: 1px;
-    width: 46px;
+    max-width: 100px;
     border-radius: 10px;
     background: var(--texte);
     transform: translateY(-3px);
@@ -945,6 +948,7 @@ main {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    text-transform: capitalize;
 }
 
 .date_content_prochain_cours-home{
@@ -979,6 +983,55 @@ main {
 }
 
 
+
+.section_agenda-home{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+
+    width: 100%;
+}
+
+.container_agenda-home{
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+}
+
+.item_agenda-home{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    padding: 15px 25px;
+    border-radius: 10px;
+    background: #FFF;
+
+    width: 100%;
+}
+
+.item_agenda-home i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--texte);
+    font-size: 20px;
+}
+
+.item_agenda-home p{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
 
 
 

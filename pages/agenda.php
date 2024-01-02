@@ -84,6 +84,7 @@ $stmt_eval->execute([
     'current_date' => $today->format('Y-m-d')
 ]);
 $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
+
 // --------------------
 // Fin de la récupération des évaluations
 
