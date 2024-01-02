@@ -232,6 +232,13 @@ function generateBurgerMenuContent($role, $title)
             </a>';
     }
     $menuHtml .= '
+            <a href="./menu.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-link-alt"></i>
+                    <p>Outils supplémentaires</p>
+                    <div id="select_background_outils-supplementaires-header" class=""></div>
+                </div>
+            </a>
             <a href="./outils_supplementaires.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-link-alt"></i>

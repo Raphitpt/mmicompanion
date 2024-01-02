@@ -117,7 +117,7 @@ echo head("MMI Companion | Outils supplémentaires");
         // const precedent = document.querySelector('#precedent');
         // const suivant = document.querySelector('#suivant');
         // const xhr = new XMLHttpRequest();
-        // xhr.open('POST', '../pages/menus.php');
+        // xhr.open('POST', '../pages/menu.php');
         // xhr.onload = () => {
         //     if (xhr.status === 200) {
         //         const data = JSON.parse(xhr.responseText);
