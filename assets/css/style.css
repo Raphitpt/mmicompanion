@@ -33,6 +33,9 @@
 
 }
 
+html{
+    font-size: 16px;
+}
 
 a {
     text-decoration: none;
@@ -68,9 +71,9 @@ main {
 .content_header {
     position: relative;
     width: 100vw;
-    height: 65px;
+    height: 4.0625rem;
     flex-shrink: 0;
-    border-radius: 0px 0px 20px 20px;
+    border-radius: 0rem 0rem 1.25rem 1.25rem;
     background: var(--bleu-clair-background);
 }
 
@@ -79,18 +82,18 @@ main {
 
 /* .img_neige-header {
     position: absolute;
-    bottom: -37px;
-    right: 20px;
+    bottom: -2.3125rem;
+    right: 1.25rem;
 
-    width: 230px;
+    width: 14.375rem;
 }
 
 .img_guirlande-header{
     position: absolute;
-    top: -70px;
-    right: 0px;
+    top: -4.375rem;
+    right: 0rem;
 
-    width: 150px;
+    width: 9.375rem;
     overflow: hidden;
 }
 
@@ -98,8 +101,8 @@ main {
     position: absolute;
     background: #fff;
     top: 0;
-    width: 5px;
-    height: 5px;
+    width: .3125rem;
+    height: .3125rem;
     border-radius: 50%;
     pointer-events: none;
     animation: fall linear infinite;
@@ -152,9 +155,9 @@ main {
 
 /* .img_bonnet_noel-header{
     position: absolute;
-    top: -10px;
-    left: -15px;
-    width: 30px;
+    top: -0.625rem;
+    left: -0.9375rem;
+    width: 1.875rem;
     transform: rotate(-30deg);
 } */
 
@@ -172,7 +175,7 @@ main {
 }
 
 .content_title-header .burger-header i {
-    font-size: 25px;
+    font-size: 1.5625rem;
     flex-shrink: 0;
     color: var(--texte);
 }
@@ -186,7 +189,7 @@ main {
 
 .content_title-header h1 {
     color: var(--texte);
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-family: Montserrat;
     font-style: normal;
     font-weight: 700;
@@ -195,7 +198,7 @@ main {
 
 .content_title-header p {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-style: normal;
     font-weight: 500;
@@ -213,14 +216,14 @@ main {
 
 .burger_content-header {
     position: absolute;
-    top: 0px;
+    top: 0rem;
     left: 0;
     width: 80vw;
     max-width: 350px;
     height: 100vh;
     background: var(--bleu-trs-clair-background, var(--bleu-trs-clair-background));
     z-index: 100;
-    border-radius: 0px 25px 0px 0px;
+    border-radius: 0rem 1.5625rem 0rem 0rem;
     display: flex;
     flex-direction: column;
     transform: translateX(-100%);
@@ -239,18 +242,18 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .burger_content_titleleft-header img {
     width: auto;
-    height: 27px;
+    height: 1.6875rem;
 }
 
 .burger_content_titleleft-header h1 {
     color: var(--bleu-moyen);
     text-align: right;
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-family: Montserrat;
     font-style: normal;
     font-weight: 800;
@@ -259,7 +262,7 @@ main {
 
 .burger_content_titleright-header i{
     color: var(--bleu-moyen);
-    font-size: 23px;
+    font-size: 1.4375rem;
 }
 
 .burger_content_content-header {
@@ -267,38 +270,38 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 1.25rem;
     text-align: left;
 }
 
 .burger_content_trait_header {
-    width: 198px;
-    height: 0.5px;
+    width: 12.375rem;
+    height: .0313rem;
     background: var(--bleu-moyen);
-    margin: 20px 0;
+    margin: 1.25rem 0;
 }
 
 .burger_content_link-header {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 10px 0;
-    width: 200px;
+    padding: .625rem 0;
+    width: 12.5rem;
     z-index: 2;
     position: relative;
 
 }
 
 .burger_content_link-header i {
-    font-size: 20px;
+    font-size: 1.25rem;
     color: var(--texte);
-    margin-right: 10px;
+    margin-right: .625rem;
     z-index: 2;
 }
 
 .burger_content_link-header p {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-style: normal;
     font-weight: 600;
@@ -314,10 +317,10 @@ main {
 
 
 .select_link-header {
-    border-radius: 19.5px;
-    width: 235px;
-    right: -10px;
-    height: 42px;
+    border-radius: 1.2188rem;
+    width: 14.6875rem;
+    right: -0.625rem;
+    height: 2.625rem;
     position: absolute;
     background: var(--bleu-clair-background);
     z-index: 1;
@@ -345,8 +348,8 @@ main {
 /* .img_halloween-header{
     position: absolute;
     top: 0;
-    right: 5px;
-    width: 130px;
+    right: .3125rem;
+    width: 8.125rem;
 } */
 
 
@@ -367,24 +370,24 @@ main {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    gap: 30px;
+    gap: 1.875rem;
 }
 
 .main-desktop h1{
     color: var(--texte);
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-weight: 500;
     font-family: Montserrat;
-    width: 500px;
+    width: 31.25rem;
     text-align: center;
 }
 
 .main-desktop p{
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-weight: 500;
     font-family: Montserrat;
-    width: 500px;
+    width: 31.25rem;
     text-align: center;
     text-decoration: underline;
     cursor: pointer;
@@ -414,7 +417,7 @@ main {
 }
 
 .title-accueil h1 {
-    font-size: 26px;
+    font-size: 1.625rem;
     font-weight: 900;
     color: var(--texte);
     font-family: Montserrat;
@@ -424,8 +427,8 @@ main {
     text-align: center;
     font-weight: 500;
     color: var(--texte);
-    font-size: 10px;
-    padding: 0px 5px;
+    font-size: .625rem;
+    padding: 0rem .3125rem;
     font-family: Montserrat;
 }
 
@@ -440,10 +443,10 @@ main {
     background-color: var(--bleu-moyen);
     color: var(--texte);
     border: none;
-    border-radius: 25px;
-    width: 210px;
-    height: 36px;
-    font-size: 13px;
+    border-radius: 1.5625rem;
+    width: 13.125rem;
+    height: 2.25rem;
+    font-size: .8125rem;
     font-weight: 800;
     cursor: pointer;
     font-family: Montserrat;
@@ -455,7 +458,7 @@ main {
 
 .button_login {
     font-weight: 700;
-    font-size: 11px;
+    font-size: .6875rem;
     font-family: Montserrat;
     text-decoration: underline;
     color: var(--texte);
@@ -491,19 +494,19 @@ main {
 
 .back_btn {
     position: absolute;
-    top: 0px;
-    left: 0px;
-    padding: 30px;
+    top: 0rem;
+    left: 0rem;
+    padding: 1.875rem;
     transform: rotate(180deg);
     color: var(--texte);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 
 .title-login {
     color: var(--texte);
     font-weight: 900;
-    font-size: 19px;
+    font-size: 1.1875rem;
     font-family: Montserrat;
 }
 
@@ -519,11 +522,11 @@ main {
 .input-login {
     background-color: #FFFFFF;
     border: none;
-    border-radius: 25px;
-    padding: 15px 30px;
+    border-radius: 1.5625rem;
+    padding: .9375rem 1.875rem;
     width: 100%;
     font-family: Montserrat;
-    font-size: 11px;
+    font-size: .6875rem;
     font-weight: 500;
 }
 
@@ -532,7 +535,7 @@ main {
 }
 
 .button_forget-login {
-    margin-top: 5px;
+    margin-top: .3125rem;
     width: 100%;
     display: flex;
     justify-content: end;
@@ -542,20 +545,20 @@ main {
     display: flex;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
 }
 
 .error_message-login {
     color: #D65656;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-weight: 500;
 }
 
 .success_message-login {
     color: #00b938;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-weight: 500;
 }
 
@@ -590,7 +593,7 @@ main {
 .button_next-register p {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 15px;
+    font-size: .9375rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -598,8 +601,8 @@ main {
 
 .button_next-register i {
     color: var(--texte);
-    font-size: 15px;
-    transform: translateY(3px);
+    font-size: .9375rem;
+    transform: translateY(.1875rem);
 }
 
 
@@ -613,7 +616,7 @@ main {
 .label_edu-register label {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -621,10 +624,10 @@ main {
 
 .trait_register {
     width: 20%;
-    height: 1px;
-    border-radius: 15px;
+    height: .0625rem;
+    border-radius: .9375rem;
     background-color: var(--texte);
-    margin: 30px 0;
+    margin: 1.875rem 0;
 }
 
 
@@ -638,7 +641,7 @@ main {
 .button_before-register p {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -646,8 +649,8 @@ main {
 
 .button_before-register i {
     color: var(--texte);
-    font-size: 12px;
-    transform: translateY(-3px);
+    font-size: .75rem;
+    transform: translateY(-0.1875rem);
     transform: rotate(180deg);
 }
 
@@ -659,7 +662,7 @@ main {
 .success_message-lost_password {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-weight: 500;
     width: 70%;
     text-align: center;
@@ -685,11 +688,11 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5px;
+    gap: .3125rem;
 }
 
 .title-mail h1 {
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 800;
     color: var(--texte);
     font-family: Montserrat;
@@ -699,23 +702,23 @@ main {
     text-align: center;
     font-weight: 500;
     color: var(--texte);
-    font-size: 11px;
-    padding: 0px 5px;
+    font-size: .6875rem;
+    padding: 0rem .3125rem;
     font-family: Montserrat;
     width: 70%;
 }
 
 .trait-mail {
     width: 15%;
-    height: 1px;
-    border-radius: 15px;
+    height: .0625rem;
+    border-radius: .9375rem;
     background-color: var(--texte);
 }
 
 .button-accueil p {
-    margin-top: 10px;
+    margin-top: .625rem;
     color: var(--texte);
-    font-size: 11px;
+    font-size: .6875rem;
     font-weight: 500;
     font-family: Montserrat;
     width: 70%;
@@ -748,11 +751,11 @@ main {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .illustration_title-home img{
-    width: 50px;
+    width: 3.125rem;
     height: auto;
     aspect-ratio: 1 / 1;
     object-fit: cover;
@@ -771,7 +774,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 10px;
+    gap: .625rem;
 
     width: 100%;
 }
@@ -779,14 +782,14 @@ main {
 .identite_content_title-home h1{
     color: var(--Texte, #004A5A);
     font-family: Montserrat;
-    font-size: 19px;
+    font-size: 1.1875rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
 }
 
 .identite_content_title-home img{
-    width: 25px;
+    width: 1.5625rem;
     height: auto;
 }
 
@@ -794,7 +797,7 @@ main {
     display: flex;
     align-items: end;
     justify-content: start;
-    gap: 10px;
+    gap: .625rem;
 
     width: 100%;
 }
@@ -802,7 +805,7 @@ main {
 .date_content_title-home h2{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -814,7 +817,7 @@ main {
 
 .date_content_title-home div{
     flex-grow: 1; /* Le trait prendra tout l'espace disponible */
-    height: 1px;
+    height: .0625rem;
     background-color: var(--texte);
 }
 
@@ -823,7 +826,7 @@ main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr;
-    grid-gap: 10px;
+    grid-gap: .625rem;
 }
 
 .item_button_nav-home{
@@ -831,14 +834,14 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: .3125rem;
 
     width: 100%;
     height: 100%;
 
-    padding: 8px 10px;
+    padding: .5rem .625rem;
     background-color: var(--bleu-moyen);
-    border-radius: 10px;
+    border-radius: .625rem;
 }
 
 .item_button_nav-home i{
@@ -846,13 +849,13 @@ main {
     justify-content: center;
     align-items: center;
     color: var(--texte);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .item_button_nav-home p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -865,7 +868,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: .9375rem;
 }
 
 
@@ -873,7 +876,7 @@ main {
     display: flex;
     justify-content: start;
     align-items: end;
-    gap: 10px;
+    gap: .625rem;
 
     width: 100%;
 }
@@ -882,7 +885,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .title_content_trait-home i {
@@ -890,12 +893,12 @@ main {
     justify-content: center;
     align-items: center;
     color: var(--texte);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .title_content_trait-home h1 {
     color: var(--texte);
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-family: Montserrat;
     font-weight: 700;
     white-space: nowrap;
@@ -903,11 +906,11 @@ main {
 
 .title_trait-home div:last-child {
     flex-grow: 1;
-    height: 1px;
+    height: .0625rem;
     max-width: 100px;
-    border-radius: 10px;
+    border-radius: .625rem;
     background: var(--texte);
-    transform: translateY(-3px);
+    transform: translateY(-0.1875rem);
 }
 
 
@@ -930,8 +933,8 @@ main {
     justify-content: center;
 
     background-color: var(--blanc);
-    border-radius: 10px 0px 0px 10px;
-    padding: 15px 20px;
+    border-radius: .625rem 0rem 0rem .625rem;
+    padding: .9375rem 1.25rem;
 
     width: 100%;
 }
@@ -939,7 +942,7 @@ main {
 .description_prochain_cours-home p:nth-child(1){
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -949,7 +952,7 @@ main {
 .description_prochain_cours-home p:nth-child(2){
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 11px;
+    font-size: .6875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -963,8 +966,8 @@ main {
     justify-content: center;
 
     background-color: var(--bleu-clair-background);
-    border-radius: 0px 10px 10px 0px;
-    padding: 15px 20px;
+    border-radius: 0rem .625rem .625rem 0rem;
+    padding: .9375rem 1.25rem;
 
     width: 100%;
 }
@@ -972,7 +975,7 @@ main {
 .date_content_prochain_cours-home p:nth-child(1){
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -981,7 +984,7 @@ main {
 .date_content_prochain_cours-home p:nth-child(2){
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 11px;
+    font-size: .6875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -993,7 +996,7 @@ main {
     display: flex;
     align-items: stretch;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
 
     width: 100%;
 }
@@ -1002,10 +1005,10 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: .625rem;
 
-    padding: 15px 25px;
-    border-radius: 10px;
+    padding: .9375rem 1.5625rem;
+    border-radius: .625rem;
     background: var(--blanc);
 
     width: 100%;
@@ -1016,13 +1019,13 @@ main {
     justify-content: center;
     align-items: center;
     color: var(--texte);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .item_agenda-home p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -1035,8 +1038,8 @@ main {
     justify-content: center;
 
     width: 100%;
-    padding: 20px;
-    border-radius: 10px;
+    padding: 1.25rem;
+    border-radius: .625rem;
     background-color: var(--blanc);
 }
 
@@ -1046,7 +1049,7 @@ main {
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 5px;
+    gap: .3125rem;
 
     list-style: inside;
 
@@ -1056,7 +1059,7 @@ main {
 .content_menu-home li, .content_menu-home p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -1085,7 +1088,7 @@ main {
 
 .main-welcome {
     height: 100vh;
-    margin: 0px 10vw;
+    margin: 0rem 10vw;
     max-width: 550px;
 }
 
@@ -1100,7 +1103,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     height: 100vh;
 }
 
@@ -1108,21 +1111,21 @@ main {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 5px;
+    gap: .3125rem;
 }
 
 .title_content_welcome_page1-index h1 {
     color: var(--texte);
     text-align: center;
     font-family: Montserrat;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
 }
 
 .title_content_welcome_page1-index img {
-    width: 21px;
+    width: 1.3125rem;
     height: auto;
 }
 
@@ -1130,7 +1133,7 @@ main {
     color: var(--texte);
     text-align: center;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -1138,9 +1141,9 @@ main {
 
 .trait_title_welcome-index {
     width: 50vw;
-    height: 0.5px;
+    height: .0313rem;
     background: var(--texte);
-    border-radius: 20px;
+    border-radius: 1.25rem;
 }
 
 .content_welcome_page1-index {
@@ -1148,14 +1151,14 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .content_welcome_page1-index p {
     color: var(--texte);
     text-align: center;
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -1166,7 +1169,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .content_welcome_questions_content_page1-index {
@@ -1174,14 +1177,14 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 
 .content_welcome_questions_content_page1-index label {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -1189,25 +1192,25 @@ main {
 
 .content_welcome_questions_content_page1-index select {
     width: 100%;
-    height: 42px;
-    border-radius: 19.5px;
+    height: 2.625rem;
+    border-radius: 1.2188rem;
     border: none;
     outline: none;
     text-align: center;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
 }
 
 .trait_content_welcome-index {
     width: 20vw;
-    height: 0.5px;
+    height: .0313rem;
     background: var(--texte);
-    border-radius: 20px;
+    border-radius: 1.25rem;
 }
 
 .button_welcome-index {
@@ -1216,16 +1219,16 @@ main {
     justify-content: center;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
     text-align: center;
     border: none;
-    width: 120px;
-    height: 30px;
+    width: 7.5rem;
+    height: 1.875rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--bleu-moyen);
 }
 
@@ -1236,7 +1239,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     height: 100vh;
 }
 
@@ -1245,18 +1248,18 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .title_content_welcome_page2-index {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: .3125rem;
 }
 
 .title_content_welcome_page2-index i {
-    width: 22px;
+    width: 1.375rem;
     height: auto;
     color: var(--texte);
 }
@@ -1265,7 +1268,7 @@ main {
     color: var(--texte);
     text-align: left;
     font-family: Montserrat;
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-weight: 800;
 }
 
@@ -1273,11 +1276,11 @@ main {
     position: relative;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    padding-left: 15px;
+    padding-left: .9375rem;
 }
 
 .title_welcome_page2-index p::before {
@@ -1285,14 +1288,14 @@ main {
     position: absolute;
     top: 0;
     left: 0;
-    width: 1px;
+    width: .0625rem;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background-color: var(--texte);
 }
 
 .content_welcome_page2-index{
-    border-radius: 40px;
+    border-radius: 2.5rem;
     background: var(--bleu-moyen);
 }
 
@@ -1301,14 +1304,14 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    padding: 40px 50px;
+    gap: .625rem;
+    padding: 2.5rem 3.125rem;
 }
 
 .content_welcome_page2-index ul li {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -1324,7 +1327,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     height: 100vh;
 }
 
@@ -1339,7 +1342,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     height: 100vh;
 }
 
@@ -1348,7 +1351,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
 }
 
 /* Page de CGU */
@@ -1376,12 +1379,12 @@ main {
     margin-top: 2vh;
     height: 75vh;
     overflow-y: scroll;
-    padding: 20px 10px;
+    padding: 1.25rem .625rem;
     box-sizing: border-box;
     background-color: var(--bleu-trs-clair-background);
     text-align: justify;
     margin-bottom: 1vh;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     text-decoration: none;
 }
 .button_CGU-index{
@@ -1390,16 +1393,16 @@ main {
     align-items: center;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
     text-align: center;
     border: none;
-    width: 120px;
-    height: 30px;
+    width: 7.5rem;
+    height: 1.875rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--bleu-moyen);
     margin-top: 2vh;
     margin-left: auto;
@@ -1413,9 +1416,9 @@ main {
 .main-calendar {
     width: 95vw;
     max-width: 550px;
-    height: calc(100vh - 70px);
+    height: calc(100vh - 4.375rem);
     overflow-y: hidden;
-    margin-top: -5px;
+    margin-top: -0.3125rem;
 }
 
 
@@ -1423,44 +1426,44 @@ main {
     display: flex;
     flex-direction: row;
     align-items: end;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .title_trait h1 {
     color: var(--texte);
-    font-size: 19px;
+    font-size: 1.1875rem;
     font-family: Montserrat;
     font-weight: 700;
 }
 
 .title_trait div {
-    height: 1.5px;
-    width: 46px;
-    border-radius: 10px;
+    height: .0938rem;
+    width: 2.875rem;
+    border-radius: .625rem;
     background: var(--texte);
-    margin-bottom: 3px;
+    margin-bottom: .1875rem;
 }
 
 .welcome_title-calendar_prof{
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 5px;
+    gap: .3125rem;
 }
 
 .welcome_title-calendar_prof p{
     color: var(--texte);
-    font-size: 15px;
+    font-size: .9375rem;
     font-family: Montserrat;
     font-weight: 600;
 }
 
 .welcome_title-calendar_prof img{
-    width: 20px;
+    width: 1.25rem;
 }
 
 .section_calendar-calendar .title_trait{
-    margin-left: 40px;
+    margin-left: 2.5rem;
 }
 
 .container_calendar-calendar{
@@ -1468,7 +1471,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .button-calendar{
@@ -1476,15 +1479,15 @@ main {
     width: 100%;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 1.875rem;
 }
 
 .fc-footer-toolbar .fc-toolbar-chunk button{
     color: var(--texte) !important;
     border: none !important;
-    padding: 5px 10px !important;
-    width: 100px !important;
-    font-size: 13px !important;
+    padding: .3125rem .625rem !important;
+    width: 6.25rem !important;
+    font-size: .8125rem !important;
     font-weight: 500 !important;
     cursor: pointer !important;
     font-family: Montserrat !important;
@@ -1498,13 +1501,13 @@ main {
 
 #calendar {
     font-family: 'Montserrat', sans-serif;
-    font-size: 15px;
+    font-size: .9375rem;
     width: 100%;
     background-color: var(--blanc);
-    border-radius: 20px;
-    padding: 10px;
-    padding-top: 20px;
-    max-height: 900px;
+    border-radius: 1.25rem;
+    padding: .625rem;
+    padding-top: 1.25rem;
+    max-height: 56.25rem;
     color: var(--texte);
 }
 
@@ -1541,7 +1544,7 @@ main {
 
 
 .fc-direction-ltr .fc-toolbar>*>:not(:first-child) {
-    margin-left: 0px;
+    margin-left: 0rem;
 }
 
 .fc-timegrid-slot {
@@ -1555,10 +1558,10 @@ main {
 .fc-v-event {
     /* background-color: var(--bleu-moyen) !important; */
     border: none !important;
-    border-radius: 5px !important;
+    border-radius: .3125rem !important;
     color: var(--texte) !important;
     font-weight: 600 !important;
-    font-size: 0.70rem;
+    font-size: 11.2px;
     padding: 0.09vh 1vw !important;
     margin-top: 0.5vh !important;
     margin-bottom: 0.5vh !important;
@@ -1576,11 +1579,11 @@ main {
 }
 
 .fc-timegrid-slot-label-cushion{
-    transform: translateY(-11px) translateX(-5px);
+    transform: translateY(-0.6875rem) translateX(-0.3125rem);
     background-color: var(--blanc);
     color: var(--texte);
     text-align: left;
-    font-size: 13px !important;
+    font-size: .8125rem !important;
 }
 
 .fc-title{
@@ -1597,8 +1600,8 @@ main {
 .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
     background-color: var(--bleu-moyen) !important;
     color: var(--texte) !important;
-    border-radius: 20px !important;
-    width: 60px !important;
+    border-radius: 1.25rem !important;
+    width: 3.75rem !important;
 }
 
 .last_backup_cal{
@@ -1620,14 +1623,14 @@ main {
 }
 
 .input_title-calendar_add {
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: #FFF;
-    padding: 15px 30px;
+    padding: .9375rem 1.875rem;
     width: 100%;
     border: none;
     color: #252525;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -1664,7 +1667,7 @@ main {
 .label-calendar_add h2 {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -1676,7 +1679,7 @@ main {
     align-items: center;
     justify-content: start;
     background: #ffffff;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     width: 100%;
     max-width: 290px;
     width: 100%;
@@ -1684,12 +1687,12 @@ main {
 
 .input-calendar_add{
     background-color: #ffffff00;
-    padding: 10px 20px;
+    padding: .625rem 1.25rem;
     border: none;
     color: #252525;
     font-family: Montserrat;
-    border-radius: 30px;
-    font-size: 14px;
+    border-radius: 1.875rem;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -1700,9 +1703,9 @@ main {
 }
 
 .input_textarea-calendar_add{
-    border-radius: 20px;
+    border-radius: 1.25rem;
     resize: vertical;
-    height: 110px;
+    height: 6.875rem;
     width: 100%;
 }
 
@@ -1715,29 +1718,29 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: .3125rem;
     width: 100%;
 }
 
 .content_input_color-calendar_add input{
     width: 100%;
     border: none;
-    border-radius: 90px;
+    border-radius: 5.625rem;
 }
 
 
 .form_button-calendar_delete a {
-    border-radius: 18px;
+    border-radius: 1.125rem;
     background: #D65656;
     color: #f8f8f8;
     text-align: center;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-    width: 150px;
-    height: 35px;
+    width: 9.375rem;
+    height: 2.1875rem;
 }
 
 
@@ -1753,7 +1756,7 @@ main {
 
 .body-tuto_agenda {
     background-color: var(--bleu-trs-clair-background);
-    height: calc(100vh - 90px);
+    height: calc(100vh - 5.625rem);
     display: flex;
     justify-content: start;
     align-items: center;
@@ -1761,8 +1764,8 @@ main {
 }
 
 .main_tuto-agenda{
-    height: calc(100vh - 90px);
-    margin: 0px 10vw;
+    height: calc(100vh - 5.625rem);
+    margin: 0rem 10vw;
     max-width: 550px;
     display: flex;
     justify-content: center;
@@ -1770,17 +1773,17 @@ main {
 }
 
 .form-tuto_agenda {
-    height: calc(100vh - 90px);
+    height: calc(100vh - 5.625rem);
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .main_tuto-agenda p {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-weight: 500;
     font-family: Montserrat;
 }
@@ -1790,24 +1793,24 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .title_tuto-agenda img{
-    width: 25px;
+    width: 1.5625rem;
     height: auto;
 }
 
 .title_tuto-agenda h1{
     color: var(--texte);
-    font-size: 19px;
+    font-size: 1.1875rem;
     font-weight: 800;
     font-family: Montserrat;
 }
 
 .p_trait-agenda{
     position: relative;
-    padding-left: 10px;
+    padding-left: .625rem;
 }
 
 .p_trait-agenda::before {
@@ -1815,9 +1818,9 @@ main {
     position: absolute;
     top: 0;
     left: 0;
-    width: 1px;
+    width: .0625rem;
     height: 100%;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background-color: var(--texte);
 }
 
@@ -1825,17 +1828,17 @@ main {
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 5px;
+    gap: .3125rem;
 }
 
 .title_content_tuto-agenda img{
-    width: 17px;
+    width: 1.0625rem;
     height: auto;
 }
 
 .title_content_tuto-agenda h2{
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-weight: 700;
     font-family: Montserrat;
 }
@@ -1853,16 +1856,16 @@ main {
     justify-content: center;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
     text-align: center;
     border: none;
-    width: 120px;
-    height: 30px;
+    width: 7.5rem;
+    height: 1.875rem;
     flex-shrink: 0;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--bleu-moyen);
 }
 
@@ -1882,21 +1885,21 @@ main {
 
 .agenda_title_flextopright-agenda a {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 800;
     background: var(--bleu-moyen);
-    border-radius: 18px;
-    padding: 6px 30px;
+    border-radius: 1.125rem;
+    padding: .375rem 1.875rem;
 }
 .agenda_title_flextopright-agenda button {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 800;
     background: var(--bleu-moyen);
-    border-radius: 18px;
-    padding: 6px 30px;
+    border-radius: 1.125rem;
+    padding: .375rem 1.875rem;
     text-decoration: none;
     border: none;
     cursor: pointer;
@@ -1909,32 +1912,32 @@ main {
 
 .agenda_title_flexbottom-agenda p {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 500;
 }
 
 
 .agenda_content-agenda {
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background: var(--blanc);
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 
 .agenda_content_list-agenda h2 {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 700;
 }
 .ligne_agenda {
     display: block;
     width: 100%;
-    height: 0.0625rem;
-    border-radius: 2px;
+    height: 1px;
+    border-radius: .125rem;
     background: var(--texte);
-    margin: 4px 0;
+    margin: .25rem 0;
 }
 
 .agenda_content_list_item-agenda {
@@ -1952,23 +1955,23 @@ main {
 }
 
 .agenda_content_list_item_flexleft-agenda i {
-    margin-right: 10px;
-    margin-top: 5px;
+    margin-right: .625rem;
+    margin-top: .3125rem;
     color: #CB0000;
 }
 
 .agenda_content_list_item_flexleft-agenda input[type="checkbox"] {
     appearance: none;
     background-color: #fff;
-    width: 18px !important;
-    height: 18px !important;
+    width: 1.125rem !important;
+    height: 1.125rem !important;
     aspect-ratio: 1 / 1;
-    border: 1.5px solid currentColor;
+    border: .0938rem solid currentColor;
     display: grid;
     place-content: center;
-    border-radius: 50px;
-    margin-right: 10px;
-    margin-top: 5px;
+    border-radius: 3.125rem;
+    margin-right: .625rem;
+    margin-top: .3125rem;
 }
 
 .agenda_content_list_item_flexleft-agenda input[type="checkbox"]:checked::before {
@@ -1996,16 +1999,16 @@ main {
 .agenda_title_content_list_item_flexleft-agenda{
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: .1875rem;
 }
 
 .agenda_title_content_list_item_flexleft-agenda label {
     color: #252525;
     font-family: Montserrat;
-    font-size: 0.8rem;
+    font-size: 12.8px;
     font-style: normal;
     font-weight: 500;
-    margin-left: 0.75rem;
+    margin-left: 12px;
     /* overflow: clip;
     text-overflow: ellipsis;
     white-space: normal; */
@@ -2018,12 +2021,12 @@ main {
 .agenda_description-agenda>p{
     color: #252525;
     font-family: Montserrat;
-    font-size: 0.6875rem;
+    font-size: 11px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     width: 100%;
-    margin-left: 0.8rem;
+    margin-left: 12.8px;
 }
 
 .agenda_content_subject-agenda{
@@ -2035,7 +2038,7 @@ main {
     display: inline-block;
     color: #ffffff;
     font-family: Montserrat;
-    font-size: 10px;
+    font-size: .625rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2043,26 +2046,26 @@ main {
     /* overflow: hidden;
     text-overflow: ellipsis;
     white-space: normal; */
-    border-radius: 10px;
-    padding: 1px 7px;
+    border-radius: .625rem;
+    padding: .0625rem .4375rem;
     
 }
 .header_title_subject-agenda{
     display: flex;
     align-items: center;
     justify-content: start;
-    gap: 5px;
+    gap: .3125rem;
 }
 .circle_subject-agenda{
     display: inline-block;
-    width: 0.4375rem;
-    height: 1rem;
-    border-radius: 0.625rem;
+    width: 7px;
+    height: 16px;
+    border-radius: 10px;
 }
 .subject-agenda{
     color: var(--texte) !important;
     font-family: Montserrat;
-    font-size: 0.85rem;
+    font-size: 13.6px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -2079,26 +2082,26 @@ main {
 .agenda_dropdown_menu_edit-agenda {
     position: relative;
     display: flex;
-    border-radius: 20px;
+    border-radius: 1.25rem;
 }
 .button_circle_dropdown-agenda{
     display: block;
-    width: 0.25rem;
-    height: 0.25rem;
-    margin: 0 0.02rem;
-    border-radius: 0.25rem;
+    width: 4px;
+    height: 4px;
+    margin: 0 .32px;
+    border-radius: 4px;
     background-color:#004A5A;
 }
 /* Dropdown content */
 .dropdown-content {
     display: none;
     position: absolute;
-    top: 0.7rem;
-    right: -0.7rem;
+    top: 11.2px;
+    right: -11.2px;
     background-color: #ffffff;
-    border-radius: 20px;
-    min-width: 160px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 1.25rem;
+    min-width: 10rem;
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.2);
     z-index: 1;
     transition: all 0.3s ease-in-out;
 }
@@ -2108,16 +2111,16 @@ main {
 .dropdown-content a {
     color: #252525;
     font-family: Montserrat;
-    font-size: 0.9rem;
+    font-size: 14.4px;
     font-style: normal;
     font-weight: 600;
-    padding: 12px 16px;
+    padding: .75rem 1rem;
     text-decoration: none;
     display: flex;
     align-items: center;
 }
 .dropdown-content a i{
-    margin-right: 1rem;
+    margin-right: 16px;
 }
 .dropdown-content .blue {
     color: var(--texte);
@@ -2136,48 +2139,48 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 
 .select_but_agenda select{
     width: 100%;
-    height: 35px;
-    border-radius: 19.5px;
+    height: 2.1875rem;
+    border-radius: 1.2188rem;
     border: none;
     outline: none;
     text-align: center;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
 }
 
 .select_but_agenda_prof{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
     width: 50%;
 }
 
 .select_but_agenda_prof select{
     width: 100%;
-    height: 35px;
-    border-radius: 19.5px;
+    height: 2.1875rem;
+    border-radius: 1.2188rem;
     border: none;
     outline: none;
     text-align: center;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    /* padding: 0px 7px; */
+    /* padding: 0rem .4375rem; */
 }
 
 
@@ -2206,20 +2209,20 @@ main {
 .trait_agenda_add {
     background: #C2C2C2;
     width: 80%;
-    height: 0.5px;
-    margin: 20px auto;
+    height: .0313rem;
+    margin: 1.25rem auto;
 }
 
 
 .input_title-agenda_add {
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: #FFF;
-    padding: 15px 30px;
+    padding: .9375rem 1.875rem;
     width: 100%;
     border: none;
     color: #252525;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2242,14 +2245,14 @@ main {
 .label-agenda_add i {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-weight: 500;
 }
 
 .label-agenda_add h2 {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2260,7 +2263,7 @@ main {
     align-items: center;
     justify-content: start;
     background: #ffffff;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     width: 100%;
 }
 
@@ -2269,7 +2272,7 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: .3125rem;
 
     width: 100%;
 }
@@ -2279,27 +2282,27 @@ main {
     align-items: center;
     justify-content: start;
     background: #ffffff;
-    border-radius: 30px;
+    border-radius: 1.875rem;
     width: 100%;
     position: relative;
-    height: 39px;
+    height: 2.4375rem;
 }
 
 .container_input-agenda_add i, .container_input_date-agenda_add i{
     color: var(--texte);
-    padding: 10px;
-    padding-left:30px;
-    font-size: 15px;
-    transform: translateY(2px);
+    padding: .625rem;
+    padding-left:1.875rem;
+    font-size: .9375rem;
+    transform: translateY(.125rem);
 }
 
 .input-agenda_add {
     background-color: #ffffff00;
-    padding: 10px 20px;
+    padding: .625rem 1.25rem;
     border: none;
     color: #252525;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2309,14 +2312,14 @@ main {
 
 .input_date-agenda_add{
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0rem;
+    left: 0rem;
     width: 100%;
-    padding-left: 70px;
+    padding-left: 4.375rem;
 }
 
 .input_select-agenda_add{
-    min-width: 100px;
+    min-width: 6.25rem;
     max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis 
@@ -2330,13 +2333,13 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: .3125rem;
 }
 
 .container_input_week-agenda_add label{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
 }
@@ -2347,7 +2350,7 @@ main {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
@@ -2355,32 +2358,32 @@ main {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 1.25rem;
 }
 
 
 .form_button-agenda a {
-    border-radius: 18px;
+    border-radius: 1.125rem;
     background: var(--bleu-clair-background);
-    padding: 10px 40px;
+    padding: .625rem 2.5rem;
     color: var(--texte);
     text-align: center;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
 }
 
 .form_button-agenda input[type="submit"] {
-    border-radius: 18px;
+    border-radius: 1.125rem;
     background: var(--bleu-moyen);
-    width: 131px;
-    height: 35px;
+    width: 8.1875rem;
+    height: 2.1875rem;
     color: var(--texte);
     text-align: center;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -2396,7 +2399,7 @@ main {
 
 p {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 500;
 }
@@ -2413,18 +2416,18 @@ p {
     margin: 2vh 0;
     margin-bottom: 1vh;
     width:50%;
-    height: 35px;
-    border-radius: 19.5px;
+    height: 2.1875rem;
+    border-radius: 1.2188rem;
     border: none;
     outline: none;
     text-align: center;
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
 }
 .collapsible {
     cursor: pointer;
@@ -2437,12 +2440,12 @@ p {
     border: none;
     text-align: left;
     outline: none;
-    margin-bottom: 5px;
+    margin-bottom: .3125rem;
 }
 
 .content {
     display: none;
-    padding: 10px;
+    padding: .625rem;
     background-color: var(--bleu-clair-background);
     max-height: 0;
     overflow: hidden;
@@ -2451,7 +2454,7 @@ p {
 
 .collapsible.active + .content {
     display: block;
-    max-height: 1000px; /* La valeur maximale doit être suffisamment grande pour contenir votre contenu */
+    max-height: 62.5rem; /* La valeur maximale doit être suffisamment grande pour contenir votre contenu */
     overflow: visible;
 }
 
@@ -2472,12 +2475,12 @@ p {
 
 .info_title_flextopright-informations a {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 800;
     background: var(--bleu-moyen);
-    border-radius: 18px;
-    padding: 6px 30px;
+    border-radius: 1.125rem;
+    padding: .375rem 1.875rem;
 }
 
 .info_title_flexbottom-informations {
@@ -2487,7 +2490,7 @@ p {
 
 .info_title_flexbottom-informations p {
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 500;
 }
@@ -2497,19 +2500,19 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    gap: 20px;
+    gap: 1.25rem;
     width: 100%;
 }
 
 .form_groupe_input-informations{
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: .9375rem;
 }
 
 .form_groupe_input-informations p{
     color: var(--texte);
-    font-size: 13px;
+    font-size: .8125rem;
     font-family: Montserrat;
     font-weight: 500;
 }
@@ -2524,12 +2527,12 @@ p {
     font-family: Montserrat;
     font-weight: 500;
     color: var(--texte);
-    gap: 10px;
+    gap: .625rem;
 }
 
 .treejs-node .treejs-nodes{
-    margin-top: 5px;
-    gap: 5px;
+    margin-top: .3125rem;
+    gap: .3125rem;
 }
 
 .treejs-checkbox::before{
@@ -2540,7 +2543,7 @@ p {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .form_button-informations{
@@ -2555,10 +2558,10 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 13px;
-    padding: 30px;
+    border-radius: .8125rem;
+    padding: 1.875rem;
     width: 100%;
-    gap: 15px;
+    gap: .9375rem;
     background: #FFF;
 }
 
@@ -2567,13 +2570,13 @@ p {
     flex-direction: column;
     align-items: start;
     width: 100%;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .item_content_title_flextop-information h2{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -2585,13 +2588,13 @@ p {
     justify-content: space-between;
     align-items: start;
     width: 100%;
-    gap: 10px;  
+    gap: .625rem;  
 }
 
 .item_content_title_flexbottom-information p:nth-child(1){
     color: rgba(0, 74, 90, 0.50);
     font-family: Montserrat;
-    font-size: 11px;
+    font-size: .6875rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -2601,13 +2604,13 @@ p {
 .item_content_title_flexbottom-information p:nth-child(2){
     color: #FFF;
     font-family: Montserrat;
-    font-size: 11px;
+    font-size: .6875rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
     white-space: nowrap;
-    border-radius: 5px;
-    padding: 5px 20px;
+    border-radius: .3125rem;
+    padding: .3125rem 1.25rem;
 }
 
 .item_content_text-information{
@@ -2621,7 +2624,7 @@ p {
 .item_content_text-information p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2656,7 +2659,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 30px;
+    gap: 1.875rem;
     width: 100%;
 }
 
@@ -2671,7 +2674,7 @@ p {
 .item_content_text-information {
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2689,7 +2692,7 @@ p {
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     width: 100%;
 }
 
@@ -2698,14 +2701,14 @@ p {
 }
 
 .form_title_input-informations_add input{
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: #FFF;
-    padding: 15px 30px;
+    padding: .9375rem 1.875rem;
     width: 100%;
     border: none;
     color: #252525;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2716,28 +2719,28 @@ p {
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 5px;
+    gap: .3125rem;
     width: 100%;
 }
 
 .form_input-informations_add label{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
 }
 
 .form_input-informations_add input, .form_input-informations_add textarea{
-    border-radius: 30px;
+    border-radius: 1.875rem;
     background: #FFF;
-    padding: 15px 30px;
+    padding: .9375rem 1.875rem;
     width: 100%;
     border: none;
     color: #252525;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2755,12 +2758,12 @@ p {
     font-family: Montserrat;
     font-weight: 500;
     color: var(--texte);
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .treejs-node .treejs-nodes{
-    margin-top: 5px;
-    gap: 5px;
+    margin-top: .3125rem;
+    gap: .3125rem;
 }
 
 .treejs-checkbox::before{
@@ -2771,13 +2774,13 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: .3125rem;
 }
 
 .form_role_input-informations_add label{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2787,7 +2790,7 @@ p {
 .form_content-informations_add p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2806,15 +2809,15 @@ p {
 } */
 
 .trumbowyg-editor-box{
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
     background: #FFF;
-    padding: 15px 30px;
+    padding: .9375rem 1.875rem;
     width: 100%;
     border: none;
     color: #252525;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2828,8 +2831,8 @@ p {
 
 .trumbowyg-button-pane{
     background: #ffffff !important;
-    border-top-right-radius: 20px !important;
-    border-top-left-radius: 20px !important;
+    border-top-right-radius: 1.25rem !important;
+    border-top-left-radius: 1.25rem !important;
     /* border-bottom: none     !important; */
 }
 
@@ -2847,13 +2850,13 @@ p {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .form_groupe_content_input-informations_add label{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2865,7 +2868,7 @@ p {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
@@ -2874,32 +2877,32 @@ p {
     -ms-flex-align: center;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+    margin-top: 1.25rem;
     width: 100%;
 }
 
 .form_button-informations_add a {
-    border-radius: 18px;
+    border-radius: 1.125rem;
     background: var(--bleu-clair-background);
-    padding: 10px 40px;
+    padding: .625rem 2.5rem;
     color: var(--texte);
     text-align: center;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
 }
 
 .form_butttonValidate-informations {
-    border-radius: 18px;
+    border-radius: 1.125rem;
     background: var(--bleu-moyen);
-    width: 131px;
-    height: 35px;
+    width: 8.1875rem;
+    height: 2.1875rem;
     color: var(--texte);
     text-align: center;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -2909,13 +2912,13 @@ p {
 .form_groupe_input-informations_add{
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .form_groupe_input-informations_add p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -2941,7 +2944,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: 15px;
+    gap: .9375rem;
 }
 
 .content_menu_title-menu {
@@ -2949,14 +2952,14 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .item_menu_title-menu{
     display: flex;
     justify-content: start;
     align-items: center;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .item_menu_title-menu i{
@@ -2964,7 +2967,7 @@ p {
     justify-content: center;
     align-items: center;
     color: var(--texte);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .content_item_menu_title-menu{
@@ -2977,9 +2980,9 @@ p {
 .content_item_menu_title-menu p:nth-child(1){
     color: var(--Texte, #004A5A);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 700;
     line-height: normal;
 }
 
@@ -2990,7 +2993,7 @@ p {
 .content_item_menu_title-menu p:nth-child(2), .content_item_menu_title-menu a{
     color: var(--Texte, #004A5A);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -3002,11 +3005,11 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 1.25rem;
 
     background-color: var(--blanc);
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 1.25rem;
+    padding: 1.25rem;
     
 
     width: 100%;
@@ -3020,7 +3023,7 @@ p {
 }
 
 .swiper-wrapper{
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
 }
 
 .swiper-slide {
@@ -3028,13 +3031,13 @@ p {
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .swiper-slide p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -3050,7 +3053,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: 5px;
+    gap: .3125rem;
 
     list-style: inside;
 }
@@ -3058,7 +3061,7 @@ p {
 .swiper-slide ul li{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -3076,7 +3079,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: .3125rem;
 
     position: absolute;
     bottom: 0;
@@ -3097,13 +3100,13 @@ p {
     align-items: center;
     
     color: var(--texte);
-    font-size: 20px;
+    font-size: 1.25rem;
 }
 
 .btn_content-menu p{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 13px;
+    font-size: .8125rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -3130,7 +3133,7 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .container-outils a{
@@ -3141,10 +3144,10 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: 13px;
-    padding: 30px;
+    border-radius: .8125rem;
+    padding: 1.875rem;
     width: 100%;
-    gap: 10px;
+    gap: .625rem;
 }
 
 .item-outils.red{
@@ -3172,7 +3175,7 @@ p {
 .item_flextop-outils h1{
     color: #FFF;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
@@ -3180,15 +3183,15 @@ p {
 
 .item_flextop-outils img{
     width: auto;
-    height: 80px;
+    height: 5rem;
 }
 
 .item_flextop-outils.updago_img img{
-    width: 100px;
+    width: 6.25rem;
     height: auto;
 }
 .item_flextop-outils.iut_img img{
-    margin-right: 1.2rem;
+    margin-right: 19.2px;
 }
 
 .item_flexbottom-outils{
@@ -3200,7 +3203,7 @@ p {
 .item_flexbottom-outils p{
     color: #FFF;
     font-family: Montserrat;
-    font-size: 10px;
+    font-size: .625rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -3234,9 +3237,9 @@ p {
 }
 
 .profil_picture-profil {
-    margin: 40px;
-    width: 100px;
-    height: 100px;
+    margin: 2.5rem;
+    width: 6.25rem;
+    height: 6.25rem;
     position: relative;
     border-radius: 50%;
     z-index: 19;
@@ -3251,32 +3254,32 @@ p {
 
 .edit_profil_picture-img{
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0rem;
+    right: 0rem;
     z-index: 20;
 }
 
 .edit_profil_picture-img i{
     background-color: var(--bleu-moyen);
     color: var(--texte);
-    padding: 10px;
+    padding: .625rem;
     border-radius: 50%;
 }
 
 .button_notifications-profil button{
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
     color: var(--texte);
     width: 100%;
     max-width: 220px;
-    height: 40px;
-    border-radius: 30px;
+    height: 2.5rem;
+    border-radius: 1.875rem;
     border: none;
     background-color: var(--bleu-moyen);
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
     text-align: center;
 }
 
@@ -3296,7 +3299,7 @@ p {
     align-items: center;
     justify-content: center;
     width: 100%;
-    gap: 20px;
+    gap: 1.25rem;
 }
 
 .profil_form-disabled {
@@ -3304,7 +3307,7 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     width: 100%;
 }
 
@@ -3313,13 +3316,13 @@ p {
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 
 .profil_form-input_disabled label {
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -3328,25 +3331,25 @@ p {
 
 .profil_form-input_disabled input {
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     color: #3e3e3e;
     width: 100%;
-    height: 50px;
-    border-radius: 15px;
+    height: 3.125rem;
+    border-radius: .9375rem;
     border: none;
     background-color: #d6d6d6;
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
 }
 
 .trait-profil {
     width: 50%;
-    height: 1px;
+    height: .0625rem;
     background-color: var(--texte);
-    margin: 15px auto;
-    border-radius: 20px;
+    margin: .9375rem auto;
+    border-radius: 1.25rem;
 }
 
 .profil_form-password {
@@ -3354,7 +3357,7 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     width: 100%;
 }
 
@@ -3363,13 +3366,13 @@ p {
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 
 .profil_form-input_password label {
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -3378,46 +3381,46 @@ p {
 
 .profil_form-input_password input[type="password"] {
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
     color: #858585;
     width: 100%;
-    height: 50px;
-    border-radius: 15px;
+    height: 3.125rem;
+    border-radius: .9375rem;
     border: none;
     background-color: #fefefe;
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
 }
 
 .profil_form-password input[type="submit"] {
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
     color: var(--texte);
     width: 70%;
     max-width: 220px;
-    height: 40px;
-    border-radius: 30px;
+    height: 2.5rem;
+    border-radius: 1.875rem;
     border: none;
     background-color: var(--bleu-moyen);
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
 }
 
 .success_password-profil{
     color: #83d656;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-weight: 500;
 }
 
 .error_password-profil{
     color: #D65656;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-weight: 500;
 }
 
@@ -3427,13 +3430,13 @@ p {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     width: 100%;
 }
 
 .transmit_role-profil h1{
     font-family: Montserrat;
-    font-size: 15px;
+    font-size: .9375rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -3445,19 +3448,19 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 
 .form_transmit_role-profil select{
     width: 60%;
-    height: 40px;
-    border-radius: 15px;
+    height: 2.5rem;
+    border-radius: .9375rem;
     border: none;
     background-color: #fefefe;
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -3467,13 +3470,13 @@ p {
 .form_transmit_role-profil input{
     width: 40%;
     max-width: 120px;
-    height: 40px;
-    border-radius: 25px;
+    height: 2.5rem;
+    border-radius: 1.5625rem;
     border: none;
     background-color: var(--bleu-moyen);
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -3484,15 +3487,15 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
+    border-radius: 1.25rem;
     background-color: #D65656;
     width: 70%;
     max-width: 220px;
-    height: 40px;
+    height: 2.5rem;
     color: #F8F8F8;
     text-align: center;
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 800;
     line-height: normal;
@@ -3502,12 +3505,12 @@ p {
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 .profil_theme-profil label{
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
@@ -3517,19 +3520,19 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 
 .profil_theme-switch select{
     width: 100%;
-    height: 50px;
-    border-radius: 15px;
+    height: 3.125rem;
+    border-radius: .9375rem;
     border: none;
     background-color: #fefefe;
-    padding: 0px 20px;
+    padding: 0rem 1.25rem;
     font-family: Montserrat;
-    font-size: 14px;
+    font-size: .875rem;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -3541,14 +3544,14 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: .625rem;
     width: 100%;
 }
 
 .profil_cgu{
     color: var(--texte);
     font-family: Montserrat;
-    font-size: 12px;
+    font-size: .75rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -3562,17 +3565,17 @@ p {
     display: flex;
     flex-direction: column;
     background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: .0625rem solid #ccc;
+    border-radius: .3125rem;
 }
 
 .trumbowyg-modal-title {
     background-color: #337ab7;
     color: #fff;
-    padding: 10px;
+    padding: .625rem;
     font-weight: bold;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
+    border-top-left-radius: .3125rem;
+    border-top-right-radius: .3125rem;
 }
 
 /* Styles pour le formulaire dans la fenêtre modale */
@@ -3580,32 +3583,32 @@ p {
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 1.25rem;
 }
 
 /* Styles pour les labels et les champs de saisie */
 .trumbowyg-modal-box>form label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: .625rem;
     font-weight: bold;
 }
 
 .trumbowyg-modal-box>form input[type="text"] {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
+    padding: .625rem;
+    border: .0625rem solid #ccc;
+    border-radius: .1875rem;
 }
 
 /* Style du bouton "Ajouter une option" */
 #addOption {
     background-color: #337ab7;
     color: #fff;
-    padding: 10px 20px;
+    padding: .625rem 1.25rem;
     border: none;
-    border-radius: 3px;
+    border-radius: .1875rem;
     cursor: pointer;
-    margin-top: 10px;
+    margin-top: .625rem;
 }
 
 #addOption:hover {
@@ -3617,12 +3620,12 @@ p {
 #customCancel {
     background-color: #337ab7;
     color: #fff;
-    padding: 10px 20px;
+    padding: .625rem 1.25rem;
     border: none;
-    border-radius: 3px;
+    border-radius: .1875rem;
     cursor: pointer;
-    margin-top: 10px;
-    margin-right: 10px;
+    margin-top: .625rem;
+    margin-right: .625rem;
 }
 
 #customConfirm:hover,
@@ -3633,18 +3636,18 @@ p {
 /* Style de l'iframe du StrawPoll */
 .trumbowyg-modal-box>form iframe {
     width: 100%;
-    height: 300px;
+    height: 18.75rem;
     border: none;
 }
 
 /* Règles de média queries pour la réactivité */
 @media (max-width: 768px) {
     .trumbowyg-modal-box>form {
-        padding: 10px;
+        padding: .625rem;
     }
 
     .trumbowyg-modal-box>form input[type="text"] {
-        padding: 8px;
+        padding: .5rem;
     }
 
 }
