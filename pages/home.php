@@ -5,11 +5,12 @@ require '../bootstrap.php';
 $nextCours = nextCours('BUT2-TP3');
 
 // si submit
-if (isset($_POST['submit'])) {
-    sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "cmqgfxf7Df_aJvJEVc2XB3:APA91bHoEOb8ucJfBURLDtMX9RI4Zwajab0Cf_NpUFxHQMD-bnhNA5BeV7q9Ko8FDctzED69YwkX49ofUinel-VRuPut5v8MyM-GXp8IZ9IT2_ixWcfeS5HdSqiU38yH3G32O2UxB1FY");
+// if (isset($_POST['submit'])) {
+//     sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "cmqgfxf7Df_aJvJEVc2XB3:APA91bHoEOb8ucJfBURLDtMX9RI4Zwajab0Cf_NpUFxHQMD-bnhNA5BeV7q9Ko8FDctzED69YwkX49ofUinel-VRuPut5v8MyM-GXp8IZ9IT2_ixWcfeS5HdSqiU38yH3G32O2UxB1FY");
     
-}
-echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP2");
+// }
+// echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP3");
+var_dump(notifsHistory($dbh,'56', 'BUT2-TP3'));
 echo getMenu();
 echo head('Accueil');
 ?>
