@@ -42,8 +42,14 @@ function head(string $title = ''): string
   <link href="../assets/css/style.css?v=2.1" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
-  <link rel="manifest" href="../manifest.webmanifest" />
-  <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
+  <link rel="manifest" href="/manifest.json">
+  <script>
+    // Redirect to HTTPS if HTTP is requested.
+    if (window.location.protocol === 'http:') {
+      window.location.href = 'https:' + window.location.href.substring(5);
+    }
+  </script>
+  <script async src="https://unpkg.com/pwacompat@2.0.17/pwacompat.min.js" crossorigin="anonymous"></script>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
