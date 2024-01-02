@@ -86,9 +86,7 @@ $eval_count = $stmt_eval_count->fetchColumn();
 
 
 
-
-
-
+// -----------------------------
 
 
 // echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP2");
@@ -142,7 +140,7 @@ echo head('MMI Companion | Accueil');
 
         <div style="height:30px"></div>
 
-        <section class="section_prochain_cours-home">
+        <section class="section-home">
             <div class="title_trait-home">
                 <div class="title_content_trait-home">
                     <i class="fi fi-br-calendar-lines"></i>
@@ -166,7 +164,7 @@ echo head('MMI Companion | Accueil');
 
         <div style="height:30px"></div>
 
-        <section class="section_agenda-home">
+        <section class="section-home">
             <div class="title_trait-home">
                 <div class="title_content_trait-home">
                     <i class="fi fi-br-book-bookmark"></i>
@@ -193,11 +191,24 @@ echo head('MMI Companion | Accueil');
                     <p>8 tâches à faire</p>
                 </div>
             </div>
-            <p id='compteTaches'></p>
             
-
         </section>
-        
+
+        <div style="height:30px"></div>
+
+        <section class="section-home">
+            <div class="title_trait-home">
+                <div class="title_content_trait-home">
+                    <i class="fi fi-br-restaurant"></i>
+                    <h1>Menu du jour</h1>
+                </div>
+                <div></div>
+            </div>
+
+            <?php echo getMenuToday(); ?>
+
+            
+        </section>
 
 
 
@@ -301,6 +312,27 @@ echo head('MMI Companion | Accueil');
         // Appeler la fonction au chargement de la page
         updateAgendaTitle();
 
+
+
+// // Obtenez la date actuelle
+// var today = new Date();
+
+// // Parcourez les éléments avec la classe 'meal'
+// var mealDivs = document.querySelectorAll('.meal');
+// console.log(mealDivs);
+
+// mealDivs.forEach(function(mealDiv) {
+//     // Récupérez le texte à l'intérieur de l'élément <h2> pour obtenir la date du menu
+//     var dateString = mealDiv.querySelector('h2').innerText;
+
+    
+    
+//     // Comparez directement la date du texte avec la date actuelle (ignorant l'heure)
+//     if (dateString.includes(today.toLocaleDateString('fr-FR'))) {
+//         // La date du menu correspond à la date actuelle, faites quelque chose avec cet élément
+//         mealDiv.classList.add('active'); // Ajoutez une classe 'active', par exemple
+//     }
+// });
 
         
     </script>

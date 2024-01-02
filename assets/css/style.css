@@ -860,6 +860,14 @@ main {
 }
 
 
+.section-home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
 
 .title_trait-home {
     display: flex;
@@ -902,13 +910,10 @@ main {
     transform: translateY(-3px);
 }
 
-.section_prochain_cours-home{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    gap: 15px;
-}
+
+
+
+
 
 .content_prochain_cours-home{
     display: flex;
@@ -984,16 +989,6 @@ main {
 
 
 
-.section_agenda-home{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    gap: 15px;
-
-    width: 100%;
-}
-
 .container_agenda-home{
     display: flex;
     align-items: stretch;
@@ -1011,7 +1006,7 @@ main {
 
     padding: 15px 25px;
     border-radius: 10px;
-    background: #FFF;
+    background: var(--blanc);
 
     width: 100%;
 }
@@ -1025,6 +1020,40 @@ main {
 }
 
 .item_agenda-home p{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.content_menu-home{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--blanc);
+}
+
+
+.content_menu-home ul{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 5px;
+
+    list-style: inside;
+
+    width: 100%;
+}
+
+.content_menu-home li{
     color: var(--texte);
     font-family: Montserrat;
     font-size: 13px;

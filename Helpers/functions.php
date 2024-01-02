@@ -923,8 +923,16 @@ function nextCours($edu_group)
 }
 
 
-
-
+function extractDateFromMenu($menuTitle)
+{
+    // Utilisez une expression régulière pour extraire la date du titre du menu
+    preg_match("/(\d{1,2} [a-zéû]+ \d{4})/i", $menuTitle, $matches);
+    if (!empty($matches)) {
+        return $matches[1];
+    } else {
+        return '';
+    }
+}
 
 function getMenu()
 {
@@ -936,13 +944,13 @@ function getMenu()
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $menu_html = curl_exec($ch);
     curl_close($ch);
-
+    
     // Créez un DOMDocument et chargez le contenu HTML de la page en désactivant la vérification DTD.
     $dom = new DOMDocument();
     libxml_use_internal_errors(true);
     $dom->loadHTML($menu_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     libxml_use_internal_errors(false);
-
+    
     // Utilisez XPath pour extraire les sections avec la classe "menu".
     $xpath = new DOMXPath($dom);
     $menus = $xpath->query("//div[contains(@class, 'menu')]");
@@ -955,8 +963,9 @@ function getMenu()
         $menuInfo = [];
 
         // Utilisez XPath pour extraire les informations spécifiques du menu.
-        $date = $xpath->query(".//time[@class='menu_date_title']", $menu)->item(0)->textContent;
-        $menuInfo['Date'] = trim($date);
+        $dateNode = $xpath->query(".//time[@class='menu_date_title']", $menu)->item(0);
+        $date = extractDateFromMenu($dateNode->textContent); // Utilisez la fonction pour extraire la date
+        $menuInfo['Date'] = $date;
 
         // Créez un tableau pour stocker les plats du menu.
         $menuInfo['Foods'] = [];
@@ -971,24 +980,57 @@ function getMenu()
         unset($menuInfo['Foods'][0]);
         unset($menuInfo['Foods'][1]);
         unset($menuInfo['Foods'][2]);
-        $menuDataByDay[$menuInfo['Date']][] = $menuInfo;
 
-        $html = "";
-        foreach ($menuDataByDay as $date => $menuInfo) {
-            if ($date == array_key_first($menuDataByDay)) {
-                $html .= "<div class='meal active'>";
-            } else {
-                $html .= "<div class='meal'>";
-            }
-            $html .= "<h2>$date</h2>";
-            foreach ($menuInfo as $menu) {
-                $html .= "<ul>";
-                foreach ($menu['Foods'] as $food) {
-                    $html .= "<li>$food</li>";
-                }
-                $html .= "</ul></div>";
-            }
-        }
-        return $html;
+        // Utilisez la date comme clé pour stocker les données par date.
+        $menuDataByDay[$menuInfo['Date']][] = $menuInfo;
     }
+
+    return $menuDataByDay;
+
+
 };
+
+
+function getMenuToday()
+{
+    $menuDataByDay = getMenu();
+
+    // Récupérer le menu du jour
+    $html = "";
+    foreach ($menuDataByDay as $date => $menuInfo) {
+        // Obtenez la date actuelle au format "l j F Y"
+        $currentDate = date('j F Y');
+        // Convvertir le mois en français
+        $currentDate = str_replace(
+            array('January', 'February', 'March', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
+            array('janvier', 'février', 'mars', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'),
+            $currentDate
+        );
+
+        $menu = $menuInfo[0];
+
+        // Si la date du menu correspond à la date actuelle, ajoutez la classe "active"
+        if ($date == $currentDate) {
+            // Construisez le HTML de manière plus lisible
+            $html .= "<div class='content_menu-home'>";
+            $html .= "<ul>";
+
+            foreach ($menu['Foods'] as $food) {
+                $html .= "<li>$food</li>";
+            }
+
+            $html .= "</ul></div>";
+        } 
+
+        // Si c'est le menu du jour, vous pouvez arrêter la boucle ici
+        if ($date == $currentDate) {
+            break;
+        }
+    }
+
+    return $html;
+
+}
+
+
+
