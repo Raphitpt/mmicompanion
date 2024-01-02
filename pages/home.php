@@ -137,31 +137,44 @@ echo head('MMI Companion | Accueil');
 
         // Faire apparaitre le temps restant avant le prochain cours
 
-        const tmstpCours = '<?php echo $nextCours['dtstart_tz']; ?>';
-        const tempsBefore = document.getElementById('tempsBefore');
+        const tmstpCours = '<?php echo $nextCours['dtstart']; ?>';
+const tempsBefore = document.getElementById('tempsBefore');
 
-        function tempsRestant(x) {
-            y = x.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6Z');
-            let now = new Date();
-            let dateCours = new Date(y);
-            let diff = dateCours - now;
-            let diffSec = diff / 1000;
-            let diffMin = diffSec / 60;
-            let diffHeure = diffMin / 60;
-            let diffJour = diffHeure / 24;
+function tempsRestant(x) {
+    // Ajouter "Z" à la fin de la date pour indiquer que c'est en temps universel coordonné (UTC)
+    y = x.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6');
+    let now = new Date();
+    
+    // Convertir la date du cours en objet Date et spécifier le fuseau horaire (par exemple, "Europe/Paris")
+    let dateCours = new Date(y);
+    
+    // Calculer la différence entre les deux dates
+    let diff = dateCours - now;
+    let diffSec = diff / 1000;
+    let diffMin = diffSec / 60;
+    let diffHeure = diffMin / 60;
+    let diffJour = diffHeure / 24;
 
-            tempsBefore.innerHTML = "Dans ";
+    tempsBefore.innerHTML = "Dans ";
 
-            if (diffHeure >= 1) {
-                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure % 24) + ' h </span>';
-            }
+    if (diffHeure >= 1) {
+        tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure % 24) + ' h </span>';
+    }
 
-            tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffMin % 60) + ' minutes </span>';
-        }
+    if (diffMin <= 1) {
+        tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minute </span>';
+    } else if (diffMin > 1) {
+        tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minutes </span>';
+    }
 
-        setInterval(function () {
-            tempsRestant(tmstpCours);
-        }, 1000);
+    if (diff <= 0) {
+        tempsBefore.innerHTML = "Maintenant";
+    }
+}
+
+setInterval(function () {
+    tempsRestant(tmstpCours);
+}, 1000);
 
 
         // -----------------------------
