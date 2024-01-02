@@ -77,9 +77,13 @@
 			"purpose": "maskable"
 
 		},{
-            "src": "./assets/img/favicon.svg",
-            "type": "image/svg+xml",
-            "sizes": "512x512"
+			
+    "src": "./assets/img/mmicompanion.svg"
+				
+				"type": "image/svg+xml",
+				
+    "sizes": "512x512"
+				
    }
 	],
 
