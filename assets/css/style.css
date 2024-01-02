@@ -806,6 +806,7 @@ main {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+
     white-space: nowrap; /* Pour que le h2 reste sur une ligne */
     overflow: hidden;
     text-overflow: ellipsis; /* En cas de débordement du contenu du h2 */
@@ -813,7 +814,6 @@ main {
 
 .date_content_title-home div{
     flex-grow: 1; /* Le trait prendra tout l'espace disponible */
-    max-width: 150px;
     height: 1px;
     background-color: var(--texte);
 }
@@ -858,6 +858,129 @@ main {
     line-height: normal;
     text-align: center;
 }
+
+
+
+.title_trait-home {
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    gap: 10px;
+}
+
+.title_content_trait-home{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+}
+
+.title_content_trait-home i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--texte);
+    font-size: 20px;
+}
+
+.title_content_trait-home h1 {
+    color: var(--texte);
+    font-size: 17px;
+    font-family: Montserrat;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.title_trait-home div:last-child {
+    height: 1px;
+    width: 46px;
+    border-radius: 10px;
+    background: var(--texte);
+    transform: translateY(-3px);
+}
+
+.section_prochain_cours-home{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 15px;
+}
+
+.content_prochain_cours-home{
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.description_prochain_cours-home{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    background-color: var(--blanc);
+    border-radius: 10px 0px 0px 10px;
+    padding: 15px 20px;
+
+    width: 100%;
+}
+
+.description_prochain_cours-home p:nth-child(1){
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+
+.description_prochain_cours-home p:nth-child(2){
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.date_content_prochain_cours-home{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+
+    background-color: var(--bleu-clair-background);
+    border-radius: 0px 10px 10px 0px;
+    padding: 15px 20px;
+
+    width: 100%;
+}
+
+.date_content_prochain_cours-home p:nth-child(1){
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.date_content_prochain_cours-home p:nth-child(2){
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+
+
 
 
 
@@ -1218,6 +1341,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: end;
+    gap: 10px;
 }
 
 .title_trait h1 {
@@ -1225,7 +1349,6 @@ main {
     font-size: 19px;
     font-family: Montserrat;
     font-weight: 700;
-    margin-right: 4px;
 }
 
 .title_trait div {
@@ -1664,7 +1787,7 @@ main {
 /* AGENDA.PHP */
 
 .main-agenda {
-    width: 89vw;
+    width: 90vw;
     max-width: 550px;
 }
 

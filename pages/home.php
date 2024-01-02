@@ -23,7 +23,7 @@ $stmt_pp_original->execute([
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
 // echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP2");
-
+// dd(notifsHistory($dbh, '56', 'BUT2-TP3'));
 echo head('MMI Companion | Accueil');
 ?>
 
@@ -57,56 +57,61 @@ echo head('MMI Companion | Accueil');
                 <i class="fi fi-br-calendar-lines"></i>
                 <p>Emploi du temps</p>
             </a>
-            <a role="button" class="item_button_nav-home" href="./calendar.php">
+            <a role="button" class="item_button_nav-home" href="./agenda.php">
                 <i class="fi fi-br-book-bookmark"></i>
                 <p>Agenda</p>
             </a>
-            <a role="button" class="item_button_nav-home" href="./calendar.php">
+            <a role="button" class="item_button_nav-home" href="./informations.php">
                 <i class="fi fi-br-info"></i>
                 <p>Informations</p>
             </a>
-            <a role="button" class="item_button_nav-home" href="./calendar.php">
+            <a role="button" class="item_button_nav-home" href="./absences.php">
                 <i class="fi fi-br-book-alt"></i>
                 <p>Vie scolaire</p>
             </a>
         </div>
 
+        <div style="height:30px"></div>
+
+        <section class="section_prochain_cours-home">
+            <div class="title_trait-home">
+                <div class="title_content_trait-home">
+                    <i class="fi fi-br-calendar-lines"></i>
+                    <h1>Le prochain cours</h1>
+                </div>
+                <div></div>
+            </div>
+
+            <div class="content_prochain_cours-home">
+                <div class="description_prochain_cours-home">
+                    <p><?php echo $nextCours['summary'] ?></p>
+                    <p><?php echo $nextCours['location'] ?> - <?php echo $nextCours['description'] ?></p>
+                </div>
+                <div class="date_content_prochain_cours-home">
+                    <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
+                    <p id="tempsBefore">...</p>
+                </div>
+            </div>
+            
+        </section>
+
+        <div style="height:30px"></div>
+
+        <section class="section_agenda-home">
+            <div class="title_trait-home">
+                <div class="title_content_trait-home">
+                    <i class="fi fi-br-book-bookmark"></i>
+                    <h1 id="agendaTitle">...</h1>
+                </div>
+                <div></div>
+            </div>
+
+        </section>
+        
 
 
 
 
-        <!-- <div>
-            <h1>Accueil</h1>
-            <p>Bienvenue sur l'application de gestion des ressources de l'IUT de Lens.</p>
-            <p>Vous pouvez consulter les ressources disponibles dans le menu de gauche.</p>
-            <p>Vous pouvez également consulter les prochains cours dans le tableau ci-dessous.</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Intitulé</th>
-                        <th>Enseignant</th>
-                        <th>Date</th>
-                        <th>Heure</th>
-                        <th>Salle</th>
-                        <th>Temps restant</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><?= $nextCours['summary'] ?></td>
-                        <td><?= $nextCours['description'] ?></td>
-                        <td id="tmstpCours"><?= $nextCours['dtstart_tz'] ?></td>
-                        <td><?= $nextCours['debut'] ?> - <?= $nextCours['fin'] ?></td>
-                        <td><?= $nextCours['location'] ?></td>
-                        <td id="tempsBefore">0</td>
-                    </tr>
-                </tbody>
-            </table>
-            <form>
-                <button type="submit">send notification</button>
-            </form>
-            <?php echo getMenu(); ?> 
-        </div> -->
     </main>
 
     <script src="../assets/js/menu-navigation.js?v=1.1"></script>
@@ -132,9 +137,10 @@ echo head('MMI Companion | Accueil');
 
         // Faire apparaitre le temps restant avant le prochain cours
 
-        const tmstpCours = document.getElementById('tmstpCours').innerHTML;
+        const tmstpCours = '<?php echo $nextCours['dtstart_tz']; ?>';
         const tempsBefore = document.getElementById('tempsBefore');
-        function tempsRestant(x){
+
+        function tempsRestant(x) {
             y = x.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6Z');
             let now = new Date();
             let dateCours = new Date(y);
@@ -143,12 +149,54 @@ echo head('MMI Companion | Accueil');
             let diffMin = diffSec / 60;
             let diffHeure = diffMin / 60;
             let diffJour = diffHeure / 24;
-            tempsBefore.innerHTML = "";
-            tempsBefore.innerHTML = Math.floor(diffJour) + ' jours ' + Math.floor(diffHeure % 24) + ' heures ' + Math.floor(diffMin % 60) + ' minutes ' + Math.floor(diffSec % 60) + ' secondes';
+
+            tempsBefore.innerHTML = "Dans ";
+
+            if (diffHeure >= 1) {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure % 24) + ' h </span>';
+            }
+
+            tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffMin % 60) + ' minutes </span>';
         }
+
         setInterval(function () {
             tempsRestant(tmstpCours);
         }, 1000);
+
+
+        // -----------------------------
+
+        // Fonction pour formater la date au format 'jj/mm'
+        function formatDate(date) {
+            let day = date.getDate();
+            let month = date.getMonth() + 1; // Les mois commencent à 0, donc ajouter 1
+
+            // Ajouter des zéros initiaux si nécessaire
+            day = (day < 10) ? '0' + day : day;
+            month = (month < 10) ? '0' + month : month;
+
+            return day + '/' + month;
+        }
+
+        // Mettre à jour le titre avec la semaine scolaire actuelle
+        function updateAgendaTitle() {
+            let today = new Date();
+            let currentDay = today.getDay(); // 0 pour dimanche, 1 pour lundi, ..., 6 pour samedi
+
+            // Calculer le début et la fin de la semaine scolaire
+            let startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - (currentDay - 1));
+            
+            let endOfWeek = new Date(today);
+            endOfWeek.setDate(today.getDate() + (5 - currentDay));
+
+            // Mettre à jour le titre
+            document.querySelector('#agendaTitle').innerText = "Mon agenda (" + formatDate(startOfWeek) + " au " + formatDate(endOfWeek) + ")";
+        }
+
+        // Appeler la fonction au chargement de la page
+        updateAgendaTitle();
+        
     </script>
 
 </body>
