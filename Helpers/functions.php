@@ -157,6 +157,14 @@ function generateBurgerMenuContent($role, $title)
         </div>
         <div class="burger_content_content-header">
             <div class="burger_content_trait_header"></div>
+            <a href="./home.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-home"></i>
+                    <p>Accueil</p>
+                    <div id="select_background_home-header" class=""></div>
+                </div>
+            </a>
+            <div class="burger_content_trait_header"></div>
             <a href="./calendar.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-calendar-lines"></i>
