@@ -2929,6 +2929,193 @@ p {
 
 
 
+/* MENU.PHP */
+
+.main-menu {
+    width: 90vw;
+    max-width: 550px;
+}
+
+.menu_title-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 15px;
+}
+
+.content_menu_title-menu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 10px;
+}
+
+.item_menu_title-menu{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.item_menu_title-menu i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--texte);
+    font-size: 20px;
+}
+
+.content_item_menu_title-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.content_item_menu_title-menu p:nth-child(1){
+    color: var(--Texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.content_item_menu_title-menu a{
+    text-decoration: underline;
+}
+
+.content_item_menu_title-menu p:nth-child(2), .content_item_menu_title-menu a{
+    color: var(--Texte, #004A5A);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+.menu_content-menu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    background-color: var(--blanc);
+    border-radius: 20px;
+    padding: 20px;
+    
+
+    width: 100%;
+
+    position: relative;
+}
+
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-wrapper{
+    margin-bottom: 40px;
+}
+
+.swiper-slide {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.swiper-slide p{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+}
+
+.swiper-slide p:nth-child(2){
+    font-weight: 500;
+}
+
+.swiper-slide ul{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 5px;
+
+    list-style: inside;
+}
+
+.swiper-slide ul li{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn_content-menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+}
+
+.btn_content-menu.btn_next{
+    right: 0;
+}
+
+.btn_content-menu.btn_prev{
+    left: 0;
+}
+
+.btn_content-menu i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    color: var(--texte);
+    font-size: 20px;
+}
+
+.btn_content-menu p{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+
+
+
+
+
+
+
 
 /* OUTILS_SUPPLEMENTAIRES.PHP */
 

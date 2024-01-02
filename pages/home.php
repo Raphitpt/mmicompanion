@@ -116,6 +116,29 @@ echo head('MMI Companion | Accueil');
 
         <div style="height:20px"></div> 
 
+        <section class="section-home">
+            <!-- <div class="title_trait-home">
+                <div class="title_content_trait-home">
+                    <i class="fi fi-br-calendar-lines"></i>
+                    <h1>Le prochain cours</h1>
+                </div>
+                <div></div>
+            </div> -->
+
+            <div class="content_prochain_cours-home">
+                <div class="description_prochain_cours-home">
+                    <p><?php echo $nextCours['summary'] ?></p>
+                    <p><?php echo $nextCours['location'] ?> - <?php echo $nextCours['description'] ?></p>
+                </div>
+                <div class="date_content_prochain_cours-home">
+                    <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
+                    <p id="tempsBefore">...</p>
+                </div>
+            </div>
+        </section>
+
+        <div style="height:20px"></div> 
+
         <div class="container_buttons_nav-home">
             <a role="button" class="item_button_nav-home" href="./calendar.php">
                 <i class="fi fi-br-calendar-lines"></i>
@@ -134,30 +157,6 @@ echo head('MMI Companion | Accueil');
                 <p>Vie scolaire</p>
             </a>
         </div>
-
-        <div style="height:30px"></div>
-
-        <section class="section-home">
-            <div class="title_trait-home">
-                <div class="title_content_trait-home">
-                    <i class="fi fi-br-calendar-lines"></i>
-                    <h1>Le prochain cours</h1>
-                </div>
-                <div></div>
-            </div>
-
-            <div class="content_prochain_cours-home">
-                <div class="description_prochain_cours-home">
-                    <p><?php echo $nextCours['summary'] ?></p>
-                    <p><?php echo $nextCours['location'] ?> - <?php echo $nextCours['description'] ?></p>
-                </div>
-                <div class="date_content_prochain_cours-home">
-                    <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
-                    <p id="tempsBefore">...</p>
-                </div>
-            </div>
-            
-        </section>
 
         <div style="height:30px"></div>
 
@@ -197,7 +196,7 @@ echo head('MMI Companion | Accueil');
             <div class="title_trait-home">
                 <div class="title_content_trait-home">
                     <i class="fi fi-br-restaurant"></i>
-                    <h1>Menu du jour</h1>
+                    <h1>Menu du jour (en bêta)</h1>
                 </div>
                 <div></div>
             </div>
@@ -205,7 +204,7 @@ echo head('MMI Companion | Accueil');
             <?php echo getMenuToday(); ?>
         </section>
 
-        <canvas id="fireworks"></canvas>
+        <!-- <canvas id="fireworks"></canvas> -->
 
 
 

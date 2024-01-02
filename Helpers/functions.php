@@ -51,6 +51,8 @@ function head(string $title = ''): string
   <script type="module" src="./../assets/js/firebase.js"></script>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+  <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_landscape.png">
@@ -158,7 +160,6 @@ function generateBurgerMenuContent($role, $title)
             </div>
         </div>
         <div class="burger_content_content-header">
-            <div class="burger_content_trait_header"></div>
             <a href="./home.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-home"></i>
@@ -195,25 +196,6 @@ function generateBurgerMenuContent($role, $title)
             </div>
         </a>';
     }
-    if ($role == "prof" || $role == "autre") {
-        $menuHtml .= '
-        <div class="burger_content_trait_header"></div>
-                <div class="burger_content_link-header burger_disabled">
-                    <i class="fi fi-br-book-alt"></i>
-                    <p>Scolarité (bêta)</p>
-                    <div id="select_background_vie_sco-header" class=""></div>
-                </div>';
-    } else {
-        $menuHtml .= '
-        <div class="burger_content_trait_header"></div>
-            <a href="./absences.php">
-                <div class="burger_content_link-header">
-                    <i class="fi fi-br-book-alt"></i>
-                    <p>Scolarité (bêta)</p>
-                    <div id="select_background_vie_sco-header" class=""></div>
-                </div>
-            </a>';
-    }
     if ($role == "autre") {
         $menuHtml .= '
                 <div class="burger_content_link-header burger_disabled">
@@ -231,12 +213,30 @@ function generateBurgerMenuContent($role, $title)
                 </div>
             </a>';
     }
+    if ($role == "prof" || $role == "autre") {
+        $menuHtml .= '
+                <div class="burger_content_link-header burger_disabled">
+                    <i class="fi fi-br-book-alt"></i>
+                    <p>Scolarité (bêta)</p>
+                    <div id="select_background_vie_sco-header" class=""></div>
+                </div>';
+    } else {
+        $menuHtml .= '
+            <a href="./absences.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-book-alt"></i>
+                    <p>Scolarité (bêta)</p>
+                    <div id="select_background_vie_sco-header" class=""></div>
+                </div>
+            </a>';
+    }
     $menuHtml .= '
+            <div class="burger_content_trait_header"></div>
             <a href="./menu.php">
                 <div class="burger_content_link-header">
-                    <i class="fi fi-br-link-alt"></i>
-                    <p>Outils supplémentaires</p>
-                    <div id="select_background_outils-supplementaires-header" class=""></div>
+                    <i class="fi fi-br-restaurant"></i>
+                    <p>Menu du Crousty</p>
+                    <div id="select_background_menu-header" class=""></div>
                 </div>
             </a>
             <a href="./outils_supplementaires.php">
@@ -256,7 +256,6 @@ function generateBurgerMenuContent($role, $title)
             </a>';
     if (str_contains($role, 'admin')) {
         $menuHtml .= ' 
-            <div class="burger_content_trait_header"></div>
             <a href="./admin/administration.php">
             <div class="burger_content_link-header">
             <i class="fi fi-br-tool-box"></i>
