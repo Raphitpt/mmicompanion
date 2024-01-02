@@ -42,7 +42,7 @@ function head(string $title = ''): string
   <link href="../assets/css/style.css?v=2.1" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
-  <link rel="manifest" href="/manifest.json">
+  <link rel="manifest" href="../manifest.json">
   <script>
     // Redirect to HTTPS if HTTP is requested.
     if (window.location.protocol === 'http:') {
