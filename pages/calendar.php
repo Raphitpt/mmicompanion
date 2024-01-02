@@ -309,6 +309,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
         weekNumbers: true,
+        events: [
+          { title: 'Pause Repas', start: '11:45', end: '13:30', dow: [1, 2, 3, 4, 5] }, // Pause Repas chaque jour de la semaine
+        ],
         views: {
           timeGridWeek: {
             type: 'timeGrid',

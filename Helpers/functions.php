@@ -835,7 +835,7 @@ use ICal\ICal;
 
 function nextCours($edu_group)
 {
-    $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
+    $ical = new ICal('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics', array(
         'defaultSpan'                 => 2,     // Default value
         'defaultTimeZone'             => 'UTC',
         'defaultWeekStart'            => 'MO',  // Default value
@@ -845,50 +845,85 @@ function nextCours($edu_group)
         'httpUserAgent'               => null,  // Default value
         'skipRecurrence'              => false, // Default value
     ));
+
     $now = new DateTime();
     $now->setTimezone(new DateTimeZone('Europe/Paris'));
     $dateNow = $now->format('Y-m-d H:i:s');
+
     $tomorrow = new DateTime();
     $tomorrow->setTimezone(new DateTimeZone('Europe/Paris'));
     $tomorrow->modify('+1 day');
     $tomorrow = $tomorrow->format('Y-m-d H:i:s');
 
-    $events = $ical->eventsFromRange($dateNow, '2024-01-26 17:00:00');
+    $events = $ical->eventsFromRange($dateNow, $tomorrow);
     $events = json_decode(json_encode($events), true);
     usort($events, function ($a, $b) {
         $timeA = strtotime($a['dtstart_tz']);
         $timeB = strtotime($b['dtstart_tz']);
-
         return $timeA - $timeB;
     });
-    $firstEvent = reset($events);
-    $firstEvent['description'] = preg_replace('/\([^)]*\)/', '', $firstEvent['description']);
-    $firstEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $firstEvent['description']);
-    $firstEvent['description'] = trim($firstEvent['description']);
-    $timezone = new DateTimeZone('UTC');
 
-    $debut = new DateTime($firstEvent['dtstart'], $timezone);
-    $debut->setTimezone(new DateTimeZone('Europe/Paris'));
-    $fin = new DateTime($firstEvent['dtend'], $timezone);
-    $fin->setTimezone(new DateTimeZone('Europe/Paris'));
+    $result = null;
 
-    $firstEvent['debut'] = $debut->format('H:i');
-    $firstEvent['fin'] = $fin->format('H:i');
-    unset($firstEvent['uid']);
-    unset($firstEvent['dtstamp']);
-    unset($firstEvent['created']);
-    unset($firstEvent['last_modified']);
-    unset($firstEvent['sequence']);
+    foreach ($events as $index => $anEvent) {
+        $timezone = new DateTimeZone('Europe/Paris');
+        $debut = new DateTime($anEvent['dtstart'], new DateTimeZone('UTC'));
+        $debut->setTimezone($timezone);
+        $fin = new DateTime($anEvent['dtend'], new DateTimeZone('UTC'));
+        $fin->setTimezone($timezone);
 
-    unset($firstEvent['dtend']);
-    unset($firstEvent['dtend_tz']);
-    unset($firstEvent['duration']);
-    unset($firstEvent['status']);
-    unset($firstEvent['organizer']);
-    unset($firstEvent['transp']);
-    unset($firstEvent['attendee']);
-    return ($firstEvent);
-};
+        $anEvent['debut'] = $debut->format('H:i');
+        $anEvent['fin'] = $fin->format('H:i');
+        unset($anEvent['uid']);
+        unset($anEvent['dtstamp']);
+        unset($anEvent['created']);
+        unset($anEvent['last_modified']);
+        unset($anEvent['sequence']);
+        unset($anEvent['dtend']);
+        unset($anEvent['dtend_tz']);
+        unset($anEvent['duration']);
+        unset($anEvent['status']);
+        unset($anEvent['organizer']);
+        unset($anEvent['transp']);
+        unset($anEvent['attendee']);
+
+        if ($fin->getTimestamp() - 900 > $now->getTimestamp()) {
+            // Événement actuel n'est pas encore terminé
+            $result = $anEvent;
+            break;
+        } elseif ($fin->getTimestamp() - 900 <= $now->getTimestamp() && isset($events[$index + 1])) {
+            // Événement suivant (15 minutes avant la fin de l'actuel)
+            $nextEvent = $events[$index + 1];
+            $nextEventDebut = new DateTime($nextEvent['dtstart'], new DateTimeZone('UTC'));
+            $nextEventDebut->setTimezone($timezone);
+            $nextEventFin = new DateTime($nextEvent['dtend'], new DateTimeZone('UTC'));
+            $nextEventFin->setTimezone($timezone);
+            $nextEvent['debut'] = $nextEventDebut->format('H:i');
+            $nextEvent['fin'] = $nextEventFin->format('H:i');
+            unset($nextEvent['uid']);
+            unset($nextEvent['dtstamp']);
+            unset($nextEvent['created']);
+            unset($nextEvent['last_modified']);
+            unset($nextEvent['sequence']);
+            unset($nextEvent['dtend']);
+            unset($nextEvent['dtend_tz']);
+            unset($nextEvent['duration']);
+            unset($nextEvent['status']);
+            unset($nextEvent['organizer']);
+            unset($nextEvent['transp']);
+            unset($nextEvent['attendee']);
+            $result = $nextEvent;
+            break;  // Sortir de la boucle dès que le prochain événement est trouvé
+        }
+    }
+
+    return $result;
+}
+
+
+
+
+
 function getMenu()
 {
     $menu_url = 'https://www.crous-poitiers.fr/restaurant/r-u-crousty/'; // URL du menu
