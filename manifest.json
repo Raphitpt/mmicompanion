@@ -76,7 +76,11 @@
 			"sizes": "320x320",
 			"purpose": "maskable"
 
-		}
+		},{
+            "src": "./assets/img/favicon.svg",
+            "type": "image/svg+xml",
+            "sizes": "512x512"
+   }
 	],
 
 
