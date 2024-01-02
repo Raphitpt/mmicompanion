@@ -1053,7 +1053,7 @@ main {
     width: 100%;
 }
 
-.content_menu-home li{
+.content_menu-home li, .content_menu-home p{
     color: var(--texte);
     font-family: Montserrat;
     font-size: 13px;

@@ -1013,13 +1013,19 @@ function getMenuToday()
         if ($date == $currentDate) {
             // Construisez le HTML de manière plus lisible
             $html .= "<div class='content_menu-home'>";
-            $html .= "<ul>";
 
-            foreach ($menu['Foods'] as $food) {
-                $html .= "<li>$food</li>";
+            if ($menu['Foods'] == null) {
+                $html .= "<p>Pas de menu aujourd'hui</p>";
+            }else{
+                $html .= "<ul>";
+                foreach ($menu['Foods'] as $food) {
+                    $html .= "<li>$food</li>";
+                }
+                $html .= "</ul>";
             }
 
-            $html .= "</ul></div>";
+
+            $html .= "</div>";
         } 
 
         // Si c'est le menu du jour, vous pouvez arrêter la boucle ici

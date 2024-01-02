@@ -203,15 +203,16 @@ echo head('MMI Companion | Accueil');
             </div>
 
             <?php echo getMenuToday(); ?>
-
-            
         </section>
+
+        <canvas id="fireworks"></canvas>
 
 
 
 
     </main>
 
+    <script src="../assets/js/fireworks.js"></script>
     <script src="../assets/js/menu-navigation.js?v=1.1"></script>
     <script>
 
