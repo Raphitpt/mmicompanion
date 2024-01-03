@@ -2446,14 +2446,14 @@ header{
     gap: 1.25rem;
 
     position: absolute;
-    top: 1.5625rem;
-    right: -0.75rem;
+    top: -30px;
+    right: 30px;
 
     background-color: var(--blanc);
     border-radius: 1.25rem;
     padding: 1.25rem;
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.10);
-    transform-origin: 90% 0%;
+    transform-origin: 100% 50%;
 
     min-width: 160px;
     transition: all 0.3s ease-in-out;
@@ -3382,7 +3382,7 @@ p {
 }
 
 .swiper-wrapper.agenda{
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
 }
 
 

@@ -522,8 +522,8 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 autoHeight: true,
                 spaceBetween: 30,
                 navigation: {
-                    nextEl: ".btn_next",
-                    prevEl: ".btn_prev",
+                    nextEl: ".btn_next_agenda",
+                    prevEl: ".btn_prev_agenda",
                 },
             });
 
@@ -624,13 +624,8 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 });
 
                 function toggleDropdown(dropdownContent) {
-                    if (dropdownContent.classList.contains('menu_dropdown_open')) {
-                        dropdownContent.classList.remove('menu_dropdown_open');
-                        dropdownContent.classList.add('menu_dropdown_close');
-                    } else {
-                        dropdownContent.classList.add('menu_dropdown_open');
-                        dropdownContent.classList.remove('menu_dropdown_close');
-                    }
+                    dropdownContent.classList.toggle('menu_dropdown_open');
+                    dropdownContent.classList.toggle('menu_dropdown_close');
                 }
 
                 function closeAllDropdowns() {
