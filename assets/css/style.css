@@ -2934,7 +2934,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    gap: .625rem;
+    gap: .9375rem;
 }
 
 .item_menu_title-menu{

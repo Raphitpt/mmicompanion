@@ -219,7 +219,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
         <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
 
         <!-- Corps de la page -->
-        <main class="mai_all">
+        <main class="main_all">
             <div style="height:30px"></div>
             <div class="agenda_title-agenda">
                 <div class="agenda_title_flextop-agenda">
