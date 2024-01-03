@@ -239,11 +239,11 @@ function generateBurgerMenuContent($role, $title)
                     <div id="select_background_menu-header" class=""></div>
                 </div>
             </a>
-            <a href="./outils_supplementaires.php">
+            <a href="./liens_externes.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-link-alt"></i>
-                    <p>Outils supplémentaires</p>
-                    <div id="select_background_outils-supplementaires-header" class=""></div>
+                    <p>Liens externes</p>
+                    <div id="select_background_liens_externes-header" class=""></div>
                 </div>
             </a>
             <div class="burger_content_trait_header"></div>

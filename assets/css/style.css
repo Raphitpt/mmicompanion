@@ -3102,9 +3102,9 @@ p {
 
 
 
-/* OUTILS_SUPPLEMENTAIRES.PHP */
+/* LIENS_EXTERNES.PHP */
 
-.container-outils{
+.container-liens_externes{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3112,11 +3112,11 @@ p {
     gap: 1.25rem;
 }
 
-.container-outils a{
+.container-liens_externes a{
     width: 100%;
 }
 
-.item-outils{
+.item-liens_externes{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -3126,29 +3126,34 @@ p {
     gap: .625rem;
 }
 
-.item-outils.red{
+.item-liens_externes.red{
     background: linear-gradient(90deg, #C53F3F 20.33%, rgba(197, 63, 63, 0.10) 101.93%);
 }
 
-.item-outils.purple{
+.item-liens_externes.purple{
     background: linear-gradient(90deg, #583D88 20.33%, rgba(88, 61, 136, 0.10) 101.93%);
 }
 
-.item-outils.orange{
+.item-liens_externes.orange{
     background: linear-gradient(90deg, #BF5C00 20.33%, rgba(191, 92, 0, 0.10) 101.93%);
 }
-.item-outils.blue{
+
+.item-liens_externes.blue{
     background: linear-gradient(90deg, #0063BF 20.33%, rgba(191, 92, 0, 0.10) 101.93%);
 }
 
-.item_flextop-outils{
+.item-liens_externes.brown{
+    background: linear-gradient(90deg, #2c1a17 20.33%, rgba(191, 92, 0, 0.10) 101.93%);
+}
+
+.item_flextop-liens_externes{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
-.item_flextop-outils h1{
+.item_flextop-liens_externes h1{
     color: #FFF;
     font-family: Montserrat;
     font-size: .875rem;
@@ -3157,26 +3162,28 @@ p {
     line-height: normal;
 }
 
-.item_flextop-outils img{
+.item_flextop-liens_externes img{
     width: auto;
     height: 5rem;
 }
 
-.item_flextop-outils.updago_img img{
+.item_flextop-liens_externes.updago_img img{
     width: 6.25rem;
     height: auto;
 }
-.item_flextop-outils.iut_img img{
-    margin-right: 19.2px;
+
+.item_flextop-liens_externes.concours48h_img img{
+    width: 6.25rem;
+    height: auto;
 }
 
-.item_flexbottom-outils{
+.item_flexbottom-liens_externes{
     display: flex;
     align-items: center;
     width: 100%;
 }
 
-.item_flexbottom-outils p{
+.item_flexbottom-liens_externes p{
     color: #FFF;
     font-family: Montserrat;
     font-size: .6875rem;
@@ -3184,14 +3191,6 @@ p {
     font-weight: 500;
     line-height: normal;
 }
-
-.meal{
-    display: none;
-}
-.active{
-    display: block;
-}
-
 
 
 
@@ -3715,4 +3714,25 @@ p {
 }
 [data-theme="dark"] #validate_change_role{
     color: var(--bleu-trs-clair-background) !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.active{
+    display: block;
 }

@@ -15,26 +15,26 @@ $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion | Outils supplémentaires");
+echo head("MMI Companion | Liens externes");
 
 ?>
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Outils supplémentaires') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Liens externes') ?>
 
     <main class="main_all">
         <div style="height:30px"></div>
-        <div class="container-outils">
+        <div class="container-liens_externes">
             <a href="https://zimbra.univ-poitiers.fr" target="_blank">
-                <div class="item-outils red">
-                    <div class="item_flextop-outils">
+                <div class="item-liens_externes red">
+                    <div class="item_flextop-liens_externes">
                         <h1>Messagerie
                         <br>(webmail)
                         </h1>
                         <img src="./../assets/img/messagerie.webp" alt="Une personne envoyant un email">
                     </div>
-                    <div class="item_flexbottom-outils">
+                    <div class="item_flexbottom-liens_externes">
                         <?php 
                         if ($user_sql['role'] == "prof") {
                             echo "<p>Votre messagerie de l’université de Poitiers</p>";
@@ -46,12 +46,12 @@ echo head("MMI Companion | Outils supplémentaires");
                 </div>
             </a>
             <a href="https://cas.univ-poitiers.fr/cas/login?service=https://ent.univ-poitiers.fr/uPortal/Login" target="_blank">
-                <div class="item-outils purple">
-                    <div class="item_flextop-outils">
+                <div class="item-liens_externes purple">
+                    <div class="item_flextop-liens_externes">
                         <h1>ENT</h1>
                         <img src="./../assets/img/ENT.webp" alt="Une personne qui travaille">
                     </div>
-                    <div class="item_flexbottom-outils">
+                    <div class="item_flexbottom-liens_externes">
                         <?php 
                         if ($user_sql['role'] == "prof") {
                             echo "<p>Votre espace numérique de travail</p>";
@@ -63,12 +63,12 @@ echo head("MMI Companion | Outils supplémentaires");
                 </div>
             </a>
             <a href="https://auth.univ-poitiers.fr/cas/login?service=https%3A%2F%2Fupdago.univ-poitiers.fr%2Flogin%2Findex.php%3FauthCAS%3DCAS" target="_blank">
-                <div class="item-outils orange">
-                    <div class="item_flextop-outils updago_img">
+                <div class="item-liens_externes orange">
+                    <div class="item_flextop-liens_externes updago_img">
                         <h1>UPdago</h1>
                         <img src="./../assets/img/UPdago.webp" alt="Logo de UPdago">
                     </div>
-                    <div class="item_flexbottom-outils">
+                    <div class="item_flexbottom-liens_externes">
                         <?php 
                         if ($user_sql['role'] == "prof") {
                             echo "<p>Votre plateforme d’enseignement en ligne</p>";
@@ -81,28 +81,32 @@ echo head("MMI Companion | Outils supplémentaires");
                 </div>
             </a>
             <a href="https://iut-angouleme.univ-poitiers.fr/" target="_blank">
-                <div class="item-outils blue">
-                    <div class="item_flextop-outils iut_img">
+                <div class="item-liens_externes blue">
+                    <div class="item_flextop-liens_externes iut_img">
                         <h1>IUT Angoulême</h1>
                         <img src="./../assets/img/Logo_IUT_Angoulême.webp" alt="Logo de l'IUT d'Angoulême">
                     </div>
-                    <div class="item_flexbottom-outils">
+                    <div class="item_flexbottom-liens_externes">
                         <p>Site internet de l'IUT d'Angoulême</p>
                     </div>
                 </div>
             </a>
-            <!-- <div>
-               <h1>Menu du RU</h1>
-                <div style="height:10px"></div>
-                <button id="precedent" class="button_menu_jour">Précédent</button>
-               <div id="menu_jour">
-
-               </div>
-                <button id="suivant" class="button_menu_jour">Suivant</button>
-            </div> -->
-            
-
+            <a href="https://concours48h.fr" target="_blank">
+                <div class="item-liens_externes brown">
+                    <div class="item_flextop-liens_externes concours48h_img">
+                        <h1>Concours 48h</h1>
+                        <img src="./../assets/img/logo_48h.webp" alt="Logo du concours 48h">
+                    </div>
+                    <div class="item_flexbottom-liens_externes">
+                        <p>Le site officiel du concours 48h</p>
+                    </div>
+                </div>
+            </a>
+        
         </div>
+        
+        <div style="height:30px"></div>
+
         <canvas id="fireworks"></canvas>
       </main>
 
@@ -110,7 +114,7 @@ echo head("MMI Companion | Outils supplémentaires");
         <script src="../assets/js/fireworks.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
-        let select_background_profil = document.querySelector('#select_background_outils-supplementaires-header');
+        let select_background_profil = document.querySelector('#select_background_liens_externes-header');
         select_background_profil.classList.add('select_link-header');
 
         // const menu_jour = document.querySelector('#menu_jour');
