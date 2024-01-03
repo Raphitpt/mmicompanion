@@ -220,14 +220,8 @@ echo head('MMI Companion | Accueil');
             <?php echo getMenuToday(); ?>
         </section>
 
-        <!-- <canvas id="fireworks"></canvas> -->
-
-
-
-
     </main>
 
-    <script src="../assets/js/fireworks.js"></script>
     <script src="../assets/js/script_all.js?v=1.1"></script>
     <script>
 
