@@ -136,15 +136,27 @@ function generateBurgerMenuContent($role, $title)
     <header>
     <div class="content_header">
         <div class="content_title-header">
-            <div class="burger-header" id="burger-header">
-                <i class="fi fi-br-bars-sort"></i>
+            <div class="left_content_title-header">
+                <div class="burger-header" id="burger-header">
+                    <i class="fi fi-br-bars-sort"></i>
+                </div>
+                <div style="width:20px"></div>
+                <!--<h1>' . $title . '</h1>-->
+                <div class="title-header">
+                    <h1>Bonne année 2024</h1>
+                    <p>' . $title . '</p>
+                </div>
             </div>
-            <div style="width:20px"></div>
-            <!--<h1>' . $title . '</h1>-->
-            <div class="title-header">
-                <h1>Bonne année 2024</h1>
-                <p>' . $title . '</p>
+            <div class="right_content_title-header">
+                <i class="fi fi-sr-bell"></i>
+                <div class="container_notifications-header">
+                    <div class="item_notification-header">
+                        <p>Informations</p>
+                        <p>Je vous informe que que mon pied du 18...</p>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 

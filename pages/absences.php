@@ -113,7 +113,7 @@ echo head("MMI Companion | Scolarité");
         <canvas id="fireworks"></canvas>
       </main>
 </body>
-<script src="../assets/js/menu-navigation.js?v=1.1"></script>
+<script src="../assets/js/script_all.js?v=1.1"></script>
 <script src="../assets/js/fireworks.js"></script>
  
 <script>

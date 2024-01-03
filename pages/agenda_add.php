@@ -189,7 +189,7 @@ echo head("MMI Companion | Agenda");
         <canvas id="fireworks"></canvas>
 
       </main>
-      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/script_all.js?v=1.1"></script> 
         <script src="../assets/js/fireworks.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>

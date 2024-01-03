@@ -157,7 +157,7 @@ echo head("MMI Companion | Agenda");
 
 </body>
 
-  <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+  <script src="../assets/js/script_all.js?v=1.1"></script> 
 
 <script>
     // Faire apparaître le background dans le menu burger
@@ -243,7 +243,7 @@ echo head("MMI Companion | Agenda");
         <canvas id="fireworks"></canvas>
       </main>
     <div style="height:20px"></div>
-      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/script_all.js?v=1.1"></script> 
         <script src="../assets/js/fireworks.js"></script>
     <script>
 

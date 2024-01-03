@@ -118,7 +118,7 @@ echo head('MMI Companion | Menu du Crousty');
 
     </main>
 
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+    <script src="../assets/js/script_all.js?v=1.1"></script> 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger

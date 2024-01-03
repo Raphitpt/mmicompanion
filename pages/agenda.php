@@ -203,7 +203,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
     </body>
 
-      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/script_all.js?v=1.1"></script> 
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -417,7 +417,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             <div style="height:20px"></div>
         </main>
 
-          <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+          <script src="../assets/js/script_all.js?v=1.1"></script> 
         <script src="../assets/js/fireworks.js"></script>
         
 

@@ -148,10 +148,18 @@ header{
 
 .content_title-header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.left_content_title-header {
+    display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    margin: 0 10vw;
     height: 100%;
 }
 
@@ -214,6 +222,16 @@ header{
 }
 
 
+.right_content_title-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right_content_title-header i{
+    color: var(--texte);
+    font-size: 1.5625rem;
+}
 
 
 
