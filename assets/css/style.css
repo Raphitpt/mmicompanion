@@ -150,7 +150,7 @@ header{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
     height: 100%;
 }
@@ -231,6 +231,132 @@ header{
 .right_content_title-header i{
     color: var(--texte);
     font-size: 1.5625rem;
+}
+
+.container_notifications-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 1.25rem;
+
+    position: absolute;
+    top: 70px;
+    right: 6%;
+
+    background-color: var(--bleu-clair-background);
+    border-radius: .625rem;
+    padding: 1.25rem 1.875rem;
+
+    width: 90%;
+    max-width: 550px;
+
+    transform-origin: 90% 0%;
+    transform: scale(0);
+
+    z-index: 100;
+}
+
+.item_notification-header{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: .625rem;
+
+    width: 100%;
+}
+
+.badge_item_notification-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.badge_item_notification-header div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: .625rem;
+    height: auto;
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    background-color: var(--texte);
+}
+
+.content_item_notification-header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    gap: .3125rem;
+
+    width: 100%;
+}
+
+.title_item_notification-header{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: .625rem;
+
+    width: 100%;
+}
+
+.title_item_notification-header i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--texte);
+    font-size: 1.0625rem;
+}
+
+.title_item_notification-header p{
+    color: var(--texte);
+    font-size: .875rem;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: end;
+}
+
+.description_item_notification-header{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: .625rem;
+
+    width: 100%;
+}
+
+.description_item_notification-header p{
+    color: var(--texte);
+    font-size: .75rem;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-align: end;
+}
+
+.description_item_notification-header span{
+    font-weight: 700;
+}
+
+.notification_read{
+    opacity: 0.5;
+}
+
+.menu_notification_open {
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.menu_notification_close {
+    transform: scale(0);
+    transition: all 0.3s ease;
 }
 
 
@@ -2929,9 +3055,6 @@ p {
 }
 
 
-.hidden {
-    display: none;
-}
 
 
 
@@ -3753,4 +3876,9 @@ p {
 
 .active{
     display: block;
+}
+
+
+.hidden {
+    display: none;
 }

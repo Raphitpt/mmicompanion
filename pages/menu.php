@@ -13,7 +13,7 @@ $stmt->execute([
 ]);
 $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
+dd(notifsHistory($dbh, '56', 'BUT2-TP3'));
 
 echo head('MMI Companion | Menu du Crousty');
 

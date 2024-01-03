@@ -53,6 +53,74 @@ function toggleMenu() {
   }
 }
 
+
+// Gestion de la partie notification
+
+const menuIcon = document.querySelector("#btn_notification");
+const navMenu = document.querySelector(".container_notifications-header");
+
+
+// Ajouter un gestionnaire d'événement au clic sur l'icône du menu
+menuIcon.addEventListener('click', function (event2) {
+    event2.stopPropagation(); // Empêche la propagation de l'événement de clic
+    toggleMenuNotif();
+});
+
+// Ajoutez un gestionnaire d'événement au clic sur le document
+document.addEventListener('click', (event) => {
+    // Fermez le menu si l'élément cliqué est à l'extérieur
+    if (!navMenu.contains(event.target)) {
+        navMenu.classList.remove('menu_notification_open');
+        navMenu.classList.add('menu_notification_close');
+    }
+});
+
+// Sélectionner tous les liens du menu
+const menuLinks = document.querySelectorAll('.menu-link');
+
+// Ajouter un gestionnaire d'événement de clic à chaque lien du menu
+menuLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+        // Fermer le menu en cliquant sur un lien
+        toggleMenuNotif();
+    });
+});
+
+function toggleMenuNotif() {
+    // Vérifier si le menu est actuellement visible ou caché
+    const isMenuOpen = navMenu.classList.contains('menu_notification_open');
+
+    // Inverser la visibilité du menu en ajoutant ou en supprimant la classe 'open'
+    if (isMenuOpen) {
+        navMenu.classList.remove('menu_notification_open');
+        navMenu.classList.add('menu_notification_close');
+    } else {
+        navMenu.classList.add('menu_notification_open');
+        navMenu.classList.remove('menu_notification_close');
+    }
+}
+
+// // Ajoutez un gestionnaire d'événement au clic sur le document
+// document.addEventListener("click", (event) => {
+//   // Fermez le menu si l'élément cliqué est à l'extérieur
+//   if (!contentNotification.contains(event.target)) {
+//     contentNotification.classList.add("hidden");
+//   }
+// });
+
+// // Fonction pour basculer l'état du menu
+
+// function toggleNotification() {
+//   const isMenuOpen = contentNotification.classList.contains("hidden");
+
+//   if (isMenuOpen) {
+//     contentNotification.classList.add("hidden");
+//   } else {
+
+//   }
+// }
+
+
 // Animation du bouton burger
 
 // burgerButton.addEventListener('click', function() {
@@ -202,4 +270,3 @@ if ('serviceWorker' in navigator) {
 
 
 
-// C

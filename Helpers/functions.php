@@ -131,6 +131,7 @@ function findTrigramme($profName, $dbh)
 
 function generateBurgerMenuContent($role, $title)
 {
+    // $contentNotif = notifsHistory($dbh, '56', 'BUT2-TP3');
 
     $menuHtml = '
     <header>
@@ -148,11 +149,34 @@ function generateBurgerMenuContent($role, $title)
                 </div>
             </div>
             <div class="right_content_title-header">
-                <i class="fi fi-sr-bell"></i>
+                <div id="btn_notification">
+                    <i class="fi fi-sr-bell"></i>
+                </div>
                 <div class="container_notifications-header">
                     <div class="item_notification-header">
-                        <p>Informations</p>
-                        <p>Je vous informe que que mon pied du 18...</p>
+                        <div class="badge_item_notification-header">
+                            <div></div>
+                        </div>
+                        <div class="content_item_notification-header">
+                            <div class="title_item_notification-header">
+                                <i class="fi fi-br-calendar-lines"></i>
+                                <p>Informations - <span>02/01 13:37</span></p>
+                            </div>
+                            <div class="description_item_notification-header">
+                                <p><span>C. Couegnas</span> - Je vous informe quee mon pied du 18...</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item_notification-header">
+                        <div class="content_item_notification-header">
+                            <div class="title_item_notification-header">
+                                <i class="fi fi-br-book-bookmark"></i>
+                                <p>Agenda - <span>01/01 18:36</span></p>
+                            </div>
+                            <div class="content_item_notification-header">
+                                <p>1 évaluation a été ajoutée</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
