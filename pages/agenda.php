@@ -312,8 +312,11 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 if ($currentWeek !== $eventWeek) {
                     // Ajoutez les semaines manquantes au tableau
                     for ($missingWeek = $currentWeek + 1; $missingWeek < $eventWeek; $missingWeek++) {
-                        $missingWeekStartDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->format('d/m');
-                        $missingWeekEndDate = Carbon::now()->isoWeek($missingWeek)->endOfWeek()->format('d/m');
+                        $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
+                        $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(4);   // Se termine le vendredi
+
+                        $missingWeekStartDate = $startDate->format('d/m');
+                        $missingWeekEndDate = $endDate->format('d/m');
                         $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
                         $agendaMerged[$missingWeekLabel] = [];
                     }
