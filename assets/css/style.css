@@ -780,7 +780,7 @@ main {
 }
 
 .identite_content_title-home h1{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: 1.1875rem;
     font-style: normal;
@@ -840,7 +840,7 @@ main {
     height: 100%;
 
     padding: .5rem .625rem;
-    background-color: var(--bleu-moyen);
+    background-color: var(--bleu-clair-background);
     border-radius: .625rem;
 }
 
