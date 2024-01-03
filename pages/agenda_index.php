@@ -119,14 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Créer la structure HTML pour chaque date
-        $html = "<div class='agenda_content_list-agenda'>";
+        $html = "<div class='content_list-agenda'>";
         $html .= "<h2>$date</h2>";
         $html .= "<div class='ligne_agenda'></div>";
         $html .= "<div style='height:10px'></div>";
 
         foreach ($events as $event) {
-            $html .= "<div class='agenda_content_list_item-agenda'>";
-            $html .= "<div class='agenda_content_list_item_flexleft-agenda'>";
+            $html .= "<div class='item_list-agenda'>";
+            $html .= "<div class='item_list_flexleft-agenda'>";
 
             if ($event['type'] == "eval") {
                 $html .= "<i class='fi fi-br-comment-info'></i>";
@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $html .= "<i class='fi fi-br-comment-info' style='visibility: hidden;'></i>";
             }
 
-            $html .= "<div class='agenda_title_content_list_item_flexleft-agenda'>";
+            $html .= "<div class='content_item_list_flexleft-agenda'>";
 
             foreach ($colors as $color) {
                 if ($color['id_subject'] == $event['id_subject']) {
@@ -156,12 +156,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $html .= "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
 
             // Affichage du contenu de l'event de l'agenda
-            $html .= "<div class='agenda_description-agenda'>";
+            $html .= "<div class='description_item_list_flexleft-agenda'>";
             if (isset($agenda['content']) && !empty($agenda['content'])) {
                 $html .= $agenda['content'];
             }
             $html .= "</div>";
-            $html .= "<div class='agenda_content_subject-agenda'>";
+            $html .= "<div class='author_item_list_flexleft-agenda'>";
             if ($event['role'] == "prof") {
                 $html .= "<p class='name_subject-agenda'>De : <span>" . substr($event['pname'], 0, 1) . '. ' . $event['name'] . "</span></p></br>";
             }
@@ -169,15 +169,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $html .= "</div>";
             $html .= "</div>";
             
-            $html .= "<div class='agenda_content_list_item_flexright-agenda'>";
-            $html .= "<div class='agenda_dropdown_menu_edit-agenda'>";
+            $html .= "<div class='item_list_flexright-agenda'>";
+            $html .= "<div class='menu_dropdown_item_list_flexright-agenda'>";
             $html .= "<i class='fi fi-br-menu-dots'></i>";
             // $html .= "<span class=''></span>";
             // $html .= "<span class='button_circle_dropdown-agenda'></span>";
             // $html .= "<span class='button_circle_dropdown-agenda'></span>";
 
             
-            $html .= "<div class='dropdown-content'>"; // Début du dropdown menu container
+            $html .= "<div class='content_menu_dropdown_item_list_flexright-agenda'>"; // Début du dropdown menu container
 
             // Condition pour afficher le bouton edit et delete en fonction du role de l'utilisateur
             if ($user_sql['role'] == "prof") {

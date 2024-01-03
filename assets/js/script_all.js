@@ -61,8 +61,8 @@ const navMenu = document.querySelector(".container_notifications-header");
 
 
 // Ajouter un gestionnaire d'événement au clic sur l'icône du menu
-menuIcon.addEventListener('click', function (event2) {
-    event2.stopPropagation(); // Empêche la propagation de l'événement de clic
+menuIcon.addEventListener('click', function (event) {
+    event.stopPropagation(); // Empêche la propagation de l'événement de clic
     toggleMenuNotif();
 });
 

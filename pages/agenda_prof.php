@@ -176,15 +176,15 @@ echo head("MMI Companion | Agenda");
     <!-- Corps de la page -->
     <main class="main_all">
         <div style="height:30px"></div>
-        <div class="agenda_title-agenda">
-            <div class="agenda_title_flextop-agenda">
+        <div class="title-agenda">
+            <div class="title_flextop-agenda">
                 <div class="title_trait">
                     <h1>L'agenda</h1>
                     <div></div>
                 </div>
             
       
-        <div class="agenda_title_flextopright-agenda">
+        <div class="title_flextopright-agenda">
             <button id="ajouter_agenda_prof">Ajouter</button>
         </div>
     </div>
@@ -238,7 +238,7 @@ echo head("MMI Companion | Agenda");
             </div>
         </div>
         <div style="height:25px"></div>
-        <div class="agenda_content-agenda">
+        <div class="content-agenda">
         </div>
         <canvas id="fireworks"></canvas>
       </main>
@@ -254,18 +254,18 @@ echo head("MMI Companion | Agenda");
 
         const butSelect = document.getElementById('but');
         const tpSelect = document.getElementById('tp');
-        const agendaMain = document.querySelector('.agenda_content-agenda');
+        const agendaMain = document.querySelector('.content-agenda');
         const ajouterAgenda = document.getElementById('ajouter_agenda_prof');
         
         // Écouteur d'événement pour charger l'agenda au chargement de la page
         window.addEventListener('load', loadAgenda);
         window.addEventListener('DOMContentLoaded', function(){
-            let dropdowns = document.querySelectorAll(".agenda_dropdown_menu_edit-agenda");
+            let dropdowns = document.querySelectorAll(".menu_dropdown_item_list_flexright-agenda");
 
                 dropdowns.forEach(function(dropdown) {
                     dropdown.addEventListener("click", function(event) {
                         event.stopPropagation(); // Empêche la propagation de l'événement de clic à la fenêtre
-                        let dropdownContent = dropdown.querySelector(".dropdown-content");
+                        let dropdownContent = dropdown.querySelector(".content_menu_dropdown_item_list_flexright-agenda");
                         dropdownContent.style.display = (dropdownContent.style.display === "block") ? "none" : "block";
                     });
                 });
@@ -273,7 +273,7 @@ echo head("MMI Companion | Agenda");
                 // Ferme le menu déroulant lors d'un clic à l'extérieur de celui-ci
                 window.addEventListener("click", function(event) {
                     dropdowns.forEach(function(dropdown) {
-                        let dropdownContent = dropdown.querySelector(".dropdown-content");
+                        let dropdownContent = dropdown.querySelector(".content_menu_dropdown_item_list_flexright-agenda");
                         if (!dropdown.contains(event.target)) {
                             dropdownContent.style.display = "none";
                         }
