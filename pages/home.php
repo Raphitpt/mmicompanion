@@ -108,7 +108,7 @@ echo head('MMI Companion | Accueil');
                     <img src="./../assets/img/hello_emoji.webp" alt="">
                 </div>
                 <div class="date_content_title-home">
-                    <h2>Nous sommes le </h2>
+                    <h2>Chargement...</h2>
                     <div class="trait_date_content_title-home"></div>
                 </div>
             </div>
@@ -132,7 +132,7 @@ echo head('MMI Companion | Accueil');
                 </div>
                 <div class="date_content_prochain_cours-home">
                     <p>De <?php //echo $nextCours['debut'] ?> à <?php //echo $nextCours['fin'] ?></p>
-                    <p id="tempsBefore">...</p>
+                    <p id="tempsBefore">Chargement...</p>
                 </div>
             </div>
         </section>
@@ -164,14 +164,14 @@ echo head('MMI Companion | Accueil');
             <div class="title_trait-home">
                 <div class="title_content_trait-home">
                     <i class="fi fi-br-book-bookmark"></i>
-                    <h1 id="agendaTitle">...</h1>
+                    <h1 id="agendaTitle">Cette semaine</h1>
                 </div>
                 <div></div>
             </div>
 
             <div class="content_agenda-home">
                 <div class="proprietaire_cahier_agenda-home">
-                    <p><span style="font-weight:700">Propriétaire du cahier</span> : Arnaud Graciet</p>
+                    <p><span style="font-weight:700">Propriétaire du cahier</span> : ...</p>
                 </div>
 
                 <div class="container_numbers_agenda-home">
@@ -240,7 +240,7 @@ echo head('MMI Companion | Accueil');
         let options = { weekday: 'long', month: 'long', day: 'numeric' };
 
         // Mettre à jour le contenu de l'élément <h2> avec la date du jour
-        document.querySelector('.date_content_title-home h2').innerHTML += "<span style='font-weight:700'>" + dateDuJour.toLocaleDateString('fr-FR', options) + "</span>";
+        document.querySelector('.date_content_title-home h2').innerHTML = "Nous sommes le <span style='font-weight:700'>" + dateDuJour.toLocaleDateString('fr-FR', options) + "</span>";
 
         // -----------------------------
 
