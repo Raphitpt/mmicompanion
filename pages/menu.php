@@ -13,7 +13,9 @@ $stmt->execute([
 ]);
 $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
 
-echo head('MMI Companion | Menu du Crousty');
+$additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
+
+echo head('MMI Companion | Menu du Crousty', $additionalStyles);
 
 ?>
 
@@ -119,6 +121,7 @@ echo head('MMI Companion | Menu du Crousty');
     <script src="../assets/js/script_all.js?v=1.1"></script> 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
+
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_menu-header');
         select_background_profil.classList.add('select_link-header');
