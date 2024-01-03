@@ -1250,7 +1250,7 @@ header{
     gap: .625rem;
 
     width: 100%;
-    padding: .625rem 1.25rem;
+    padding: 1.25rem;
     border-radius: .625rem;
     background-color: var(--blanc);
 }
