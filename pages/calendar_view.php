@@ -41,7 +41,7 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     </header>
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
-    <main class="main-calendar_add">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Éditer un évènement</h1>

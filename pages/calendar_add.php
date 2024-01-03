@@ -72,7 +72,7 @@ echo head("MMI Companion | Emploi du temps");
     <!-- Fin du menu de navigation -->
     
     <!-- Corps de la page -->
-    <main class="main-calendar_add">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Ajouter un évènement</h1>

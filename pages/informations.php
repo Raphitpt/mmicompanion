@@ -68,7 +68,7 @@ echo head("MMI Companion | Informations");
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Informations') ?>
 
-    <main class="main-informations">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="info_title_flextop-informations">
             <div class="title_trait">

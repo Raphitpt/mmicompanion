@@ -23,7 +23,7 @@ echo head('MMI Companion | Menu du Crousty');
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Menu du Crousty') ?>
 
-    <main class="main-menu">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="menu_title-menu">
             <div class="title_trait">
@@ -78,12 +78,14 @@ echo head('MMI Companion | Menu du Crousty');
 
                         $menu = $menuInfo[0];
 
+                        // Convertir les dates en timestamp
+                        $timestampDate = strtotime($date);
+                        $timestampCurrentDate = strtotime($currentDate);
+
                         // Si la date du menu est supérieure ou égale à la date actuelle, c'est une date future
-                        if ($date >= $currentDate) {
+                        if ($timestampDate >= $timestampCurrentDate) {
                 ?>
                         <div class="swiper-slide">
-                            
-
                             <?php if ($menu['Foods'] == null) { ?>
                                 <p><?php echo $date ?></p>
                                 <p>Pas de menu aujourd'hui</p>
@@ -94,7 +96,6 @@ echo head('MMI Companion | Menu du Crousty');
                                     <?php } ?>
                                 </ul>
                             <?php } ?>
-
                         </div>
                 <?php
                         }

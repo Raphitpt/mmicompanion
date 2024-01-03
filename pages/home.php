@@ -96,7 +96,7 @@ echo head('MMI Companion | Accueil');
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Accueil'); ?>
 
-    <main class="main-home">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title-home">
             <div class="illustration_title-home">

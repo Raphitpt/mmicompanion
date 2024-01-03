@@ -68,6 +68,14 @@ main {
 }
 /* HEADER */
 
+header{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    z-index: 100;
+}
+
 .content_header {
     position: relative;
     width: 100vw;
@@ -731,8 +739,11 @@ main {
 
 
 
-
-
+.main_all {
+    width: 90vw;
+    max-width: 550px;
+    margin-top: 65px;
+}
 
 
 
@@ -741,11 +752,6 @@ main {
 
 /* HOME.PHP */
 
-
-.main-home {
-    width: 90vw;
-    max-width: 550px;
-}
 
 .title-home{
     display: flex;
@@ -1415,10 +1421,6 @@ main {
 
 .main-calendar {
     width: 95vw;
-    max-width: 550px;
-    height: calc(100vh - 4.375rem);
-    overflow-y: hidden;
-    margin-top: -0.3125rem;
 }
 
 
@@ -2978,7 +2980,7 @@ p {
 }
 
 .content_item_menu_title-menu p:nth-child(1){
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: .875rem;
     font-style: normal;
@@ -2991,7 +2993,7 @@ p {
 }
 
 .content_item_menu_title-menu p:nth-child(2), .content_item_menu_title-menu a{
-    color: var(--Texte, #004A5A);
+    color: var(--texte);
     font-family: Montserrat;
     font-size: .875rem;
     font-style: normal;

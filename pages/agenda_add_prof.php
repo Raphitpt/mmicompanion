@@ -105,7 +105,7 @@ echo head("MMI Companion | Agenda");
     <!-- Fin du menu de navigation -->
     
     <!-- Corps de la page -->
-    <main class="main-agenda">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Ajouter une tâche</h1>

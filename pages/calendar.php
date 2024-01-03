@@ -58,7 +58,7 @@ echo head('MMI Companion | Emploi du temps');
 if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-welcome">
-    <main class="main-welcome">
+    <main class="main_all">
       <form action="" method="post" class="form-welcome">
         <section class="welcome_page1-index">
           <a href="./logout.php" class="back_btn">
@@ -223,7 +223,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
     <div style="height:15px"></div>
 
-    <main class="main-calendar">
+    <main class="main_all main-calendar">
       <?php if ($user_sql['role'] == "prof") { ?>
         <div class="welcome_title-calendar_prof">
           <p>Bienvenue <span style="font-weight:900"><?php echo strtoupper(substr($user['pname'], 0, 1)) . "." . ucfirst($user['name']) ?></span> sur votre espace professeur</p>
@@ -340,7 +340,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         },
         allDaySlot: false,
         eventMinHeight: 30,
-        height: 'calc(98vh - 95px)',
+        height: 'calc(100vh - 117px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {

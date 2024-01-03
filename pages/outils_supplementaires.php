@@ -23,7 +23,7 @@ echo head("MMI Companion | Outils supplémentaires");
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Outils supplémentaires') ?>
 
-    <main class="main-outils">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="container-outils">
             <a href="https://zimbra.univ-poitiers.fr" target="_blank">

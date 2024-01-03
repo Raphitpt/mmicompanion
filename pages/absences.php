@@ -34,7 +34,7 @@ echo head("MMI Companion | Scolarité");
 
     <?php generateBurgerMenuContent($user_sql['role'], 'Scolarité') ?>
 
-    <main class="main-scolarite">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="scol_info_container">
             <div class="info_title_flextop-informations">

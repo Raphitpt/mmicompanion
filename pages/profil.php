@@ -39,7 +39,7 @@ echo head("MMI Companion | Profil");
 
     <?php generateBurgerMenuContent($user_sql['role'], 'Profil') ?>
 
-    <main class="main-profil">
+    <main class="main_all">
         <div class="profil_picture-profil">
             <div class="edit_profil_picture-img" id="edit_profil_picture">
                 <i class="fi fi-br-pencil"></i>
@@ -112,24 +112,7 @@ echo head("MMI Companion | Profil");
                     </form>
                 </div>
             <?php } ?>
-            <?php if (str_contains($user_sql['role'], "admin")){ ?>
-            <div class="trait-profil"></div>
-            <div class="profil_theme-profil">
-                <label for="theme">Choix du thème : </label>
-                <div class="profil_theme-switch">
-                    <select name="theme" id="SelectTheme">
-                        <option value="light">Clair</option>
-                        <option value="dark">Sombre</option>
-                    </select>
 
-
-                </div>
-                <div class="profil_themes-festifs">
-                    <input type="checkbox" id="switchTheme" name="theme" checked disabled/>
-                    <p class="label" for="switch">Thèmes festifs</p>
-                </div>
-            </div>
-            <?php } ?>
             <div class="trait-profil"></div>
             <div class="profil_theme-profil">
                 <label for="theme">Choix du thème : </label>
