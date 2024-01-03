@@ -169,24 +169,40 @@ echo head('MMI Companion | Accueil');
                 <div></div>
             </div>
 
-            <div class="container_agenda-home">
-                <div class="item_agenda-home">
-                    <i class="fi fi-sr-square-exclamation"></i>
-                    <?php 
-                    if ($eval_count == 0) {
-                        echo "<p>Aucune évaluation prévue</p>";
-                    } else if ($eval_count == 1) {
-                        echo "<p>" . $eval_count . " évaluation</p>";
-                    } else {
-                        echo "<p>" . $eval_count . " évaluations</p>";
-                    }
-                    ?>
+            <div class="content_agenda-home">
+                <div class="proprietaire_cahier_agenda-home">
+                    <p><span style="font-weight:700">Propriétaire du cahier</span> : Arnaud Graciet</p>
                 </div>
-                <div class="item_agenda-home">
-                    <i class="fi fi-sr-checkbox"></i>
-                    <p>8 tâches à faire</p>
+
+                <div class="container_numbers_agenda-home">
+                    <div class="item_number_agenda-home">
+                        <i class="fi fi-sr-square-exclamation"></i>
+                        <?php 
+                        if ($eval_count == 0) {
+                            echo "<p>Aucune évaluation prévue</p>";
+                        } else if ($eval_count == 1) {
+                            echo "<p>" . $eval_count . " évaluation</p>";
+                        } else {
+                            echo "<p>" . $eval_count . " évaluations</p>";
+                        }
+                        ?>
+                    </div>
+                    <div class="item_number_agenda-home">
+                        <i class="fi fi-sr-checkbox"></i>
+                        <p>8 tâches à faire</p>
+                    </div>
+                </div>
+
+                <div class="agenda_tomorrow-home">
+                    <p>Demain</p>
+                    <div class="container_agenda_tomorrow-home">
+                        <div class="item_agenda_tomorrow-home">
+
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             
         </section>
 
@@ -303,7 +319,7 @@ echo head('MMI Companion | Accueil');
             endOfWeek.setDate(today.getDate() + (5 - currentDay));
 
             // Mettre à jour le titre
-            document.querySelector('#agendaTitle').innerText = "Mon agenda (" + formatDate(startOfWeek) + " au " + formatDate(endOfWeek) + ")";
+            document.querySelector('#agendaTitle').innerText = "Cette semaine (" + formatDate(startOfWeek) + " au " + formatDate(endOfWeek) + ")";
         }
 
         // Appeler la fonction au chargement de la page
