@@ -26,6 +26,17 @@ echo head("MMI Companion | Liens externes");
     <main class="main_all">
         <div style="height:30px"></div>
         <div class="container-liens_externes">
+            <a href="https://concours48h.fr" target="_blank">
+                <div class="item-liens_externes brown">
+                    <div class="item_flextop-liens_externes concours48h_img">
+                        <h1>Concours 48h</h1>
+                        <img src="./../assets/img/logo_48h.webp" alt="Logo du concours 48h">
+                    </div>
+                    <div class="item_flexbottom-liens_externes">
+                        <p>Le site officiel du concours 48h</p>
+                    </div>
+                </div>
+            </a>
             <a href="https://zimbra.univ-poitiers.fr" target="_blank">
                 <div class="item-liens_externes red">
                     <div class="item_flextop-liens_externes">
@@ -88,17 +99,6 @@ echo head("MMI Companion | Liens externes");
                     </div>
                     <div class="item_flexbottom-liens_externes">
                         <p>Site internet de l'IUT d'Angoulême</p>
-                    </div>
-                </div>
-            </a>
-            <a href="https://concours48h.fr" target="_blank">
-                <div class="item-liens_externes brown">
-                    <div class="item_flextop-liens_externes concours48h_img">
-                        <h1>Concours 48h</h1>
-                        <img src="./../assets/img/logo_48h.webp" alt="Logo du concours 48h">
-                    </div>
-                    <div class="item_flexbottom-liens_externes">
-                        <p>Le site officiel du concours 48h</p>
                     </div>
                 </div>
             </a>

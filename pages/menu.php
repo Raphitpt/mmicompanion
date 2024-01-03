@@ -85,7 +85,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                         // Si la date du menu est supérieure ou égale à la date actuelle, c'est une date future
                         if ($timestampDate >= $timestampCurrentDate) {
                 ?>
-                        <div class="swiper-slide">
+                        <div class="swiper-slide item_menu_content-menu">
                             <?php if ($menu['Foods'] == null) { ?>
                                 <p><?php echo $date ?></p>
                                 <p>Pas de menu aujourd'hui</p>

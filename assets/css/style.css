@@ -2112,14 +2112,14 @@ header{
     gap: .9375rem;
 }
 
-.description_content-agenda{
+.description_container_content-agenda{
     display: flex;
     flex-direction: column;
     align-items: star;
     justify-content: center;
 }
 
-.description_content-agenda p{
+.description_container_content-agenda p{
     color: var(--texte);
     font-family: Montserrat;
     font-size: .875rem;
@@ -2164,20 +2164,77 @@ header{
 
 
 
-.content-agenda {
+.container_content-agenda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.875rem;
+
+    border-radius: 1.25rem;
+    background: var(--blanc);
+    padding: 1.25rem 0;
+    width: 100%;
+}
+
+.item_content-agenda{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+
+    width: 90%;
+    margin: 0 auto;
+}
+
+.item_title_content-agenda{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .625rem;
+
+    width: 100%;
+}
+
+.item_title_content-agenda i{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: var(--texte);
+    font-size: 1.25rem;
+}
+
+.item_title_content-agenda p{
+    color: var(--texte);
+    font-size: .875rem;
+    font-family: Montserrat;
+    font-weight: 600;
+}
+
+.item_title_list_content-agenda {
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    gap: .625rem;
+
+    width: 100%;
+}
+
+
+.container_list_content-agenda{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: .9375rem;
 
-    border-radius: 1.25rem;
-    background: var(--blanc);
-    padding: 1.25rem;
     width: 100%;
+
 }
 
-.content_list-agenda{
+.item_list_content_agenda{
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -2187,27 +2244,18 @@ header{
     width: 100%;
 }
 
-.title_list-agenda {
-    display: flex;
-    justify-content: center;
-    align-items: end;
-    gap: .625rem;
-
-    width: 100%;
-}
-
-.title_list-agenda p {
+.item_title_list_content-agenda p {
     color: var(--texte);
     font-size: .875rem;
     font-family: Montserrat;
-    font-weight: 700;
+    font-weight: 600;
 }
 
-.title_list-agenda div {
+.item_title_list_content-agenda div {
     flex-grow: 1;
     height: .0625rem;
     border-radius: .125rem;
-    background: var(--texte);
+    background: linear-gradient(90deg, #004A5A 0%, rgba(0, 74, 90, 0.00) 100%);
     transform: translateY(-0.1875rem);
 }
 
@@ -2314,6 +2362,7 @@ header{
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+    text-align: left;
 }
 
 .title_item_list_flexleft-agenda p {
@@ -3332,7 +3381,12 @@ p {
     margin-bottom: 2.5rem;
 }
 
-.swiper-slide {
+.swiper-wrapper.agenda{
+    margin-bottom: 3rem;
+}
+
+
+.item_menu_content-menu {
     display: flex !important;
     flex-direction: column;
     justify-content: start;
@@ -3340,7 +3394,7 @@ p {
     gap: .625rem;
 }
 
-.swiper-slide p{
+.item_menu_content-menu p{
     color: var(--texte);
     font-family: Montserrat;
     font-size: .875rem;
@@ -3350,11 +3404,11 @@ p {
     text-align: center;
 }
 
-.swiper-slide p:nth-child(2){
+.item_menu_content-menu p:nth-child(2){
     font-weight: 500;
 }
 
-.swiper-slide ul{
+.item_menu_content-menu ul{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -3364,7 +3418,7 @@ p {
     list-style: inside;
 }
 
-.swiper-slide ul li{
+.item_menu_content-menu ul li{
     color: var(--texte);
     font-family: Montserrat;
     font-size: .875rem;
@@ -3374,7 +3428,7 @@ p {
 }
 
 
-.swiper-slide img {
+.item_menu_content-menu img {
     display: block;
     width: 100%;
     height: 100%;
@@ -3398,6 +3452,14 @@ p {
 
 .btn_content-menu.btn_prev{
     left: 0;
+}
+
+.btn_content-menu.btn_next_agenda{
+    right: 1.25rem;
+}
+
+.btn_content-menu.btn_prev_agenda{
+    left: 1.25rem;
 }
 
 .btn_content-menu i{
@@ -4011,7 +4073,7 @@ p {
 [data-theme="dark"] .button_register {
     color: var(--bleu-clair-background) !important;
 }
-[data-theme="dark"] .content-agenda {
+[data-theme="dark"] .container_content-agenda {
     background: var(--bleu-clair-background) !important;
 }
 [data-theme="dark"] #calendar {

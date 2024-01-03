@@ -119,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Créer la structure HTML pour chaque date
-        $html = "<div class='content_list-agenda'>";
+        $html = "<div class='item_content-agenda'>";
         $html .= "<h2>$date</h2>";
         $html .= "<div class='ligne_agenda'></div>";
         $html .= "<div style='height:10px'></div>";

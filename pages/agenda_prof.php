@@ -238,7 +238,7 @@ echo head("MMI Companion | Agenda");
             </div>
         </div>
         <div style="height:25px"></div>
-        <div class="content-agenda">
+        <div class="container_content-agenda">
         </div>
         <canvas id="fireworks"></canvas>
       </main>
@@ -254,7 +254,7 @@ echo head("MMI Companion | Agenda");
 
         const butSelect = document.getElementById('but');
         const tpSelect = document.getElementById('tp');
-        const agendaMain = document.querySelector('.content-agenda');
+        const agendaMain = document.querySelector('.container_content-agenda');
         const ajouterAgenda = document.getElementById('ajouter_agenda_prof');
         
         // Écouteur d'événement pour charger l'agenda au chargement de la page
