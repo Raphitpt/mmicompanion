@@ -39,7 +39,7 @@ echo head("MMI Companion | Profil");
 
     <?php generateBurgerMenuContent($user_sql['role'], 'Profil') ?>
 
-    <main class="main_all">
+    <main class="main_all main_flex">
         <div class="profil_picture-profil">
             <div class="edit_profil_picture-img" id="edit_profil_picture">
                 <i class="fi fi-br-pencil"></i>

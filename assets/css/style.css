@@ -1612,10 +1612,6 @@ header{
 
 /* CALENDAR_ADD.PHP */
 
-.main-calendar_add{
-    width: 80vw;
-    max-width: 550px;
-}
 
 .form-calendar_add {
     display: flex;
@@ -1873,10 +1869,6 @@ header{
 
 /* AGENDA.PHP */
 
-.main-agenda {
-    width: 90vw;
-    max-width: 550px;
-}
 
 .agenda_title_flextop-agenda {
     display: flex;
@@ -2394,10 +2386,6 @@ header{
 
 
 /* SCOLARITÉ.PHP (absence.php pour le moment) CSS à refaire !!! */
-.main-scolarite {
-    width: 80vw;
-    max-width: 550px;
-}
 
 p {
     color: var(--texte);
@@ -2463,10 +2451,6 @@ p {
 
 /* INFORMATIONS.PHP */
 
-.main-informations {
-    width: 80vw;
-    max-width: 550px;
-}
 
 .info_title_flextop-informations {
     display: flex;
@@ -2936,10 +2920,6 @@ p {
 
 /* MENU.PHP */
 
-.main-menu {
-    width: 90vw;
-    max-width: 550px;
-}
 
 .menu_title-menu{
     display: flex;
@@ -3124,12 +3104,6 @@ p {
 
 /* OUTILS_SUPPLEMENTAIRES.PHP */
 
-.main-outils {
-    width: 80vw;
-    max-width: 550px;
-    overflow-y: hidden;
-}
-
 .container-outils{
     display: flex;
     flex-direction: column;
@@ -3229,13 +3203,11 @@ p {
 
 /* PROFIL.PHP */
 
-.main-profil {
+.main_flex {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80vw;
-    max-width: 550px;
 }
 
 .profil_picture-profil {
