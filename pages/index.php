@@ -9,7 +9,7 @@ session_start();
 require "../bootstrap.php";
 
 if (isset($_COOKIE['jwt'])) {
-    header('Location: ./calendar.php');
+    header('Location: ./home.php');
     exit;
 }
 

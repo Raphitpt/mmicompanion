@@ -18,15 +18,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['CGU']) && !empty($_POS
         $stmt->execute([
             'id_user' => $user['id_user']
         ]);
-        header('Location: ./calendar.php');
+        header('Location: ./home.php');
         exit;
     }
     else{
-        header('Location: ./calendar.php');
+        header('Location: ./home.php');
         exit;
     }
 }
 else{
-    header('Location: ./calendar.php');
+    header('Location: ./home.php');
     exit;
 }

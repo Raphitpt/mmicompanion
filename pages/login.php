@@ -195,7 +195,7 @@ echo head("MMI Companion | Connexion");
                             // localStorage.setItem('jwt', response.jwt);
 
                             // Redirection vers la page d'accueil ou autre page sécurisée
-                            window.location.href = './calendar.php';
+                            window.location.href = './home.php';
                         }
                     }
                 },
