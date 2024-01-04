@@ -129,7 +129,7 @@ echo head("MMI Companion | Agenda");
             <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
             <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda"> 
 
-                <input type="text" name="title" class="input_title-agenda_add" value="<?php echo $task['title'] ?>" required>
+                <input type="text" name="title" class="input_title-agenda_add" value="<?php echo $task['title'] ?>">
                 <div class="trait_agenda_add"></div>
                 <div class="form_content-informations_add">
                 <label for="content" class="label-agenda_add">
