@@ -258,7 +258,7 @@ function generateBurgerMenuContent($role, $title)
                 </div>';
     } else {
         $menuHtml .= '
-            <a href="./absences.php">
+            <a href="./scolarite.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-book-alt"></i>
                     <p>Scolarité (bêta)</p>

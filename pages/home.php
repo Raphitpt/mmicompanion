@@ -154,9 +154,9 @@ echo head('MMI Companion | Accueil');
                 <i class="fi fi-br-info"></i>
                 <p>Informations</p>
             </a>
-            <a role="button" class="item_button_nav-home" href="./absences.php">
+            <a role="button" class="item_button_nav-home" href="./scolarite.php">
                 <i class="fi fi-br-book-alt"></i>
-                <p>Vie scolaire</p>
+                <p>Scolarité</p>
             </a>
         </div>
 

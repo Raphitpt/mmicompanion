@@ -89,26 +89,10 @@ echo head("MMI Companion | Scolarité");
                 <div id="absences"></div>
             </div>
         </div>
-        <!-- <div class="info_title_flextop-informations">
-            <div class="title_trait">
-                <h1>Notes</h1>
-                
-            </div>
-            <table id="tableauNotes">
-                    <thead>
-                        <tr>
-                            <th>UE</th>
-                            <th>Moyenne</th>
-                            <th>Rang</th>
-                            <th>Moyenne Promo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Les données seront insérées ici via JavaScript -->
-                    </tbody>
-                </table>
-        </div>
-        <div style="height:30px"></div>
+
+
+
+        <!-- <div style="height:30px"></div>
         <p>Le relevé de notes arrive prochainement</p> -->
         <canvas id="fireworks"></canvas>
       </main>
@@ -128,7 +112,6 @@ echo head("MMI Companion | Scolarité");
     const totalMain = document.getElementById('total');
 
     const tableau = document.getElementById('tableauNotes');
-    const tbody = tableau.getElementsByTagName("tbody")[0];
 
     window.addEventListener('load', loadAbsences);
 
@@ -140,6 +123,7 @@ echo head("MMI Companion | Scolarité");
             if (xhr.readyState === 4 && xhr.status === 200) {
                 const result = JSON.parse(xhr.responseText);
                 console.log(result);
+                
                 totalMain.innerHTML = '';
                 justifMain.innerHTML = '';
                 absenceMain.innerHTML = '';
