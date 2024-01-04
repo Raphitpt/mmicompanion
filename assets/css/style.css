@@ -2971,6 +2971,7 @@ header{
     outline: none;
     text-align: center;
     color: var(--texte);
+    background: var(--blanc);
     font-family: Montserrat;
     font-size: .75rem;
     font-style: normal;
