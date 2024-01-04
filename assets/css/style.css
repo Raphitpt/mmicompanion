@@ -2569,10 +2569,9 @@ header{
     flex-direction: column;
     align-items: end;
     justify-content: center;
-    gap: 1.25rem;
 
     position: absolute;
-    top: -30px;
+    top: -50px;
     right: 30px;
 
     background-color: var(--blanc);
@@ -2605,6 +2604,7 @@ header{
     text-decoration: none;
     display: flex;
     align-items: center;
+    padding: .625rem;
 }
 
 .content_menu_dropdown_item_list_flexright-agenda a i{

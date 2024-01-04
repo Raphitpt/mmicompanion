@@ -615,9 +615,14 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 dropdowns.forEach(function (dropdown) {
                     dropdown.addEventListener("click", function (event) {
                         event.stopPropagation(); // Empêche la propagation de l'événement de clic à la fenêtre
-                        closeAllDropdowns(); // Ferme toutes les autres divs dropdown avant d'ouvrir celle-ci
                         let dropdownContent = dropdown.nextElementSibling;
-                        toggleDropdown(dropdownContent);
+                        if (dropdownContent.classList.contains('menu_dropdown_open')) {
+                            toggleDropdown(dropdownContent);
+                        } else {
+                            closeAllDropdowns(); // Ferme toutes les autres divs dropdown avant d'ouvrir celle-ci
+                            toggleDropdown(dropdownContent);
+                        }
+                        
                     });
                 });
 
@@ -642,6 +647,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 }
             });
 
+        
 
 
 
