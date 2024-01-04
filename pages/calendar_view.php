@@ -6,15 +6,94 @@ $user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
 
+// dd($_GET);
+
 if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']) && isset($_GET['end']) && isset($_GET['color'])) {
     $title = $_GET['title'];
+
+
     $description = $_GET['description'];
+
+    // Diviser la chaîne en parties en utilisant l'espace comme séparateur
+    $parties = explode(' ', $description);
+
+    // Assurez-vous qu'il y a au moins deux parties avant d'affecter aux variables
+    if (count($parties) >= 2) {
+        // Affecter les parties aux variables appropriées
+        $groupe = $parties[0];  // TP2
+        $professeur = implode(' ', array_slice($parties, 1));  // M. Dupont
+    } else {
+        // En cas de professeur externe, son nom est dans le titre donc on extrait la forme M. Dupont
+        $pattern = '/\b[A-Za-z]\. [A-Za-z]+\b/';
+        if (preg_match($pattern, $title, $matches)) {
+            $groupe = $parties[0];  // TP2
+            $professeur = $matches[0];  // M. Dupont
+        } else {
+            $groupe = 'Non défini';  // TP2
+            $professeur = 'Non défini';  // M. Dupont
+        }
+ 
+    }
+
+    $semaine = array(
+        " Dimanche ",
+        " Lundi ",
+        " Mardi ",
+        " Mercredi ",
+        " Jeudi ",
+        " Vendredi ",
+        " Samedi "
+    );
+    
+    $mois = array(
+        1 => " janvier ",
+        " février ",
+        " mars ",
+        " avril ",
+        " mai ",
+        " juin ",
+        " juillet ",
+        " août ",
+        " septembre ",
+        " octobre ",
+        " novembre ",
+        " décembre "
+    );
+
     $dateStart = $_GET['start']; 
     $dateStartObj = DateTime::createFromFormat('D M d Y H:i:s e+', $dateStart);
     $dateStart = $dateStartObj ? $dateStartObj->format('Y-m-d\TH:i:s') : '';
+
+    $dateDebutExplode = explode('T', $dateStart);
+    if (count($dateDebutExplode) >= 2) {
+        $heureDebutExplode = explode(':', $dateDebutExplode[1]);
+        $dateStart = $heureDebutExplode[0] . 'h' . $heureDebutExplode[1];
+    }
+
     $dateEnd = $_GET['end'];
     $dateEndObj = DateTime::createFromFormat('D M d Y H:i:s e+', $dateEnd);
     $dateEnd = $dateEndObj ? $dateEndObj->format('Y-m-d\TH:i:s') : '';
+
+    $dateFinExplode = explode('T', $dateEnd);
+
+    if (count($dateFinExplode) >= 2) {
+        $heureFinExplode = explode(':', $dateFinExplode[1]);
+        $dateEnd = $heureFinExplode[0] . 'h' . $heureFinExplode[1];
+    }
+
+    $date = $dateStartObj ? $semaine[$dateStartObj->format('w')] . $dateStartObj->format(' d') . $mois[$dateStartObj->format('n')] : '';
+    
+
+    // Calcul de la durée en heures et minutes
+    $dureeDebut = $heureDebutExplode[0] * 60 + $heureDebutExplode[1];
+    $dureeFin = $heureFinExplode[0] * 60 + $heureFinExplode[1];
+    $duree = $dureeFin - $dureeDebut;
+
+    // Convertir la durée en heures et minutes
+    $heures = floor($duree / 60);
+    $minutes = $duree % 60;
+    $duree = $heures . 'h' . $minutes;
+
     $location = $_GET['location'];
     $color = convertirRGB($_GET['color']);
 
@@ -26,66 +105,77 @@ echo head("MMI Companion | Emploi du temps");
 
     <?php generateBurgerMenuContent($user['role'], 'Emploi du temps') ?>
 
-    <!-- Corps de la page -->
     <main class="main_all">
-        <div style="height:30px"></div>
-        <div class="title_trait">
-            <h1>Éditer un évènement</h1>
-            <div></div>
+        <div style="height:15px"></div>
+
+        <div class="title-calendar_view">
+            <div style="background-color : <?php echo $color ?>"></div>
+            <h1><?php echo $title ?></h1>
         </div>
-        <div style="height:25px"></div>
-        <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
-            <input type="text" name="title" class="input_title-calendar_add" placeholder="Ajouter un titre" disabled value="<?= $title ?>">
-            <div class="trait_agenda_add"></div>
 
-            <div class="content_inputs-calendar_add">
-                    <div class="content_inputs_date-calendar_add">
-                        <label for="date_start" class="label-calendar_add">
-                            <h2>Ajouter une date de début</h2>
-                        </label>
-                        <div style="height:5px"></div>
-                        <div class="container_input_date-calendar_add">
-                            <input type="datetime-local" name="date_start" class="input_date-calendar_add input-calendar_add"
-                                value="<?php echo str_replace(' ', 'T', $dateStart)  ?>">
-                        </div>
+        <div style="height:20px"></div>
+
+        <div class="content-calendar_view">
+            <div class="container-calendar_view">
+                <div class="item-calendar_view">
+                    <i class="fi fi-br-door-open"></i>
+                    <div class="item_content-calendar_view">
+                        <p>Salle de cours</p>
+                        <p><?php echo $location ?></p>
                     </div>
-                    <div style="height:10px"></div>
-                    <div class="content_inputs_date-calendar_add">
-                        <label for="date_end" class="label-calendar_add">
-                            <h2>Ajouter une date de fin</h2>
-                        </label>
-                        <div style="height:5px"></div>
-                        <div class="container_input_date-calendar_add">
-                            <input type="datetime-local" name="date_end" class="input_date-calendar_add input-calendar_add"
-                                value="<?php echo str_replace(' ', 'T', $dateEnd) ?>">
-                        </div>
+                </div>
+                <div class="item-calendar_view">
+                    <i class="fi fi-br-user"></i>
+                    <div class="item_content-calendar_view">
+                        <p>Professeur.e</p>
+                        <p><?php echo $professeur ?></p>
                     </div>
-
-                <div class="trait_agenda_add"></div>
-
-                <textarea name="description" class="input-calendar_add input_textarea-calendar_add" placeholder="Ajouter une description" disabled><?php if(isset($description)){echo $description;}; ?></textarea>
-
-                <div class="trait_agenda_add"></div>
-
-                <input type="text" name="location" class="input-calendar_add" placeholder="Ajouter un lieu" value="<?php if(isset($location)){echo $location;}; ?>" disabled>
-
-                <div class="trait_agenda_add"></div>
-
-                <div class="content_input_color-calendar_add">
-                    <label for="color" class="label-calendar_add">
-                        <h2>Ajouter une couleur</h2>
-                    </label>
-                    <input type="color" name="color" value="<?= $color ?>" disabled/>
+                </div>
+                <div class="item-calendar_view">
+                    <i class="fi fi-br-users-alt"></i>
+                    <div class="item_content-calendar_view">
+                        <p>Groupe</p>
+                        <p><?php echo $groupe ?></p>
+                    </div>
                 </div>
             </div>
-
-            <div style="height:25px"></div>
-            <div class="form_button-agenda">
-                <a role="button" href='./calendar.php'>Annuler</a>
-                <input type="submit" name="submit" value="Valider">
+            <div class="container-calendar_view">
+                <div class="item-calendar_view">
+                    <i class="fi fi-br-calendar-lines"></i>
+                    <div class="item_content-calendar_view">
+                        <p>Date du cours</p>
+                        <p><?php echo $date ?></p>
+                    </div>
+                </div>
+                <div class="item-calendar_view">
+                    <i class="fi fi-br-hourglass"></i>
+                    <div class="item_content-calendar_view">
+                        <p>Durée du cours</p>
+                        <p><?php echo $duree ?></p>
+                    </div>
+                </div>
+                <div class="item-calendar_view">
+                    <i class="fi fi-br-clock"></i>
+                    <div class="item_content-calendar_view">
+                        <p>Début du cours</p>
+                        <p><?php echo $dateStart ?></p>
+                    </div>
+                </div>
+                <div class="item-calendar_view">
+                    <i class="fi fi-br-clock-eleven-thirty"></i>
+                    <div class="item_content-calendar_view">
+                        <p>Fin du cours</p>
+                        <p><?php echo $dateEnd ?></p>
+                    </div>
+                </div>
             </div>
-
-
+            <a role="button" href="./calendar.php" class="btn_back-calendar_view">
+                <i class="fi fi-br-angle-left"></i>
+                <p>Retour</p>
+            </a>
+        </div>
+        
+        <div style="height:30px"></div>
     </main>
     <script src="../assets/js/script_all.js?v=1.1"></script> 
     <script>

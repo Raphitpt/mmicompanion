@@ -129,6 +129,8 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
 
         // Swiper
         let swiper = new Swiper(".mySwiper", {
+            autoHeight: true,
+            spaceBetween: 30,
             navigation: {
                 nextEl: ".btn_next",
                 prevEl: ".btn_prev",
