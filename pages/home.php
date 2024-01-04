@@ -62,7 +62,8 @@ WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all)
 AND a.type = 'eval' 
 AND (
     (a.date_finish LIKE :date1 OR a.date_finish LIKE :date2 OR a.date_finish LIKE :date3 OR a.date_finish LIKE :date4 OR a.date_finish LIKE :date5 OR a.date_finish = :current_week_year)
-)"; 
+)
+AND a.date_finish >= :today";
 
 $stmt_eval_count = $dbh->prepare($sql_eval_count);
 $stmt_eval_count->execute([
@@ -73,7 +74,8 @@ $stmt_eval_count->execute([
     'date3' => $week_dates[2] . '%',
     'date4' => $week_dates[3] . '%',
     'date5' => $week_dates[4] . '%',
-    'current_week_year' => $current_week_year
+    'current_week_year' => $current_week_year,
+    'today' => $today->format('Y-m-d')
 ]);
 
 $eval_count = $stmt_eval_count->fetchColumn();
@@ -179,7 +181,7 @@ echo head('MMI Companion | Accueil');
                         <i class="fi fi-sr-square-exclamation"></i>
                         <?php 
                         if ($eval_count == 0) {
-                            echo "<p>Aucune évaluation prévue</p>";
+                            echo "<p>Pas d'évaluation</p>";
                         } else if ($eval_count == 1) {
                             echo "<p>" . $eval_count . " évaluation</p>";
                         } else {
