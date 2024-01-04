@@ -257,6 +257,16 @@ header{
     z-index: 100;
 }
 
+.container_notifications-header a{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: .625rem;
+
+    width: 100%;
+}
+
+
 .item_notification-header{
     display: flex;
     justify-content: start;

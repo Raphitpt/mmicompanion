@@ -162,20 +162,26 @@ function generateBurgerMenuContent($role, $title, $notifs)
                 
                     if ($notif['subject'] == 'Emploi du temps') {
                         $icon = 'fi fi-br-calendar-lines';
+                        $link = './calendar.php';
                     } else if ($notif['subject'] == 'Agenda') {
                         $icon = 'fi fi-br-book-bookmark';
+                        $link = './agenda.php';
                     } else if ($notif['subject'] == 'Informations') {
                         $icon = 'fi fi-br-info';
+                        $link = './informations.php';
                     } else if ($notif['subject'] == 'Scolarité') {
                         $icon = 'fi fi-br-book-alt';
+                        $link = './scolarite.php';
                     } else {
                         $icon = 'fi fi-br-bell';
+                        $link = './home.php';
                     }
                 
                     $notificationClass = ($notif['read_status'] == 0) ? 'item_notification-header' : 'item_notification-header notification_read';
                     $badgeNotif = ($notif['read_status'] == 0) ? '<div class="badge_item_notification-header"><div></div></div>' : '';
                 
                     $menuHtml .= '
+                    <a href="' . $link . '">
                         <div class="' . $notificationClass . '">
                             ' . $badgeNotif . '
                             <div class="content_item_notification-header">
@@ -187,7 +193,8 @@ function generateBurgerMenuContent($role, $title, $notifs)
                                     <p>' . $notif['title'] . '</p>
                                 </div>
                             </div>
-                        </div>';
+                        </div>
+                    </a>';
                 }
                 
     $menuHtml .= '</div>
