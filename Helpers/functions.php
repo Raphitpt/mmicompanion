@@ -149,7 +149,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
                 </div>
             </div>
             <div class="right_content_title-header">
-                <div id="btn_notification">
+                <div id="btn_notification" class="btn_notification_right_content_title-header">
                     <i class="fi fi-sr-bell"></i>
                 </div>';
 

@@ -196,6 +196,11 @@ header{
     color: var(--texte);
 }
 
+.burger_content_titleright-header i{
+    color: var(--bleu-moyen) !important;
+    font-size: 1.4375rem;
+}
+
 .title-header{
     display: flex;
     flex-direction: column;
@@ -228,7 +233,7 @@ header{
     align-items: center;
 }
 
-.right_content_title-header i{
+.btn_notification_right_content_title-header i{
     color: var(--texte);
     font-size: 1.5625rem;
 }
@@ -420,11 +425,6 @@ header{
     font-style: normal;
     font-weight: 800;
     line-height: normal;
-}
-
-.burger_content_titleright-header i{
-    color: var(--bleu-moyen);
-    font-size: 1.4375rem;
 }
 
 .burger_content_content-header {
@@ -2381,6 +2381,14 @@ header{
     gap: .9375rem;
 
     width: 100%;
+
+}
+
+.container_list_content-agenda p{
+    color: var(--texte);
+    font-size: .875rem;
+    font-family: Montserrat;
+    font-weight: 500;
 
 }
 
