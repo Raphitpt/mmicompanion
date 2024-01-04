@@ -37,7 +37,7 @@ echo head("MMI Companion | Profil");
 
 <body class="body-all">
 
-    <?php generateBurgerMenuContent($user_sql['role'], 'Profil') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Profil', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
 
     <main class="main_all main_flex">
         <div class="profil_picture-profil">

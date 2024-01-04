@@ -132,7 +132,7 @@ echo head("MMI Companion | Agenda");
   if ($user_sql['tuto_agenda'] == 0) { ?>
   <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda',notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
 
     <main class="main_tuto-agenda">
       <form action="" method="post" class="form-tuto_agenda">
@@ -171,7 +171,7 @@ echo head("MMI Companion | Agenda");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
 
     <!-- Corps de la page -->
     <main class="main_all">

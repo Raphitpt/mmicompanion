@@ -129,7 +129,7 @@ function findTrigramme($profName, $dbh)
 
 
 
-function generateBurgerMenuContent($role, $title)
+function generateBurgerMenuContent($role, $title, $notifs)
 {
     // $contentNotif = notifsHistory($dbh, '56', 'BUT2-TP3');
 
@@ -151,39 +151,46 @@ function generateBurgerMenuContent($role, $title)
             <div class="right_content_title-header">
                 <div id="btn_notification">
                     <i class="fi fi-sr-bell"></i>
-                </div>
-                <div class="container_notifications-header">
-                    <div class="item_notification-header">
-                        <div class="badge_item_notification-header">
-                            <div></div>
-                        </div>
-                        <div class="content_item_notification-header">
-                            <div class="title_item_notification-header">
-                                <i class="fi fi-br-calendar-lines"></i>
-                                <p>Informations - <span>02/01 13:37</span></p>
-                            </div>
-                            <div class="description_item_notification-header">
-                                <p><span>C. Couegnas</span> - Je vous informe quee mon pied du 18...</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="item_notification-header">
-                        <div class="content_item_notification-header">
-                            <div class="title_item_notification-header">
-                                <i class="fi fi-br-book-bookmark"></i>
-                                <p>Agenda - <span>01/01 18:36</span></p>
-                            </div>
-                            <div class="content_item_notification-header">
-                                <p>1 évaluation a été ajoutée</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+                </div>';
 
+                $menuHtml .= '
+                <div class="container_notifications-header">';
+
+                foreach ($notifs as $notif) {
+                    $timestamp = strtotime($notif['timestamp']);
+                    $date = date('d/m H:i', $timestamp);
+                
+                    if ($notif['subject'] == 'Emploi du temps') {
+                        $icon = 'fi fi-br-calendar-lines';
+                    } else if ($notif['subject'] == 'Agenda') {
+                        $icon = 'fi fi-br-book-bookmark';
+                    } else if ($notif['subject'] == 'Informations') {
+                        $icon = 'fi fi-br-info';
+                    } else if ($notif['subject'] == 'Scolarité') {
+                        $icon = 'fi fi-br-book-alt';
+                    } else {
+                        $icon = 'fi fi-br-bell';
+                    }
+                
+                    $notificationClass = ($notif['read_status'] == 0) ? 'item_notification-header' : 'item_notification-header notification_read';
+                    $badgeNotif = ($notif['read_status'] == 0) ? '<div class="badge_item_notification-header"><div></div></div>' : '';
+                
+                    $menuHtml .= '
+                        <div class="' . $notificationClass . '">
+                            ' . $badgeNotif . '
+                            <div class="content_item_notification-header">
+                                <div class="title_item_notification-header">
+                                    <i class="' . $icon . '"></i>
+                                    <p>' . $notif['subject'] . ' - <span>' . $date . '</span></p>
+                                </div>
+                                <div class="description_item_notification-header">
+                                    <p>' . $notif['title'] . '</p>
+                                </div>
+                            </div>
+                        </div>';
+                }
+                
+    $menuHtml .= '</div>
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
@@ -671,8 +678,36 @@ function notifsHistory($dbh, $id_user, $edu_group) {
 
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['id_user' => $id_user, 'edu_group' => json_encode($edu_group)]);
+
+    $tableauNotifs = array(
+        array(
+            'id_notif' => 4,
+            'title' => 'Vous avez un cours dans 10 minutes !',
+            'groups' => 'BUT2-TP3',
+            'timestamp' => '2024-01-02 10:55:50',
+            'subject' => 'Emploi du temps',
+            'read_status' => 0
+        ),
+        array(
+            'id_notif' => 3,
+            'title' => 'A évaluation a été ajoutée',
+            'groups' => 'BUT2-TP3',
+            'timestamp' => '2024-01-02 10:54:51',
+            'subject' => 'Agenda',
+            'read_status' => 0
+        ),
+        array(
+            'id_notif' => 2,
+            'title' => 'C. Couegnas - Je vous informe que mon pied est en vacances',
+            'groups' => 'BUT2',
+            'timestamp' => '2024-01-02 10:51:58',
+            'subject' => 'Informations',
+            'read_status' => 1
+        )
+    );
     
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $tableauNotifs;
 }
 
 function readNotif($dbh, $id_user, $id_notif) {

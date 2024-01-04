@@ -114,7 +114,7 @@ echo head("MMI Companion | Agenda");
 <link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
 
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->

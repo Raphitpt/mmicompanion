@@ -37,7 +37,7 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
 
 <body class="body-all">
 
-    <?php generateBurgerMenuContent($user_sql['role'], 'Scolarité') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Scolarité', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
 
     <main class="main_all">
 
@@ -159,7 +159,7 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                                 <div class="content_item-notes">
                                     <p>Ta moyenne : <span style="font-weight:600">...</span></p>
                                     <p>La moyenne de la promo : <span style="font-weight:600">...</span></p>
-                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span>...</p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600">...</span></p>
                                 </div>
                             </div>
                         </div>
@@ -345,11 +345,13 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
         }
 
         function loadAbsencesNotes() {
-            const semestreVal = semestre.value;
-            const xhr = new XMLHttpRequest();
+    const semestreVal = semestre.value;
+    const xhr = new XMLHttpRequest();
 
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
                     const result = JSON.parse(xhr.responseText);
                     console.log(result);
 
@@ -375,8 +377,6 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                             index++; // Incrémentez l'index pour la prochaine itération
                         }
                     }
-                    
-                    
 
                     // Absences
                     recapAbsences.innerHTML = '';
@@ -405,15 +405,23 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
 
                         buildDetailsAbsences(detailled);
                     }
+                } catch (error) {
+                    console.error('Error parsing JSON:', error);
+    console.log('Response text:', xhr.responseText);
                 }
-            };
-
-            const data = new FormData();
-            data.append('semestre', semestreVal);
-
-            xhr.open('POST', 'absence_get.php', true);
-            xhr.send(data);
+            } else {
+                console.error('HTTP request failed with status:', xhr.status);
+            }
         }
+    };
+
+    const data = new FormData();
+    data.append('semestre', semestreVal);
+
+    xhr.open('POST', 'absence_get.php', true);
+    xhr.send(data);
+}
+
 
         semestre.addEventListener('change', loadAbsencesNotes);
 

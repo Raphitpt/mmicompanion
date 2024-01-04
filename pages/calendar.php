@@ -40,9 +40,6 @@ if (isset($_POST['annee']) && isset($_POST['tp'])) {
   exit();
 }
 
-
-
-
 $color_subjects = "SELECT * FROM sch_ressource";
 $stmt = $dbh->prepare($color_subjects);
 $stmt->execute();
@@ -219,7 +216,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-all">
 
-    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
 
     <div style="height:15px"></div>
 
@@ -238,7 +235,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </section>
       <div style="height:10px"></div>
-      <div class="last_backup_cal">
+      <div class="p_credit-calendar">
         <p>Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       </div>
 

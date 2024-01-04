@@ -5,6 +5,7 @@ require '../bootstrap.php';
 $user = onConnect($dbh);
 
 $USER_name = $_ENV['ABSENCE_USERNAME'];
+// $USER_name = "raphael.tiphonet@etu.univ-poitiers.fr";
 $USER_password = $_ENV['ABSENCE_PASSWORD'];
 
 $user_sql = "SELECT * FROM users WHERE id_user = :id_user";

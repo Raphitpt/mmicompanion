@@ -1808,9 +1808,23 @@ header{
     width: 3.75rem !important;
 }
 
-.last_backup_cal{
-    text-align: center;
+.p_credit-calendar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
 }
+
+.p_credit-calendar p{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
 
 /* CALENDAR_ADD.PHP */
 
