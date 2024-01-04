@@ -171,9 +171,9 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                                 </div>
                                 <div class="separation_item-scolarite"></div>
                                 <div class="content_item-notes">
-                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
-                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
-                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ta moyenne : <span style="font-weight:600">...</span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600">...</span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600">...</span></p>
                                 </div>
                             </div>
                         </div>
@@ -185,9 +185,9 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                                 </div>
                                 <div class="separation_item-scolarite"></div>
                                 <div class="content_item-notes">
-                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
-                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
-                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ta moyenne : <span style="font-weight:600">...</span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600">...</span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600">...</span></p>
                                 </div>
                             </div>
                         </div>
@@ -199,9 +199,9 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                                 </div>
                                 <div class="separation_item-scolarite"></div>
                                 <div class="content_item-notes">
-                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
-                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
-                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ta moyenne : <span style="font-weight:600">...</span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600">...</span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600">...</span></p>
                                 </div>
                             </div>
                         </div>
@@ -213,9 +213,9 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                                 </div>
                                 <div class="separation_item-scolarite"></div>
                                 <div class="content_item-notes">
-                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
-                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
-                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ta moyenne : <span style="font-weight:600">...</span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600">...</span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600">...</span></p>
                                 </div>
                             </div>
                         </div>
