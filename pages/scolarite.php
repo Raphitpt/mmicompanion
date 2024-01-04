@@ -26,7 +26,12 @@ $month = date('n');
 $year = date('Y');
 $year1 = $year + 1;
 $year_1 = $year - 1;
-echo head("MMI Companion | Scolarité");
+
+
+$additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
+
+
+echo head("MMI Companion | Scolarité", $additionalStyles);
 ?>
 
 
@@ -38,87 +43,205 @@ echo head("MMI Companion | Scolarité");
 
         <div style="height:30px"></div>
 
-        <div class="title-absences">
-            <div class="title_trait">
-                <h1>Absences</h1>
-                <div></div>
-            </div> 
-        </div>
-
-        <div style="height:15px"></div>
-
-        <div class="description-absences">
-            <div class="description_content-absences">
-                <i class="fi fi-br-clock"></i>
-                <p>Les absences sont relevées en fin de semaine.</p>
+        <section class="section_absences-scolarite">
+            <div class="title-scolarite">
+                <div class="title_trait">
+                    <h1>Absences</h1>
+                    <div></div>
+                </div> 
             </div>
-            <div class="description_content-absences">
-                <i class="fi fi-br-info"></i>
-                <p>Au delà de <span style="font-weight:600">5 absences injustifiées</span>, chaque absence supplémentaire entraine un malus de 0.2 points sur chacune des compétences.</p>
-            </div>
-        </div>
 
-        <div style="height:20px"></div>
+            <div style="height:15px"></div>
 
-        <div class="select-absences">
-            <label for="semestre" class="title_select-absences">Sélectionne ton semestre</label>
-            <div class="content_select-absences">
-                <select id="semestre">
-                    <?php
-                    if (strpos($user_sql['edu_group'], 'BUT1') !== false) {
-                        if ($year > $year1 || ($year == $year1 && $month > 1)) {
-                            echo "<option value='s1-2023' selected>1er année - S1</option>";
-                            echo "<option value='s2-2024' selected>1er année - S2</option>";
-                        } else {
-                            echo "<option value='s1-2023' selected>1er année - S1</option>";
-                        }
-                    } else if (strpos($user_sql['edu_group'], 'BUT2') !== false) {
-                        if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
-                            echo "<option value='s1-2022'>1er année - S1</option>";
-                            echo "<option value='s2-2023'>1er année - S2</option>";
-                            echo "<option value='s3-2023'>2e année - S3</option>";
-                            echo "<option value='s4-2024' selected>2e année - S4</option>";
-                        } else {
-                            echo "<option value='s1-2022'>1er année - S1</option>";
-                            echo "<option value='s2-2023'>1er année - S2</option>";
-                            echo "<option value='s3-2023' selected>2e année - S3</option>";
-                        }
-                    } else if (strpos($user_sql['edu_group'], 'BUT3') !== false) {
-                        if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
-                            echo '<option value="s1-2021"1er année - S1</option>';
-                            echo '<option value="s2-2022">1er année - S2</option>';
-                            echo '<option value="s3-2022">2e année - S3</option>';
-                            echo '<option value="s4-2023">2e année - S4</option>';
-                            echo '<option value="s5-2023">3e année - S5</option>';
-                            echo '<option value="s6-2024" selected>3e année - S6</option>';
-                        } else {
-                            echo '<option value="s1-2021">1er année - S1</option>';
-                            echo '<option value="s2-2022">1er année - S2</option>';
-                            echo '<option value="s3-2022">2e année - S3</option>';
-                            echo '<option value="s4-2023">2e année - S4</option>';
-                            echo '<option value="s5-2023" selected>3e année - S5</option>';
-                        }
-                    }
-                    ?>
-                </select>
-            </div>
-        </div>
-
-        <div style="height:15px"></div>
-
-        <div class="content_recapitulatif_details-absences">
-            <div class="recapitulatif-absences" id="recapitulatif-absences">
-                <div class="title_recapitulatif_details-absences">
-                    <i class="fi fi-br-book-alt"></i>
-                    <p>Récapitulatif de tes absences :</p>
+            <div class="description-scolarite">
+                <div class="description_content-scolarite">
+                    <i class="fi fi-br-clock"></i>
+                    <p>Les absences sont relevées en fin de semaine.</p>
                 </div>
-                <div class="container_recapitulatif_details-absences" id="content_recapitulatif-absences">
-                    <p>Chargement des données...</p>
+                <div class="description_content-scolarite">
+                    <i class="fi fi-br-info"></i>
+                    <p>Au delà de <span style="font-weight:600">5 absences injustifiées</span>, chaque absence supplémentaire entraine un malus de 0.2 points sur chacune des compétences.</p>
                 </div>
             </div>
-        </div>
 
+            <div style="height:20px"></div>
+
+            <div class="select-absences">
+                <label for="semestre" class="title_select-absences">Sélectionne ton semestre</label>
+                <div class="content_select-absences">
+                    <select id="semestre">
+                        <?php
+                        if (strpos($user_sql['edu_group'], 'BUT1') !== false) {
+                            if ($year > $year1 || ($year == $year1 && $month > 1)) {
+                                echo "<option value='s1-2023' selected>1er année - S1</option>";
+                                echo "<option value='s2-2024' selected>1er année - S2</option>";
+                            } else {
+                                echo "<option value='s1-2023' selected>1er année - S1</option>";
+                            }
+                        } else if (strpos($user_sql['edu_group'], 'BUT2') !== false) {
+                            if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
+                                echo "<option value='s1-2022'>1er année - S1</option>";
+                                echo "<option value='s2-2023'>1er année - S2</option>";
+                                echo "<option value='s3-2023'>2e année - S3</option>";
+                                echo "<option value='s4-2024' selected>2e année - S4</option>";
+                            } else {
+                                echo "<option value='s1-2022'>1er année - S1</option>";
+                                echo "<option value='s2-2023'>1er année - S2</option>";
+                                echo "<option value='s3-2023' selected>2e année - S3</option>";
+                            }
+                        } else if (strpos($user_sql['edu_group'], 'BUT3') !== false) {
+                            if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
+                                echo '<option value="s1-2021"1er année - S1</option>';
+                                echo '<option value="s2-2022">1er année - S2</option>';
+                                echo '<option value="s3-2022">2e année - S3</option>';
+                                echo '<option value="s4-2023">2e année - S4</option>';
+                                echo '<option value="s5-2023">3e année - S5</option>';
+                                echo '<option value="s6-2024" selected>3e année - S6</option>';
+                            } else {
+                                echo '<option value="s1-2021">1er année - S1</option>';
+                                echo '<option value="s2-2022">1er année - S2</option>';
+                                echo '<option value="s3-2022">2e année - S3</option>';
+                                echo '<option value="s4-2023">2e année - S4</option>';
+                                echo '<option value="s5-2023" selected>3e année - S5</option>';
+                            }
+                        }
+                        ?>
+                    </select>
+                </div>
+            </div>
+
+            <div style="height:15px"></div>
+
+            <div class="content_recapitulatif_details-absences">
+                <div class="recapitulatif-absences" id="recapitulatif-absences">
+                    <div class="title_recapitulatif_details-absences">
+                        <i class="fi fi-br-book-alt"></i>
+                        <p>Récapitulatif de tes absences :</p>
+                    </div>
+                    <div class="container_recapitulatif_details-absences" id="content_recapitulatif-absences">
+                        <p>Chargement des données...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="height:30px"></div>
+
+        <section class="section_notes-scolarite">
+            <div class="title-scolarite">
+                <div class="title_trait">
+                    <h1>Notes</h1>
+                    <div></div>
+                </div> 
+            </div>
+
+            <div style="height:15px"></div>
+
+            <div class="description-scolarite">
+                <div class="description_content-scolarite">
+                    <i class="fi fi-br-info"></i>
+                    <p>Pour valider une compétence, il faut avoir une moyenne d’au moins <span style="font-weight:600">10/20</span>.</p>
+                </div>
+            </div>
+
+            <div style="height:20px"></div>
+
+            <div class="container-notes">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="item-notes">
+                                <div class="title_item-notes">
+                                    <p>UE 3.1</p>
+                                    <p>Comprendre</p>
+                                </div>
+                                <div class="separation_item-scolarite"></div>
+                                <div class="content_item-notes">
+                                    <p>Ta moyenne : <span style="font-weight:600" id="moyenneNotes"></span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600" id="moyennePromoNotes"></span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600" id="rangNotes"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="item-notes">
+                                <div class="title_item-notes">
+                                    <p>UE 3.2</p>
+                                    <p>Concevoir</p>
+                                </div>
+                                <div class="separation_item-scolarite"></div>
+                                <div class="content_item-notes">
+                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="item-notes">
+                                <div class="title_item-notes">
+                                    <p>UE 3.3</p>
+                                    <p>Exprimer</p>
+                                </div>
+                                <div class="separation_item-scolarite"></div>
+                                <div class="content_item-notes">
+                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="item-notes">
+                                <div class="title_item-notes">
+                                    <p>UE 3.4</p>
+                                    <p>Développer</p>
+                                </div>
+                                <div class="separation_item-scolarite"></div>
+                                <div class="content_item-notes">
+                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="item-notes">
+                                <div class="title_item-notes">
+                                    <p>UE 3.5</p>
+                                    <p>Entreprendre</p>
+                                </div>
+                                <div class="separation_item-scolarite"></div>
+                                <div class="content_item-notes">
+                                    <p>Ta moyenne : <span style="font-weight:600"></span></p>
+                                    <p>La moyenne de la promo : <span style="font-weight:600"></span></p>
+                                    <p>Ton rang dans la promo : <span style="font-weight:600"></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="btn_content-menu btn_next">
+                        <p>Suivant</p>
+                        <i class="fi fi-br-angle-right"></i>
+                    </div>
+
+                    <div class="btn_content-menu btn_prev">
+                        <i class="fi fi-br-angle-left"></i>
+                        <p>Précédent</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
         
+        <div style="height:30px"></div>
+        
+        <div class="p_credit-scolarite">
+            <p>Mis à jour selon les données de <a href="https://mmi-angouleme-dashboard.alwaysdata.net/" target="_blank">MMI Dashboard</a></p>
+        </div>
 
         <div style="height:30px"></div>
         <!-- <p>Le relevé de notes arrive prochainement</p> -->
@@ -126,6 +249,7 @@ echo head("MMI Companion | Scolarité");
     </main>
 
     <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- <script src="../assets/js/fireworks.js"></script> -->
     
     <script>
@@ -133,6 +257,17 @@ echo head("MMI Companion | Scolarité");
         let select_background_profil = document.querySelector('#select_background_vie_sco-header');
         select_background_profil.classList.add('select_link-header');
 
+        // ----------------------------------------------
+
+        // Swiper
+        let swiper = new Swiper(".mySwiper", {
+            autoHeight: true,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: ".btn_next",
+                prevEl: ".btn_prev",
+            },
+        });
 
         // ----------------------------------------------
 
@@ -141,7 +276,7 @@ echo head("MMI Companion | Scolarité");
 
         const recapAbsences = document.querySelector('#content_recapitulatif-absences');
         
-        window.addEventListener('load', loadAbsences);
+        window.addEventListener('load', loadAbsencesNotes);
 
         function buildDetailsAbsences(detailled) {
             
@@ -161,7 +296,7 @@ echo head("MMI Companion | Scolarité");
 
             // Création de la div de séparation
             const separationDiv = document.createElement('div');
-            separationDiv.classList.add('separation_recapitulatif_details-absences');
+            separationDiv.classList.add('separation_item-scolarite');
 
             // Ajout de la div de séparation au-dessus de #details-absences
             parentElement.insertBefore(separationDiv, detailsAbsences);
@@ -209,7 +344,7 @@ echo head("MMI Companion | Scolarité");
             detailsAbsencesContainer.appendChild(contentElement);
         }
 
-        function loadAbsences() {
+        function loadAbsencesNotes() {
             const semestreVal = semestre.value;
             const xhr = new XMLHttpRequest();
 
@@ -218,6 +353,32 @@ echo head("MMI Companion | Scolarité");
                     const result = JSON.parse(xhr.responseText);
                     console.log(result);
 
+                    let contentItemNotes = document.querySelectorAll('.content_item-notes');
+                    console.log(contentItemNotes);
+
+                    // Notes
+                    let index = 0; // Ajoutez un index pour suivre l'élément à mettre à jour
+                    for (let ue in result.notes.ues) {
+                        if (result.notes.ues.hasOwnProperty(ue) && result.notes.ues[ue].moy !== null) {
+                            let ueData = result.notes.ues[ue];
+                            console.log(ueData);
+
+                            // Utilisez forEach pour itérer sur chaque élément
+                            contentItemNotes.forEach((element, i) => {
+                                if (i === index) {
+                                    element.querySelector('p:nth-child(1) span').textContent = ueData.moy.toFixed(2);
+                                    element.querySelector('p:nth-child(2) span').textContent = ueData.moy_promo.toFixed(2);
+                                    element.querySelector('p:nth-child(3) span').textContent = ueData.rang;
+                                }
+                            });
+
+                            index++; // Incrémentez l'index pour la prochaine itération
+                        }
+                    }
+                    
+                    
+
+                    // Absences
                     recapAbsences.innerHTML = '';
 
                     const absences = result.absences;
@@ -254,7 +415,8 @@ echo head("MMI Companion | Scolarité");
             xhr.send(data);
         }
 
-    semestre.addEventListener('change', loadAbsences);
+        semestre.addEventListener('change', loadAbsencesNotes);
+
 </script>
 
 </body>

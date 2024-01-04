@@ -2889,7 +2889,7 @@ header{
 
 /* SCOLARITÉ.PHP */
 
-.title-absences{
+.title-scolarite{
     display: flex;
     justify-content: start;
     align-items: center;
@@ -2897,7 +2897,7 @@ header{
     width: 100%;
 }
 
-.description-absences{
+.description-scolarite{
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -2907,7 +2907,7 @@ header{
     width: 100%;
 }
 
-.description_content-absences{
+.description_content-scolarite{
     display: flex;
     justify-content: start;
     align-items: center;
@@ -2916,7 +2916,7 @@ header{
     width: 100%;
 }
 
-.description_content-absences i{
+.description_content-scolarite i{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -2925,12 +2925,14 @@ header{
     font-size: 1.25rem;
 }
 
-.description_content-absences p{
+.description_content-scolarite p{
     color: var(--texte);
     font-size: .875rem;
     font-family: Montserrat;
     font-weight: 500;
 }
+
+/* Absences */
 
 .select-absences{
     display: flex;
@@ -3064,9 +3066,9 @@ header{
     font-weight: 500;
 }
 
-.separation_recapitulatif_details-absences{
+.separation_item-scolarite{
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
 
     width: 100%;
@@ -3076,48 +3078,105 @@ header{
 }
 
 
+/* Notes */
 
+.container-notes{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
 
+    background-color: var(--blanc);
+    border-radius: .9375rem;
+    padding: 1.25rem;
 
+    width: 100%;
+}
 
+.item-notes{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .9375rem;
 
+    width: 100%;
+}
 
+.title_item-notes{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
 
+    width: 100%;
+}
 
-
-
-
-
-
-
-.collapsible {
-    cursor: pointer;
-    background: none;
-    text-decoration: none;
+.title_item-notes p:nth-child(1){
     color: var(--texte);
+    font-size: .875rem;
     font-family: Montserrat;
-    font-weight: 700;
-    text-align: left;
-    border: none;
-    text-align: left;
-    outline: none;
-    margin-bottom: .3125rem;
+    font-weight: 600;
 }
 
-.content {
-    display: none;
-    padding: .625rem;
-    background-color: var(--bleu-clair-background);
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.6s ease-in-out;
+.title_item-notes p:nth-child(2){
+    color: var(--texte);
+    font-size: .75rem;
+    font-family: Montserrat;
+    font-weight: 500;
 }
 
-.collapsible.active + .content {
-    display: block;
-    max-height: 62.5rem; /* La valeur maximale doit être suffisamment grande pour contenir votre contenu */
-    overflow: visible;
+.content_item-notes{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .625rem;
+
+    width: 100%;
 }
+
+.content_item-notes p{
+    color: var(--texte);
+    font-size: .875rem;
+    font-family: Montserrat;
+    font-weight: 500;
+}
+
+.p_credit-scolarite{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+
+.p_credit-scolarite p{
+    color: var(--texte);
+    font-size: .75rem;
+    font-family: Montserrat;
+    font-weight: 500;
+    text-align: center;
+}
+
+.p_credit-scolarite a{
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* INFORMATIONS.PHP */
