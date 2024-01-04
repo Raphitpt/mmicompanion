@@ -978,7 +978,8 @@ function extractDateFromMenu($menuTitle)
 
 function getMenu()
 {
-    $menu_url = 'https://www.crous-poitiers.fr/restaurant/r-u-crousty/'; // URL du menu
+    // $menu_url = 'https://www.crous-poitiers.fr/restaurant/r-u-crousty/'; // URL du menu
+    $menu_url = 'https://www.crous-poitiers.fr/restaurant/le-1431/'; // URL du menu
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $menu_url);
@@ -1013,15 +1014,15 @@ function getMenu()
         $menuInfo['Foods'] = [];
 
         // Utilisez XPath pour extraire les plats du menu.
-        $foods = $xpath->query(".//ul[contains(@class, 'meal_foodies')]//li", $menu);
+        $foods = $xpath->query(".//ul[contains(@class, 'meal_foodies')]//li//ul/li", $menu);
 
         // Parcourez les éléments de la liste des plats.
         foreach ($foods as $food) {
             $menuInfo['Foods'][] = trim($food->textContent);
         }
-        unset($menuInfo['Foods'][0]);
-        unset($menuInfo['Foods'][1]);
-        unset($menuInfo['Foods'][2]);
+        // unset($menuInfo['Foods'][0]);
+        // unset($menuInfo['Foods'][1]);
+        // unset($menuInfo['Foods'][2]);
 
         // Utilisez la date comme clé pour stocker les données par date.
         $menuDataByDay[$menuInfo['Date']][] = $menuInfo;
@@ -1080,5 +1081,23 @@ function getMenuToday()
 
 }
 
+
+function rgbStringToHex($rgbString) {
+    preg_match('/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/', $rgbString, $matches);
+    
+    $r = (int)$matches[1];
+    $g = (int)$matches[2];
+    $b = (int)$matches[3];
+
+    return sprintf("#%02x%02x%02x", $r, $g, $b);
+}
+
+function convertirRGB($color){
+    if (preg_match('/^#([0-9a-fA-F]{3}){1,2}$/', $color) === 1) {
+        return $color;
+    } else {
+        return rgbStringToHex($color);
+    }
+}
 
 

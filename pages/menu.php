@@ -90,6 +90,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                                 <p><?php echo $date ?></p>
                                 <p>Pas de menu aujourd'hui</p>
                             <?php } else { ?>
+                                <p><?php echo $date ?></p>
                                 <ul>
                                     <?php foreach ($menu['Foods'] as $food) { ?>
                                         <li><?php echo $food ?></li>

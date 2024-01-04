@@ -220,6 +220,8 @@ echo head('MMI Companion | Accueil');
             <?php echo getMenuToday(); ?>
         </section>
 
+        <div style="height:30px"></div>
+
     </main>
 
     <script src="../assets/js/script_all.js?v=1.1"></script>

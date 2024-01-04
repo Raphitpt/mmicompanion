@@ -5,8 +5,6 @@ include './../bootstrap.php';
 $user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
-echo head("MMI Companion | Emploi du temps");
-
 
 if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']) && isset($_GET['end']) && isset($_GET['color'])) {
     $title = $_GET['title'];
@@ -18,28 +16,16 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     $dateEndObj = DateTime::createFromFormat('D M d Y H:i:s e+', $dateEnd);
     $dateEnd = $dateEndObj ? $dateEndObj->format('Y-m-d\TH:i:s') : '';
     $location = $_GET['location'];
-    $color = $_GET['color'];
+    $color = convertirRGB($_GET['color']);
 
+
+echo head("MMI Companion | Emploi du temps");
 ?>
 
 <body class="body-all">
-    <!-- Menu de navigation -->
-    <header>
-        <div class="content_header">
-            <div class="content_title-header" id="burger-header">
-                <div class="burger-header">
-                    <i class="fi fi-br-bars-sort"></i>
-                </div>
-                <div style="width:20px"></div>
-                <h1>Emploi du temps</h1>
-            </div>
-        </div>
 
-        <?php generateBurgerMenuContent($user['role']) ?>
+    <?php generateBurgerMenuContent($user['role'], 'Emploi du temps') ?>
 
-         
-    </header>
-    <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
     <main class="main_all">
         <div style="height:30px"></div>
@@ -90,7 +76,6 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
                         <h2>Ajouter une couleur</h2>
                     </label>
                     <input type="color" name="color" value="<?= $color ?>" disabled/>
-                    
                 </div>
             </div>
 
@@ -102,29 +87,29 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
 
 
     </main>
-    <script src="../assets/js/script_all.js"></script>
+    <script src="../assets/js/script_all.js?v=1.1"></script> 
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_calendar-header');
         select_background_profil.classList.add('select_link-header');
 
-        const dateStartInput = document.getElementById('date_start');
-        const dateEndInput = document.getElementById('date_end');
+        // const dateStartInput = document.getElementById('date_start');
+        // const dateEndInput = document.getElementById('date_end');
 
-        dateStartInput.addEventListener('input', () => {
-            // Obtenez la nouvelle valeur de date de début
-            const dateStartValue = new Date(dateStartInput.value);
+        // dateStartInput.addEventListener('input', () => {
+        //     // Obtenez la nouvelle valeur de date de début
+        //     const dateStartValue = new Date(dateStartInput.value);
 
-            // Ajoutez 15 minutes à la nouvelle date de début
-            dateStartValue.setMinutes(dateStartValue.getMinutes() + 15);
+        //     // Ajoutez 15 minutes à la nouvelle date de début
+        //     dateStartValue.setMinutes(dateStartValue.getMinutes() + 15);
 
-            // Ajoutez 2 heures pour corriger le décalage
-            dateStartValue.setHours(dateStartValue.getHours() + 1);
+        //     // Ajoutez 2 heures pour corriger le décalage
+        //     dateStartValue.setHours(dateStartValue.getHours() + 1);
 
-            // Mettez à jour la date de fin
-            dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
-            dateEndInput.value = dateStartValue.toISOString().slice(0, 16);
-        });
+        //     // Mettez à jour la date de fin
+        //     dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
+        //     dateEndInput.value = dateStartValue.toISOString().slice(0, 16);
+        // });
 
     </script>
 </body>

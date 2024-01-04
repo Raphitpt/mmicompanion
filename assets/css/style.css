@@ -1238,7 +1238,7 @@ header{
     font-family: Montserrat;
     font-size: .875rem;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     line-height: normal;
 }
 
@@ -3378,20 +3378,15 @@ p {
 }
 
 .swiper-wrapper{
-    margin-bottom: 2.5rem;
-}
-
-.swiper-wrapper.agenda{
     margin-bottom: 4rem;
 }
-
 
 .item_menu_content-menu {
     display: flex !important;
     flex-direction: column;
     justify-content: start;
     align-items: center;
-    gap: .625rem;
+    gap: .9375rem;
 }
 
 .item_menu_content-menu p{
@@ -3416,6 +3411,7 @@ p {
     gap: .3125rem;
 
     list-style: inside;
+    width: 100%;
 }
 
 .item_menu_content-menu ul li{
