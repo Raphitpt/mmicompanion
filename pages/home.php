@@ -159,29 +159,13 @@ echo head('MMI Companion | Accueil');
                     <a href="./agenda.php">
                         <div class="item_number_agenda-home">
                             <i class="fi fi-sr-square-exclamation"></i>
-                            <!-- <?php 
-                            if ($eval_count == 0) {
-                                echo "<p>Pas d'évaluation</p>";
-                            } else if ($eval_count == 1) {
-                                echo "<p>" . $eval_count . " évaluation</p>";
-                            } else {
-                                echo "<p>" . $eval_count . " évaluations</p>";
-                            }
-                            ?> -->
+                            <p>Chargement</p>
                         </div>
                     </a>
                     <a href="./agenda.php">
                         <div class="item_number_agenda-home">
                             <i class="fi fi-sr-checkbox"></i>
-                            <!-- <?php
-                            if ($taches_count == 0) {
-                                echo "<p>Pas de tâche</p>";
-                            } else if ($taches_count == 1) {
-                                echo "<p>" . $taches_count . " tâche à faire</p>";
-                            } else {
-                                echo "<p>" . $taches_count . " tâches à faire</p>";
-                            } 
-                            ?> -->
+                            <p>Chargement</p>
                         </div>
                     </a>
                 </div>
@@ -380,33 +364,99 @@ echo head('MMI Companion | Accueil');
 
         // -----------------------------
 
+        // let checkboxes = document.querySelectorAll(".checkbox");
+
+        // checkboxes.forEach(function(checkbox) {
+        //     // Ici on fait une requête au fichier coche_agenda.php pour mettre à jour la base de données lors d'une coche ou décoche
+        //     checkbox.addEventListener("change", function() {
+
+        //         let idAgenda = this.getAttribute("data-idAgenda");
+        //         let checkedValue = this.checked ? 1 : 0;
+
+        //         let xhr = new XMLHttpRequest();
+        //         xhr.open("POST", "./coche_agenda.php", true);
+        //         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        //         xhr.onreadystatechange = function() {
+        //             if (xhr.readyState === 4 && xhr.status === 200) {
+        //                 let data = JSON.parse(xhr.responseText); // Use xhr.responseText
+        //                 let tachesCount = data.taches_count;
+        //                 console.log(data.message);
+        //                 if (tachesCount == 0) {
+        //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
+        //                 } else if (tachesCount == 1) {
+        //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâche à faire";
+        //                 } else{
+        //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâches à faire";
+        //                 }
+        //             }
+        //         };
+        //         xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+        //     });
+        // });
+
+
+
         let checkboxes = document.querySelectorAll(".checkbox");
 
-        checkboxes.forEach(function(checkbox) {
-            // Ici on fait une requête au fichier coche_agenda.php pour mettre à jour la base de données lors d'une coche ou décoche
-            checkbox.addEventListener("change", function() {
+        document.addEventListener("DOMContentLoaded", function() {
+            let idAgenda = null;
+            let checkedValue = null;
 
-                let idAgenda = this.getAttribute("data-idAgenda");
-                let checkedValue = this.checked ? 1 : 0;
-
-                let xhr = new XMLHttpRequest();
-                xhr.open("POST", "./coche_agenda.php", true);
-                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        let data = JSON.parse(xhr.responseText); // Use xhr.responseText
-                        let tachesCount = data.taches_count;
-                        console.log(data.message);
-                        if (tachesCount == 0) {
-                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
-                        } else if (tachesCount == 1) {
-                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâche à faire";
-                        } else{
-                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâches à faire";
-                        }
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "./coche_agenda.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText);
+                    let nbEval = data.nbEval;
+                    let nbDevoir = data.nbDevoir;
+                    if (nbDevoir == 0 || nbEval == 0) {
+                        document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
+                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
+                    } else if (nbDevoir == 1 || nbEval == 1) {
+                        document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
+                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
+                    } else{
+                        document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
+                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
                     }
-                };
-                xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+                }
+            };
+            xhr.send("idAgenda=" + encodeURIComponent(idAgenda === null ? 'null' : idAgenda) + "&checked=" + encodeURIComponent(checkedValue === null ? 'null' : checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+        });
+        
+
+        document.addEventListener("DOMContentLoaded", function() {
+            checkboxes.forEach(function(checkbox) {
+                // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
+                checkbox.addEventListener("change", function() {
+
+                    let idAgenda = this.getAttribute("data-idAgenda");
+                    let checkedValue = this.checked ? 1 : 0;
+
+                    let xhr = new XMLHttpRequest();
+                    xhr.open("POST", "./coche_agenda.php", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            let data = JSON.parse(xhr.responseText);
+                            let nbEval = data.nbEval;
+                            let nbDevoir = data.nbDevoir;
+                            console.log(data.message);
+                            if (nbDevoir == 0 || nbEval == 0) {
+                                document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
+                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
+                            } else if (nbDevoir == 1 || nbEval == 1) {
+                                document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
+                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
+                            } else{
+                                document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
+                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
+                            }
+                        }
+                    };
+                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+                });
             });
         });
 
