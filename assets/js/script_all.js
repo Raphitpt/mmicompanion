@@ -158,6 +158,30 @@ function toggleMenuNotif() {
 //   xhr.send();
 // }
 
+
+
+// AGENDA
+
+function handleCheckboxChange() {
+  let checkbox = this;
+  let contentAgenda = checkbox.parentNode.querySelector(".content_item_list_flexleft-agenda");
+  let content = checkbox.parentNode.querySelector(".description_item_list_flexleft-agenda");
+
+  if (checkbox.checked) {
+      contentAgenda.style.textDecoration = "line-through";
+      contentAgenda.style.opacity = "0.5";
+      content.style.display = "none";
+
+  } else {
+      contentAgenda.style.textDecoration = "none";
+      contentAgenda.style.opacity = "1";
+      content.style.display = "block";
+  }
+}
+
+
+
+
 function updatePoints(x) {
   let xhr = new XMLHttpRequest();
 
@@ -252,21 +276,21 @@ function loadTheme() {
 loadTheme();
 
 /* Service Worker */
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('https://dev.mmi-companion.fr/mmicompanion/sw.js')
-    .then((registration) => {
-      // Mettre à jour le service worker si nécessaire
-      if (registration.installing) {
-        registration.installing.postMessage({ type: 'SKIP_WAITING' });
-      }
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker
+//     .register('https://dev.mmi-companion.fr/mmicompanion/sw.js')
+//     .then((registration) => {
+//       // Mettre à jour le service worker si nécessaire
+//       if (registration.installing) {
+//         registration.installing.postMessage({ type: 'SKIP_WAITING' });
+//       }
       
-      console.log('Service Worker Registered');
-    })
-    .catch((error) => {
-      console.error('Service Worker Registration failed:', error);
-    });
-}
+//       console.log('Service Worker Registered');
+//     })
+//     .catch((error) => {
+//       console.error('Service Worker Registration failed:', error);
+//     });
+// }
 
 
 
@@ -274,24 +298,7 @@ if ('serviceWorker' in navigator) {
 
 
 
-// AGENDA
 
-function handleCheckboxChange() {
-  let checkbox = this;
-  let contentAgenda = checkbox.parentNode.querySelector(".content_item_list_flexleft-agenda");
-  let content = checkbox.parentNode.querySelector(".description_item_list_flexleft-agenda");
-
-  if (checkbox.checked) {
-      contentAgenda.style.textDecoration = "line-through";
-      contentAgenda.style.opacity = "0.5";
-      content.style.display = "none";
-
-  } else {
-      contentAgenda.style.textDecoration = "none";
-      contentAgenda.style.opacity = "1";
-      content.style.display = "block";
-  }
-}
 
 
 

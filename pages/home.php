@@ -467,11 +467,11 @@ echo head('MMI Companion | Accueil');
                         let tachesCount = data.taches_count;
                         console.log(data.message);
                         if (tachesCount == 0) {
-                            document.querySelector('.item_number_agenda-home:last-child p').innerText = "Pas de tâche";
+                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
                         } else if (tachesCount == 1) {
-                            document.querySelector('.item_number_agenda-home:last-child p').innerText = tachesCount + " tâche à faire";
+                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâche à faire";
                         } else{
-                            document.querySelector('.item_number_agenda-home:last-child p').innerText = tachesCount + " tâches à faire";
+                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâches à faire";
                         }
                     }
                 };
