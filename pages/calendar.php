@@ -332,7 +332,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             const color = info.el.style.backgroundColor;
             const start = info.event.start;
             const end = info.event.end;
-            window.location.href = './calendar_view.php?title=' + title + '&location=' + location + '&description=' + description + '&color=' + color + '&start=' + start + '&end=' + end;
+            window.location.href = './calendar_view.php?title=' + title + '&location=' + location + '&description=' + description + '&color=' + color + '&start=' + start + '&end=' + end + '&page=calendar.php';
           }
         },
         allDaySlot: false,

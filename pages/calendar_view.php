@@ -97,6 +97,10 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     $location = $_GET['location'];
     $color = convertirRGB($_GET['color']);
 
+    $page = $_GET['page'];
+
+    // dd($_GET);
+
 
 echo head("MMI Companion | Emploi du temps");
 ?>
@@ -169,7 +173,7 @@ echo head("MMI Companion | Emploi du temps");
                     </div>
                 </div>
             </div>
-            <a role="button" href="./calendar.php" class="btn_back-calendar_view">
+            <a role="button" href="./<?php echo $page ?>" class="btn_back-calendar_view">
                 <i class="fi fi-br-angle-left"></i>
                 <p>Retour</p>
             </a>

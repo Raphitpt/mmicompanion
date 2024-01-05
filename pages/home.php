@@ -180,7 +180,7 @@ echo head('MMI Companion | Accueil');
                 <div></div>
             </div> -->
 
-            <a href="./calendar_view.php?title='<?php echo $nextCours['summary'] ?>'&location='<?php echo $nextCours['location'] ?>'&description='<?php echo $nextCours['description'] ?>'&color=''&start='<?php echo $nextCours['debut'] ?>'&end='<?php echo $nextCours['fin'] ?>'">
+            <a href="./calendar_view.php?title=<?php echo $nextCours['summary'] ?>&location=<?php echo $nextCours['location'] ?>&description=<?php echo $nextCours['description'] ?>&color=#fff&start=<?php echo $nextCours['debut'] ?>&end=<?php echo $nextCours['fin'] ?>&page=home.php">
                 <div class="content_prochain_cours-home">
                     <div class="description_prochain_cours-home">
                         <p><?php //echo $nextCours['summary'] ?></p>
