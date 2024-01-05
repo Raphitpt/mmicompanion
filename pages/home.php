@@ -37,11 +37,9 @@ $week_here = date('W'); // Obtenez le numéro de semaine actuel
 // Formatez la date au format "YYYY-Www"
 $current_week_year = $year_here . '-W' . $week_here;
 $today = new DateTime();
-// Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
-$edu_group_all = substr($user_sql['edu_group'], 0, 4);
+$currentDate = date('Y-m-d');
 
-// Obtenez la date actuelle
-$today = new DateTime();
+$edu_group_all = substr($user_sql['edu_group'], 0, 4);
 
 // Trouvez le lundi de la semaine actuelle
 $startDate = clone $today;
@@ -49,7 +47,7 @@ $startDate->modify('Monday this week');
 
 // Créer un tableau avec les dates de la semaine du lundi au vendredi
 $week_dates = [];
-for ($i = 0; $i < 5; $i++) {
+for ($i = 0; $i < 7; $i++) {
     $week_dates[] = $startDate->format('Y-m-d');
     $startDate->modify('+1 day');
 }
@@ -80,9 +78,64 @@ $stmt_eval_count->execute([
 
 $eval_count = $stmt_eval_count->fetchColumn();
 
+
 // Récupérer les tâches à faire
 
 
+
+$sqlagendacheck = "SELECT agenda.*, event_check.*, sch_subject.name_subject
+FROM agenda
+LEFT JOIN event_check ON agenda.id_user = event_check.id_user AND agenda.id_task = event_check.id_event
+JOIN sch_subject ON agenda.id_subject = sch_subject.id_subject
+WHERE (agenda.edu_group = :group OR agenda.edu_group = :edu_group_all)
+AND (agenda.type = 'devoir' OR agenda.type = 'autre')
+AND (event_check.id_user = :id_user OR event_check.id_user IS NULL)
+AND (
+    (agenda.date_finish LIKE :date1 OR agenda.date_finish LIKE :date2 OR agenda.date_finish LIKE :date3 OR agenda.date_finish LIKE :date4 OR agenda.date_finish LIKE :date5 OR agenda.date_finish LIKE :date6 OR agenda.date_finish LIKE :date7 OR agenda.date_finish = :current_week_year)
+)
+AND agenda.date_finish >= :today";
+
+$stmt = $dbh->prepare($sqlagendacheck);
+$stmt->execute([
+    'group' => $user_sql['edu_group'],
+    'edu_group_all' => $edu_group_all,
+    'id_user' => $user_sql['id_user'],
+    'date1' => $week_dates[0] . '%',
+    'date2' => $week_dates[1] . '%',
+    'date3' => $week_dates[2] . '%',
+    'date4' => $week_dates[3] . '%',
+    'date5' => $week_dates[4] . '%',
+    'date6' => $week_dates[5] . '%',
+    'date7' => $week_dates[6] . '%',
+    'current_week_year' => $current_week_year,
+    'today' => $today->format('Y-m-d'),
+]);
+
+$agenda = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Compter le nombre de tâches à faire
+$taches_count = count($agenda);
+
+foreach ($agenda as $key => $value) {
+    if ($value['id_event'] != '' OR $value['id_event'] != NULL) {
+        $taches_count--;
+    }
+}
+
+// Récupérer les tâches à faire pour demain
+$tasksForTomorrow = [];
+
+foreach ($agenda as $task) {
+    $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+    if ($task['date_finish'] == $tomorrowDate) {
+        $tasksForTomorrow[] = $task;
+    }
+}
+
+$sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
+$stmt_color = $dbh->prepare($sql_color);
+$stmt_color->execute();
+$colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 
 // -----------------------------
@@ -191,16 +244,79 @@ echo head('MMI Companion | Accueil');
                     </div>
                     <div class="item_number_agenda-home">
                         <i class="fi fi-sr-checkbox"></i>
-                        <p>8 tâches à faire</p>
+                        <?php
+                        if ($taches_count == 0) {
+                            echo "<p>Pas de tâche</p>";
+                        } else if ($taches_count == 1) {
+                            echo "<p>" . $taches_count . " tâche à faire</p>";
+                        } else {
+                            echo "<p>" . $taches_count . " tâches à faire</p>";
+                        } 
+                        ?>
                     </div>
                 </div>
 
                 <div class="agenda_tomorrow-home">
                     <p>Demain</p>
                     <div class="container_agenda_tomorrow-home">
-                        <div class="item_agenda_tomorrow-home">
+                                <?php foreach ($tasksForTomorrow as $agenda) {
+                                    echo "<div class='item_list-agenda'>";
+                                        echo "<div class='item_list_flexleft-agenda'>";
 
-                        </div>
+                                            if ($agenda['type'] == "eval") {
+                                                echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                            }
+                                            // Affichage de la coche ou de l'indication rouge si c'est une évaluation
+                                            if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                                                if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
+                                                    echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                                                } else {
+                                                    echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
+                                                }
+                                            }
+
+                                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
+                                            // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                                            foreach ($colors as $color) {
+
+                                                if ($color['id_subject'] == $agenda['id_subject']) {
+                                                    echo "<div class='subject_item_list_flexleft-agenda'>";
+                                                        echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
+                                                        if ($agenda['type'] == "eval") {
+                                                            echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
+                                                        } else {
+                                                            echo "<p>" . $agenda['name_subject']. "</p>";
+                                                        }
+                                                    echo "</div>";
+                                                    break;
+                                                }
+                                                
+                                            };
+                                            // Affichage du titre de l'event de l'agenda
+                                            echo "<div class='title_item_list_flexleft-agenda'>";
+                                                echo "<p>" . $agenda['title'] . "</p>";
+                                            echo "</div>";
+
+                                            // Affichage du contenu de l'event de l'agenda
+                                            echo "<div class='description_item_list_flexleft-agenda'>";
+                                            if (isset($agenda['content']) && !empty($agenda['content'])) {
+                                                echo $agenda['content'];
+                                            }
+                                            echo "</div>";
+
+                                            // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
+                                            echo "<div class='author_item_list_flexleft-agenda'>";
+                                            if (isset($agenda['role']) && $agenda['role'] == "prof") {
+                                                echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                                            }
+                                            echo "</div>";
+
+                                            echo "</label>";
+                                        echo "</div>";
+                                    echo "</div>"; 
+                                    } ?>
+                                    </div>
+                                </div>
                     </div>
                 </div>
             </div>
@@ -324,26 +440,69 @@ echo head('MMI Companion | Accueil');
         updateAgendaTitle();
 
 
+        // -----------------------------
 
-// // Obtenez la date actuelle
-// var today = new Date();
+        let checkboxes = document.querySelectorAll(".checkbox");
 
-// // Parcourez les éléments avec la classe 'meal'
-// var mealDivs = document.querySelectorAll('.meal');
-// console.log(mealDivs);
+        checkboxes.forEach(function(checkbox) {
+            // Ici on fait une requête au fichier coche_agenda.php pour mettre à jour la base de données lors d'une coche ou décoche
+            checkbox.addEventListener("change", function() {
 
-// mealDivs.forEach(function(mealDiv) {
-//     // Récupérez le texte à l'intérieur de l'élément <h2> pour obtenir la date du menu
-//     var dateString = mealDiv.querySelector('h2').innerText;
+                let idAgenda = this.getAttribute("data-idAgenda");
+                let checkedValue = this.checked ? 1 : 0;
 
-    
-    
-//     // Comparez directement la date du texte avec la date actuelle (ignorant l'heure)
-//     if (dateString.includes(today.toLocaleDateString('fr-FR'))) {
-//         // La date du menu correspond à la date actuelle, faites quelque chose avec cet élément
-//         mealDiv.classList.add('active'); // Ajoutez une classe 'active', par exemple
-//     }
-// });
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "./coche_agenda.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let data = JSON.parse(xhr.responseText); // Use xhr.responseText
+                        let tachesCount = data.taches_count;
+                        console.log(data.message);
+                        if (tachesCount == 0) {
+                            document.querySelector('.item_number_agenda-home:last-child p').innerText = "Pas de tâche";
+                        } else if (tachesCount == 1) {
+                            document.querySelector('.item_number_agenda-home:last-child p').innerText = tachesCount + " tâche à faire";
+                        } else{
+                            document.querySelector('.item_number_agenda-home:last-child p').innerText = tachesCount + " tâches à faire";
+                        }
+                    }
+                };
+                xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+            });
+        });
+
+        window.addEventListener("DOMContentLoaded", function() {
+            let checkboxes = document.querySelectorAll(".checkbox");
+            checkboxes.forEach(function(checkbox) {
+                checkbox.addEventListener("change", handleCheckboxChange);
+
+                // Vérification initiale de l'état de la case à cocher
+                handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
+            });
+        });
+
+
+
+        // // Obtenez la date actuelle
+        // var today = new Date();
+
+        // // Parcourez les éléments avec la classe 'meal'
+        // var mealDivs = document.querySelectorAll('.meal');
+        // console.log(mealDivs);
+
+        // mealDivs.forEach(function(mealDiv) {
+        //     // Récupérez le texte à l'intérieur de l'élément <h2> pour obtenir la date du menu
+        //     var dateString = mealDiv.querySelector('h2').innerText;
+
+            
+            
+        //     // Comparez directement la date du texte avec la date actuelle (ignorant l'heure)
+        //     if (dateString.includes(today.toLocaleDateString('fr-FR'))) {
+        //         // La date du menu correspond à la date actuelle, faites quelque chose avec cet élément
+        //         mealDiv.classList.add('active'); // Ajoutez une classe 'active', par exemple
+        //     }
+        // });
 
         
     </script>

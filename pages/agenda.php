@@ -536,6 +536,10 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             select_background_profil.classList.add('select_link-header');
             const deleteTrash = document.querySelectorAll('#delete-trash');
 
+
+            // --------------------------------
+
+
             deleteTrash.forEach(function(trash) {
                 trash.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -657,23 +661,6 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
             // Vérification que la case à cocher est cochée ou non
             // Si le case est cochée, on barre le nom de la tâche et inversement
-
-            function handleCheckboxChange() {
-                let checkbox = this;
-                let contentAgenda = checkbox.parentNode.querySelector(".content_item_list_flexleft-agenda");
-                let content = checkbox.parentNode.querySelector(".description_item_list_flexleft-agenda");
-
-                if (checkbox.checked) {
-                    contentAgenda.style.textDecoration = "line-through";
-                    contentAgenda.style.opacity = "0.5";
-                    content.style.display = "none";
-
-                } else {
-                    contentAgenda.style.textDecoration = "none";
-                    contentAgenda.style.opacity = "1";
-                    content.style.display = "block";
-                }
-            }
 
             window.addEventListener("DOMContentLoaded", function() {
                 let checkboxes = document.querySelectorAll(".checkbox");

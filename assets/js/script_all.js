@@ -270,3 +270,28 @@ if ('serviceWorker' in navigator) {
 
 
 
+
+
+
+
+// AGENDA
+
+function handleCheckboxChange() {
+  let checkbox = this;
+  let contentAgenda = checkbox.parentNode.querySelector(".content_item_list_flexleft-agenda");
+  let content = checkbox.parentNode.querySelector(".description_item_list_flexleft-agenda");
+
+  if (checkbox.checked) {
+      contentAgenda.style.textDecoration = "line-through";
+      contentAgenda.style.opacity = "0.5";
+      content.style.display = "none";
+
+  } else {
+      contentAgenda.style.textDecoration = "none";
+      contentAgenda.style.opacity = "1";
+      content.style.display = "block";
+  }
+}
+
+
+
