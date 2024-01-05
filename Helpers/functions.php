@@ -44,7 +44,7 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="../manifest.json">
 
-  <link href="../assets/css/style.css?v=2.2" rel="stylesheet"">
+  <link href="../assets/css/style.css?v=2.21" rel="stylesheet"">
   <link href="../assets/css/responsive.css" rel="stylesheet"">
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
