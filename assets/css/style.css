@@ -1031,6 +1031,9 @@ header{
     gap: .9375rem;
 }
 
+.section-home a{
+    width: 100%;
+}
 
 .title_trait-home {
     display: flex;

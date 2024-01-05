@@ -180,16 +180,18 @@ echo head('MMI Companion | Accueil');
                 <div></div>
             </div> -->
 
-            <div class="content_prochain_cours-home">
-                <div class="description_prochain_cours-home">
-                    <p><?php //echo $nextCours['summary'] ?></p>
-                    <p><?php //echo $nextCours['location'] ?> - <?php //echo $nextCours['description'] ?></p>
+            <a href="./calendar_view.php?title='<?php echo $nextCours['summary'] ?>'&location='<?php echo $nextCours['location'] ?>'&description='<?php echo $nextCours['description'] ?>'&color=''&start='<?php echo $nextCours['debut'] ?>'&end='<?php echo $nextCours['fin'] ?>'">
+                <div class="content_prochain_cours-home">
+                    <div class="description_prochain_cours-home">
+                        <p><?php //echo $nextCours['summary'] ?></p>
+                        <p><?php //echo $nextCours['location'] ?> - <?php //echo $nextCours['description'] ?></p>
+                    </div>
+                    <div class="date_content_prochain_cours-home">
+                        <p>De <?php //echo $nextCours['debut'] ?> à <?php //echo $nextCours['fin'] ?></p>
+                        <p id="tempsBefore">Chargement...</p>
+                    </div>
                 </div>
-                <div class="date_content_prochain_cours-home">
-                    <p>De <?php //echo $nextCours['debut'] ?> à <?php //echo $nextCours['fin'] ?></p>
-                    <p id="tempsBefore">Chargement...</p>
-                </div>
-            </div>
+            </a>
         </section>
 
         <div style="height:20px"></div> 
