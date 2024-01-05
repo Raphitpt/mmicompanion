@@ -127,6 +127,18 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
         let select_background_profil = document.querySelector('#select_background_menu-header');
         select_background_profil.classList.add('select_link-header');
 
+        // Faire en sorte de supprimer le marginBotom quand il n'y a qu'une slide
+        function checkSlideCount() {
+            const swiper = document.querySelector('.mySwiper').swiper;
+
+            if (swiper.slides.length <= 1) {
+                document.querySelector('.swiper-wrapper').style.marginBottom = "auto";
+            } else {
+                document.querySelector('.swiper-wrapper').style.marginBottom = "4rem";
+            }
+        }
+
+
         // Swiper
         let swiper = new Swiper(".mySwiper", {
             autoHeight: true,
@@ -135,7 +147,19 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                 nextEl: ".btn_next",
                 prevEl: ".btn_prev",
             },
+            on: {
+                init: function () {
+                    checkSlideCount(); // Vérifiez le nombre de slides lors de l'initialisation
+                },
+                slidesLength: function () {
+                    checkSlideCount(); // Vérifiez le nombre de slides lorsqu'il change
+                }
+            }
         });
+
+
+
+
     </script>
 
 </body>
