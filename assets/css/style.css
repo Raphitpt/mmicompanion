@@ -1188,15 +1188,23 @@ header{
     width: 100%;
 }
 
+.container_numbers_agenda-home a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: .9375rem 1.5625rem;
+    border-radius: .625rem;
+    background: var(--blanc);
+
+    width: 100%;
+}
+
 .item_number_agenda-home{
     display: flex;
     justify-content: center;
     align-items: center;
     gap: .625rem;
-
-    padding: .9375rem 1.5625rem;
-    border-radius: .625rem;
-    background: var(--blanc);
 
     width: 100%;
 }

@@ -1097,7 +1097,6 @@ function getMenuToday()
         // Si la date du menu correspond à la date actuelle, ajoutez la classe "active"
         if ($date == $currentDate) {
             // Construisez le HTML de manière plus lisible
-            $html .= "<div class='content_menu-home'>";
 
             if ($menu['Foods'] == null) {
                 $html .= "<p>Pas de menu aujourd'hui</p>";
@@ -1109,8 +1108,6 @@ function getMenuToday()
                 $html .= "</ul>";
             }
 
-
-            $html .= "</div>";
         } 
 
         // Si c'est le menu du jour, vous pouvez arrêter la boucle ici

@@ -230,93 +230,97 @@ echo head('MMI Companion | Accueil');
                 </div>
 
                 <div class="container_numbers_agenda-home">
-                    <div class="item_number_agenda-home">
-                        <i class="fi fi-sr-square-exclamation"></i>
-                        <?php 
-                        if ($eval_count == 0) {
-                            echo "<p>Pas d'évaluation</p>";
-                        } else if ($eval_count == 1) {
-                            echo "<p>" . $eval_count . " évaluation</p>";
-                        } else {
-                            echo "<p>" . $eval_count . " évaluations</p>";
-                        }
-                        ?>
-                    </div>
-                    <div class="item_number_agenda-home">
-                        <i class="fi fi-sr-checkbox"></i>
-                        <?php
-                        if ($taches_count == 0) {
-                            echo "<p>Pas de tâche</p>";
-                        } else if ($taches_count == 1) {
-                            echo "<p>" . $taches_count . " tâche à faire</p>";
-                        } else {
-                            echo "<p>" . $taches_count . " tâches à faire</p>";
-                        } 
-                        ?>
-                    </div>
+                    <a href="./agenda.php">
+                        <div class="item_number_agenda-home">
+                            <i class="fi fi-sr-square-exclamation"></i>
+                            <?php 
+                            if ($eval_count == 0) {
+                                echo "<p>Pas d'évaluation</p>";
+                            } else if ($eval_count == 1) {
+                                echo "<p>" . $eval_count . " évaluation</p>";
+                            } else {
+                                echo "<p>" . $eval_count . " évaluations</p>";
+                            }
+                            ?>
+                        </div>
+                    </a>
+                    <a href="./agenda.php">
+                        <div class="item_number_agenda-home">
+                            <i class="fi fi-sr-checkbox"></i>
+                            <?php
+                            if ($taches_count == 0) {
+                                echo "<p>Pas de tâche</p>";
+                            } else if ($taches_count == 1) {
+                                echo "<p>" . $taches_count . " tâche à faire</p>";
+                            } else {
+                                echo "<p>" . $taches_count . " tâches à faire</p>";
+                            } 
+                            ?>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="agenda_tomorrow-home">
                     <p>Demain</p>
                     <div class="container_agenda_tomorrow-home">
-                                <?php foreach ($tasksForTomorrow as $agenda) {
-                                    echo "<div class='item_list-agenda'>";
-                                        echo "<div class='item_list_flexleft-agenda'>";
+                        <?php foreach ($tasksForTomorrow as $agenda) {
+                            echo "<div class='item_list-agenda'>";
+                                echo "<div class='item_list_flexleft-agenda'>";
 
-                                            if ($agenda['type'] == "eval") {
-                                                echo "<i class='fi fi-sr-square-exclamation'></i>";
-                                            }
-                                            // Affichage de la coche ou de l'indication rouge si c'est une évaluation
-                                            if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                                                if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
-                                                    echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                                    if ($agenda['type'] == "eval") {
+                                        echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                    }
+                                    // Affichage de la coche ou de l'indication rouge si c'est une évaluation
+                                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                                        if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
+                                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                                        } else {
+                                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
+                                        }
+                                    }
+
+                                    echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
+                                    // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                                    foreach ($colors as $color) {
+
+                                        if ($color['id_subject'] == $agenda['id_subject']) {
+                                            echo "<div class='subject_item_list_flexleft-agenda'>";
+                                                echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
+                                                if ($agenda['type'] == "eval") {
+                                                    echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
                                                 } else {
-                                                    echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
+                                                    echo "<p>" . $agenda['name_subject']. "</p>";
                                                 }
-                                            }
-
-                                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
-                                            // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
-                                            foreach ($colors as $color) {
-
-                                                if ($color['id_subject'] == $agenda['id_subject']) {
-                                                    echo "<div class='subject_item_list_flexleft-agenda'>";
-                                                        echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
-                                                        if ($agenda['type'] == "eval") {
-                                                            echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
-                                                        } else {
-                                                            echo "<p>" . $agenda['name_subject']. "</p>";
-                                                        }
-                                                    echo "</div>";
-                                                    break;
-                                                }
-                                                
-                                            };
-                                            // Affichage du titre de l'event de l'agenda
-                                            echo "<div class='title_item_list_flexleft-agenda'>";
-                                                echo "<p>" . $agenda['title'] . "</p>";
                                             echo "</div>";
+                                            break;
+                                        }
+                                        
+                                    };
+                                    // Affichage du titre de l'event de l'agenda
+                                    echo "<div class='title_item_list_flexleft-agenda'>";
+                                        echo "<p>" . $agenda['title'] . "</p>";
+                                    echo "</div>";
 
-                                            // Affichage du contenu de l'event de l'agenda
-                                            echo "<div class='description_item_list_flexleft-agenda'>";
-                                            if (isset($agenda['content']) && !empty($agenda['content'])) {
-                                                echo $agenda['content'];
-                                            }
-                                            echo "</div>";
+                                    // Affichage du contenu de l'event de l'agenda
+                                    echo "<div class='description_item_list_flexleft-agenda'>";
+                                    if (isset($agenda['content']) && !empty($agenda['content'])) {
+                                        echo $agenda['content'];
+                                    }
+                                    echo "</div>";
 
-                                            // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
-                                            echo "<div class='author_item_list_flexleft-agenda'>";
-                                            if (isset($agenda['role']) && $agenda['role'] == "prof") {
-                                                echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
-                                            }
-                                            echo "</div>";
+                                    // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
+                                    echo "<div class='author_item_list_flexleft-agenda'>";
+                                    if (isset($agenda['role']) && $agenda['role'] == "prof") {
+                                        echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                                    }
+                                    echo "</div>";
 
-                                            echo "</label>";
-                                        echo "</div>";
-                                    echo "</div>"; 
-                                    } ?>
-                                    </div>
-                                </div>
+                                    echo "</label>";
+                                echo "</div>";
+                            echo "</div>"; 
+                            } ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -335,7 +339,10 @@ echo head('MMI Companion | Accueil');
                 <div></div>
             </div>
 
-            <?php echo getMenuToday(); ?>
+            <div class='content_menu-home'>
+                <?php echo getMenuToday(); ?>
+            </div>
+
         </section>
 
         <div style="height:30px"></div>
