@@ -248,7 +248,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     }
                     ?>
                 </div>
-                <div class="container_numbers_description-agenda">
+                <!-- <div class="container_numbers_description-agenda">
                     <div class="item_number_description-agenda">
                         <i class="fi fi-sr-checkbox"></i>
                         <p id='compteTaches'></p>
@@ -265,7 +265,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         }
                         ?>
                     </div>
-                </div>
+                </div> -->
             </div>
             
             <?php
@@ -556,35 +556,35 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
             // Fonction pour mettre à jour le compteur de tâches
 
-            const resultParagraph = document.getElementById('compteTaches');
+            // const resultParagraph = document.getElementById('compteTaches');
             let checkboxes = document.querySelectorAll(".checkbox");
 
-            function countChecked() {
-                let count = 0;
+            // function countChecked() {
+            //     let count = 0;
 
-                checkboxes.forEach(checkbox => {
-                    if (!checkbox.checked) {
-                        count++;
-                    }
-                });
-                if (count === 0) {
-                    resultParagraph.textContent = `Aucune tâche à faire`;
-                } else if (count === 1) {
-                    resultParagraph.textContent = `${count} tâche à faire`;
-                } else {
-                    resultParagraph.textContent = `${count} tâches à faire`;
-                }
-            }
+            //     checkboxes.forEach(checkbox => {
+            //         if (!checkbox.checked) {
+            //             count++;
+            //         }
+            //     });
+            //     if (count === 0) {
+            //         resultParagraph.textContent = `Aucune tâche à faire`;
+            //     } else if (count === 1) {
+            //         resultParagraph.textContent = `${count} tâche à faire`;
+            //     } else {
+            //         resultParagraph.textContent = `${count} tâches à faire`;
+            //     }
+            // }
 
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', countChecked);
+            // checkboxes.forEach(checkbox => {
+            //     checkbox.addEventListener('change', countChecked);
 
-                // Vérification initiale de l'état de la case à cocher
-                handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
-            });
+            //     // Vérification initiale de l'état de la case à cocher
+            //     handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
+            // });
 
             // Appel initial pour afficher le nombre de tâches au chargement de la page
-            countChecked();
+            // countChecked();
             checkboxes.forEach(function(checkbox) {
                 // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
                 checkbox.addEventListener("change", function() {
