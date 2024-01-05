@@ -2,7 +2,6 @@
 <?php
 session_start();
 require "../bootstrap.php";
-use Carbon\Carbon;
 
 $user = onConnect($dbh);
 
@@ -14,97 +13,25 @@ $user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
-if ($user['role'] == "prof") {
 
+
+if ($user['role'] == "prof") {
     header('Location: ./home.php');
     exit;
 }
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-    'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
-$year_here = date('o'); // Obtenez l'année actuelle au format ISO-8601
-$week_here = date('W'); // Obtenez le numéro de semaine actuel
-// Formatez la date au format "YYYY-Www"
-$current_week_year = $year_here . '-W' . $week_here;
-$today = new DateTime();
-// Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
-$edu_group_all = substr($user_sql['edu_group'], 0, 4);
-// --------------------
-$sql_agenda = "SELECT a.*, s.*
-FROM agenda a
-JOIN sch_subject s ON a.id_subject = s.id_subject
-WHERE a.id_user = :id_user
-  AND a.type != 'eval'
-  AND a.type != 'devoir'
-  AND (
-    (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
-    OR
-    (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
-  )
-ORDER BY a.title ASC;
-";
-
-$stmt_agenda = $dbh->prepare($sql_agenda);
-$stmt_agenda->execute([
-    'id_user' => $user['id_user'],
-    'current_week_year' => $current_week_year,
-    'current_date' => $today->format('Y-m-d')
-]);
-$agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-// --------------------
-// Fin de la récupération des taches
-
-// Requetes pour récupérer les évaluations de son TP
-// --------------------
-
-$sql_eval = "SELECT a.*, s.*, u.name, u.pname, u.role 
-FROM agenda a 
-JOIN sch_subject s ON a.id_subject = s.id_subject 
-JOIN users u ON a.id_user = u.id_user 
-WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) 
-AND a.type = 'eval' 
-AND (
-    (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
-    OR
-    (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
-  ) 
-ORDER BY a.title ASC";
-
-
-$stmt_eval = $dbh->prepare($sql_eval);
-$stmt_eval->execute([
-    'edu_group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all,
-    'current_week_year' => $current_week_year,
-    'current_date' => $today->format('Y-m-d')
-]);
-$eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 
 // --------------------
-// Fin de la récupération des évaluations
+// Récupération de l'agenda de l'utilisateur connecté
 
-// Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
-$sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir'AND ((a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)OR(a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)) ORDER BY a.title ASC";
-$stmt_devoir = $dbh->prepare($sql_devoir);
-$stmt_devoir->execute([
-    'edu_group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all,
-    'current_week_year' => $current_week_year,
-    'current_date' => $today->format('Y-m-d')
-]);
-$devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
+$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group'], $user_sql);
+// dd($agendaMerged);
 
-$agenda = array_merge($agenda_user, $eval);
-$agenda = array_merge($agenda, $devoir);
-$eval_cont = count($eval);
-$agenda_cont = count($agenda);
-
+// --------------------
+// Récupérer le nom du chef de TP de l'utilisateur connecté
 
 $sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
 $stmt_chef = $dbh->prepare($sql_chef);
@@ -112,38 +39,6 @@ $stmt_chef->execute([
     'edu_group' => $user_sql['edu_group']
 ]);
 $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
-
-// Tableaux pour traduire les dates en français
-// --------------------
-$semaine = array(
-    " Dimanche ",
-    " Lundi ",
-    " Mardi ",
-    " Mercredi ",
-    " Jeudi ",
-    " Vendredi ",
-    " Samedi "
-);
-$mois = array(
-    1 => " janvier ",
-    " février ",
-    " mars ",
-    " avril ",
-    " mai ",
-    " juin ",
-    " juillet ",
-    " août ",
-    " septembre ",
-    " octobre ",
-    " novembre ",
-    " décembre "
-);
-// --------------------
-// Fin des tableaux pour traduire les dates en français
-
-// Tableau pour regrouper les éléments par date
-$agendaByDate = [];
-
 
 
 // --------------------
@@ -156,6 +51,8 @@ $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 
 // --------------------
+
+
 
 // On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
 if (isset($_POST['button-validate'])) {
@@ -267,92 +164,6 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     </div>
                 </div> -->
             </div>
-            
-            <?php
-
-            // Gère l'affichage des taches en affichant la date en français qui correspond à la date finale de la tache
-            // Elle ajoute la date en français au tableau $agendaByDate qui repertorie toute les taches
-            // dd($agenda);
-            $agendaMerged = [];
-            $currentYear = "2024";
-            $currentWeek = null;
-            // Obtenez la date d'aujourd'hui au format Y-m-d
-            $currentDate = date('Y-m-d');
-
-            usort($agenda, 'compareDates');
-
-            foreach ($agenda as $agendas) {
-                $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
-            
-                // Vérifiez si la date est au format "YYYY-Www"
-                if (preg_match('/^\d{4}-W\d{2}$/', $agendas['date_finish'])) {
-                    $week = intval(substr($agendas['date_finish'], -2));
-                    $formattedDateFr = "Semaine $week";
-
-                } else {
-                    // Formatez la date en français
-                    $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
-            
-                    // Vérifiez si c'est aujourd'hui
-                    if ($agendas['date_finish'] == $currentDate) {
-                        $formattedDateFr = "Aujourd'hui";
-                    }
-            
-                    // Vérifiez si c'est demain
-                    $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
-                    if ($agendas['date_finish'] == $tomorrowDate) {
-                        $formattedDateFr = "Demain";
-                    }
-                }
-
-                // Obtenez la semaine de l'événement
-                $eventWeek = date('W', $date);
-
-                // Comparez la semaine actuelle avec la semaine de l'événement
-                if ($currentWeek !== $eventWeek) {
-                    // Ajoutez les semaines manquantes au tableau
-                    for ($missingWeek = $currentWeek + 1; $missingWeek < $eventWeek; $missingWeek++) {
-                        $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
-                        $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(4);   // Se termine le vendredi
-
-                        $missingWeekStartDate = $startDate->format('d/m');
-                        $missingWeekEndDate = $endDate->format('d/m');
-                        $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
-                        $agendaMerged[$missingWeekLabel] = [];
-                    }
-
-                    // Mettez à jour la semaine actuelle
-                    $currentWeek = $eventWeek;
-
-                    // Calculez la date de début de la semaine
-                    $weekStartDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-1"));
-
-                    // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
-                    $weekLabel = "Semaine {$currentWeek} (du {$weekStartDate} au ";
-
-                    // Calculez la date de fin de la semaine (5 jours plus tard)
-                    $weekEndDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-5"));
-                    $weekLabel .= "{$weekEndDate})";
-
-                    // Ajoutez la nouvelle entrée dans le tableau
-                    $agendaMerged[$weekLabel] = [];
-                }
-            
-                // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
-                if (!isset($agendaMerged[$weekLabel][$formattedDateFr])) {
-                    $agendaMerged[$weekLabel][$formattedDateFr] = [];
-                }
-            
-                $agendaMerged[$weekLabel][$formattedDateFr][] = $agendas;
-            }
-            
-            // dd() pour afficher le résultat final
-            // dd($agendaMerged);
-
-
-
-            ?>
-
             
             <div style="height:25px"></div>
             
@@ -557,7 +368,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             // Fonction pour mettre à jour le compteur de tâches
 
             // const resultParagraph = document.getElementById('compteTaches');
-            let checkboxes = document.querySelectorAll(".checkbox");
+            
 
             // function countChecked() {
             //     let count = 0;
@@ -585,22 +396,29 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
             // Appel initial pour afficher le nombre de tâches au chargement de la page
             // countChecked();
-            checkboxes.forEach(function(checkbox) {
-                // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
-                checkbox.addEventListener("change", function() {
 
-                    let idAgenda = this.getAttribute("data-idAgenda");
-                    let checkedValue = this.checked ? 1 : 0;
+            let checkboxes = document.querySelectorAll(".checkbox");
 
-                    let xhr = new XMLHttpRequest();
-                    xhr.open("POST", "./coche_agenda.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            console.log(xhr.responseText);
-                        }
-                    };
-                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+
+
+            document.addEventListener("DOMContentLoaded", function() {
+                checkboxes.forEach(function(checkbox) {
+                    // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
+                    checkbox.addEventListener("change", function() {
+
+                        let idAgenda = this.getAttribute("data-idAgenda");
+                        let checkedValue = this.checked ? 1 : 0;
+
+                        let xhr = new XMLHttpRequest();
+                        xhr.open("POST", "./coche_agenda.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                console.log(xhr.responseText);
+                            }
+                        };
+                        xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+                    });
                 });
             });
 

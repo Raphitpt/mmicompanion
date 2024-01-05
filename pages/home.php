@@ -9,12 +9,7 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-  'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
 
 // Recupération du lien de la photo de profil en base de donnée, en local ça ne fonctionnera pas, il faut quel soit en ligne, sauf si l'ajout de la photo et en local
@@ -29,108 +24,37 @@ $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
 // -----------------------------
 
-// AGENDA
+$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group'], $user_sql);
+// dd($agendaMerged);
 
-// Récupérer les évaluations
-$year_here = date('o'); // Obtenez l'année actuelle au format ISO-8601
-$week_here = date('W'); // Obtenez le numéro de semaine actuel
-// Formatez la date au format "YYYY-Www"
-$current_week_year = $year_here . '-W' . $week_here;
-$today = new DateTime();
-$currentDate = date('Y-m-d');
+// --------------------
+// Récupérer les couleurs des matières
 
-$edu_group_all = substr($user_sql['edu_group'], 0, 4);
-
-// Trouvez le lundi de la semaine actuelle
-$startDate = clone $today;
-$startDate->modify('Monday this week');
-
-// Créer un tableau avec les dates de la semaine du lundi au vendredi
-$week_dates = [];
-for ($i = 0; $i < 7; $i++) {
-    $week_dates[] = $startDate->format('Y-m-d');
-    $startDate->modify('+1 day');
-}
-
-$sql_eval_count = "SELECT COUNT(*) as eval_count
-FROM agenda a 
-JOIN sch_subject s ON a.id_subject = s.id_subject 
-JOIN users u ON a.id_user = u.id_user 
-WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) 
-AND a.type = 'eval' 
-AND (
-    (a.date_finish LIKE :date1 OR a.date_finish LIKE :date2 OR a.date_finish LIKE :date3 OR a.date_finish LIKE :date4 OR a.date_finish LIKE :date5 OR a.date_finish = :current_week_year)
-)
-AND a.date_finish >= :today";
-
-$stmt_eval_count = $dbh->prepare($sql_eval_count);
-$stmt_eval_count->execute([
-    'edu_group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all,
-    'date1' => $week_dates[0] . '%',
-    'date2' => $week_dates[1] . '%',
-    'date3' => $week_dates[2] . '%',
-    'date4' => $week_dates[3] . '%',
-    'date5' => $week_dates[4] . '%',
-    'current_week_year' => $current_week_year,
-    'today' => $today->format('Y-m-d')
-]);
-
-$eval_count = $stmt_eval_count->fetchColumn();
+$sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
+$stmt_color = $dbh->prepare($sql_color);
+$stmt_color->execute();
+$colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 
-// Récupérer les tâches à faire
-
-
-
-$sqlagendacheck = "SELECT agenda.*, event_check.*, sch_subject.name_subject
-FROM agenda
-LEFT JOIN event_check ON agenda.id_user = event_check.id_user AND agenda.id_task = event_check.id_event
-JOIN sch_subject ON agenda.id_subject = sch_subject.id_subject
-WHERE (agenda.edu_group = :group OR agenda.edu_group = :edu_group_all)
-AND (agenda.type = 'devoir' OR agenda.type = 'autre')
-AND (event_check.id_user = :id_user OR event_check.id_user IS NULL)
-AND (
-    (agenda.date_finish LIKE :date1 OR agenda.date_finish LIKE :date2 OR agenda.date_finish LIKE :date3 OR agenda.date_finish LIKE :date4 OR agenda.date_finish LIKE :date5 OR agenda.date_finish LIKE :date6 OR agenda.date_finish LIKE :date7 OR agenda.date_finish = :current_week_year)
-)
-AND agenda.date_finish >= :today";
-
-$stmt = $dbh->prepare($sqlagendacheck);
-$stmt->execute([
-    'group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all,
-    'id_user' => $user_sql['id_user'],
-    'date1' => $week_dates[0] . '%',
-    'date2' => $week_dates[1] . '%',
-    'date3' => $week_dates[2] . '%',
-    'date4' => $week_dates[3] . '%',
-    'date5' => $week_dates[4] . '%',
-    'date6' => $week_dates[5] . '%',
-    'date7' => $week_dates[6] . '%',
-    'current_week_year' => $current_week_year,
-    'today' => $today->format('Y-m-d'),
-]);
-
-$agenda = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Compter le nombre de tâches à faire
-$taches_count = count($agenda);
-
-foreach ($agenda as $key => $value) {
-    if ($value['id_event'] != '' OR $value['id_event'] != NULL) {
-        $taches_count--;
-    }
-}
 
 // Récupérer les tâches à faire pour demain
 $tasksForTomorrow = [];
 
-foreach ($agenda as $task) {
-    $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
-    if ($task['date_finish'] == $tomorrowDate) {
-        $tasksForTomorrow[] = $task;
+foreach ($agendaMerged as $semaine => $jours) {
+    foreach ($jours as $jour => $taches) {
+        if ($jour == 'Demain') {
+            foreach ($taches as $tache) {
+                $tasksForTomorrow[] = $tache;
+
+            }
+        }
     }
 }
+
+// Maintenant, $tasksForTomorrow est un tableau contenant les titres des tâches pour demain
+
+
+
 
 $sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
 $stmt_color = $dbh->prepare($sql_color);
@@ -235,7 +159,7 @@ echo head('MMI Companion | Accueil');
                     <a href="./agenda.php">
                         <div class="item_number_agenda-home">
                             <i class="fi fi-sr-square-exclamation"></i>
-                            <?php 
+                            <!-- <?php 
                             if ($eval_count == 0) {
                                 echo "<p>Pas d'évaluation</p>";
                             } else if ($eval_count == 1) {
@@ -243,13 +167,13 @@ echo head('MMI Companion | Accueil');
                             } else {
                                 echo "<p>" . $eval_count . " évaluations</p>";
                             }
-                            ?>
+                            ?> -->
                         </div>
                     </a>
                     <a href="./agenda.php">
                         <div class="item_number_agenda-home">
                             <i class="fi fi-sr-checkbox"></i>
-                            <?php
+                            <!-- <?php
                             if ($taches_count == 0) {
                                 echo "<p>Pas de tâche</p>";
                             } else if ($taches_count == 1) {
@@ -257,14 +181,19 @@ echo head('MMI Companion | Accueil');
                             } else {
                                 echo "<p>" . $taches_count . " tâches à faire</p>";
                             } 
-                            ?>
+                            ?> -->
                         </div>
                     </a>
                 </div>
 
                 <div class="agenda_tomorrow-home">
                     <p>Demain</p>
-                    <div class="container_agenda_tomorrow-home">
+                    <div class="container_list-agenda">
+                        <?php if (empty($tasksForTomorrow)) {
+                            echo "<div class='item_list-agenda'>";
+                                echo "<p>Pas de tâche à faire pour demain</p>";
+                            echo "</div>";
+                        } ?>
                         <?php foreach ($tasksForTomorrow as $agenda) {
                             echo "<div class='item_list-agenda'>";
                                 echo "<div class='item_list_flexleft-agenda'>";

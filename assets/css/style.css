@@ -2446,6 +2446,14 @@ header{
     width: 100%;
 }
 
+.item_list-agenda>p{
+    color: var(--texte);
+    font-size: .875rem;
+    font-family: Montserrat;
+    font-weight: 500;
+
+}
+
 .item_list_flexleft-agenda {
     display: flex;
     justify-content: start;
