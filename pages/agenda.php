@@ -417,7 +417,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                                 console.log(xhr.responseText);
                             }
                         };
-                        xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+                        xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>) + "&load=" + encodeURIComponent(false));
                     });
                 });
             });

@@ -1205,7 +1205,7 @@ header{
 
 .item_number_agenda-home{
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     gap: .625rem;
 

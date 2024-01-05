@@ -159,13 +159,13 @@ echo head('MMI Companion | Accueil');
                     <a href="./agenda.php">
                         <div class="item_number_agenda-home">
                             <i class="fi fi-sr-square-exclamation"></i>
-                            <p>Chargement</p>
+                            <p>...</p>
                         </div>
                     </a>
                     <a href="./agenda.php">
                         <div class="item_number_agenda-home">
                             <i class="fi fi-sr-checkbox"></i>
-                            <p>Chargement</p>
+                            <p>...</p>
                         </div>
                     </a>
                 </div>
@@ -254,9 +254,11 @@ echo head('MMI Companion | Accueil');
                 <div></div>
             </div>
 
-            <div class='content_menu-home'>
-                <?php echo getMenuToday(); ?>
-            </div>
+            <a href="./menu.php">
+                <div class='content_menu-home'>
+                    <?php echo getMenuToday(); ?>
+                </div>
+            </a>
 
         </section>
 
@@ -410,19 +412,24 @@ echo head('MMI Companion | Accueil');
                     let data = JSON.parse(xhr.responseText);
                     let nbEval = data.nbEval;
                     let nbDevoir = data.nbDevoir;
-                    if (nbDevoir == 0 || nbEval == 0) {
+                    if (nbDevoir == 0) {
                         document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
-                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
-                    } else if (nbDevoir == 1 || nbEval == 1) {
+                    } else if (nbDevoir == 1) {
                         document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
-                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
                     } else{
                         document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
+                    }
+
+                    if (nbEval == 0) {
+                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
+                    } else if (nbEval == 1) {
+                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
+                    } else{
                         document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
                     }
                 }
             };
-            xhr.send("idAgenda=" + encodeURIComponent(idAgenda === null ? 'null' : idAgenda) + "&checked=" + encodeURIComponent(checkedValue === null ? 'null' : checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+            xhr.send("load=" + encodeURIComponent(true));
         });
         
 
@@ -442,20 +449,25 @@ echo head('MMI Companion | Accueil');
                             let data = JSON.parse(xhr.responseText);
                             let nbEval = data.nbEval;
                             let nbDevoir = data.nbDevoir;
-                            console.log(data.message);
-                            if (nbDevoir == 0 || nbEval == 0) {
+                            console.log(data);
+                            if (nbDevoir == 0) {
                                 document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
-                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
-                            } else if (nbDevoir == 1 || nbEval == 1) {
+                            } else if (nbDevoir == 1) {
                                 document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
-                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
                             } else{
                                 document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
+                            }
+
+                            if (nbEval == 0) {
+                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
+                            } else if (nbEval == 1) {
+                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
+                            } else{
                                 document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
                             }
                         }
                     };
-                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>) + "&load=" + encodeURIComponent(false));
                 });
             });
         });
