@@ -15,6 +15,9 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 // Fin de la récupération du cookie
 
 
+$user_sql = userSQL($dbh, $user);
+
+
 // On récupère les données passées en GET
 // --------------------
 $id_user = $_GET['id_user'];
@@ -31,12 +34,6 @@ $task = $stmt_task->fetch(PDO::FETCH_ASSOC);
 
 
 
-$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt_user = $dbh->prepare($sql_user);
-$stmt_user->execute([
-    ':id_user' => $user['id_user']
-]);
-$user_sql = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
 
 // On vérifie si le formulaire est rempli et si oui on ajoute la tache dans la base de donnée
@@ -68,7 +65,13 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'id_agenda' => $id_task,
         'content' => $content
     ]);
-    header('Location: ./agenda.php');
+
+    if (str_contains($user_sql['role'], 'prof')) {
+        header('Location: ./agenda_prof.php');
+    }else{
+        header('Location: ./agenda.php');
+    }
+
     exit();
 }
 // --------------------
@@ -162,10 +165,9 @@ echo head("MMI Companion | Agenda");
                     </div>
                 </div>
                 
-
                 
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
-                <?php if (str_contains($user_sql['role'], 'chef') || str_contains($user_sql['role'], 'admin')) { ?>
+                <?php if (str_contains($user_sql['role'], 'chef') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'prof')) { ?>
                     <div style="height:15px"></div>
                     <label for="type" class="label-agenda_add">
                         <h2>Type de tâche</h2>
@@ -175,7 +177,7 @@ echo head("MMI Companion | Agenda");
                         <i class="fi fi-br-list"></i>
                         <select name="type" class="input_select-agenda_add input-agenda_add" required>
                             <option value="eval" <?php if (htmlspecialchars($task['type']) == 'eval') echo 'selected'; ?>>Évaluation</option>
-                            <option value="devoir" <?php if (htmlspecialchars($task['type']) == 'devoir') echo 'selected'; ?>>Devoir à rendre</option>
+                            <option value="devoir" <?php if (htmlspecialchars($task['type']) == 'devoir') echo 'selected'; ?>>Tâche à faire</option>
                             <option value="autre" <?php if (htmlspecialchars($task['type']) == 'autre') echo 'selected'; ?>>Autre</option>
                         </select>
                     </div>

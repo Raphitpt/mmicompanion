@@ -42,7 +42,7 @@ if (isset($_POST['button-validate'])) {
   if ($user_sql['tuto_agenda'] == 0) { ?>
   <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda',notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
 
     <main class="main_tuto-agenda">
       <form action="" method="post" class="form-tuto_agenda">
@@ -115,7 +115,7 @@ if (isset($_POST['button-validate'])) {
                 </div>
 
                 <div class="title_flextopright-agenda" id="ajouter_agenda_prof">
-                    <a>Ajouter</a>
+                    <a href="./agenda_add_prof.php?but=<?php echo $but ?>&tp=<?php echo $tp ?>">Ajouter</a>
                 </div>
             </div>
         </div>
@@ -193,83 +193,71 @@ if (isset($_POST['button-validate'])) {
                                 <div class="container_list-agenda">
                                 <?php 
                                 foreach ($agendas as $agenda) {
-                                    echo "<div class='item_list-agenda'>";
-                                        echo "<div class='item_list_flexleft-agenda'>";
+                                    if ($agenda['type']!='autre') {
+                                        echo "<div class='item_list-agenda'>";
+                                            echo "<div class='item_list_flexleft-agenda'>";
 
-                                            if ($agenda['type'] == "eval") {
-                                                echo "<i class='fi fi-sr-square-exclamation'></i>";
-                                            } elseif ($agenda['type'] == "devoir" || $agenda['type'] == "autre") {
-                                                echo "<i class='fi fi-sr-square'></i>";
-                                            } 
+                                                if ($agenda['type'] == "eval") {
+                                                    echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                                } elseif ($agenda['type'] == "devoir" || $agenda['type'] == "autre") {
+                                                    echo "<i class='fi fi-sr-checkbox'></i>";
+                                                } 
 
-                                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
-                                            // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
-                                            foreach ($colors as $color) {
+                                                echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
+                                                // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                                                foreach ($colors as $color) {
 
-                                                if ($color['id_subject'] == $agenda['id_subject']) {
-                                                    echo "<div class='subject_item_list_flexleft-agenda'>";
-                                                        echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
-                                                        if ($agenda['type'] == "eval") {
-                                                            echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
-                                                        } else {
-                                                            echo "<p>" . $agenda['name_subject']. "</p>";
-                                                        }
+                                                    if ($color['id_subject'] == $agenda['id_subject']) {
+                                                        echo "<div class='subject_item_list_flexleft-agenda'>";
+                                                            echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
+                                                            if ($agenda['type'] == "eval") {
+                                                                echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
+                                                            } else {
+                                                                echo "<p>" . $agenda['name_subject']. "</p>";
+                                                            }
+                                                        echo "</div>";
+                                                        break;
+                                                    }
+                                                    
+                                                };
+                                                // Affichage du titre de l'event de l'agenda
+                                                echo "<div class='title_item_list_flexleft-agenda'>";
+                                                    echo "<p>" . $agenda['title'] . "</p>";
+                                                echo "</div>";
+
+                                                // Affichage du contenu de l'event de l'agenda
+                                                echo "<div class='description_item_list_flexleft-agenda'>";
+                                                if (isset($agenda['content']) && !empty($agenda['content'])) {
+                                                    echo $agenda['content'];
+                                                }
+                                                echo "</div>";
+
+                                                // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
+                                                echo "<div class='author_item_list_flexleft-agenda'>";
+                                                if (isset($agenda['role']) && $agenda['role'] == "prof") {
+                                                    echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                                                }
+                                                echo "</div>";
+
+                                                echo "</label>";
+                                            echo "</div>";
+
+                                            echo "<div class='item_list_flexright-agenda'>";
+                                                echo "<div class='menu_dropdown_item_list_flexright-agenda'>";
+                                                    echo "<div class='btn_menu_dropdown_item_list_flexright-agenda'>";
+                                                        echo "<i class='fi fi-sr-menu-dots'></i>";
                                                     echo "</div>";
-                                                    break;
-                                                }
                                                 
-                                            };
-                                            // Affichage du titre de l'event de l'agenda
-                                            echo "<div class='title_item_list_flexleft-agenda'>";
-                                                echo "<p>" . $agenda['title'] . "</p>";
+                                                    echo "<div class='content_menu_dropdown_item_list_flexright-agenda menu_dropdown_close'>";
+
+                                                        echo "<a href='agenda_edit_prof.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                                                        echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
+
+                                                    echo "</div>";
+                                                echo "</div>";
                                             echo "</div>";
-
-                                            // Affichage du contenu de l'event de l'agenda
-                                            echo "<div class='description_item_list_flexleft-agenda'>";
-                                            if (isset($agenda['content']) && !empty($agenda['content'])) {
-                                                echo $agenda['content'];
-                                            }
-                                            echo "</div>";
-
-                                            // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
-                                            echo "<div class='author_item_list_flexleft-agenda'>";
-                                            if (isset($agenda['role']) && $agenda['role'] == "prof") {
-                                                echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
-                                            }
-                                            echo "</div>";
-
-                                            echo "</label>";
-                                        echo "</div>";
-
-                                    echo "<div class='item_list_flexright-agenda'>";
-                                        echo "<div class='menu_dropdown_item_list_flexright-agenda'>";
-                                            echo "<div class='btn_menu_dropdown_item_list_flexright-agenda'>";
-
-                                            if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'prof')){
-                                                echo "";
-                                            } else{
-                                                echo "<i class='fi fi-sr-menu-dots'></i>";
-                                            }
-
-                                            echo "</div>";
-                                        
-                                            echo "<div class='content_menu_dropdown_item_list_flexright-agenda menu_dropdown_close'>";
-
-                                                // Condition pour afficher le bouton edit et delete en fonction du role de l'utilisateur
-                                                if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'prof')) {
-                                                    echo "<i class='fi fi-br-trash red' hidden></i>";
-                                                } elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
-                                                    echo "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
-                                                    echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash' class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
-                                                } else {
-                                                    echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
-                                                    echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
-                                                }
-
-                                            echo "</div>";
-                                        echo "</div>";
-                                    echo "</div>";
-                                    echo "</div>"; 
+                                        echo "</div>"; 
+                                        }
                                     } ?>
                                     </div>
                                 </div>
@@ -334,36 +322,44 @@ if (isset($_POST['button-validate'])) {
 
         // --------------------
 
-        let checkboxes = document.querySelectorAll(".checkbox");
+        document.addEventListener("DOMContentLoaded", function () {
+                let dropdowns = document.querySelectorAll(".btn_menu_dropdown_item_list_flexright-agenda");
 
-        document.addEventListener("DOMContentLoaded", function() {
-            checkboxes.forEach(function(checkbox) {
-                // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
-                checkbox.addEventListener("change", function() {
-
-                    let idAgenda = this.getAttribute("data-idAgenda");
-                    let checkedValue = this.checked ? 1 : 0;
-
-                    let xhr = new XMLHttpRequest();
-                    xhr.open("POST", "./coche_agenda.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            console.log(xhr.responseText);
+                dropdowns.forEach(function (dropdown) {
+                    dropdown.addEventListener("click", function (event) {
+                        event.stopPropagation(); // Empêche la propagation de l'événement de clic à la fenêtre
+                        let dropdownContent = dropdown.nextElementSibling;
+                        if (dropdownContent.classList.contains('menu_dropdown_open')) {
+                            toggleDropdown(dropdownContent);
+                        } else {
+                            closeAllDropdowns(); // Ferme toutes les autres divs dropdown avant d'ouvrir celle-ci
+                            toggleDropdown(dropdownContent);
                         }
-                    };
-                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>) + "&load=" + encodeURIComponent(false));
+                        
+                    });
                 });
+
+                // Ferme toutes les divs dropdown lors d'un clic à l'extérieur de celles-ci
+                window.addEventListener("click", function (event) {
+                    closeAllDropdowns();
+                });
+
+                function toggleDropdown(dropdownContent) {
+                    dropdownContent.classList.toggle('menu_dropdown_open');
+                    dropdownContent.classList.toggle('menu_dropdown_close');
+                }
+
+                function closeAllDropdowns() {
+                    dropdowns.forEach(function (dropdown) {
+                        let dropdownContent = dropdown.nextElementSibling;
+                        if (dropdownContent.classList.contains('menu_dropdown_open')) {
+                            dropdownContent.classList.remove('menu_dropdown_open');
+                            dropdownContent.classList.add('menu_dropdown_close');
+                        }
+                    });
+                }
             });
-        });
 
-        // --------------------
-
-        const ajouterAgenda = document.querySelector('#ajouter_agenda_prof');
-    
-        ajouterAgenda.addEventListener('click', function(){
-            window.location.href = "./agenda_add_prof.php?but=" + butSelect.value + "&tp=" + tpSelect.value;
-        });
             
         </script>
 
