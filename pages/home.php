@@ -198,9 +198,12 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             </div>
 
             <div class="content_agenda-home">
+
+                <?php if (explode("-", $user_sql['edu_group'])[0] != "BUT3") { ?>
                 <div class="proprietaire_cahier_agenda-home">
                     <p><span style="font-weight:700">Propriétaire du cahier : </span><?php echo $nomUserCahier ?></p>
                 </div>
+                <?php } ?>
 
                 <div class="container_numbers_agenda-home">
                     <a href="./agenda.php">
