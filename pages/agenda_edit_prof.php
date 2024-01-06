@@ -81,8 +81,8 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
             ]);
         }
     } else {
-        if ($_POST['tp'] == "all") {
-            $edu_group = $_POST['but'];
+        if ($_POST['tp'] == "ALL") {
+            $edu_group = $_POST['but'] . "-" . $_POST['tp'];
         } else {
             $edu_group = $_POST['but'] . "-" . $_POST['tp'];
         }
@@ -234,11 +234,7 @@ echo head("MMI Companion | Agenda");
 
                     <select name="tp" id="tp">
                         <?php 
-                        if ($tp == "Tous") {
-                            echo "<option value='all' 'selected'>Tous</option>";
-                        } else{
-                            echo "<option value='all'>Tous</option>";
-                        }
+                            echo "<option value='ALL'>Tous</option>";
                         ?>
                         <option disabled>------ TD ------</option>
                         <?php

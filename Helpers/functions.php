@@ -1233,7 +1233,7 @@ function getAgenda($dbh, $user, $edu_group)
     $but = $eduGroupArray[0];
     $tp = $eduGroupArray[1];
     $tdGroup = "";
-    $allGroup = "all";
+    $allGroup = "ALL";
 
     if ($tp == "TP1" || $tp == "TP2") {
         $tpGroup = "TDA";
@@ -1424,7 +1424,7 @@ function getAgendaProf($dbh, $user, $edu_group)
     $but = $eduGroupArray[0];
     $tp = $eduGroupArray[1];
     $tdGroup = "";
-    $allGroup = "all";
+    $allGroup = "ALL";
 
     if ($tp == "TP1" || $tp == "TP2") {
         $tpGroup = "TDA";
