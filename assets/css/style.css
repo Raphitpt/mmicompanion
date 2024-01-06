@@ -2867,7 +2867,7 @@ header{
 
 .input_select-agenda_add{
     min-width: 6.25rem;
-    max-width: 200px;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis 
 }
