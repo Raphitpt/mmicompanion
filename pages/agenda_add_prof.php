@@ -26,62 +26,60 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         $content = "";
     }
 
-    if ($_POST['tp'] == "TDA" || $_POST['tp'] == "TDB") {
-        if ($_POST['tp'] == "TDA") {
-            $td = [
-                'TP1',
-                'TP2'
-            ];
-        } else {
-            $td = [
-                'TP3',
-                'TP4'
-            ];
-        }
-
-        // On rèpète pour faire 2 lignes dans la base de donnée par tp dans le TD
-        foreach ($td as $tpValue) {
-            $edu_group = $_POST['but'] . "-" . $tpValue;
-
-            $school_subject = $_POST['school_subject'];
-            $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute([
-                'title' => $title,
-                'date' => $date,
-                'id_user' => $user['id_user'],
-                'type' => $type,
-                'id_subject' => $school_subject,
-                'edu_group' => $edu_group,
-                'content' => $content
-            ]);
-        }
+    if ($_POST['tp'] == "ALL") {
+        $edu_group = $_POST['but'] . "-" . $_POST['tp'];
     } else {
-        if ($_POST['tp'] == "ALL") {
-            $edu_group = $_POST['but'] . "-" . $_POST['tp'];
-        } else {
-            $edu_group = $_POST['but'] . "-" . $_POST['tp'];
-        }
-
-        $school_subject = $_POST['school_subject'];
-
-        $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute([
-            'title' => $title,
-            'date' => $date,
-            'id_user' => $user['id_user'],
-            'type' => $type,
-            'id_subject' => $school_subject,
-            'edu_group' => $edu_group,
-            'content' => $content
-
-        ]);
+        $edu_group = $_POST['but'] . "-" . $_POST['tp'];
     }
+
+    $school_subject = $_POST['school_subject'];
+
+    $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([
+        'title' => $title,
+        'date' => $date,
+        'id_user' => $user['id_user'],
+        'type' => $type,
+        'id_subject' => $school_subject,
+        'edu_group' => $edu_group,
+        'content' => $content
+
+    ]);
+
 
     header('Location: ./agenda_prof.php');
     exit();
 }
+
+
+if (strpos($user_sql['edu_group'], 'BUT1') !== false) {
+    $sql_subject = "SELECT DISTINCT rs.name_subject, ss.id_subject, ss.name_subject
+    FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R1%' OR rs.code_ressource LIKE 'R2%' OR rs.code_ressource LIKE 'SAE1%' OR rs.code_ressource LIKE 'SAE2%'
+    ORDER BY ss.name_subject ASC";
+} elseif (strpos($user_sql['edu_group'], 'BUT2') !== false) {
+    $sql_subject = "SELECT DISTINCT rs.name_subject, ss.id_subject, ss.name_subject
+    FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R3%' OR rs.code_ressource LIKE 'R4%' OR rs.code_ressource LIKE 'SAE3%' OR rs.code_ressource LIKE 'SAE4%'
+    ORDER BY ss.name_subject ASC";
+} elseif (strpos($user_sql['edu_group'], 'BUT3') !== false) {
+    $sql_subject = "SELECT DISTINCT rs.name_subject, ss.id_subject, ss.name_subject
+    FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' OR rs.code_ressource LIKE 'SAE5%' OR rs.code_ressource LIKE 'SAE6%'
+    ORDER BY ss.name_subject ASC";
+} else {
+    $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject ORDER BY ss.name_subject ASC";
+}
+
+
+$stmt_subject = $dbh->prepare($sql_subject);
+$stmt_subject->execute();
+$subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
 // Fin de la vérification du formulaire
 
@@ -90,6 +88,8 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 
 // Obligatoire pour afficher la page
 echo head("MMI Companion | Agenda");
+
+
 ?>
 <link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 

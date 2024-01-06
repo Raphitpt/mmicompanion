@@ -49,63 +49,31 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         $content = "";
     }
 
-    if ($_POST['tp'] == "TDA" || $_POST['tp'] == "TDB") {
-        if ($_POST['tp'] == "TDA") {
-            $td = [
-                'TP1',
-                'TP2'
-            ];
-        } else {
-            $td = [
-                'TP3',
-                'TP4'
-            ];
-        }
-
-        // On rèpète pour faire 2 lignes dans la base de donnée par tp dans le TD
-        foreach ($td as $tpValue) {
-            $edu_group = $_POST['but'] . "-" . $tpValue;
-
-            $school_subject = $_POST['school_subject'];
-            $sql = "UPDATE agenda SET title = :title, date_finish = :date, type = :type, id_user = :id_user, id_subject = :id_subject, edu_group = :edu_group, content = :content WHERE id_task = :id_task AND id_user = :id_user";
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute([
-                'title' => $title,
-                'date' => $date,
-                'id_user' => $user['id_user'],
-                'type' => $type,
-                'id_subject' => $school_subject,
-                'edu_group' => $edu_group,
-                'content' => $content,
-                'id_task' => $id_task
-            ]);
-        }
+    if ($_POST['tp'] == "ALL") {
+        $edu_group = $_POST['but'] . "-" . $_POST['tp'];
     } else {
-        if ($_POST['tp'] == "ALL") {
-            $edu_group = $_POST['but'] . "-" . $_POST['tp'];
-        } else {
-            $edu_group = $_POST['but'] . "-" . $_POST['tp'];
-        }
-
-        $school_subject = $_POST['school_subject'];
-
-        $sql = "UPDATE agenda SET title = :title, date_finish = :date, type = :type, id_user = :id_user, id_subject = :id_subject, edu_group = :edu_group, content = :content WHERE id_task = :id_task AND id_user = :id_user";
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute([
-            'title' => $title,
-            'date' => $date,
-            'id_user' => $user['id_user'],
-            'type' => $type,
-            'id_subject' => $school_subject,
-            'edu_group' => $edu_group,
-            'content' => $content,
-            'id_task' => $id_task
-        ]);
+        $edu_group = $_POST['but'] . "-" . $_POST['tp'];
     }
 
-    header('Location: ./agenda_prof.php');
-    exit();
+    $school_subject = $_POST['school_subject'];
+
+    $sql = "UPDATE agenda SET title = :title, date_finish = :date, type = :type, id_user = :id_user, id_subject = :id_subject, edu_group = :edu_group, content = :content WHERE id_task = :id_task AND id_user = :id_user";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([
+        'title' => $title,
+        'date' => $date,
+        'id_user' => $user['id_user'],
+        'type' => $type,
+        'id_subject' => $school_subject,
+        'edu_group' => $edu_group,
+        'content' => $content,
+        'id_task' => $id_task
+    ]);
 }
+
+header('Location: ./agenda_prof.php');
+exit();
+
 // --------------------
 // Fin de la vérification du formulaire
 
