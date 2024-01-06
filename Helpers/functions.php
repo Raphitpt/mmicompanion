@@ -625,7 +625,7 @@ use Google\Auth\HttpHandler\HttpHandlerFactory;
 use GuzzleHttp\Client;
 
 
-function sendNotification($title, $body, $groups)
+function sendNotification($title, $body, $groups, $type)
 {
     $projectId = 'mmi-companion';
     $apiKey = $_ENV['FCM_API_KEY'];
@@ -674,9 +674,9 @@ function sendNotification($title, $body, $groups)
         }
     }
     if ($response->getStatusCode() == 200) {
-        $sql_notifs = "INSERT INTO notif_history (title, body, groups) VALUES (:title, :body, :groups)";
+        $sql_notifs = "INSERT INTO notif_history (title, body, groups, subject) VALUES (:title, :body, :groups, :subject)";
         $stmt_notifs = $dbh->prepare($sql_notifs);
-        $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups)]);
+        $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups), 'subject' => $type]);
     }
 }
 function notifsHistory($dbh, $id_user, $edu_group) {
