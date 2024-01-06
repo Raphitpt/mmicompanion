@@ -4526,100 +4526,6 @@ header{
 
 
 
-/* THEME SOMBRE */
-
-
-[data-theme="dark"] {
-    --fc-today-bg-color: rgba(155, 155, 155, 0.192);
-    --bleu-trs-clair-background: #000000;
-    --bleu-clair-background: #323232;
-    --bleu-moyen: #ffffff;
-    --texte: #ffffff;
-}
-
-
-/* Styles spécifiques au thème sombre */
-[data-theme="dark"] .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
-    color: var(--bleu-trs-clair-background) !important;
-}
-
-[data-theme="dark"] .title_flextopright-agenda a {
-    color: var(--bleu-trs-clair-background) !important;
-
-}
-
-[data-theme="dark"] .form_button-agenda input[type="submit"] {
-    color: var(--bleu-trs-clair-background) !important;
-}
-
-[data-theme="dark"] .container_input-agenda_add i,
-[data-theme="dark"] .container_input_date-agenda_add i {
-    color: var(--bleu-trs-clair-background) !important;
-}
-
-[data-theme="dark"] #semestre {
-    color: var(--bleu-trs-clair-background) !important;
-}
-
-[data-theme="dark"] .item-information {
-    background: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] .item_content_title_flexbottom-information p:nth-child(1) {
-    color: var(--texte) !important;
-}
-
-[data-theme="dark"] .info_title_flextopright-informations a {
-    color: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] .form_butttonValidate-informations {
-    color: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] .edit_profil_picture-img i {
-    color: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] .button_notifications-profil button {
-    background-color: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] .profil_form-password input[type="submit"] {
-    color: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] .button_register {
-    color: var(--bleu-clair-background) !important;
-}
-[data-theme="dark"] .container_content-agenda {
-    background: var(--bleu-clair-background) !important;
-}
-[data-theme="dark"] #calendar {
-    background: var(--bleu-clair-background) !important;
-}
-[data-theme="dark"] .fc-timegrid-slot-label-cushion{
-    background: var(--bleu-clair-background) !important;
-}
-[data-theme="dark"] .content_item_list_flexleft-agenda label{
-    color: var(--texte) !important;
-}
-[data-theme="dark"] .form_content-informations_add p{
-    color: var(--bleu-clair-background) !important;
-
-}
-[data-theme="dark"] .profil_cgu{
-    color: var(--texte) !important;
-}
-[data-theme="dark"] #ajouter_agenda_prof{
-    color: var(--bleu-clair-background) !important;
-}
-[data-theme="dark"] .select_but_agenda > #but, [data-theme="dark"] .select_but_agenda > #tp{
-    color: var(--bleu-clair-background) !important;
-}
-[data-theme="dark"] #validate_change_role{
-    color: var(--bleu-trs-clair-background) !important;
-}
 
 
 
@@ -4636,6 +4542,7 @@ header{
 
 
 
+/* CLASS FIXE */
 
 
 .active{
