@@ -1600,7 +1600,7 @@ function getAgendaProf($dbh, $user, $edu_group)
 
 
 
-function getUserCahier($dbh, $user, $edu_group)
+function getUserCahier($dbh, $edu_group)
 {
     $sql_cahier = "SELECT * FROM etudiants WHERE edu_group = :edu_group ORDER BY nom ASC";
     $stmt_cahier = $dbh->prepare($sql_cahier);

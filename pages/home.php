@@ -52,7 +52,7 @@ $agendaMerged = $agendaMergedFiber->getReturn();
 // -----------------------------
 
 
-$userCahier = getUserCahier($dbh, $user, $user_sql['edu_group']);
+$userCahier = getUserCahier($dbh, $user_sql['edu_group']);
 $nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
 
 // -----------------------------
