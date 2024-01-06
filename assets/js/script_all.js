@@ -293,16 +293,16 @@ cloche_notification.addEventListener("click", function () {
   const idNotifArray = Array.from(idNotifElements).map(
     (element) => element.textContent
   );
+  if (idNotifArray.length > 0) {
+    setTimeout(function () {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/pages/read_notif.php", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
 
-  setTimeout(function () {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/pages/read_notif.php", true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    const data = {
-      notifications_ids: idNotifArray,
-    };
-    console.log(JSON.stringify(data));
-    xhr.send(JSON.stringify(data));
-  }, 3000);
+      const data = {
+        notifications_ids: idNotifArray,
+      };
+      xhr.send(JSON.stringify(data));
+    }, 3000);
+  }
 });
