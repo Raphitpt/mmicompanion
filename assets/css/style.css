@@ -264,6 +264,19 @@ header{
     z-index: 100;
 }
 
+.container_notifications-header>p{
+    color: var(--texte);
+    font-size: .875rem;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+    text-align: center;
+
+    width: 100%;
+}
+
 .container_notifications-header a{
     display: flex;
     justify-content: start;

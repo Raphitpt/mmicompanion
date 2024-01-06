@@ -158,6 +158,10 @@ function generateBurgerMenuContent($role, $title, $notifs)
                 $menuHtml .= '
                 <div class="container_notifications-header">';
 
+                if (empty($notifs)) {
+                    $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
+                }
+
                 foreach ($notifs as $notif) {
                     $timestamp = strtotime($notif['timestamp']);
                     $date = date('d/m H:i', $timestamp);
@@ -1363,6 +1367,9 @@ function getAgenda($dbh, $user, $edu_group)
 
                 $missingWeekStartDate = $startDate->format('d/m');
                 $missingWeekEndDate = $endDate->format('d/m');
+                if ($missingWeek <10) {
+                    $missingWeek = "0" . $missingWeek;
+                }
                 $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
                 $agendaMerged[$missingWeekLabel] = [];
             }
