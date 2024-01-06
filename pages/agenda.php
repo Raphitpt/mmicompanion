@@ -27,7 +27,7 @@ $user_sql = userSQL($dbh, $user);
 // --------------------
 // Récupération de l'agenda de l'utilisateur connecté
 
-$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group'], $user_sql);
+$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
 
 
 

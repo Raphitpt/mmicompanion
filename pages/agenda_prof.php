@@ -51,19 +51,18 @@ if (isset($_POST['button-validate'])) {
             <h1>Comment fonctionne l’agenda ?</h1>
         </div>
         <p class="p_trait-agenda">Dans chaque TP, un.e étudiant.e est chargé.e d’ajouter les devoirs à l’agenda et de le maintenir à jour pour les autres étudiant.e.s</p>
-        <p>On vous invite à discuter entre vous pour déterminer l’étudiant.e qui sera chargée de mettre à jour l’agenda. 
-        <br>Par la suite, l’étudiant.e volontaire doit nous contacter pour qu’on lui attribue son rôle.</p>
+        <p>En tant que professeur, vous pouvez sélectionner le BUT et le TP dont vous souhaitez voir l'agenda ainsi que l'étudiant.e qui en responsable.</p> 
         <div class="title_content_tuto-agenda">
             <img src="./../assets/img/hand-pointing_emoji.png" alt="Emoji d'une main qui pointe vers le texte">
-            <h2>Peut-on changer l’étudiant.e ?</h2>
+            <h2>Puis-je ajouter des évènements ?</h2>
         </div>
-        <p>OUI ! Et c’est l’objectif. Une fois que l’on a attribué une première fois le rôle, l’étudiant.e verra une option dans la page profil pour transmettre son rôle à un.e autre étudiant.e volontaire.</p>
-        <p><span style="font-weight:700">Petit tips :</span> tu peux ajouter des tâches personnelles que seul toi verra en plus des tâches de l’agenda de ton TP.</p>
+        <p>OUI ! Vous avez la possibilité d'ajouter des tâches à faire ou des évaluations pour le BUT entier, pour un TD ou pour un TP. Pour éviter les doublons entre le responsable de l'agenda et vous, on vous invite à discuter avec les étudiant.e.s si vous préférez ajouter vous-mêmes les tâches à faire ou évaluations dans l'agenda.</p>
+        <br><p><span style="font-weight:700">Détail important :</span> vous avez la possibilité de modifier ou supprimer les tâches et évaluations entrées par les reponsables ce qui est peut-être utile pour changer une date de rendu, une description...</p>
         <div class="container_button_tuto-agenda">
             <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
         </div>
       </form>
-      </main>
+    </main>
 
 </body>
 
