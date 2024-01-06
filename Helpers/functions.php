@@ -42,7 +42,7 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="manifest" href="../manifest.webmanifest?v=1.2">
 
     <link href="../assets/css/fonts.css" rel="stylesheet">
   <link href="../assets/css/style.css?v=2.21" rel="stylesheet">
