@@ -37,7 +37,7 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
 
 <body class="body-all">
 
-    <?php generateBurgerMenuContent($user_sql['role'], 'Scolarité', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Scolarité', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <main class="main_all">
 

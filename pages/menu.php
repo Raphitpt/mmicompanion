@@ -16,7 +16,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Menu du Crousty', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Menu du Crousty', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <main class="main_all">
         <div style="height:30px"></div>

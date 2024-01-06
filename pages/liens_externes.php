@@ -16,7 +16,7 @@ echo head("MMI Companion | Liens externes");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Liens externes', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Liens externes', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <main class="main_all">
         <div style="height:30px"></div>

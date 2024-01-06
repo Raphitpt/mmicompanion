@@ -66,7 +66,7 @@ echo head('MMI Companion | Informations');
 <link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <main class="main_all">
         <div style="height:30px"></div>

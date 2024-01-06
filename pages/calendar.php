@@ -211,7 +211,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-all">
 
-    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <div style="height:15px"></div>
 

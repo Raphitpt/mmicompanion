@@ -95,7 +95,7 @@ echo head("MMI Companion | Agenda");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
     <!-- Fin du menu de navigation -->
     
     <!-- Corps de la page -->

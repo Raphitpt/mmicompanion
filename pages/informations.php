@@ -61,7 +61,7 @@ echo head("MMI Companion | Informations");
 ?>
 <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <main class="main_all">
         <div style="height:30px"></div>

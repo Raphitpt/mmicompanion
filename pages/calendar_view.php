@@ -85,7 +85,7 @@ echo head("MMI Companion | Emploi du temps");
 
 <body class="body-all">
 
-    <?php generateBurgerMenuContent($user['role'], 'Emploi du temps', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <main class="main_all">
         <div style="height:15px"></div>

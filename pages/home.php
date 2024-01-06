@@ -66,7 +66,7 @@ $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 
 // echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP2");
-// dd(notifsHistory($dbh, '56', 'BUT2-TP3'));
+// dd(notifsHistory($dbh, $user['id_user'], $user['edu_group']));
 
 if (str_contains($user_sql['role'], 'prof')) { 
     $additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
@@ -81,7 +81,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 <body class="body-all">
 
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, '56', 'BUT2-TP3')); ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user['id_user'], $user['edu_group'])); ?>
 
     <main class="main_all">
         <div style="height:30px"></div>

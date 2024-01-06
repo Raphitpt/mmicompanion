@@ -133,7 +133,7 @@ function findTrigramme($profName, $dbh)
 
 function generateBurgerMenuContent($role, $title, $notifs)
 {
-    // $contentNotif = notifsHistory($dbh, '56', 'BUT2-TP3');
+    // $contentNotif = notifsHistory($dbh, $user['id_user'], $user['edu_group']);
 
     $menuHtml = '
     <header>

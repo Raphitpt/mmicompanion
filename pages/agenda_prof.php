@@ -42,7 +42,7 @@ if (isset($_POST['button-validate'])) {
   if ($user_sql['tuto_agenda'] == 0) { ?>
   <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <main class="main_tuto-agenda">
       <form action="" method="post" class="form-tuto_agenda">
@@ -111,7 +111,7 @@ if (isset($_POST['button-validate'])) {
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, '56', 'BUT2-TP3')) ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <!-- Corps de la page -->
     <main class="main_all">
