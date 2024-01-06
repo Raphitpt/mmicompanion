@@ -190,6 +190,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
                                 <div class="title_item_notification-header">
                                     <i class="' . $icon . '"></i>
                                     <p>' . $notif['subject'] . ' - <span>' . $date . '</span></p>
+                                    <p style="display:none;" class="id_notif">' . $notif['id_notif'] . '</p>
                                 </div>
                                 <div class="description_item_notification-header">
                                     <p>' . $notif['title'] . '</p>
