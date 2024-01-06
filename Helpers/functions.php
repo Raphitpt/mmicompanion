@@ -1457,24 +1457,6 @@ function getAgendaProf($dbh, $user, $edu_group)
         (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
     )";
     
-    // Récupération des tâches
-    $sql_agenda = "SELECT a.*, s.*
-        FROM agenda a
-        JOIN sch_subject s ON a.id_subject = s.id_subject
-        WHERE a.id_user = :id_user
-        AND a.type != 'eval'
-        AND a.type != 'devoir'
-        $sql_common_conditions
-        ORDER BY a.title ASC";
-    
-    $stmt_agenda = $dbh->prepare($sql_agenda);
-    $stmt_agenda->execute([
-        'id_user' => $user['id_user'],
-        'current_week_year' => $current_week_year,
-        'current_date' => $today->format('Y-m-d')
-    ]);
-    $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-    
     // Récupération des évaluations
     $sql_eval = "SELECT a.*, s.*
         FROM agenda a 
@@ -1516,7 +1498,7 @@ function getAgendaProf($dbh, $user, $edu_group)
 
    
     // Fusion des tableaux
-    $agendas = array_merge($agenda_user, $eval, $devoir); 
+    $agendas = array_merge($eval, $devoir); 
 
 
     usort($agendas, 'compareDates');

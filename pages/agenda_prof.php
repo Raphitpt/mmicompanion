@@ -202,71 +202,71 @@ if (isset($_POST['button-validate'])) {
                                 <div class="container_list-agenda">
                                 <?php 
                                 foreach ($agendas as $agenda) {
-                                    if ($agenda['type']!='autre') {
-                                        echo "<div class='item_list-agenda'>";
-                                            echo "<div class='item_list_flexleft-agenda'>";
 
-                                                if ($agenda['type'] == "eval") {
-                                                    echo "<i class='fi fi-sr-square-exclamation'></i>";
-                                                } elseif ($agenda['type'] == "devoir" || $agenda['type'] == "autre") {
-                                                    echo "<i class='fi fi-sr-checkbox'></i>";
-                                                } 
+                                    echo "<div class='item_list-agenda'>";
+                                        echo "<div class='item_list_flexleft-agenda'>";
 
-                                                echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
-                                                // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
-                                                foreach ($colors as $color) {
+                                            if ($agenda['type'] == "eval") {
+                                                echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                            } elseif ($agenda['type'] == "devoir" || $agenda['type'] == "autre") {
+                                                echo "<i class='fi fi-sr-checkbox'></i>";
+                                            } 
 
-                                                    if ($color['id_subject'] == $agenda['id_subject']) {
-                                                        echo "<div class='subject_item_list_flexleft-agenda'>";
-                                                            echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
-                                                            if ($agenda['type'] == "eval") {
-                                                                echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
-                                                            } else {
-                                                                echo "<p>" . $agenda['name_subject']. "</p>";
-                                                            }
-                                                        echo "</div>";
-                                                        break;
-                                                    }
-                                                    
-                                                };
-                                                // Affichage du titre de l'event de l'agenda
-                                                echo "<div class='title_item_list_flexleft-agenda'>";
-                                                    echo "<p>" . $agenda['title'] . "</p>";
-                                                echo "</div>";
+                                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
+                                            // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                                            foreach ($colors as $color) {
 
-                                                // Affichage du contenu de l'event de l'agenda
-                                                echo "<div class='description_item_list_flexleft-agenda'>";
-                                                if (isset($agenda['content']) && !empty($agenda['content'])) {
-                                                    echo $agenda['content'];
-                                                }
-                                                echo "</div>";
-
-                                                // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
-                                                echo "<div class='author_item_list_flexleft-agenda'>";
-                                                if (isset($agenda['role']) && $agenda['role'] == "prof") {
-                                                    echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
-                                                }
-                                                echo "</div>";
-
-                                                echo "</label>";
-                                            echo "</div>";
-
-                                            echo "<div class='item_list_flexright-agenda'>";
-                                                echo "<div class='menu_dropdown_item_list_flexright-agenda'>";
-                                                    echo "<div class='btn_menu_dropdown_item_list_flexright-agenda'>";
-                                                        echo "<i class='fi fi-sr-menu-dots'></i>";
+                                                if ($color['id_subject'] == $agenda['id_subject']) {
+                                                    echo "<div class='subject_item_list_flexleft-agenda'>";
+                                                        echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
+                                                        if ($agenda['type'] == "eval") {
+                                                            echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
+                                                        } else {
+                                                            echo "<p>" . $agenda['name_subject']. "</p>";
+                                                        }
                                                     echo "</div>";
+                                                    break;
+                                                }
                                                 
-                                                    echo "<div class='content_menu_dropdown_item_list_flexright-agenda menu_dropdown_close'>";
+                                            };
+                                            // Affichage du titre de l'event de l'agenda
+                                            echo "<div class='title_item_list_flexleft-agenda'>";
+                                                echo "<p>" . $agenda['title'] . "</p>";
+                                            echo "</div>";
 
-                                                        echo "<a href='agenda_edit_prof.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
-                                                        echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
+                                            // Affichage du contenu de l'event de l'agenda
+                                            echo "<div class='description_item_list_flexleft-agenda'>";
+                                            if (isset($agenda['content']) && !empty($agenda['content'])) {
+                                                echo $agenda['content'];
+                                            }
+                                            echo "</div>";
 
-                                                    echo "</div>";
+                                            // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
+                                            echo "<div class='author_item_list_flexleft-agenda'>";
+                                            if (isset($agenda['role']) && $agenda['role'] == "prof") {
+                                                echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                                            }
+                                            echo "</div>";
+
+                                            echo "</label>";
+                                        echo "</div>";
+
+                                        echo "<div class='item_list_flexright-agenda'>";
+                                            echo "<div class='menu_dropdown_item_list_flexright-agenda'>";
+                                                echo "<div class='btn_menu_dropdown_item_list_flexright-agenda'>";
+                                                    echo "<i class='fi fi-sr-menu-dots'></i>";
+                                                echo "</div>";
+                                            
+                                                echo "<div class='content_menu_dropdown_item_list_flexright-agenda menu_dropdown_close'>";
+
+                                                    echo "<a href='agenda_edit_prof.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                                                    echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
+
                                                 echo "</div>";
                                             echo "</div>";
-                                        echo "</div>"; 
-                                        }
+                                        echo "</div>";
+                                    echo "</div>"; 
+
                                     } ?>
                                     </div>
                                 </div>
