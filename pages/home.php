@@ -1,24 +1,51 @@
 <?php
+
 session_start();
 require '../bootstrap.php';
+
+
+function fetchUser($dbh, $userId) {
+    $ppOriginalQuery = "SELECT pp_link, score FROM users WHERE id_user = :id_user";
+    $ppOriginalStatement = $dbh->prepare($ppOriginalQuery);
+    $ppOriginalStatement->execute(['id_user' => $userId]);
+    return $ppOriginalStatement->fetch(PDO::FETCH_ASSOC);
+}
+
+function fetchColors($dbh) {
+    $sqlColor = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
+    $stmtColor = $dbh->prepare($sqlColor);
+    $stmtColor->execute();
+    return $stmtColor->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function fetchAgenda($dbh, $user, $eduGroup) {
+    return getAgenda($dbh, $user, $eduGroup);
+}
 
 $user = onConnect($dbh);
 // $nextCours = nextCours($user['edu_group']);
 
-setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
+setlocale(LC_TIME, 'fr_FR.UTF-8');
 
+$userSqlFiber = new Fiber(function () use ($dbh, $user) {
+    return userSQL($dbh, $user);
+});
 
-// Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_sql = userSQL($dbh, $user);
+$ppOriginalFiber = new Fiber(function () use ($dbh, $user) {
+    return fetchUser($dbh, $user['id_user']);
+});
 
+$agendaMergedFiber = new Fiber(function () use ($dbh, $user) {
+    return fetchAgenda($dbh, $user, userSQL($dbh, $user)['edu_group']);
+});
 
-// Recupération du lien de la photo de profil en base de donnée, en local ça ne fonctionnera pas, il faut quel soit en ligne, sauf si l'ajout de la photo et en local
-$pp_original = "SELECT pp_link, score FROM users WHERE id_user = :id_user";
-$stmt_pp_original = $dbh->prepare($pp_original);
-$stmt_pp_original->execute([
-    'id_user' => $user['id_user']
-]);
-$pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
+// Start fibers and get results
+$user_sql = $userSqlFiber->start();
+$user_sql = $userSqlFiber->getReturn();
+$pp_original = $ppOriginalFiber->start();
+$pp_original = $ppOriginalFiber->getReturn();
+$agendaMerged = $agendaMergedFiber->start();
+$agendaMerged = $agendaMergedFiber->getReturn();
 
 
 
@@ -45,41 +72,25 @@ $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 // Récupérer les tâches à faire pour demain
 $tasksForTomorrow = [];
-
 foreach ($agendaMerged as $semaine => $jours) {
     foreach ($jours as $jour => $taches) {
         if ($jour == 'Demain') {
             foreach ($taches as $tache) {
                 $tasksForTomorrow[] = $tache;
-
             }
         }
     }
 }
 
-// Maintenant, $tasksForTomorrow est un tableau contenant les titres des tâches pour demain
+$colorsFiber = new Fiber(function () use ($dbh) {
+    return fetchColors($dbh);
+});
 
+$colors = $colorsFiber->start();
 
-
-
-$sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
-$stmt_color = $dbh->prepare($sql_color);
-$stmt_color->execute();
-$colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
-
-
-// -----------------------------
-
-
-// echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP2");
-// dd(notifsHistory($dbh, $user['id_user'], $user['edu_group']));
-
-if (str_contains($user_sql['role'], 'prof')) { 
-    $additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
-} else{
-    $additionalStyles = '';
-}
-
+$additionalStyles = (str_contains($user_sql['role'], 'prof'))
+    ? '<link async rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />'
+    : '';
 
 echo head('MMI Companion | Accueil', $additionalStyles);
 ?>

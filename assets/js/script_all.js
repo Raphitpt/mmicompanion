@@ -53,51 +53,49 @@ function toggleMenu() {
   }
 }
 
-
 // Gestion de la partie notification
 
 const menuIcon = document.querySelector("#btn_notification");
 const navMenu = document.querySelector(".container_notifications-header");
 
-
 // Ajouter un gestionnaire d'événement au clic sur l'icône du menu
-menuIcon.addEventListener('click', function (event) {
-    event.stopPropagation(); // Empêche la propagation de l'événement de clic
-    toggleMenuNotif();
+menuIcon.addEventListener("click", function (event) {
+  event.stopPropagation(); // Empêche la propagation de l'événement de clic
+  toggleMenuNotif();
 });
 
 // Ajoutez un gestionnaire d'événement au clic sur le document
-document.addEventListener('click', (event) => {
-    // Fermez le menu si l'élément cliqué est à l'extérieur
-    if (!navMenu.contains(event.target)) {
-        navMenu.classList.remove('menu_notification_open');
-        navMenu.classList.add('menu_notification_close');
-    }
+document.addEventListener("click", (event) => {
+  // Fermez le menu si l'élément cliqué est à l'extérieur
+  if (!navMenu.contains(event.target)) {
+    navMenu.classList.remove("menu_notification_open");
+    navMenu.classList.add("menu_notification_close");
+  }
 });
 
 // Sélectionner tous les liens du menu
-const menuLinks = document.querySelectorAll('.menu-link');
+const menuLinks = document.querySelectorAll(".menu-link");
 
 // Ajouter un gestionnaire d'événement de clic à chaque lien du menu
 menuLinks.forEach((link) => {
-    link.addEventListener('click', (event) => {
-        // Fermer le menu en cliquant sur un lien
-        toggleMenuNotif();
-    });
+  link.addEventListener("click", (event) => {
+    // Fermer le menu en cliquant sur un lien
+    toggleMenuNotif();
+  });
 });
 
 function toggleMenuNotif() {
-    // Vérifier si le menu est actuellement visible ou caché
-    const isMenuOpen = navMenu.classList.contains('menu_notification_open');
+  // Vérifier si le menu est actuellement visible ou caché
+  const isMenuOpen = navMenu.classList.contains("menu_notification_open");
 
-    // Inverser la visibilité du menu en ajoutant ou en supprimant la classe 'open'
-    if (isMenuOpen) {
-        navMenu.classList.remove('menu_notification_open');
-        navMenu.classList.add('menu_notification_close');
-    } else {
-        navMenu.classList.add('menu_notification_open');
-        navMenu.classList.remove('menu_notification_close');
-    }
+  // Inverser la visibilité du menu en ajoutant ou en supprimant la classe 'open'
+  if (isMenuOpen) {
+    navMenu.classList.remove("menu_notification_open");
+    navMenu.classList.add("menu_notification_close");
+  } else {
+    navMenu.classList.add("menu_notification_open");
+    navMenu.classList.remove("menu_notification_close");
+  }
 }
 
 // // Ajoutez un gestionnaire d'événement au clic sur le document
@@ -119,7 +117,6 @@ function toggleMenuNotif() {
 
 //   }
 // }
-
 
 // Animation du bouton burger
 
@@ -158,29 +155,27 @@ function toggleMenuNotif() {
 //   xhr.send();
 // }
 
-
-
 // AGENDA
 
 function handleCheckboxChange() {
   let checkbox = this;
-  let contentAgenda = checkbox.parentNode.querySelector(".content_item_list_flexleft-agenda");
-  let content = checkbox.parentNode.querySelector(".description_item_list_flexleft-agenda");
+  let contentAgenda = checkbox.parentNode.querySelector(
+    ".content_item_list_flexleft-agenda"
+  );
+  let content = checkbox.parentNode.querySelector(
+    ".description_item_list_flexleft-agenda"
+  );
 
   if (checkbox.checked) {
-      contentAgenda.style.textDecoration = "line-through";
-      contentAgenda.style.opacity = "0.5";
-      content.style.display = "none";
-
+    contentAgenda.style.textDecoration = "line-through";
+    contentAgenda.style.opacity = "0.5";
+    content.style.display = "none";
   } else {
-      contentAgenda.style.textDecoration = "none";
-      contentAgenda.style.opacity = "1";
-      content.style.display = "block";
+    contentAgenda.style.textDecoration = "none";
+    contentAgenda.style.opacity = "1";
+    content.style.display = "block";
   }
 }
-
-
-
 
 function updatePoints(x) {
   let xhr = new XMLHttpRequest();
@@ -284,7 +279,7 @@ loadTheme();
 //       if (registration.installing) {
 //         registration.installing.postMessage({ type: 'SKIP_WAITING' });
 //       }
-      
+
 //       console.log('Service Worker Registered');
 //     })
 //     .catch((error) => {
@@ -292,13 +287,25 @@ loadTheme();
 //     });
 // }
 
+const cloche_notification = document.querySelector("#btn_notification");
+const notification = document.querySelectorAll(".container_notifications-header");
 
+cloche_notification.addEventListener("click", function () {
+  const idNotifElements = document.querySelectorAll(".id_notif");
+  const idNotifArray = Array.from(idNotifElements).map(
+    (element) => element.textContent
+  );
+  if (idNotifArray.length > 0) {
+    setTimeout(function () {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/pages/read_notif.php", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
 
-
-
-
-
-
-
-
-
+      
+      const data = {
+        notifications_ids: idNotifArray,
+      };
+      xhr.send(JSON.stringify(data));
+    }, 3000);
+  }
+});
