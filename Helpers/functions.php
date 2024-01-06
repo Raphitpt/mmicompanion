@@ -715,8 +715,8 @@ function notifsHistory($dbh, $id_user, $edu_group) {
         )
     );
     
-    // return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $tableauNotifs;
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // return $tableauNotifs;
 }
 
 function readNotif($dbh, $id_user, $id_notif) {
