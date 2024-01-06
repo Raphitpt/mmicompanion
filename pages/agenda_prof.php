@@ -78,6 +78,16 @@ if (isset($_POST['button-validate'])) {
 <?php 
 }else{
 
+    // Chargé des valeurs par défaut de l'agenda
+    $tp = 'TP1';
+    $but = 'BUT1';
+
+    $edu_group = $but . '-' . $tp;
+
+    $agendaMerged = getAgendaProf($dbh, $user, $edu_group);
+
+    $chefTP = viewChef($dbh, $edu_group);
+
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $tp = $_POST['tp'];
         $but = $_POST['but'];
