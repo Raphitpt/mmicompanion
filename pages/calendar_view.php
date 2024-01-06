@@ -9,9 +9,12 @@ date_default_timezone_set('Europe/Paris');
 // dd($_GET);
 
 if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']) && isset($_GET['end']) && isset($_GET['color'])) {
+
+    $daysMonth = getDaysMonth();
+    $semaine = $daysMonth['semaine'];
+    $mois = $daysMonth['mois'];
+
     $title = $_GET['title'];
-
-
     $description = $_GET['description'];
 
     // Diviser la chaîne en parties en utilisant l'espace comme séparateur
@@ -34,31 +37,6 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
         }
  
     }
-
-    $semaine = array(
-        " Dimanche ",
-        " Lundi ",
-        " Mardi ",
-        " Mercredi ",
-        " Jeudi ",
-        " Vendredi ",
-        " Samedi "
-    );
-    
-    $mois = array(
-        1 => " janvier ",
-        " février ",
-        " mars ",
-        " avril ",
-        " mai ",
-        " juin ",
-        " juillet ",
-        " août ",
-        " septembre ",
-        " octobre ",
-        " novembre ",
-        " décembre "
-    );
 
     $dateStart = $_GET['start']; 
     $dateStartObj = DateTime::createFromFormat('D M d Y H:i:s e+', $dateStart);

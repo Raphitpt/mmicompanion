@@ -51,6 +51,41 @@ html{
 }
 
 
+/* HEADER */
+
+/* Menu de navugation */
+
+[data-theme="dark"] .burger_disabled p{
+    color: rgba(255, 255, 255, 0.144) !important;
+}
+
+[data-theme="dark"] .burger_disabled i{
+    color: rgba(255, 255, 255, 0.144) !important;
+}
+
+
+/* HOME.PHP */
+
+[data-theme="dark"] .description_prochain_cours-home{
+    background-color: var(--bleu-trs-clair-background) !important;
+}
+
+[data-theme="dark"] .container_numbers_agenda-home a{
+    background-color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .agenda_tomorrow-home {
+    background-color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .content_menu-home{
+    background-color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .item_slider_page-home{
+    background: linear-gradient(101deg, #252525 2.36%, rgba(185, 224, 255, 0.00) 99.54%) !important;
+}
+
 
 /* CALENDAR.PHP */
 
@@ -142,6 +177,9 @@ html{
     color: var(--bleu-clair-background) !important;
 }
 
+[data-theme="dark"] .form_transmit_role-profil input {
+    color: var(--bleu-clair-background) !important;
+}
 
 /* SCOLARITE.PHP */
 
