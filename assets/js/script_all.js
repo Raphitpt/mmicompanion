@@ -236,7 +236,7 @@ if (CGUbtn != null) {
 
 // Selection du thème
 // Identify the select element
-const themeSelect = document.querySelector("#SelectTheme");
+const themeSelect = document.querySelector("#themeSelect");
 if (themeSelect != null) {
   // Function that changes the theme and sets a localStorage variable to track the theme between page loads
   function switchTheme() {

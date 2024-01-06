@@ -3605,6 +3605,101 @@ header{
 
 
 
+/* Sondage - Strawpoll */
+
+.trumbowyg-modal-box {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: .0625rem solid #ccc;
+    border-radius: .3125rem;
+}
+
+.trumbowyg-modal-title {
+    background-color: #337ab7;
+    color: #fff;
+    padding: .625rem;
+    font-weight: bold;
+    border-top-left-radius: .3125rem;
+    border-top-right-radius: .3125rem;
+}
+
+/* Styles pour le formulaire dans la fenêtre modale */
+.trumbowyg-modal-box>form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+}
+
+/* Styles pour les labels et les champs de saisie */
+.trumbowyg-modal-box>form label {
+    display: block;
+    margin-bottom: .625rem;
+    font-weight: bold;
+}
+
+.trumbowyg-modal-box>form input[type="text"] {
+    width: 100%;
+    padding: .625rem;
+    border: .0625rem solid #ccc;
+    border-radius: .1875rem;
+}
+
+/* Style du bouton "Ajouter une option" */
+#addOption {
+    background-color: #337ab7;
+    color: #fff;
+    padding: .625rem 1.25rem;
+    border: none;
+    border-radius: .1875rem;
+    cursor: pointer;
+    margin-top: .625rem;
+}
+
+#addOption:hover {
+    background-color: #235a93;
+}
+
+/* Style des boutons "Créer ce sondage" et "Annuler" */
+#customConfirm,
+#customCancel {
+    background-color: #337ab7;
+    color: #fff;
+    padding: .625rem 1.25rem;
+    border: none;
+    border-radius: .1875rem;
+    cursor: pointer;
+    margin-top: .625rem;
+    margin-right: .625rem;
+}
+
+#customConfirm:hover,
+#customCancel:hover {
+    background-color: #235a93;
+}
+
+/* Style de l'iframe du StrawPoll */
+.trumbowyg-modal-box>form iframe {
+    width: 100%;
+    height: 18.75rem;
+    border: none;
+}
+
+/* Règles de média queries pour la réactivité */
+@media (max-width: 768px) {
+    .trumbowyg-modal-box>form {
+        padding: .625rem;
+    }
+
+    .trumbowyg-modal-box>form input[type="text"] {
+        padding: .5rem;
+    }
+
+}
+
+
 
 .form_groupe_input-informations_add{
     display: flex;
@@ -4260,7 +4355,92 @@ header{
     font-weight: 800;
     line-height: normal;
 }
-.profil_theme-profil{
+
+
+.change_theme-profil{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .3125rem;
+    width: 100%;
+}
+
+.change_theme-profil>label{
+    font-family: Montserrat;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    color: var(--texte);
+}
+
+.content_change_theme-profil{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .625rem;
+    width: 100%;
+}
+
+.select_content_change_theme-profil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .625rem;
+    width: 100%;
+}
+
+.select_content_change_theme-profil select{
+    width: 100%;
+    height: 3.125rem;
+    border-radius: .9375rem;
+    border: none;
+    background-color: #fefefe;
+    padding: 0rem 1.25rem;
+
+    font-family: Montserrat;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: #858585;
+}
+
+.description_content_change_theme-profil{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .3125rem;
+    width: 100%;
+}
+
+.description_content_change_theme-profil label{
+    font-family: Montserrat;
+    font-size: .875rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: var(--texte);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .profil_theme-profil{
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -4315,111 +4495,40 @@ header{
     font-weight: 500;
     line-height: normal;
     color: var(--texte);
+} */
+
+.p_credit-profil{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: .625rem;
+    width: 100%;
 }
 
-.profil_cgu{
-    color: var(--texte);
+.p_credit-profil p, .p_credit-profil a{
     font-family: Montserrat;
     font-size: .75rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     line-height: normal;
+    color: var(--texte);
+}
+
+.p_credit-profil a{
+    text-decoration: underline;
+    font-weight: 600;
 }
 
 
-/* Modal StrawPoll */
-/* Styles pour la fenêtre modale */
-.trumbowyg-modal-box {
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border: .0625rem solid #ccc;
-    border-radius: .3125rem;
-}
 
-.trumbowyg-modal-title {
-    background-color: #337ab7;
-    color: #fff;
-    padding: .625rem;
-    font-weight: bold;
-    border-top-left-radius: .3125rem;
-    border-top-right-radius: .3125rem;
-}
 
-/* Styles pour le formulaire dans la fenêtre modale */
-.trumbowyg-modal-box>form {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1.25rem;
-}
 
-/* Styles pour les labels et les champs de saisie */
-.trumbowyg-modal-box>form label {
-    display: block;
-    margin-bottom: .625rem;
-    font-weight: bold;
-}
 
-.trumbowyg-modal-box>form input[type="text"] {
-    width: 100%;
-    padding: .625rem;
-    border: .0625rem solid #ccc;
-    border-radius: .1875rem;
-}
 
-/* Style du bouton "Ajouter une option" */
-#addOption {
-    background-color: #337ab7;
-    color: #fff;
-    padding: .625rem 1.25rem;
-    border: none;
-    border-radius: .1875rem;
-    cursor: pointer;
-    margin-top: .625rem;
-}
+/* THEME SOMBRE */
 
-#addOption:hover {
-    background-color: #235a93;
-}
 
-/* Style des boutons "Créer ce sondage" et "Annuler" */
-#customConfirm,
-#customCancel {
-    background-color: #337ab7;
-    color: #fff;
-    padding: .625rem 1.25rem;
-    border: none;
-    border-radius: .1875rem;
-    cursor: pointer;
-    margin-top: .625rem;
-    margin-right: .625rem;
-}
-
-#customConfirm:hover,
-#customCancel:hover {
-    background-color: #235a93;
-}
-
-/* Style de l'iframe du StrawPoll */
-.trumbowyg-modal-box>form iframe {
-    width: 100%;
-    height: 18.75rem;
-    border: none;
-}
-
-/* Règles de média queries pour la réactivité */
-@media (max-width: 768px) {
-    .trumbowyg-modal-box>form {
-        padding: .625rem;
-    }
-
-    .trumbowyg-modal-box>form input[type="text"] {
-        padding: .5rem;
-    }
-
-}
 [data-theme="dark"] {
     --fc-today-bg-color: rgba(155, 155, 155, 0.192);
     --bleu-trs-clair-background: #000000;

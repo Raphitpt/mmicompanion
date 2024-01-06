@@ -115,25 +115,31 @@ echo head("MMI Companion | Profil");
 
             <div class="trait-profil"></div>
 
-            <div class="profil_theme-profil">
-                <label for="theme">Choix du thème : </label>
-                <div class="select_theme_switch-profil">
-                    <select name="theme" id="SelectTheme">
-                        <option value="light">Clair</option>
-                        <option value="dark">Sombre</option>
-                    </select>
-                </div>
-                <div class="profil_themes-festifs">
-                    <input type="checkbox" id="switchTheme" name="theme" checked disabled/>
-                    <p class="label" for="switch">Thèmes festifs</p>
+            <div class="change_theme-profil">
+                <label for="themeSelect">Choix du thème :</label>
+                <div class="content_change_theme-profil">
+                    <div class="select_content_change_theme-profil">
+                        <select name="themeSelect" id="themeSelect">
+                            <option value="light">Clair</option>
+                            <option value="dark">Sombre</option>
+                        </select>
+                    </div>
+                    <div class="description_content_change_theme-profil">
+                        <input type="checkbox" id="themeFestif" name="themeFestif" checked disabled/>
+                        <label for="themeFestif">Thèmes festifs</label>
+                    </div>
                 </div>
             </div>
 
             <div class="trait-profil"></div>
 
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
-            <p class="profil_form-score">Version 0.9 - Alpha</p>
-            <a href="https://mmi-companion.fr/cgu.html" class="profil_cgu">conditions d'utilisation</a>
+
+            <div class="p_credit-profil">
+                <p class="profil_form-score">Version 0.9 - Alpha</p>
+                <a href="https://mmi-companion.fr/cgu.html" class="profil_cgu">conditions d'utilisation</a>
+            </div>
+            
         </div>
         <div style="height:30px"></div>
 
