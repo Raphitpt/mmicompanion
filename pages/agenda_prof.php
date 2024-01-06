@@ -148,7 +148,7 @@ if (isset($_POST['button-validate'])) {
                     </select>
                 </div>
                 <div class="btn_description-agenda">
-                    <input type="submit" value="Valider" class="button_agenda">
+                    <button type="submit" class="button_agenda"><i class="fi fi-br-check"></i></button>
                 </div>
             </form>
             <div class="description_container_content-agenda">

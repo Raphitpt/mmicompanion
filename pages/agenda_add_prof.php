@@ -120,20 +120,26 @@ echo head("MMI Companion | Agenda");
                     <textarea class="form_content_input-informations_add" id="editor"></textarea>
                     <input name="content" id="content" type="hidden">
                 </div>
+
                 <div class="trait_agenda_add"></div>
+
                 <label for="date" class="label-agenda_add">
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="container_input_date-agenda_add">
-                    <i class="fi fi-br-calendar"></i>
-                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                <div class="container_date-agenda_add">
+                    <div class="container_input_date-agenda_add">
+                        <i class="fi fi-br-calendar"></i>
+                        <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                    </div>
+                    <div id="cocheWeek" class="container_input_week-agenda_add">
+                        <input type="checkbox" id="choosenWeek" name="choosenWeek" />
+                        <label for="choosenWeek">Afficher les semaines</label>
+                    </div>
                 </div>
-                <div id="cocheWeek">
-                    <input type="checkbox" id="choosenWeek" name="choosenWeek" />
-                    <label for="choosenWeek">Afficher les semaines</label>
-                </div>
+
                 <div style="height:15px"></div>
+
                 <label for="type" class="label-agenda_add">
                     <h2>Type de tâche</h2>
                 </label>
@@ -145,12 +151,14 @@ echo head("MMI Companion | Agenda");
                         <option value="devoir">Tâche à faire</option>
                     </select>
                 </div>
+
                 <div style="height:15px"></div>
+
                 <label for="type" class="label-agenda_add">
                     <h2>Sélectionner un groupe</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="select_but_agenda_prof">
+                <div class="container_select_but-agenda">
                     <select name="but" id="but">
                         <?php
                         $butOptions = array("BUT1", "BUT2", "BUT3");
@@ -188,9 +196,10 @@ echo head("MMI Companion | Agenda");
                             }
                         ?>
                     </select>
-
                 </div>
+
                 <div class="trait_agenda_add"></div>
+                
                 <label for="type" class="label-agenda_add">
                     <h2>Ajouter une matière</h2>
                 </label>

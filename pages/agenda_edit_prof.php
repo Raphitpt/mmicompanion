@@ -69,10 +69,12 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'content' => $content,
         'id_task' => $id_task
     ]);
+    
+    header('Location: ./agenda_prof.php');
+    exit();
 }
 
-header('Location: ./agenda_prof.php');
-exit();
+
 
 // --------------------
 // Fin de la vérification du formulaire
@@ -186,7 +188,7 @@ echo head("MMI Companion | Agenda");
                     <h2>Sélectionner un groupe</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="select_but_agenda_prof">
+                <div class="container_select_but-agenda">
                     
                     <select name="but" id="but">
                         <?php
