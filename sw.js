@@ -16,11 +16,7 @@ function determineBadgeCount() {
     .then((data) => {
       if (data.notif_message !== undefined && data.notif_infos !== undefined) {
         const totalBadgeCount = data.notif_message + data.notif_infos;
-        if ('setAppBadge' in navigator) {
-          navigator.setAppBadge(totalBadgeCount);
-        } else {
-          throw new Error('setAppBadge is not supported');
-        }
+        navigator.setAppBadge(totalBadgeCount);
       } else {
         throw new Error('Invalid data format received for badge count');
       }
@@ -29,12 +25,11 @@ function determineBadgeCount() {
       console.error('There was a problem with the fetch operation:', error.message);
     });
 }
-
-// Logging the result of determineBadgeCount() may not be meaningful, so removed it
+console.log(determineBadgeCount());
 self.addEventListener('push', (event) => {
   const promises = [];
 
-  if ('setAppBadge' in navigator) {
+  if ('setAppBadge' in self.navigator) {
     promises.push(determineBadgeCount());
   }
 
@@ -47,3 +42,4 @@ self.addEventListener('message', (event) => {
     determineBadgeCount();
   }
 });
+
