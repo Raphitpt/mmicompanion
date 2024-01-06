@@ -69,7 +69,7 @@ $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 // dd(notifsHistory($dbh, $user['id_user'], $user['edu_group']));
 
 if (str_contains($user_sql['role'], 'prof')) { 
-    $additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
+    $additionalStyles = '<link async rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
 } else{
     $additionalStyles = '';
 }

@@ -51,7 +51,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     ]);
     // si la requete sql est bonne
     if ($stmt && $type == "eval") {
-        sendNotification('Agenda', 'Une nouvelle évaluation a été ajoutée pour le' . $date, $user_sql['edu_group'] ,'Agenda' );
+        sendNotification('Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $user_sql['edu_group'] , 'Agenda' );
     }
 
     if (str_contains($user_sql['role'], 'prof')) {

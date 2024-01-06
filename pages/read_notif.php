@@ -22,6 +22,12 @@ if ($data !== null && isset($data['notifications_ids'])) {
             $query_insert->bindValue(':user_id', $user['id_user'], PDO::PARAM_INT);
             $query_insert->bindValue(':notif_id', $notif_id, PDO::PARAM_INT);
 
+            $sql_update = "UPDATE users SET notif_message = 0 WHERE id_user = :id_user";
+            $query_update = $dbh->prepare($sql_update);
+            $query_update->bindValue(':id_user', $user['id_user'], PDO::PARAM_INT);
+            $query_update->execute();
+
+
             if ($query_insert->execute()) {
                 echo $notif_id;
             } else {
