@@ -53,7 +53,13 @@ $agendaMerged = $agendaMergedFiber->getReturn();
 
 
 $userCahier = getUserCahier($dbh, $user_sql['edu_group']);
-$nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
+// dd($userCahier);
+if ($userCahier != 'null') {
+    $nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
+}else{
+    $nomUserCahier = 'Personne';
+}
+
 
 // -----------------------------
 
@@ -200,10 +206,10 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             <div class="content_agenda-home">
 
                 <?php if (explode("-", $user_sql['edu_group'])[0] != "BUT3") { ?>
-                <div class="proprietaire_cahier_agenda-home">
-                    <p><span style="font-weight:700">Propriétaire du cahier : </span><?php echo $nomUserCahier ?></p>
-                </div>
-                <?php } ?>
+                        <div class="proprietaire_cahier_agenda-home">
+                            <p><span style="font-weight:700">Propriétaire du cahier : </span><?php echo $nomUserCahier ?></p>
+                        </div>
+               <?php  } ?>
 
                 <div class="container_numbers_agenda-home">
                     <a href="./agenda.php">

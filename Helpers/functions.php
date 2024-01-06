@@ -1641,14 +1641,20 @@ function getUserCahier($dbh, $edu_group)
     // Parcours de chaque semaine dans la période
     foreach ($dates as $date) {
         // Vérification si la semaine est une semaine de vacances scolaires
-        if (!in_array($date->format('Y-m-d'), $vacancesScolaires)) {
+        $currentDate = $date->format('Y-m-d');
+        if (!in_array($currentDate, $vacancesScolaires)) {
             // Ajout du nom correspondant à la semaine
-            $nomsParSemaine[$date->format('Y-m-d')] = $noms[$indexNom];
-            
+            $nomsParSemaine[$currentDate] = $noms[$indexNom];
+
             // Passage au nom suivant dans le tableau
             $indexNom = ($indexNom + 1) % count($noms);
+        } else {
+            // Si c'est une semaine de vacances, ajouter null comme valeur
+            $nomsParSemaine[$currentDate] = 'null';
         }
     }
+
+    // -----------------
 
     $date = new DateTime;
 
@@ -1669,17 +1675,7 @@ function getUserCahier($dbh, $edu_group)
     // Formater la chaîne de résultat
     $formattedStart = $startOfWeek->format('Y-m-d');
     
-    $nomActuel = null; // Initialisation de $bibou à null, au cas où la semaine ne serait pas trouvée
-    
-    foreach ($nomsParSemaine as $dateSemaine => $nomParSemaine) {
-        if ($formattedStart == $dateSemaine) {
-            $nomActuel = $nomParSemaine;
-            break; // On a trouvé la correspondance, on peut sortir de la boucle
-        }
-    }
-
+    $nomActuel = $nomsParSemaine[$formattedStart] ?? 'null'; // Utilisation de l'opérateur null coalescent pour obtenir la valeur ou null si non définie
 
     return $nomActuel;
 }
-
-
