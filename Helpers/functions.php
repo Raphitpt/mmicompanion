@@ -1020,8 +1020,7 @@ function extractDateFromMenu($menuTitle)
 
 function getMenu()
 {
-    // $menu_url = 'https://www.crous-poitiers.fr/restaurant/r-u-crousty/'; // URL du menu
-    $menu_url = 'https://www.crous-poitiers.fr/restaurant/le-1431/'; // URL du menu
+    $menu_url = 'https://www.crous-poitiers.fr/restaurant/r-u-crousty/'; // URL du menu
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $menu_url);
