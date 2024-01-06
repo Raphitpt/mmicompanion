@@ -108,6 +108,8 @@
 
 	"orientation": "portrait",
 
+	"manifest_version": 2,
+
 	"scope": "/",
 
 	"theme_color": "#B9E0FF"
