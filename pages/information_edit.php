@@ -3,12 +3,7 @@
 require '../bootstrap.php';
 $user = onConnect($dbh);
 
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-  'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
 $id_user = $_GET['id_user'];
 $id_information = $_GET['id_information'];

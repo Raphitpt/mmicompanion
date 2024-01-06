@@ -114,15 +114,14 @@ echo head("MMI Companion | Profil");
             <?php } ?>
 
             <div class="trait-profil"></div>
+
             <div class="profil_theme-profil">
                 <label for="theme">Choix du thème : </label>
-                <div class="profil_theme-switch">
+                <div class="select_theme_switch-profil">
                     <select name="theme" id="SelectTheme">
                         <option value="light">Clair</option>
                         <option value="dark">Sombre</option>
                     </select>
-
-
                 </div>
                 <div class="profil_themes-festifs">
                     <input type="checkbox" id="switchTheme" name="theme" checked disabled/>

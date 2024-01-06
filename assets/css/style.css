@@ -4276,7 +4276,7 @@ header{
     line-height: normal;
     color: var(--texte);
 }
-.profil_theme-switch{
+.select_theme_switch-profil{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -4284,7 +4284,7 @@ header{
     width: 100%;
 }
 
-.profil_theme-switch select{
+.select_theme_switch-profil select{
     width: 100%;
     height: 3.125rem;
     border-radius: .9375rem;
@@ -4306,6 +4306,15 @@ header{
     align-items: center;
     gap: .625rem;
     width: 100%;
+}
+
+.profil_themes-festifs p{
+    font-family: Montserrat;
+    font-size: .75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    color: var(--texte);
 }
 
 .profil_cgu{
