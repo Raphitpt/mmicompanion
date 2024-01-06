@@ -288,6 +288,8 @@ loadTheme();
 // }
 
 const cloche_notification = document.querySelector("#btn_notification");
+const notification = document.querySelectorAll(".container_notifications-header");
+
 cloche_notification.addEventListener("click", function () {
   const idNotifElements = document.querySelectorAll(".id_notif");
   const idNotifArray = Array.from(idNotifElements).map(
@@ -299,6 +301,7 @@ cloche_notification.addEventListener("click", function () {
       xhr.open("POST", "/pages/read_notif.php", true);
       xhr.setRequestHeader("Content-Type", "application/json");
 
+      
       const data = {
         notifications_ids: idNotifArray,
       };
