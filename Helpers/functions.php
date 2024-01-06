@@ -42,18 +42,19 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="../manifest.webmanifest">
+  <link rel="manifest" href="../manifest.json">
 
-    <link href="../assets/css/fonts.css" rel="stylesheet">
   <link href="../assets/css/style.css?v=2.21" rel="stylesheet">
-  <link href="../assets/css/responsive.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-  <link href="../assets/css/style_theme.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+  <link href="../assets/css/responsive.css" rel="stylesheet">
+  <link href="../assets/css/style_theme.css" rel="stylesheet">
+  <link defer href="
+https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
+" rel="stylesheet">
   $additionalStyles
 
-  <script async src="./../assets/js/jquery-3.7.1.min.js"></script>
+  <script defer src="./../assets/js/jquery-3.7.1.min.js"></script>
   <script defer type="module" src="./../assets/js/firebase.js"></script>
   <script async src="https://unpkg.com/pwacompat@2.0.17/pwacompat.min.js" crossorigin="anonymous"></script>
-
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_landscape.png">
@@ -154,38 +155,38 @@ function generateBurgerMenuContent($role, $title, $notifs)
                     <i class="fi fi-sr-bell"></i>
                 </div>';
 
-    $menuHtml .= '
+                $menuHtml .= '
                 <div class="container_notifications-header">';
 
-    if (empty($notifs)) {
-        $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
-    }
+                if (empty($notifs)) {
+                    $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
+                }
 
-    foreach ($notifs as $notif) {
-        $timestamp = strtotime($notif['timestamp']);
-        $date = date('d/m H:i', $timestamp);
-
-        if ($notif['subject'] == 'Emploi du temps') {
-            $icon = 'fi fi-br-calendar-lines';
-            $link = './calendar.php';
-        } else if ($notif['subject'] == 'Agenda') {
-            $icon = 'fi fi-br-book-bookmark';
-            $link = './agenda.php';
-        } else if ($notif['subject'] == 'Informations') {
-            $icon = 'fi fi-br-info';
-            $link = './informations.php';
-        } else if ($notif['subject'] == 'Scolarité') {
-            $icon = 'fi fi-br-book-alt';
-            $link = './scolarite.php';
-        } else {
-            $icon = 'fi fi-br-bell';
-            $link = './home.php';
-        }
-
-        $notificationClass = ($notif['read_status'] == 0) ? 'item_notification-header' : 'item_notification-header notification_read';
-        $badgeNotif = ($notif['read_status'] == 0) ? '<div class="badge_item_notification-header"><div></div></div>' : '';
-
-        $menuHtml .= '
+                foreach ($notifs as $notif) {
+                    $timestamp = strtotime($notif['timestamp']);
+                    $date = date('d/m H:i', $timestamp);
+                
+                    if ($notif['subject'] == 'Emploi du temps') {
+                        $icon = 'fi fi-br-calendar-lines';
+                        $link = './calendar.php';
+                    } else if ($notif['subject'] == 'Agenda') {
+                        $icon = 'fi fi-br-book-bookmark';
+                        $link = './agenda.php';
+                    } else if ($notif['subject'] == 'Informations') {
+                        $icon = 'fi fi-br-info';
+                        $link = './informations.php';
+                    } else if ($notif['subject'] == 'Scolarité') {
+                        $icon = 'fi fi-br-book-alt';
+                        $link = './scolarite.php';
+                    } else {
+                        $icon = 'fi fi-br-bell';
+                        $link = './home.php';
+                    }
+                
+                    $notificationClass = ($notif['read_status'] == 0) ? 'item_notification-header' : 'item_notification-header notification_read';
+                    $badgeNotif = ($notif['read_status'] == 0) ? '<div class="badge_item_notification-header"><div></div></div>' : '';
+                
+                    $menuHtml .= '
                     <a href="' . $link . '">
                         <div class="' . $notificationClass . '">
                             ' . $badgeNotif . '
@@ -193,16 +194,15 @@ function generateBurgerMenuContent($role, $title, $notifs)
                                 <div class="title_item_notification-header">
                                     <i class="' . $icon . '"></i>
                                     <p>' . $notif['subject'] . ' - <span>' . $date . '</span></p>
-                                    <p style="display:none;" class="id_notif">' . $notif['id_notif'] . '</p>
                                 </div>
                                 <div class="description_item_notification-header">
-                                    <p>' . $notif['body'] . '</p>
+                                    <p>' . $notif['title'] . '</p>
                                 </div>
                             </div>
                         </div>
                     </a>';
-    }
-
+                }
+                
     $menuHtml .= '</div>
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
@@ -623,13 +623,8 @@ use Google\Auth\CredentialsLoader;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
 use GuzzleHttp\Client;
 
-/**
- * @param string $title
- * @param string $body
- * @param string $groups
- * @param string $subject
- */
-function sendNotification($title, $body, $groups, $subject)
+
+function sendNotification($title, $body, $groups)
 {
     $projectId = 'mmi-companion';
     $apiKey = $_ENV['FCM_API_KEY'];
@@ -649,8 +644,6 @@ function sendNotification($title, $body, $groups, $subject)
 
     $groupsArray = explode(',', $groups);
 
-    $notificationSent = false;
-
     foreach ($groupsArray as $group) {
         $query = "SELECT s.* FROM subscriptions s
                   INNER JOIN users u ON s.id_user = u.id_user
@@ -659,7 +652,6 @@ function sendNotification($title, $body, $groups, $subject)
         $stmt->execute(['group' => trim($group)]);
 
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         // Enhance the notification object with our custom options.
         foreach ($subscriptions as $subscriptionData) {
             $message = [
@@ -668,34 +660,25 @@ function sendNotification($title, $body, $groups, $subject)
                     'notification' => [
                         'title' => $title,
                         'body' => $body,
+
                     ],
                 ],
             ];
-
-            $response = $httpClient->request('POST', $uri, [
+            $response = $httpClient->post($uri, [
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
                 'body' => json_encode($message),
             ]);
-            if ($response->getStatusCode() == 200) {
-                $notificationSent = true;
-            }
         }
-            $sql_increment = "UPDATE users SET notif_message = notif_message + 1 WHERE edu_group = :group";
-            $stmt_increment = $dbh->prepare($sql_increment);
-            $stmt_increment->execute(['group' => trim($group)]);
     }
-
-    if ($notificationSent) {
-        $sql_notifs = "INSERT INTO notif_history (title, body, groups, subject) VALUES (:title, :body, :groups, :subject)";
+    if ($response->getStatusCode() == 200) {
+        $sql_notifs = "INSERT INTO notif_history (title, body, groups) VALUES (:title, :body, :groups)";
         $stmt_notifs = $dbh->prepare($sql_notifs);
-        $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups), 'subject' => $subject]);
+        $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups)]);
     }
 }
-
-function notifsHistory($dbh, $id_user, $edu_group)
-{
+function notifsHistory($dbh, $id_user, $edu_group) {
     $sql = "
         SELECT nh.*, 
                CASE WHEN rn.id_user IS NOT NULL THEN 1 ELSE 0 END AS read_status
@@ -735,13 +718,12 @@ function notifsHistory($dbh, $id_user, $edu_group)
             'read_status' => 1
         )
     );
-
+    
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     // return $tableauNotifs;
 }
 
-function readNotif($dbh, $id_user, $id_notif)
-{
+function readNotif($dbh, $id_user, $id_notif) {
     $sql = "INSERT INTO read_notif (id_user, id_notif) VALUES (:id_user, :id_notif)";
     $stmt = $dbh->prepare($sql);
     $stmt->execute(['id_user' => $id_user, 'id_notif' => $id_notif]);
@@ -1052,13 +1034,13 @@ function getMenu()
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
     $menu_html = curl_exec($ch);
     curl_close($ch);
-
+    
     // Créez un DOMDocument et chargez le contenu HTML de la page en désactivant la vérification DTD.
     $dom = new DOMDocument();
     libxml_use_internal_errors(true);
     $dom->loadHTML($menu_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
     libxml_use_internal_errors(false);
-
+    
     // Utilisez XPath pour extraire les sections avec la classe "menu".
     $xpath = new DOMXPath($dom);
     $menus = $xpath->query("//div[contains(@class, 'menu')]");
@@ -1094,6 +1076,8 @@ function getMenu()
     }
 
     return $menuDataByDay;
+
+
 };
 
 
@@ -1121,14 +1105,15 @@ function getMenuToday()
 
             if ($menu['Foods'] == null) {
                 $html .= "<p>Pas de menu aujourd'hui</p>";
-            } else {
+            }else{
                 $html .= "<ul>";
                 foreach ($menu['Foods'] as $food) {
                     $html .= "<li>$food</li>";
                 }
                 $html .= "</ul>";
             }
-        }
+
+        } 
 
         // Si c'est le menu du jour, vous pouvez arrêter la boucle ici
         if ($date == $currentDate) {
@@ -1137,13 +1122,13 @@ function getMenuToday()
     }
 
     return $html;
+
 }
 
 
-function rgbStringToHex($rgbString)
-{
+function rgbStringToHex($rgbString) {
     preg_match('/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/', $rgbString, $matches);
-
+    
     $r = (int)$matches[1];
     $g = (int)$matches[2];
     $b = (int)$matches[3];
@@ -1151,8 +1136,7 @@ function rgbStringToHex($rgbString)
     return sprintf("#%02x%02x%02x", $r, $g, $b);
 }
 
-function convertirRGB($color)
-{
+function convertirRGB($color){
     if (preg_match('/^#([0-9a-fA-F]{3}){1,2}$/', $color) === 1) {
         return $color;
     } else {
@@ -1161,8 +1145,7 @@ function convertirRGB($color)
 }
 
 
-function userSQL($dbh, $user)
-{
+function userSQL($dbh, $user){
     // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
     $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
     $stmt = $dbh->prepare($user_sql);
@@ -1176,9 +1159,8 @@ function userSQL($dbh, $user)
 
 
 
-function getDaysMonth()
-{
-
+function getDaysMonth(){
+    
     $daysMonth = array(
         "semaine" => array(
             " Dimanche ",
@@ -1209,8 +1191,7 @@ function getDaysMonth()
 
 
 
-function formatSemaineScolaire($date = null)
-{
+function formatSemaineScolaire($date = null) {
     if ($date === null) {
         $date = new DateTime(); // Utiliser la date actuelle si aucune date n'est fournie
     } else {
@@ -1247,7 +1228,7 @@ function getAgenda($dbh, $user, $edu_group)
     $daysMonth = getDaysMonth();
     $semaine = $daysMonth['semaine'];
     $mois = $daysMonth['mois'];
-
+    
     $year_here = date('o');
     $week_here = date('W');
     $current_week_year = $year_here . '-W' . $week_here;
@@ -1261,7 +1242,7 @@ function getAgenda($dbh, $user, $edu_group)
 
     if ($tp == "TP1" || $tp == "TP2") {
         $tpGroup = "TDA";
-    } else if ($tp == "TP3" || $tp == "TP4") {
+    } else if ($tp == "TP3" || $tp == "TP4"){
         $tpGroup = "TDB";
     }
 
@@ -1273,13 +1254,13 @@ function getAgenda($dbh, $user, $edu_group)
     $currentDate = date('Y-m-d');
 
     // -----------------
-
+    
     $sql_common_conditions = "AND (
         (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
         OR
         (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
     )";
-
+    
     // Récupération des tâches
     $sql_agenda = "SELECT a.*, s.*
         FROM agenda a
@@ -1289,7 +1270,7 @@ function getAgenda($dbh, $user, $edu_group)
         AND a.type != 'devoir'
         $sql_common_conditions
         ORDER BY a.title ASC";
-
+    
     $stmt_agenda = $dbh->prepare($sql_agenda);
     $stmt_agenda->execute([
         'id_user' => $user['id_user'],
@@ -1297,7 +1278,7 @@ function getAgenda($dbh, $user, $edu_group)
         'current_date' => $today->format('Y-m-d')
     ]);
     $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-
+    
     // Récupération des évaluations
     $sql_eval = "SELECT a.*, s.*, u.name, u.pname, u.role 
         FROM agenda a 
@@ -1307,7 +1288,7 @@ function getAgenda($dbh, $user, $edu_group)
         AND a.type = 'eval' 
         $sql_common_conditions
         ORDER BY a.title ASC";
-
+    
     $stmt_eval = $dbh->prepare($sql_eval);
     $stmt_eval->execute([
         'edu_group' => $edu_group,
@@ -1317,7 +1298,7 @@ function getAgenda($dbh, $user, $edu_group)
         'eduGroupAll' => $eduGroupAll
     ]);
     $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
-
+    
     // Récupération des devoirs
     $sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role, e.id_event
     FROM agenda a 
@@ -1341,9 +1322,9 @@ function getAgenda($dbh, $user, $edu_group)
     ]);
     $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
-
+   
     // Fusion des tableaux
-    $agendas = array_merge($agenda_user, $eval, $devoir);
+    $agendas = array_merge($agenda_user, $eval, $devoir); 
 
 
     usort($agendas, 'compareDates');
@@ -1352,20 +1333,21 @@ function getAgenda($dbh, $user, $edu_group)
 
     foreach ($agendas as $agenda) {
         $date = strtotime($agenda['date_finish']); // Convertit la date en timestamp
-
+    
         // Vérifiez si la date est au format "YYYY-Www"
         if (preg_match('/^\d{4}-W\d{2}$/', $agenda['date_finish'])) {
             $week = intval(substr($agenda['date_finish'], -2));
             $formattedDateFr = "Semaine $week";
+
         } else {
             // Formatez la date en français
             $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
-
+    
             // Vérifiez si c'est aujourd'hui
             if ($agenda['date_finish'] == $currentDate) {
                 $formattedDateFr = "Aujourd'hui";
             }
-
+    
             // Vérifiez si c'est demain
             $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
             if ($agenda['date_finish'] == $tomorrowDate) {
@@ -1385,7 +1367,7 @@ function getAgenda($dbh, $user, $edu_group)
 
                 $missingWeekStartDate = $startDate->format('d/m');
                 $missingWeekEndDate = $endDate->format('d/m');
-                if ($missingWeek < 10) {
+                if ($missingWeek <10) {
                     $missingWeek = "0" . $missingWeek;
                 }
                 $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
@@ -1408,12 +1390,12 @@ function getAgenda($dbh, $user, $edu_group)
             // Ajoutez la nouvelle entrée dans le tableau
             $agendaMerged[$weekLabel] = [];
         }
-
+    
         // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
         if (!isset($agendaMerged[$weekLabel][$formattedDateFr])) {
             $agendaMerged[$weekLabel][$formattedDateFr] = [];
         }
-
+    
         $agendaMerged[$weekLabel][$formattedDateFr][] = $agenda;
     }
 
@@ -1440,7 +1422,7 @@ function getAgendaProf($dbh, $user, $edu_group)
     $daysMonth = getDaysMonth();
     $semaine = $daysMonth['semaine'];
     $mois = $daysMonth['mois'];
-
+    
     $year_here = date('o');
     $week_here = date('W');
     $current_week_year = $year_here . '-W' . $week_here;
@@ -1454,7 +1436,7 @@ function getAgendaProf($dbh, $user, $edu_group)
 
     if ($tp == "TP1" || $tp == "TP2") {
         $tpGroup = "TDA";
-    } else if ($tp == "TP3" || $tp == "TP4") {
+    } else if ($tp == "TP3" || $tp == "TP4"){
         $tpGroup = "TDB";
     }
 
@@ -1468,13 +1450,13 @@ function getAgendaProf($dbh, $user, $edu_group)
 
 
     // -----------------
-
+    
     $sql_common_conditions = "AND (
         (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
         OR
         (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
     )";
-
+    
     // Récupération des tâches
     $sql_agenda = "SELECT a.*, s.*
         FROM agenda a
@@ -1484,7 +1466,7 @@ function getAgendaProf($dbh, $user, $edu_group)
         AND a.type != 'devoir'
         $sql_common_conditions
         ORDER BY a.title ASC";
-
+    
     $stmt_agenda = $dbh->prepare($sql_agenda);
     $stmt_agenda->execute([
         'id_user' => $user['id_user'],
@@ -1492,7 +1474,7 @@ function getAgendaProf($dbh, $user, $edu_group)
         'current_date' => $today->format('Y-m-d')
     ]);
     $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-
+    
     // Récupération des évaluations
     $sql_eval = "SELECT a.*, s.*
         FROM agenda a 
@@ -1501,7 +1483,7 @@ function getAgendaProf($dbh, $user, $edu_group)
         AND a.type = 'eval' 
         $sql_common_conditions
         ORDER BY a.title ASC";
-
+    
     $stmt_eval = $dbh->prepare($sql_eval);
     $stmt_eval->execute([
         'edu_group' => $edu_group,
@@ -1511,7 +1493,7 @@ function getAgendaProf($dbh, $user, $edu_group)
         'eduGroupAll' => $eduGroupAll
     ]);
     $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
-
+    
     // Récupération des devoirs
     $sql_devoir = "SELECT a.*, s.*, e.id_event
     FROM agenda a 
@@ -1532,9 +1514,9 @@ function getAgendaProf($dbh, $user, $edu_group)
     ]);
     $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
 
-
+   
     // Fusion des tableaux
-    $agendas = array_merge($agenda_user, $eval, $devoir);
+    $agendas = array_merge($agenda_user, $eval, $devoir); 
 
 
     usort($agendas, 'compareDates');
@@ -1543,20 +1525,21 @@ function getAgendaProf($dbh, $user, $edu_group)
 
     foreach ($agendas as $agenda) {
         $date = strtotime($agenda['date_finish']); // Convertit la date en timestamp
-
+    
         // Vérifiez si la date est au format "YYYY-Www"
         if (preg_match('/^\d{4}-W\d{2}$/', $agenda['date_finish'])) {
             $week = intval(substr($agenda['date_finish'], -2));
             $formattedDateFr = "Semaine $week";
+
         } else {
             // Formatez la date en français
             $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
-
+    
             // Vérifiez si c'est aujourd'hui
             if ($agenda['date_finish'] == $currentDate) {
                 $formattedDateFr = "Aujourd'hui";
             }
-
+    
             // Vérifiez si c'est demain
             $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
             if ($agenda['date_finish'] == $tomorrowDate) {
@@ -1596,12 +1579,12 @@ function getAgendaProf($dbh, $user, $edu_group)
             // Ajoutez la nouvelle entrée dans le tableau
             $agendaMerged[$weekLabel] = [];
         }
-
+    
         // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
         if (!isset($agendaMerged[$weekLabel][$formattedDateFr])) {
             $agendaMerged[$weekLabel][$formattedDateFr] = [];
         }
-
+    
         $agendaMerged[$weekLabel][$formattedDateFr][] = $agenda;
     }
 
