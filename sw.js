@@ -2,6 +2,35 @@ self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
 
+const cacheName = 'mmicompanion-cache';
+const currentCacheVersion = 'v1'; // Changez cela à chaque mise à jour
+
+self.addEventListener('install', (event) => {
+    event.waitUntil(
+        caches.open(`${cacheName}-${currentCacheVersion}`).then((cache) => {
+            // Mettez en cache vos ressources ici
+        })
+    );
+});
+
+self.addEventListener('activate', (event) => {
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.filter((name) => name !== `${cacheName}-${currentCacheVersion}`).map((name) => caches.delete(name))
+            );
+        })
+    );
+});
+
+self.addEventListener('fetch', (event) => {
+    event.respondWith(
+        caches.match(event.request).then((response) => {
+            return response || fetch(event.request);
+        })
+    );
+});
+
 // Function to determine the badge count based on the event data
 function determineBadgeCount() {
   return fetch('./pages/getNotifs.php', {
