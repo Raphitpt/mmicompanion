@@ -45,20 +45,33 @@ html{
 [data-theme="dark"] {
     --fc-today-bg-color: rgba(155, 155, 155, 0.192);
     --bleu-trs-clair-background: #000000;
-    --bleu-clair-background: #323232;
+    --bleu-clair-background: #252525;
     --bleu-moyen: #ffffff;
     --texte: #ffffff;
 }
 
-/* Styles spécifiques au thème sombre */
+
+
+/* CALENDAR.PHP */
+
 [data-theme="dark"] .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
     color: var(--bleu-trs-clair-background) !important;
 }
 
 [data-theme="dark"] .title_flextopright-agenda a {
     color: var(--bleu-trs-clair-background) !important;
-
 }
+
+[data-theme="dark"] #calendar {
+    background: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .fc-timegrid-slot-label-cushion{
+    background: var(--bleu-clair-background) !important;
+}
+
+
+/* AGENDA.PHP */
 
 [data-theme="dark"] .form_button-agenda input[type="submit"] {
     color: var(--bleu-trs-clair-background) !important;
@@ -69,9 +82,21 @@ html{
     color: var(--bleu-trs-clair-background) !important;
 }
 
-[data-theme="dark"] #semestre {
-    color: var(--bleu-trs-clair-background) !important;
+[data-theme="dark"] .item_title_list_content-agenda div{
+    background: linear-gradient(90deg, #ffffff 0%, rgba(0, 74, 90, 0.00) 100%);
 }
+
+[data-theme="dark"] .container_content-agenda {
+    background: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .content_item_list_flexleft-agenda label{
+    color: var(--texte) !important;
+}
+
+
+
+/* INFORMATIONS.PHP */
 
 [data-theme="dark"] .item-information {
     background: var(--bleu-clair-background) !important;
@@ -89,6 +114,18 @@ html{
     color: var(--bleu-clair-background) !important;
 }
 
+
+/* INFORMATIONS_ADD.PHP */
+
+[data-theme="dark"] .form_content-informations_add p{
+    color: var(--bleu-clair-background) !important;
+}
+
+
+
+
+/* PROFIL.PHP */
+
 [data-theme="dark"] .edit_profil_picture-img i {
     color: var(--bleu-clair-background) !important;
 }
@@ -105,39 +142,31 @@ html{
     color: var(--bleu-clair-background) !important;
 }
 
-[data-theme="dark"] .container_content-agenda {
+
+/* SCOLARITE.PHP */
+
+[data-theme="dark"] .content_recapitulatif_details-absences{
     background: var(--bleu-clair-background) !important;
 }
 
-[data-theme="dark"] #calendar {
+[data-theme="dark"] .content_select-absences select{
+    color: var(--bleu-clair-background) !important;
+}
+
+[data-theme="dark"] .container-notes{
     background: var(--bleu-clair-background) !important;
 }
 
-[data-theme="dark"] .fc-timegrid-slot-label-cushion{
+[data-theme="dark"] .separation_item-scolarite{
+    background: linear-gradient(90deg, #ffffff 0%, rgba(0, 74, 90, 0.00) 100%);
+}
+
+
+
+/* MENU.PHP */
+
+.menu_content-menu{
     background: var(--bleu-clair-background) !important;
 }
 
-[data-theme="dark"] .content_item_list_flexleft-agenda label{
-    color: var(--texte) !important;
-}
 
-[data-theme="dark"] .form_content-informations_add p{
-    color: var(--bleu-clair-background) !important;
-
-}
-
-[data-theme="dark"] .profil_cgu{
-    color: var(--texte) !important;
-}
-
-[data-theme="dark"] #ajouter_agenda_prof{
-    color: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] .select_but_agenda > #but, [data-theme="dark"] .select_but_agenda > #tp{
-    color: var(--bleu-clair-background) !important;
-}
-
-[data-theme="dark"] #validate_change_role{
-    color: var(--bleu-trs-clair-background) !important;
-}
