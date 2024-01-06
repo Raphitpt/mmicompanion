@@ -352,15 +352,21 @@ echo head('MMI Companion | Accueil');
             // Calculer le début et la fin de la semaine scolaire
             let startOfWeek = new Date(today);
             startOfWeek.setDate(today.getDate() - (currentDay - 1));
-            
+
             let endOfWeek = new Date(today);
             endOfWeek.setDate(today.getDate() + (5 - currentDay));
+
+            // Si on est après le vendredi, passer à la semaine suivante
+            if (currentDay > 4) {
+                startOfWeek.setDate(startOfWeek.getDate() + 7); // Ajouter 7 jours pour passer à la semaine suivante
+                endOfWeek.setDate(endOfWeek.getDate() + 7);
+            }
 
             // Mettre à jour le titre
             document.querySelector('#agendaTitle').innerText = "Cette semaine (" + formatDate(startOfWeek) + " au " + formatDate(endOfWeek) + ")";
         }
 
-        // Appeler la fonction au chargement de la page
+        // Appeler la fonction pour mettre à jour le titre
         updateAgendaTitle();
 
 

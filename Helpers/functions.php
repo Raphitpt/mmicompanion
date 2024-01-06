@@ -1186,6 +1186,36 @@ function getDaysMonth(){
 
 
 
+function formatSemaineScolaire($date = null) {
+    if ($date === null) {
+        $date = new DateTime(); // Utiliser la date actuelle si aucune date n'est fournie
+    } else {
+        $date = new DateTime($date);
+    }
+
+    $currentDay = $date->format('N'); // 1 pour lundi, ..., 7 pour dimanche
+
+    // Calculer le début et la fin de la semaine scolaire
+    $startOfWeek = clone $date;
+    $startOfWeek->sub(new DateInterval('P' . ($currentDay - 1) . 'D'));
+    $endOfWeek = clone $startOfWeek;
+    $endOfWeek->add(new DateInterval('P4D')); // Ajouter seulement 4 jours pour obtenir une semaine de 5 jours
+
+    // Si on est après le vendredi, passer à la semaine suivante
+    if ($currentDay > 5) {
+        $startOfWeek->add(new DateInterval('P7D'));
+        $endOfWeek->add(new DateInterval('P7D'));
+    }
+
+    // Formater la chaîne de résultat
+    $formattedStart = $startOfWeek->format('d/m');
+    $formattedEnd = $endOfWeek->format('d/m');
+
+    return "Semaine " . $startOfWeek->format('W') . " (du $formattedStart au $formattedEnd)";
+}
+
+
+
 function getAgenda($dbh, $user, $edu_group, $user_sql)
 {
 
