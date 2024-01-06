@@ -97,8 +97,6 @@ echo head("MMI Companion | Connexion");
     <main class="main-login">
         <h1 class="title-login">SE CONNECTER</h1>
         <div style="height:30px"></div>
-        <p style="color: red; text-align: center;">Bonjour, suite à l'amélioration de notre système de connexion, vous avez été déconnecté. Nous nous excusons pour cette interruption, mais cela a été fait afin de garantir la sécurité de vos données.</p>
-        <div style="height:30px"></div>
         <form method="POST" class="form-login">
             <input type="text" name="username" placeholder="email" id="username" class="input-login" required>
             <div style="height:20px"></div>
