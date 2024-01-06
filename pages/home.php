@@ -3,7 +3,7 @@ session_start();
 require '../bootstrap.php';
 
 $user = onConnect($dbh);
-$nextCours = nextCours($user['edu_group']);
+// $nextCours = nextCours($user['edu_group']);
 
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 
@@ -21,6 +21,12 @@ $stmt_pp_original->execute([
 $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
 
+
+// -----------------------------
+
+
+$userCahier = getUserCahier($dbh, $user, $user_sql['edu_group']);
+$nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
 
 // -----------------------------
 
@@ -182,7 +188,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 
             <div class="content_agenda-home">
                 <div class="proprietaire_cahier_agenda-home">
-                    <p><span style="font-weight:700">Propriétaire du cahier</span> : ...</p>
+                    <p><span style="font-weight:700">Propriétaire du cahier : </span><?php echo $nomUserCahier ?></p>
                 </div>
 
                 <div class="container_numbers_agenda-home">

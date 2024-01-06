@@ -1,4 +1,3 @@
-<!-- Script pour l'affichage des taches dans l'agenda en fonction de son TP -->
 <?php
 session_start();
 require "../bootstrap.php";
@@ -103,7 +102,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
     </body>
 
-      <script src="../assets/js/script_all.js?v=1.1"></script> 
+    <script src="../assets/js/script_all.js?v=1.1"></script> 
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');

@@ -1594,3 +1594,92 @@ function getAgendaProf($dbh, $user, $edu_group)
 
 
 
+
+
+
+
+
+
+function getUserCahier($dbh, $user, $edu_group)
+{
+    $sql_cahier = "SELECT * FROM etudiants WHERE edu_group = :edu_group ORDER BY nom ASC";
+    $stmt_cahier = $dbh->prepare($sql_cahier);
+    $stmt_cahier->execute([
+        'edu_group' => $edu_group
+    ]);
+    $noms = $stmt_cahier->fetchAll(PDO::FETCH_ASSOC);
+
+    // Initialisation de l'index pour les noms
+    $indexNom = 0;
+
+    // Récupérer le propriétaire du cahier des absences
+    $periodeDebut = "2023-09-04";
+    $periodeFin = "2024-07-01";
+    $vacancesScolaires = ["2023-10-23", "2023-12-25", "2024-01-01", "2024-02-19", "2024-04-22", "2024-04-29"];
+
+    $but = explode("-", $edu_group)[0];
+
+    if ($but == "BUT2") {
+        array_push($vacancesScolaires, "2024-02-26", "2024-03-04", "2024-03-11", "2024-03-18", "2024-03-25", "2024-04-01", "2024-04-08", "2024-04-15");
+    }
+
+
+    // -----------------
+
+    // Si on veut la liste complète des noms par semaine, on peut utiliser ce tableau
+
+    // Création de l'objet DateTime pour la première semaine de septembre
+    $dateDebut = new DateTime($periodeDebut);
+
+    // Création de l'objet DateTime pour la fin de la période
+    $dateFin = new DateTime($periodeFin);
+
+    // Initialisation de l'itérateur de dates avec une période d'une semaine
+    $interval = new DateInterval('P1W');
+    $dates = new DatePeriod($dateDebut, $interval, $dateFin);
+
+    // Parcours de chaque semaine dans la période
+    foreach ($dates as $date) {
+        // Vérification si la semaine est une semaine de vacances scolaires
+        if (!in_array($date->format('Y-m-d'), $vacancesScolaires)) {
+            // Ajout du nom correspondant à la semaine
+            $nomsParSemaine[$date->format('Y-m-d')] = $noms[$indexNom];
+            
+            // Passage au nom suivant dans le tableau
+            $indexNom = ($indexNom + 1) % count($noms);
+        }
+    }
+
+    $date = new DateTime;
+
+    $currentDay = $date->format('N'); // 1 pour lundi, ..., 7 pour dimanche
+    
+    // Calculer le début et la fin de la semaine scolaire
+    $startOfWeek = clone $date;
+    $startOfWeek->sub(new DateInterval('P' . ($currentDay - 1) . 'D'));
+    $endOfWeek = clone $startOfWeek;
+    $endOfWeek->add(new DateInterval('P4D')); // Ajouter seulement 4 jours pour obtenir une semaine de 5 jours
+
+    // Si on est après le vendredi, passer à la semaine suivante
+    if ($currentDay > 5) {
+        $startOfWeek->add(new DateInterval('P7D'));
+        $endOfWeek->add(new DateInterval('P7D'));
+    }
+
+    // Formater la chaîne de résultat
+    $formattedStart = $startOfWeek->format('Y-m-d');
+    
+    $nomActuel = null; // Initialisation de $bibou à null, au cas où la semaine ne serait pas trouvée
+    
+    foreach ($nomsParSemaine as $dateSemaine => $nomParSemaine) {
+        if ($formattedStart == $dateSemaine) {
+            $nomActuel = $nomParSemaine;
+            break; // On a trouvé la correspondance, on peut sortir de la boucle
+        }
+    }
+
+
+    return $nomActuel;
+}
+
+
