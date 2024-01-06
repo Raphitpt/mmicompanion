@@ -47,8 +47,8 @@ function head(string $title = '', string $additionalStyles = ''): string
   <link href="../assets/css/style.css?v=2.21" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
   <link href="../assets/css/style_theme.css" rel="stylesheet">
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-  <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+  <!-- <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.1.0/uicons-bold-rounded/css/uicons-bold-rounded.css'> -->
   $additionalStyles
 
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
@@ -1216,7 +1216,7 @@ function formatSemaineScolaire($date = null) {
 
 
 
-function getAgenda($dbh, $user, $edu_group, $user_sql)
+function getAgenda($dbh, $user, $edu_group)
 {
 
     // Définition des variables
@@ -1228,7 +1228,7 @@ function getAgenda($dbh, $user, $edu_group, $user_sql)
     $week_here = date('W');
     $current_week_year = $year_here . '-W' . $week_here;
     $today = new DateTime();
-    $edu_group_all = substr($user_sql['edu_group'], 0, 4);
+    $edu_group_all = substr($edu_group, 0, 4);
 
     $currentYear = date("Y");
     $currentWeek = null;
@@ -1272,7 +1272,7 @@ function getAgenda($dbh, $user, $edu_group, $user_sql)
     
     $stmt_eval = $dbh->prepare($sql_eval);
     $stmt_eval->execute([
-        'edu_group' => $user_sql['edu_group'],
+        'edu_group' => $edu_group,
         'edu_group_all' => $edu_group_all,
         'current_week_year' => $current_week_year,
         'current_date' => $today->format('Y-m-d')
@@ -1293,7 +1293,7 @@ function getAgenda($dbh, $user, $edu_group, $user_sql)
 
     $stmt_devoir = $dbh->prepare($sql_devoir);
     $stmt_devoir->execute([
-    'edu_group' => $user_sql['edu_group'],
+    'edu_group' => $edu_group,
     'edu_group_all' => $edu_group_all,
     'current_week_year' => $current_week_year,
     'current_date' => $today->format('Y-m-d'),
@@ -1377,3 +1377,178 @@ function getAgenda($dbh, $user, $edu_group, $user_sql)
 
     return $agendaMerged;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getAgendaProf($dbh, $user, $edu_group)
+{
+
+    // Définition des variables
+    $daysMonth = getDaysMonth();
+    $semaine = $daysMonth['semaine'];
+    $mois = $daysMonth['mois'];
+    
+    $year_here = date('o');
+    $week_here = date('W');
+    $current_week_year = $year_here . '-W' . $week_here;
+    $today = new DateTime();
+    $edu_group_all = substr($edu_group, 0, 4);
+
+    $currentYear = date("Y");
+    $currentWeek = null;
+    $currentDate = date('Y-m-d');
+
+    // -----------------
+    
+    $sql_common_conditions = "AND (
+        (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
+        OR
+        (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
+    )";
+    
+    // Récupération des tâches
+    $sql_agenda = "SELECT a.*, s.*
+        FROM agenda a
+        JOIN sch_subject s ON a.id_subject = s.id_subject
+        WHERE a.id_user = :id_user
+        AND a.type != 'eval'
+        AND a.type != 'devoir'
+        $sql_common_conditions
+        ORDER BY a.title ASC";
+    
+    $stmt_agenda = $dbh->prepare($sql_agenda);
+    $stmt_agenda->execute([
+        'id_user' => $user['id_user'],
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d')
+    ]);
+    $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Récupération des évaluations
+    $sql_eval = "SELECT a.*, s.*
+        FROM agenda a 
+        JOIN sch_subject s ON a.id_subject = s.id_subject 
+        WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) 
+        AND a.type = 'eval' 
+        $sql_common_conditions
+        ORDER BY a.title ASC";
+    
+    $stmt_eval = $dbh->prepare($sql_eval);
+    $stmt_eval->execute([
+        'edu_group' => $edu_group,
+        'edu_group_all' => $edu_group_all,
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d')
+    ]);
+    $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Récupération des devoirs
+    $sql_devoir = "SELECT a.*, s.*, e.id_event
+    FROM agenda a 
+    JOIN sch_subject s ON a.id_subject = s.id_subject 
+    LEFT JOIN event_check e ON a.id_user = e.id_user AND a.id_task = e.id_event
+    WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) 
+    AND a.type = 'devoir'
+    $sql_common_conditions
+    ORDER BY a.title ASC";
+
+    $stmt_devoir = $dbh->prepare($sql_devoir);
+    $stmt_devoir->execute([
+    'edu_group' => $edu_group,
+    'edu_group_all' => $edu_group_all,
+    'current_week_year' => $current_week_year,
+    'current_date' => $today->format('Y-m-d'),
+    ]);
+    $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
+
+   
+    // Fusion des tableaux
+    $agendas = array_merge($agenda_user, $eval, $devoir); 
+
+
+    usort($agendas, 'compareDates');
+
+    $agendaMerged = [];
+
+    foreach ($agendas as $agenda) {
+        $date = strtotime($agenda['date_finish']); // Convertit la date en timestamp
+    
+        // Vérifiez si la date est au format "YYYY-Www"
+        if (preg_match('/^\d{4}-W\d{2}$/', $agenda['date_finish'])) {
+            $week = intval(substr($agenda['date_finish'], -2));
+            $formattedDateFr = "Semaine $week";
+
+        } else {
+            // Formatez la date en français
+            $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
+    
+            // Vérifiez si c'est aujourd'hui
+            if ($agenda['date_finish'] == $currentDate) {
+                $formattedDateFr = "Aujourd'hui";
+            }
+    
+            // Vérifiez si c'est demain
+            $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+            if ($agenda['date_finish'] == $tomorrowDate) {
+                $formattedDateFr = "Demain";
+            }
+        }
+
+        // Obtenez la semaine de l'événement
+        $eventWeek = date('W', $date);
+
+        // Comparez la semaine actuelle avec la semaine de l'événement
+        if ($currentWeek !== $eventWeek) {
+            // Ajoutez les semaines manquantes au tableau
+            for ($missingWeek = $currentWeek + 1; $missingWeek < $eventWeek; $missingWeek++) {
+                $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
+                $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(4);   // Se termine le vendredi
+
+                $missingWeekStartDate = $startDate->format('d/m');
+                $missingWeekEndDate = $endDate->format('d/m');
+                $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
+                $agendaMerged[$missingWeekLabel] = [];
+            }
+
+            // Mettez à jour la semaine actuelle
+            $currentWeek = $eventWeek;
+
+            // Calculez la date de début de la semaine
+            $weekStartDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-1"));
+
+            // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
+            $weekLabel = "Semaine {$currentWeek} (du {$weekStartDate} au ";
+
+            // Calculez la date de fin de la semaine (5 jours plus tard)
+            $weekEndDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-5"));
+            $weekLabel .= "{$weekEndDate})";
+
+            // Ajoutez la nouvelle entrée dans le tableau
+            $agendaMerged[$weekLabel] = [];
+        }
+    
+        // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
+        if (!isset($agendaMerged[$weekLabel][$formattedDateFr])) {
+            $agendaMerged[$weekLabel][$formattedDateFr] = [];
+        }
+    
+        $agendaMerged[$weekLabel][$formattedDateFr][] = $agenda;
+    }
+
+    return $agendaMerged;
+}
+
+
+
+

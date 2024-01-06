@@ -132,9 +132,9 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         <a href="./agenda_add.php">Ajouter</a>
                     </div>
                 </div>
-
-                <div style="height:15px"></div>
             </div>
+            
+            <div style="height:15px"></div>
 
             <div class="description-agenda">
                 <div class="description_container_content-agenda">
@@ -346,12 +346,12 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             // Faire apparaître le background dans le menu burger
             let select_background_profil = document.querySelector('#select_background_agenda-header');
             select_background_profil.classList.add('select_link-header');
-            const deleteTrash = document.querySelectorAll('#delete-trash');
+            
 
 
             // --------------------------------
 
-
+            const deleteTrash = document.querySelectorAll('#delete-trash');
             deleteTrash.forEach(function(trash) {
                 trash.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -366,41 +366,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
             // --------------------------------
 
 
-            // Fonction pour mettre à jour le compteur de tâches
-
-            // const resultParagraph = document.getElementById('compteTaches');
-            
-
-            // function countChecked() {
-            //     let count = 0;
-
-            //     checkboxes.forEach(checkbox => {
-            //         if (!checkbox.checked) {
-            //             count++;
-            //         }
-            //     });
-            //     if (count === 0) {
-            //         resultParagraph.textContent = `Aucune tâche à faire`;
-            //     } else if (count === 1) {
-            //         resultParagraph.textContent = `${count} tâche à faire`;
-            //     } else {
-            //         resultParagraph.textContent = `${count} tâches à faire`;
-            //     }
-            // }
-
-            // checkboxes.forEach(checkbox => {
-            //     checkbox.addEventListener('change', countChecked);
-
-            //     // Vérification initiale de l'état de la case à cocher
-            //     handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
-            // });
-
-            // Appel initial pour afficher le nombre de tâches au chargement de la page
-            // countChecked();
-
             let checkboxes = document.querySelectorAll(".checkbox");
-
-
 
             document.addEventListener("DOMContentLoaded", function() {
                 checkboxes.forEach(function(checkbox) {

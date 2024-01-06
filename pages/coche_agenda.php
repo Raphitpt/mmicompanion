@@ -63,7 +63,7 @@ if ($load == 'false') {
 }
 
 
-$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group'], $user_sql);
+$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
 
 $countResult = countEvent($agendaMerged, $dateSemaine);
 $nbEval = $countResult['nbEval'];

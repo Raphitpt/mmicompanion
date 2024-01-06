@@ -165,7 +165,7 @@ html{
 
 /* MENU.PHP */
 
-.menu_content-menu{
+[data-theme="dark"] .menu_content-menu{
     background: var(--bleu-clair-background) !important;
 }
 
