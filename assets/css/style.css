@@ -1297,6 +1297,103 @@ header{
 
 
 
+/* Slider Pages Prof */
+
+.container_slider_pages-home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+
+    width: 100%;
+    position: relative;
+}
+
+.item_slider_page-home{
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+
+    border-radius: 1.25rem;
+    background: linear-gradient(101deg, #B9E0FF 2.36%, rgba(185, 224, 255, 0.00) 99.54%);
+    padding: 1.25rem;
+
+    width: 100%;
+}
+
+.item_illustration_slider_page-home{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item_illustration_slider_page-home img{
+    width: 9.375rem;
+    height: auto;
+}
+
+.item_content_slider_page-home{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .9375rem;
+
+    width: 100%;
+}
+
+.item_title_content_slider_page-home{
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    gap: .3125rem;
+
+    width: 100%;
+}
+
+.item_title_content_slider_page-home div{ 
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: .3125rem;
+
+    width: 100%;
+}
+
+.item_title_content_slider_page-home p{
+    color: var(--texte);
+    font-family: Montserrat;
+    font-size: 0.875rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+
+    text-align: end;
+}
+
+.item_title_content_slider_page-home p:nth-child(3){
+    font-size: .75rem;
+    font-weight: 500;
+}
+
+.item_title_content_slider_page-home div i{ 
+    color: var(--texte);
+    font-size: 1rem;
+}
+
+.item_title_content_slider_page-home div p{ 
+    color: var(--texte);
+    font-size: .75rem;
+    font-weight: 600;
+}
+
+.swiper-wrapper.home{
+    margin-bottom: auto;
+}
+
+
 
 
 
@@ -3610,6 +3707,16 @@ header{
     line-height: normal;
 }
 
+.form_content-informations_add{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .3125rem;
+
+    width: 100%;
+
+}
 
 .form_content-informations_add p{
     color: var(--texte);
@@ -3650,7 +3757,6 @@ header{
 
 .trumbowyg-box, .trumbowyg-editor-box {
     border: none !important;
-    max-width: 80vw !important;
 }
 
 .trumbowyg-button-pane{

@@ -24,7 +24,7 @@ $pp_original = $stmt_pp_original->fetch(PDO::FETCH_ASSOC);
 
 // -----------------------------
 
-$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group'], $user_sql);
+$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
 // dd($agendaMerged);
 
 // --------------------
@@ -67,7 +67,15 @@ $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 // echo sendNotification("Vous avez un cours dans 10 minutes !", "10 minutes", "BUT2-TP2");
 // dd(notifsHistory($dbh, '56', 'BUT2-TP3'));
-echo head('MMI Companion | Accueil');
+
+if (str_contains($user_sql['role'], 'prof')) { 
+    $additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
+} else{
+    $additionalStyles = '';
+}
+
+
+echo head('MMI Companion | Accueil', $additionalStyles);
 ?>
 
 <body class="body-all">
@@ -82,10 +90,17 @@ echo head('MMI Companion | Accueil');
                 <img id="preview" class="profil_picture-img" src="<?php echo $pp_original['pp_link'] ?>" alt="Photo de profil">
             </div>
             <div class="content_title-home">
+                <?php if (!str_contains($user_sql['role'], 'prof')) { ?>
                 <div class="identite_content_title-home">
                     <h1>Bonjour <span style="font-weight:800"><?php echo ucfirst($user['pname']) ?></span></h1>
                     <img src="./../assets/img/hello_emoji.webp" alt="">
                 </div>
+                <?php } else{?>
+                <div class="identite_content_title-home">
+                    <h1>Bonjour <span style="font-weight:800"><?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?></span></h1>
+                    <img src="./../assets/img/hello_emoji.webp" alt="">
+                </div>
+                <?php } ?>
                 <div class="date_content_title-home">
                     <h2>Chargement...</h2>
                     <div class="trait_date_content_title-home"></div>
@@ -125,22 +140,37 @@ echo head('MMI Companion | Accueil');
                 <i class="fi fi-br-calendar-lines"></i>
                 <p>Emploi du temps</p>
             </a>
+            <?php if (!str_contains($user_sql['role'], 'prof')) { ?>
             <a role="button" class="item_button_nav-home" href="./agenda.php">
                 <i class="fi fi-br-book-bookmark"></i>
                 <p>Agenda</p>
             </a>
+            <?php } else{ ?>
+            <a role="button" class="item_button_nav-home" href="./agenda_prof.php">
+                <i class="fi fi-br-book-bookmark"></i>
+                <p>Agenda</p>
+            </a>
+            <?php } ?>
             <a role="button" class="item_button_nav-home" href="./informations.php">
                 <i class="fi fi-br-info"></i>
                 <p>Informations</p>
             </a>
-            <a role="button" class="item_button_nav-home" href="./scolarite.php">
-                <i class="fi fi-br-book-alt"></i>
-                <p>Scolarité</p>
-            </a>
+            <?php if (!str_contains($user_sql['role'], 'prof')) { ?>
+                <a role="button" class="item_button_nav-home" href="./scolarite.php">
+                    <i class="fi fi-br-book-alt"></i>
+                    <p>Scolarité</p>
+                </a>
+            <?php } else{ ?>
+                <a role="button" class="item_button_nav-home" href="./liens_externes.php">
+                    <i class="fi fi-br-link-alt"></i>
+                    <p>Liens externes</p>
+                </a>
+            <?php } ?>
         </div>
 
         <div style="height:30px"></div>
 
+        <?php if (!str_contains($user_sql['role'], 'prof')) { ?>
         <section class="section-home">
             <div class="title_trait-home">
                 <div class="title_content_trait-home">
@@ -245,6 +275,76 @@ echo head('MMI Companion | Accueil');
 
         <div style="height:30px"></div>
 
+        <?php } else{ ?>
+        
+        <section class="section-home">
+
+            <div class="container_slider_pages-home">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper home">
+                        <a role="button" href="./agenda_prof.php" class="swiper-slide">
+                            <div class="item_slider_page-home">
+                                <div class="item_illustration_slider_page-home">
+                                    <img src="./../assets/img/illustration_agenda.svg" alt="">
+                                </div>
+                                <div class="item_content_slider_page-home">
+                                    <div class="item_title_content_slider_page-home">
+                                        <div>
+                                            <i class="fi fi-br-book-bookmark"></i>
+                                            <p>Agenda</p>
+                                        </div>
+                                        <p>Une nouvelle évaluation ?</p>
+                                        <p>Vérifiez sa présence dans l'agenda.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a role="button" href="./informations_add.php" class="swiper-slide">
+                            <div class="item_slider_page-home">
+                                <div class="item_illustration_slider_page-home">
+                                    <img src="./../assets/img/illustration_info.svg" alt="">
+                                </div>
+                                <div class="item_content_slider_page-home">
+                                    <div class="item_title_content_slider_page-home">
+                                        <div>
+                                            <i class="fi fi-br-info"></i>
+                                            <p>Informations</p>
+                                        </div>
+                                        <p>Une absence de prévue ?</p>
+                                        <p>Prévenez vite les étudiant.e.s.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <a role="button" href="./calendar.php" class="swiper-slide">
+                            <div class="item_slider_page-home">
+                                <div class="item_illustration_slider_page-home">
+                                    <img src="./../assets/img/illustration_calendar.svg" alt="">
+                                </div>
+                                <div class="item_content_slider_page-home">
+                                    <div class="item_title_content_slider_page-home">
+                                        <div>
+                                            <i class="fi fi-br-calendar-lines"></i>
+                                            <p>Emploi du temps</p>
+                                        </div>
+                                        <p>Quand est votre prochain cours ?</p>
+                                        <p>Consultez votre emploi du temps.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                
+            </div>
+
+        </section>
+
+        <div style="height:30px"></div>
+
+        <?php } ?>
+
         <section class="section-home">
             <div class="title_trait-home">
                 <div class="title_content_trait-home">
@@ -267,6 +367,12 @@ echo head('MMI Companion | Accueil');
     </main>
 
     <script src="../assets/js/script_all.js?v=1.1"></script>
+
+    <?php 
+    if (str_contains($user_sql['role'], 'prof')) { ?>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <?php } ?>
+    
     <script>
 
         // Faire apparaître le background dans le menu burger
@@ -274,6 +380,20 @@ echo head('MMI Companion | Accueil');
         select_background_profil.classList.add('select_link-header');
 
         // -----------------------------
+
+        <?php 
+        if (str_contains($user_sql['role'], 'prof')) { ?>
+            let swiper = new Swiper(".mySwiper", {
+                autoHeight: true,
+                spaceBetween: 30,
+                loop: true,
+                autoplay: {
+                    delay: 3500,
+                    disableOnInteraction: false,
+                },
+            });
+        <?php } ?>
+
 
         // Faire apparaitre la date du jour
 
@@ -330,164 +450,171 @@ echo head('MMI Companion | Accueil');
         // }, 1000);
 
 
-        // -----------------------------
-
-        // Fonction pour formater la date au format 'jj/mm'
-        function formatDate(date) {
-            let day = date.getDate();
-            let month = date.getMonth() + 1; // Les mois commencent à 0, donc ajouter 1
-
-            // Ajouter des zéros initiaux si nécessaire
-            day = (day < 10) ? '0' + day : day;
-            month = (month < 10) ? '0' + month : month;
-
-            return day + '/' + month;
-        }
-
-        // Mettre à jour le titre avec la semaine scolaire actuelle
-        function updateAgendaTitle() {
-            let today = new Date();
-            let currentDay = today.getDay(); // 0 pour dimanche, 1 pour lundi, ..., 6 pour samedi
-
-            // Calculer le début et la fin de la semaine scolaire
-            let startOfWeek = new Date(today);
-            startOfWeek.setDate(today.getDate() - (currentDay - 1));
-
-            let endOfWeek = new Date(today);
-            endOfWeek.setDate(today.getDate() + (5 - currentDay));
-
-            // Si on est après le vendredi, passer à la semaine suivante
-            if (currentDay > 4) {
-                startOfWeek.setDate(startOfWeek.getDate() + 7); // Ajouter 7 jours pour passer à la semaine suivante
-                endOfWeek.setDate(endOfWeek.getDate() + 7);
-            }
-
-            // Mettre à jour le titre
-            document.querySelector('#agendaTitle').innerText = "Cette semaine (" + formatDate(startOfWeek) + " au " + formatDate(endOfWeek) + ")";
-        }
-
-        // Appeler la fonction pour mettre à jour le titre
-        updateAgendaTitle();
-
-
-        // -----------------------------
-
-        // let checkboxes = document.querySelectorAll(".checkbox");
-
-        // checkboxes.forEach(function(checkbox) {
-        //     // Ici on fait une requête au fichier coche_agenda.php pour mettre à jour la base de données lors d'une coche ou décoche
-        //     checkbox.addEventListener("change", function() {
-
-        //         let idAgenda = this.getAttribute("data-idAgenda");
-        //         let checkedValue = this.checked ? 1 : 0;
-
-        //         let xhr = new XMLHttpRequest();
-        //         xhr.open("POST", "./coche_agenda.php", true);
-        //         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        //         xhr.onreadystatechange = function() {
-        //             if (xhr.readyState === 4 && xhr.status === 200) {
-        //                 let data = JSON.parse(xhr.responseText); // Use xhr.responseText
-        //                 let tachesCount = data.taches_count;
-        //                 console.log(data.message);
-        //                 if (tachesCount == 0) {
-        //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
-        //                 } else if (tachesCount == 1) {
-        //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâche à faire";
-        //                 } else{
-        //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâches à faire";
-        //                 }
-        //             }
-        //         };
-        //         xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
-        //     });
-        // });
-
-
-
-        let checkboxes = document.querySelectorAll(".checkbox");
-
-        document.addEventListener("DOMContentLoaded", function() {
-            let idAgenda = null;
-            let checkedValue = null;
-
-            let xhr = new XMLHttpRequest();
-            xhr.open("POST", "./coche_agenda.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    let data = JSON.parse(xhr.responseText);
-                    let nbEval = data.nbEval;
-                    let nbDevoir = data.nbDevoir;
-                    if (nbDevoir == 0) {
-                        document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
-                    } else if (nbDevoir == 1) {
-                        document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
-                    } else{
-                        document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
-                    }
-
-                    if (nbEval == 0) {
-                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
-                    } else if (nbEval == 1) {
-                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
-                    } else{
-                        document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
-                    }
-                }
-            };
-            xhr.send("load=" + encodeURIComponent(true));
-        });
+        <?php 
+        if (!str_contains($user_sql['role'], 'prof')) { ?>
         
 
-        document.addEventListener("DOMContentLoaded", function() {
-            checkboxes.forEach(function(checkbox) {
-                // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
-                checkbox.addEventListener("change", function() {
+            // -----------------------------
 
-                    let idAgenda = this.getAttribute("data-idAgenda");
-                    let checkedValue = this.checked ? 1 : 0;
+            // Fonction pour formater la date au format 'jj/mm'
+            function formatDate(date) {
+                let day = date.getDate();
+                let month = date.getMonth() + 1; // Les mois commencent à 0, donc ajouter 1
 
-                    let xhr = new XMLHttpRequest();
-                    xhr.open("POST", "./coche_agenda.php", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function() {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            let data = JSON.parse(xhr.responseText);
-                            let nbEval = data.nbEval;
-                            let nbDevoir = data.nbDevoir;
-                            console.log(data);
-                            if (nbDevoir == 0) {
-                                document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
-                            } else if (nbDevoir == 1) {
-                                document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
-                            } else{
-                                document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
-                            }
+                // Ajouter des zéros initiaux si nécessaire
+                day = (day < 10) ? '0' + day : day;
+                month = (month < 10) ? '0' + month : month;
 
-                            if (nbEval == 0) {
-                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
-                            } else if (nbEval == 1) {
-                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
-                            } else{
-                                document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
-                            }
+                return day + '/' + month;
+            }
+
+            // Mettre à jour le titre avec la semaine scolaire actuelle
+            function updateAgendaTitle() {
+                let today = new Date();
+                let currentDay = today.getDay(); // 0 pour dimanche, 1 pour lundi, ..., 6 pour samedi
+
+                // Calculer le début et la fin de la semaine scolaire
+                let startOfWeek = new Date(today);
+                startOfWeek.setDate(today.getDate() - (currentDay - 1));
+
+                let endOfWeek = new Date(today);
+                endOfWeek.setDate(today.getDate() + (5 - currentDay));
+
+                // Si on est après le vendredi, passer à la semaine suivante
+                if (currentDay > 4) {
+                    startOfWeek.setDate(startOfWeek.getDate() + 7); // Ajouter 7 jours pour passer à la semaine suivante
+                    endOfWeek.setDate(endOfWeek.getDate() + 7);
+                }
+
+                // Mettre à jour le titre
+                document.querySelector('#agendaTitle').innerText = "Cette semaine (" + formatDate(startOfWeek) + " au " + formatDate(endOfWeek) + ")";
+            }
+
+            // Appeler la fonction pour mettre à jour le titre
+            updateAgendaTitle();
+
+
+            // -----------------------------
+
+            // let checkboxes = document.querySelectorAll(".checkbox");
+
+            // checkboxes.forEach(function(checkbox) {
+            //     // Ici on fait une requête au fichier coche_agenda.php pour mettre à jour la base de données lors d'une coche ou décoche
+            //     checkbox.addEventListener("change", function() {
+
+            //         let idAgenda = this.getAttribute("data-idAgenda");
+            //         let checkedValue = this.checked ? 1 : 0;
+
+            //         let xhr = new XMLHttpRequest();
+            //         xhr.open("POST", "./coche_agenda.php", true);
+            //         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            //         xhr.onreadystatechange = function() {
+            //             if (xhr.readyState === 4 && xhr.status === 200) {
+            //                 let data = JSON.parse(xhr.responseText); // Use xhr.responseText
+            //                 let tachesCount = data.taches_count;
+            //                 console.log(data.message);
+            //                 if (tachesCount == 0) {
+            //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
+            //                 } else if (tachesCount == 1) {
+            //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâche à faire";
+            //                 } else{
+            //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâches à faire";
+            //                 }
+            //             }
+            //         };
+            //         xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+            //     });
+            // });
+
+
+
+            let checkboxes = document.querySelectorAll(".checkbox");
+
+            document.addEventListener("DOMContentLoaded", function() {
+                let idAgenda = null;
+                let checkedValue = null;
+
+                let xhr = new XMLHttpRequest();
+                xhr.open("POST", "./coche_agenda.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        let data = JSON.parse(xhr.responseText);
+                        let nbEval = data.nbEval;
+                        let nbDevoir = data.nbDevoir;
+                        if (nbDevoir == 0) {
+                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
+                        } else if (nbDevoir == 1) {
+                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
+                        } else{
+                            document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
                         }
-                    };
-                    xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>) + "&load=" + encodeURIComponent(false));
+
+                        if (nbEval == 0) {
+                            document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
+                        } else if (nbEval == 1) {
+                            document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
+                        } else{
+                            document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
+                        }
+                    }
+                };
+                xhr.send("load=" + encodeURIComponent(true));
+            });
+            
+
+            document.addEventListener("DOMContentLoaded", function() {
+                checkboxes.forEach(function(checkbox) {
+                    // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
+                    checkbox.addEventListener("change", function() {
+
+                        let idAgenda = this.getAttribute("data-idAgenda");
+                        let checkedValue = this.checked ? 1 : 0;
+
+                        let xhr = new XMLHttpRequest();
+                        xhr.open("POST", "./coche_agenda.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4 && xhr.status === 200) {
+                                let data = JSON.parse(xhr.responseText);
+                                let nbEval = data.nbEval;
+                                let nbDevoir = data.nbDevoir;
+                                console.log(data);
+                                if (nbDevoir == 0) {
+                                    document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
+                                } else if (nbDevoir == 1) {
+                                    document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
+                                } else{
+                                    document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
+                                }
+
+                                if (nbEval == 0) {
+                                    document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
+                                } else if (nbEval == 1) {
+                                    document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
+                                } else{
+                                    document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
+                                }
+                            }
+                        };
+                        xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>) + "&load=" + encodeURIComponent(false));
+                    });
                 });
             });
-        });
 
-        window.addEventListener("DOMContentLoaded", function() {
-            let checkboxes = document.querySelectorAll(".checkbox");
-            checkboxes.forEach(function(checkbox) {
-                checkbox.addEventListener("change", handleCheckboxChange);
+            window.addEventListener("DOMContentLoaded", function() {
+                let checkboxes = document.querySelectorAll(".checkbox");
+                checkboxes.forEach(function(checkbox) {
+                    checkbox.addEventListener("change", handleCheckboxChange);
 
-                // Vérification initiale de l'état de la case à cocher
-                handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
+                    // Vérification initiale de l'état de la case à cocher
+                    handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
+                });
             });
-        });
 
+        <?php } ?>
+
+        // -----------------------------
 
 
         // // Obtenez la date actuelle
