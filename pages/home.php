@@ -47,7 +47,7 @@ $user_sql = $userSqlFiber->start();
 $user_sql = $userSqlFiber->getReturn();
 $pp_original = $ppOriginalFiber->start();
 $pp_original = $ppOriginalFiber->getReturn();
-if (srt_contains($user_sql['role'], "eleve" ) || str_contains($user_sql['role']),"admin") ) {
+if (srt_contains($user_sql['role'], "eleve" ) || str_contains($user_sql['role'],"admin") ) {
     $agendaMerged = $agendaMergedFiber->start();
     $agendaMerged = $agendaMergedFiber->getReturn();
     // -----------------------------
