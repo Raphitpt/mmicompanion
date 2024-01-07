@@ -104,7 +104,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 <body class="body-all">
 
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user['id_user'], $user['edu_group'])); ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user_sql['id_user'], $user_sql['edu_group'])); ?>
 
     <main class="main_all">
         <div style="height:30px"></div>
