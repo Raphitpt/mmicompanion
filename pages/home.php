@@ -60,20 +60,7 @@ if ($userCahier != 'null') {
 } else {
     $nomUserCahier = 'Personne';
 }
-}
-
-
-
-
-
-
-
-// -----------------------------
-
-// $agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
-// dd($agendaMerged);
-
-// --------------------
+    // --------------------
 // Récupérer les couleurs des matières
 
 $sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
@@ -100,6 +87,20 @@ $colorsFiber = new Fiber(function () use ($dbh) {
 });
 
 $colors = $colorsFiber->start();
+
+}
+
+
+
+
+
+
+
+// -----------------------------
+
+// $agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
+// dd($agendaMerged);
+
 
 $additionalStyles = (str_contains($user_sql['role'], 'prof'))
     ? '<link async rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />'
