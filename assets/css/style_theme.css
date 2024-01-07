@@ -210,4 +210,7 @@ html{
 [data-theme="dark"] .container-calendar_view {
  background: var(--bleu-clair-background) !important;
 }
+[data-theme="dark"° .content_menu_dropdown_item_list_flexright-agenda .blue{
+    background: var(--bleu-clair-background) !important;
+}
 
