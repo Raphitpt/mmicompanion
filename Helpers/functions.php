@@ -52,7 +52,7 @@ function head(string $title = '', string $additionalStyles = ''): string
 
   <link href="../assets/css/style.css?v=2.21" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
-  <link href="../assets/css/style_theme.css" rel="stylesheet">
+  <link href="../assets/css/style_theme.css?v=1" rel="stylesheet">
   <link defer href="
 https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
 " rel="stylesheet">
