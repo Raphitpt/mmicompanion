@@ -920,6 +920,8 @@ header{
     background: rgba(0, 0, 0, 0.5);
     align-items: center;
     justify-content: center;
+
+    z-index: 101;
   }
   
   .content_popup_notification {
@@ -963,7 +965,7 @@ header{
 
 
 
-  
+
 
 .main_all {
     width: 90vw;
