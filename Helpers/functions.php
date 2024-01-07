@@ -52,7 +52,7 @@ https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
 " rel="stylesheet">
   $additionalStyles
 
-  <script defer src="./../assets/js/jquery-3.7.1.min.js"></script>
+  <script src="./../assets/js/jquery-3.7.1.min.js"></script>
   <script defer type="module" src="./../assets/js/firebase.js"></script>
   <script async src="https://unpkg.com/pwacompat@2.0.17/pwacompat.min.js" crossorigin="anonymous"></script>
 
