@@ -271,10 +271,10 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
             // Sélectionner l'élément #recapitulatif-absences
             const recapAbsencesContainer = document.querySelector('#recapitulatif-absences');
 
-            // Création de #details-absences comme frère de #recapitulatif-absences
-            const detailsAbsencesContainer = document.createElement('div');
-            detailsAbsencesContainer.classList.add('details-absences');
-            detailsAbsencesContainer.id = 'details-absences';
+            // // Création de #details-absences comme frère de #recapitulatif-absences
+            // const detailsAbsencesContainer = document.createElement('div');
+            // detailsAbsencesContainer.classList.add('details-absences');
+            // detailsAbsencesContainer.id = 'details-absences';
 
             // Ajout de #details-absences comme frère de #recapitulatif-absences
             recapAbsencesContainer.insertAdjacentHTML('afterend', detailsAbsencesContainer.outerHTML);
@@ -296,12 +296,12 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
             const iconElement = document.createElement('i');
             iconElement.classList.add('fi', 'fi-br-search');
 
-            const titleTextElement = document.createElement('p');
-            titleTextElement.textContent = 'Détail de tes absences :';
+            // const titleTextElement = document.createElement('p');
+            // titleTextElement.textContent = 'Détail de tes absences :';
 
             titleElement.appendChild(iconElement);
             titleElement.appendChild(titleTextElement);
-            detailsAbsencesContainer.appendChild(titleElement);
+            // detailsAbsencesContainer.appendChild(titleElement);
 
             // Créer et ajouter le contenu
             const contentElement = document.createElement('div');
@@ -319,17 +319,17 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                 contentElement.appendChild(listElement);
 
                 // Ajouter les détails d'absences à la liste
-                for (const semaine in detailled) {
-                    if (detailled.hasOwnProperty(semaine)) {
-                        const semaineDetail = document.createElement('li');
-                        semaineDetail.textContent = `Semaine ${semaine}: Justifiées: ${detailled[semaine].j}, Total: ${detailled[semaine].t}`;
-                        listElement.appendChild(semaineDetail);
-                    }
-                }
+                // for (const semaine in detailled) {
+                //     if (detailled.hasOwnProperty(semaine)) {
+                //         const semaineDetail = document.createElement('li');
+                //         semaineDetail.textContent = `Semaine ${semaine}: Justifiées: ${detailled[semaine].j}, Total: ${detailled[semaine].t}`;
+                //         listElement.appendChild(semaineDetail);
+                //     }
+                // }
             }
 
-            // Ajouter le contenu à #details-absences
-            detailsAbsencesContainer.appendChild(contentElement);
+            // // Ajouter le contenu à #details-absences
+            // detailsAbsencesContainer.appendChild(contentElement);
         }
 
         function loadAbsencesNotes() {
