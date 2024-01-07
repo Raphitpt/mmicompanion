@@ -56,7 +56,14 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
         <div class="menu_content-menu">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                <?php 
+                    <?php 
+                    if (empty(getMenu())==true) { ?>
+
+                        <div class="swiper-slide item_menu_content-menu">
+                            <p style='font-weight:600'>Le menu est indisponible</p>
+                         </div>
+                    
+                    <?php } else{
                     // Récupération du menu
                     $menuDataByDay = getMenu();
 
@@ -81,7 +88,8 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                         if ($timestampDate >= $timestampCurrentDate) {
                 ?>
                         <div class="swiper-slide item_menu_content-menu">
-                            <?php if ($menu['Foods'] == null) { ?>
+                            <?php 
+                            if ($menu['Foods'] == null) { ?>
                                 <p><?php echo $date ?></p>
                                 <p>Pas de menu aujourd'hui</p>
                             <?php } else { ?>
@@ -96,6 +104,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                 <?php
                         }
                     }
+                }
                 ?>
 
                 </div>
