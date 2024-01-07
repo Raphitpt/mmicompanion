@@ -449,21 +449,21 @@ function decodeJWT($jwt, $secret_key)
  */
 function onConnect($dbh)
 {
-    // if (!isset($_COOKIE['jwt'])) {
-    //     header('Location: ./../pages/login.php');
-    //     exit;
-    // }
+    if (!isset($_COOKIE['jwt'])) {
+        header('Location: ./../pages/login.php');
+        exit;
+    }
 
     $jwt = $_COOKIE['jwt'];
     $secret_key = $_ENV['SECRET_KEY'];
     $user = decodeJWT($jwt, $secret_key);
 
     // SI le cookie n'a pas le clé session_id, on le supprime et on le redirige vers la connection
-    // if (!isset($user['session_id'])) {
-    //     unset($_COOKIE['jwt']);
-    //     header('Location: ./../pages/login.php');
-    //     exit;
-    // }
+    if (!isset($user['session_id'])) {
+        unset($_COOKIE['jwt']);
+        header('Location: ./../pages/login.php');
+        exit;
+    }
     // Extrait le session_id du JWT
     $session_id = $user['session_id'];
 
@@ -477,10 +477,10 @@ function onConnect($dbh)
     $stmt = $dbh->prepare($sql_session_id_verify);
     $stmt->execute(['user_id' => $user['id_user'], 'session_id' => $session_id]);
 
-    // if ($stmt->rowCount() == 0) {
-    //     unset($_COOKIE['jwt']);
-    //     exit;
-    // }
+    if ($stmt->rowCount() == 0) {
+        unset($_COOKIE['jwt']);
+        exit;
+    }
     $cgu_check = "SELECT CGU FROM users WHERE id_user = :id_user";
     $stmt = $dbh->prepare($cgu_check);
     $stmt->execute(['id_user' => $user['id_user']]);
