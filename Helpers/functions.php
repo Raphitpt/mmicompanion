@@ -450,7 +450,7 @@ function decodeJWT($jwt, $secret_key)
 function onConnect($dbh)
 {
     if (!isset($_COOKIE['jwt'])) {
-        header('Location: ./login.php');
+        header('Location: ./../login.php');
         exit;
     }
 
@@ -461,7 +461,7 @@ function onConnect($dbh)
     // SI le cookie n'a pas le clé session_id, on le supprime et on le redirige vers la connection
     if (!isset($user['session_id'])) {
         unset($_COOKIE['jwt']);
-        header('Location: ./login.php');
+        header('Location: ./../login.php');
         exit;
     }
     // Extrait le session_id du JWT
