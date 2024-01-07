@@ -73,7 +73,7 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     $duree = $heures . 'h' . $minutes;
 
     $location = $_GET['location'];
-    $color = convertirRGB($_GET['color']);
+    $color = $_GET['color'];
 
     $page = $_GET['page'];
 
