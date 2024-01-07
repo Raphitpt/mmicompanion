@@ -57,7 +57,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <?php 
-                    if (empty($menuDataByDay)==true) { ?>
+                    if (empty(getMenu())==true) { ?>
 
                         <div class="swiper-slide item_menu_content-menu">
                             <p style='font-weight:600'>Le menu est indisponible</p>

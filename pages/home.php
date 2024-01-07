@@ -382,7 +382,13 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 
             <a href="./menu.php">
                 <div class='content_menu-home'>
-                    <?php echo getMenuToday(); ?>
+                <?php if (empty(getMenuToday())==true) { ?>
+                    <div class="swiper-slide item_menu_content-menu">
+                        <p style='font-weight:600'>Le menu est indisponible</p>
+                    </div>
+                    <?php } else{
+                        echo getMenuToday();
+                    } ?>
                 </div>
             </a>
 
