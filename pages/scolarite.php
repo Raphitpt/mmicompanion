@@ -80,28 +80,16 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                             }
                         } else if (strpos($user_sql['edu_group'], 'BUT2') !== false) {
                             if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
-                                echo "<option value='s1-2022'>1er année - S1</option>";
-                                echo "<option value='s2-2023'>1er année - S2</option>";
                                 echo "<option value='s3-2023'>2e année - S3</option>";
                                 echo "<option value='s4-2024' selected>2e année - S4</option>";
                             } else {
-                                echo "<option value='s1-2022'>1er année - S1</option>";
-                                echo "<option value='s2-2023'>1er année - S2</option>";
                                 echo "<option value='s3-2023' selected>2e année - S3</option>";
                             }
                         } else if (strpos($user_sql['edu_group'], 'BUT3') !== false) {
                             if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
-                                echo '<option value="s1-2021"1er année - S1</option>';
-                                echo '<option value="s2-2022">1er année - S2</option>';
-                                echo '<option value="s3-2022">2e année - S3</option>';
-                                echo '<option value="s4-2023">2e année - S4</option>';
                                 echo '<option value="s5-2023">3e année - S5</option>';
                                 echo '<option value="s6-2024" selected>3e année - S6</option>';
                             } else {
-                                echo '<option value="s1-2021">1er année - S1</option>';
-                                echo '<option value="s2-2022">1er année - S2</option>';
-                                echo '<option value="s3-2022">2e année - S3</option>';
-                                echo '<option value="s4-2023">2e année - S4</option>';
                                 echo '<option value="s5-2023" selected>3e année - S5</option>';
                             }
                         }
