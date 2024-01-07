@@ -939,7 +939,7 @@ use ICal\ICal;
 
 function nextCours($edu_group)
 {
-    $ical = new ICal(calendar($edu_group), array(
+    $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
         'defaultSpan'                 => 2,     // Default value
         'defaultTimeZone'             => 'UTC',
         'defaultWeekStart'            => 'MO',  // Default value

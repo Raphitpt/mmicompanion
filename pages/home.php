@@ -24,7 +24,7 @@ function fetchAgenda($dbh, $user, $eduGroup) {
 
 $user = onConnect($dbh);
 $nextCours = nextCours($user['edu_group']);
-
+dd($nextCours);
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 
 $userSqlFiber = new Fiber(function () use ($dbh, $user) {
