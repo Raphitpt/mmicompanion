@@ -24,7 +24,7 @@ function fetchAgenda($dbh, $user, $eduGroup) {
 
 $user = onConnect($dbh);
 $nextCours = nextCours($user['edu_group']);
-dd($nextCours);
+// dd($nextCours);
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 
 $userSqlFiber = new Fiber(function () use ($dbh, $user) {
@@ -145,11 +145,11 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             <a href="./calendar_view.php?title=<?php echo $nextCours['summary'] ?>&location=<?php echo $nextCours['location'] ?>&description=<?php echo $nextCours['description'] ?>&color=#fff&start=<?php echo $nextCours['debut'] ?>&end=<?php echo $nextCours['fin'] ?>&page=home.php">
                 <div class="content_prochain_cours-home">
                     <div class="description_prochain_cours-home">
-                        <p><?php //echo $nextCours['summary'] ?></p>
-                        <p><?php //echo $nextCours['location'] ?> - <?php //echo $nextCours['description'] ?></p>
+                        <p><?php echo $nextCours['summary'] ?></p>
+                        <p><?php echo $nextCours['location'] ?> - <?php echo $nextCours['description'] ?></p>
                     </div>
                     <div class="date_content_prochain_cours-home">
-                        <p>De <?php //echo $nextCours['debut'] ?> à <?php //echo $nextCours['fin'] ?></p>
+                        <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
                         <p id="tempsBefore">Chargement...</p>
                     </div>
                 </div>
@@ -436,44 +436,44 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 
         // // Faire apparaitre le temps restant avant le prochain cours
 
-        // const tmstpCours = '<?php //echo $nextCours['dtstart']; ?>';
-        // const tempsBefore = document.getElementById('tempsBefore');
+        const tmstpCours = '<?php echo $nextCours['dtstart']; ?>';
+        const tempsBefore = document.getElementById('tempsBefore');
 
-        // function tempsRestant(x) {
-        //     // Ajouter "Z" à la fin de la date pour indiquer que c'est en temps universel coordonné (UTC)
-        //     y = x.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6');
-        //     let now = new Date();
+        function tempsRestant(x) {
+            // Ajouter "Z" à la fin de la date pour indiquer que c'est en temps universel coordonné (UTC)
+            y = x.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6');
+            let now = new Date();
             
-        //     // Convertir la date du cours en objet Date et spécifier le fuseau horaire (par exemple, "Europe/Paris")
-        //     let dateCours = new Date(y);
+            // Convertir la date du cours en objet Date et spécifier le fuseau horaire (par exemple, "Europe/Paris")
+            let dateCours = new Date(y);
             
-        //     // Calculer la différence entre les deux dates
-        //     let diff = dateCours - now;
-        //     let diffSec = diff / 1000;
-        //     let diffMin = diffSec / 60;
-        //     let diffHeure = diffMin / 60;
-        //     let diffJour = diffHeure / 24;
+            // Calculer la différence entre les deux dates
+            let diff = dateCours - now;
+            let diffSec = diff / 1000;
+            let diffMin = diffSec / 60;
+            let diffHeure = diffMin / 60;
+            let diffJour = diffHeure / 24;
 
-        //     tempsBefore.innerHTML = "Dans ";
+            tempsBefore.innerHTML = "Dans ";
 
-        //     if (diffHeure >= 1) {
-        //         tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure % 24) + ' h </span>';
-        //     }
+            if (diffHeure >= 1) {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure % 24) + ' h </span>';
+            }
 
-        //     if (diffMin <= 1) {
-        //         tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minute </span>';
-        //     } else if (diffMin > 1) {
-        //         tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minutes </span>';
-        //     }
+            if (diffMin <= 1) {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minute </span>';
+            } else if (diffMin > 1) {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minutes </span>';
+            }
 
-        //     if (diff <= 0) {
-        //         tempsBefore.innerHTML = "Maintenant";
-        //     }
-        // }
+            if (diff <= 0) {
+                tempsBefore.innerHTML = "Maintenant";
+            }
+        }
 
-        // setInterval(function () {
-        //     tempsRestant(tmstpCours);
-        // }, 1000);
+        setInterval(function () {
+            tempsRestant(tmstpCours);
+        }, 1000);
 
 
         <?php 
