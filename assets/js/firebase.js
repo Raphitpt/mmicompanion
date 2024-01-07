@@ -37,20 +37,29 @@ const messaging = getMessaging(app);
 //   button.textContent = "Activer les notifications";
 //   permission.appendChild(button);
 //   button.addEventListener("click", askPermission);
-function main(){
-  const permission = document.querySelector("#push-permission");
-  if (
-    !permission ||
-    !("Notification" in window) ||
-    !("serviceWorker" in navigator) || Notification.permission !== "default"
 
+function notif() {
+  const permissionContainer = document.querySelector("#push-permission");
+  const enableNotificationsButton = document.querySelector("#enable-notifications");
+
+  if (
+    !permissionContainer ||
+    !("Notification" in window) ||
+    !("serviceWorker" in navigator) ||
+    Notification.permission !== "default"
   ) {
     return;
   }
-  const button = document.createElement("button");
-  button.textContent = "Activer les notifications";
-  permission.appendChild(button);
-  button.addEventListener("click", requestPermission);
+
+  enableNotificationsButton.addEventListener("click", () => {
+    requestPermission();
+    permissionContainer.style.display = "none";
+  });
+
+  // Afficher la popup après un délai de 2 secondes (modifiable selon vos besoins)
+  setTimeout(() => {
+    permissionContainer.style.display = "flex";
+  }, 2000);
 }
 
 async function requestPermission() {
@@ -77,4 +86,4 @@ async function requestPermission() {
   });
 }
 
-main();
+notif();

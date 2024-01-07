@@ -53,7 +53,7 @@ https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
   $additionalStyles
 
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
-  <script defer type="module" src="./../assets/js/firebase.js"></script>
+  <script type="module" src="./../assets/js/firebase.js"></script>
   <script async src="https://unpkg.com/pwacompat@2.0.17/pwacompat.min.js" crossorigin="anonymous"></script>
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">

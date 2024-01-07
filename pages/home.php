@@ -4,21 +4,24 @@ session_start();
 require '../bootstrap.php';
 
 
-function fetchUser($dbh, $userId) {
+function fetchUser($dbh, $userId)
+{
     $ppOriginalQuery = "SELECT pp_link, score FROM users WHERE id_user = :id_user";
     $ppOriginalStatement = $dbh->prepare($ppOriginalQuery);
     $ppOriginalStatement->execute(['id_user' => $userId]);
     return $ppOriginalStatement->fetch(PDO::FETCH_ASSOC);
 }
 
-function fetchColors($dbh) {
+function fetchColors($dbh)
+{
     $sqlColor = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
     $stmtColor = $dbh->prepare($sqlColor);
     $stmtColor->execute();
     return $stmtColor->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function fetchAgenda($dbh, $user, $eduGroup) {
+function fetchAgenda($dbh, $user, $eduGroup)
+{
     return getAgenda($dbh, $user, $eduGroup);
 }
 
@@ -56,7 +59,7 @@ $userCahier = getUserCahier($dbh, $user_sql['edu_group']);
 // dd($userCahier);
 if ($userCahier != 'null') {
     $nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
-}else{
+} else {
     $nomUserCahier = 'Personne';
 }
 
@@ -107,6 +110,12 @@ echo head('MMI Companion | Accueil', $additionalStyles);
     <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user_sql['id_user'], $user_sql['edu_group'])); ?>
 
     <main class="main_all">
+        <div id="push-permission" class="popup-container">
+            <div class="popup">
+                <p>Activez les notifications</p>
+                <button id="enable-notifications">Activer les notifications</button>
+            </div>
+        </div>
         <div style="height:30px"></div>
         <div class="title-home">
             <div class="illustration_title-home">
@@ -114,15 +123,15 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             </div>
             <div class="content_title-home">
                 <?php if (!str_contains($user_sql['role'], 'prof')) { ?>
-                <div class="identite_content_title-home">
-                    <h1>Bonjour <span style="font-weight:800"><?php echo ucfirst($user['pname']) ?></span></h1>
-                    <img src="./../assets/img/hello_emoji.webp" alt="">
-                </div>
-                <?php } else{?>
-                <div class="identite_content_title-home">
-                    <h1>Bonjour <span style="font-weight:800"><?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?></span></h1>
-                    <img src="./../assets/img/hello_emoji.webp" alt="">
-                </div>
+                    <div class="identite_content_title-home">
+                        <h1>Bonjour <span style="font-weight:800"><?php echo ucfirst($user['pname']) ?></span></h1>
+                        <img src="./../assets/img/hello_emoji.webp" alt="">
+                    </div>
+                <?php } else { ?>
+                    <div class="identite_content_title-home">
+                        <h1>Bonjour <span style="font-weight:800"><?php echo substr($user['pname'], 0, 1) . '. ' . $user['name']; ?></span></h1>
+                        <img src="./../assets/img/hello_emoji.webp" alt="">
+                    </div>
                 <?php } ?>
                 <div class="date_content_title-home">
                     <h2>Chargement...</h2>
@@ -131,7 +140,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             </div>
         </div>
 
-        <div style="height:20px"></div> 
+        <div style="height:20px"></div>
 
         <section class="section-home">
             <div class="title_trait-home">
@@ -156,7 +165,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             </a>
         </section>
 
-        <div style="height:20px"></div> 
+        <div style="height:20px"></div>
 
         <div class="container_buttons_nav-home">
             <a role="button" class="item_button_nav-home" href="./calendar_dayview.php">
@@ -164,15 +173,15 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 <p>Emploi du temps</p>
             </a>
             <?php if (!str_contains($user_sql['role'], 'prof')) { ?>
-            <a role="button" class="item_button_nav-home" href="./agenda.php">
-                <i class="fi fi-br-book-bookmark"></i>
-                <p>Agenda</p>
-            </a>
-            <?php } else{ ?>
-            <a role="button" class="item_button_nav-home" href="./agenda_prof.php">
-                <i class="fi fi-br-book-bookmark"></i>
-                <p>Agenda</p>
-            </a>
+                <a role="button" class="item_button_nav-home" href="./agenda.php">
+                    <i class="fi fi-br-book-bookmark"></i>
+                    <p>Agenda</p>
+                </a>
+            <?php } else { ?>
+                <a role="button" class="item_button_nav-home" href="./agenda_prof.php">
+                    <i class="fi fi-br-book-bookmark"></i>
+                    <p>Agenda</p>
+                </a>
             <?php } ?>
             <a role="button" class="item_button_nav-home" href="./informations.php">
                 <i class="fi fi-br-info"></i>
@@ -183,7 +192,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                     <i class="fi fi-br-book-alt"></i>
                     <p>Scolarité</p>
                 </a>
-            <?php } else{ ?>
+            <?php } else { ?>
                 <a role="button" class="item_button_nav-home" href="./liens_externes.php">
                     <i class="fi fi-br-link-alt"></i>
                     <p>Liens externes</p>
@@ -194,180 +203,179 @@ echo head('MMI Companion | Accueil', $additionalStyles);
         <div style="height:30px"></div>
 
         <?php if (!str_contains($user_sql['role'], 'prof')) { ?>
-        <section class="section-home">
-            <div class="title_trait-home">
-                <div class="title_content_trait-home">
-                    <i class="fi fi-br-book-bookmark"></i>
-                    <h1 id="agendaTitle">Cette semaine</h1>
+            <section class="section-home">
+                <div class="title_trait-home">
+                    <div class="title_content_trait-home">
+                        <i class="fi fi-br-book-bookmark"></i>
+                        <h1 id="agendaTitle">Cette semaine</h1>
+                    </div>
+                    <div></div>
                 </div>
-                <div></div>
-            </div>
 
-            <div class="content_agenda-home">
+                <div class="content_agenda-home">
 
-                <?php if (explode("-", $user_sql['edu_group'])[0] != "BUT3") { ?>
+                    <?php if (explode("-", $user_sql['edu_group'])[0] != "BUT3") { ?>
                         <div class="proprietaire_cahier_agenda-home">
                             <p><span style="font-weight:700">Propriétaire du cahier : </span><?php echo $nomUserCahier ?></p>
                         </div>
-               <?php  } ?>
+                    <?php  } ?>
 
-                <div class="container_numbers_agenda-home">
-                    <a href="./agenda.php">
-                        <div class="item_number_agenda-home">
-                            <i class="fi fi-sr-square-exclamation"></i>
-                            <p>...</p>
-                        </div>
-                    </a>
-                    <a href="./agenda.php">
-                        <div class="item_number_agenda-home">
-                            <i class="fi fi-sr-checkbox"></i>
-                            <p>...</p>
-                        </div>
-                    </a>
-                </div>
+                    <div class="container_numbers_agenda-home">
+                        <a href="./agenda.php">
+                            <div class="item_number_agenda-home">
+                                <i class="fi fi-sr-square-exclamation"></i>
+                                <p>...</p>
+                            </div>
+                        </a>
+                        <a href="./agenda.php">
+                            <div class="item_number_agenda-home">
+                                <i class="fi fi-sr-checkbox"></i>
+                                <p>...</p>
+                            </div>
+                        </a>
+                    </div>
 
-                <div class="agenda_tomorrow-home">
-                    <p>Demain</p>
-                    <div class="container_list-agenda">
-                        <?php if (empty($tasksForTomorrow)) {
-                            echo "<div class='item_list-agenda'>";
+                    <div class="agenda_tomorrow-home">
+                        <p>Demain</p>
+                        <div class="container_list-agenda">
+                            <?php if (empty($tasksForTomorrow)) {
+                                echo "<div class='item_list-agenda'>";
                                 echo "<p>Pas de tâche à faire pour demain</p>";
-                            echo "</div>";
-                        } ?>
-                        <?php foreach ($tasksForTomorrow as $agenda) {
-                            echo "<div class='item_list-agenda'>";
+                                echo "</div>";
+                            } ?>
+                            <?php foreach ($tasksForTomorrow as $agenda) {
+                                echo "<div class='item_list-agenda'>";
                                 echo "<div class='item_list_flexleft-agenda'>";
 
-                                    if ($agenda['type'] == "eval") {
-                                        echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                if ($agenda['type'] == "eval") {
+                                    echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                }
+                                // Affichage de la coche ou de l'indication rouge si c'est une évaluation
+                                if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                                    if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
+                                        echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                                    } else {
+                                        echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
                                     }
-                                    // Affichage de la coche ou de l'indication rouge si c'est une évaluation
-                                    if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                                        if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
-                                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                                }
+
+                                echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
+                                // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                                foreach ($colors as $color) {
+
+                                    if ($color['id_subject'] == $agenda['id_subject']) {
+                                        echo "<div class='subject_item_list_flexleft-agenda'>";
+                                        echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
+                                        if ($agenda['type'] == "eval") {
+                                            echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
                                         } else {
-                                            echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
+                                            echo "<p>" . $agenda['name_subject'] . "</p>";
                                         }
+                                        echo "</div>";
+                                        break;
                                     }
-
-                                    echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
-                                    // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
-                                    foreach ($colors as $color) {
-
-                                        if ($color['id_subject'] == $agenda['id_subject']) {
-                                            echo "<div class='subject_item_list_flexleft-agenda'>";
-                                                echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
-                                                if ($agenda['type'] == "eval") {
-                                                    echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
-                                                } else {
-                                                    echo "<p>" . $agenda['name_subject']. "</p>";
-                                                }
-                                            echo "</div>";
-                                            break;
-                                        }
-                                        
-                                    };
-                                    // Affichage du titre de l'event de l'agenda
-                                    echo "<div class='title_item_list_flexleft-agenda'>";
-                                        echo "<p>" . $agenda['title'] . "</p>";
-                                    echo "</div>";
-
-                                    // Affichage du contenu de l'event de l'agenda
-                                    echo "<div class='description_item_list_flexleft-agenda'>";
-                                    if (isset($agenda['content']) && !empty($agenda['content'])) {
-                                        echo $agenda['content'];
-                                    }
-                                    echo "</div>";
-
-                                    // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
-                                    echo "<div class='author_item_list_flexleft-agenda'>";
-                                    if (isset($agenda['role']) && $agenda['role'] == "prof") {
-                                        echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
-                                    }
-                                    echo "</div>";
-
-                                    echo "</label>";
+                                };
+                                // Affichage du titre de l'event de l'agenda
+                                echo "<div class='title_item_list_flexleft-agenda'>";
+                                echo "<p>" . $agenda['title'] . "</p>";
                                 echo "</div>";
-                            echo "</div>"; 
+
+                                // Affichage du contenu de l'event de l'agenda
+                                echo "<div class='description_item_list_flexleft-agenda'>";
+                                if (isset($agenda['content']) && !empty($agenda['content'])) {
+                                    echo $agenda['content'];
+                                }
+                                echo "</div>";
+
+                                // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
+                                echo "<div class='author_item_list_flexleft-agenda'>";
+                                if (isset($agenda['role']) && $agenda['role'] == "prof") {
+                                    echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                                }
+                                echo "</div>";
+
+                                echo "</label>";
+                                echo "</div>";
+                                echo "</div>";
                             } ?>
-                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            
-        </section>
-
-        <div style="height:30px"></div>
-
-        <?php } else{ ?>
-        
-        <section class="section-home">
-
-            <div class="container_slider_pages-home">
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper home">
-                        <a role="button" href="./agenda_prof.php" class="swiper-slide">
-                            <div class="item_slider_page-home">
-                                <div class="item_illustration_slider_page-home">
-                                    <img src="./../assets/img/illustration_agenda.svg" alt="">
-                                </div>
-                                <div class="item_content_slider_page-home">
-                                    <div class="item_title_content_slider_page-home">
-                                        <div>
-                                            <i class="fi fi-br-book-bookmark"></i>
-                                            <p>Agenda</p>
-                                        </div>
-                                        <p>Une nouvelle évaluation ?</p>
-                                        <p>Vérifiez sa présence dans l'agenda.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a role="button" href="./informations_add.php" class="swiper-slide">
-                            <div class="item_slider_page-home">
-                                <div class="item_illustration_slider_page-home">
-                                    <img src="./../assets/img/illustration_info.svg" alt="">
-                                </div>
-                                <div class="item_content_slider_page-home">
-                                    <div class="item_title_content_slider_page-home">
-                                        <div>
-                                            <i class="fi fi-br-info"></i>
-                                            <p>Informations</p>
-                                        </div>
-                                        <p>Une absence de prévue ?</p>
-                                        <p>Prévenez vite les étudiant.e.s.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                        <a role="button" href="./calendar_dayview.php" class="swiper-slide">
-                            <div class="item_slider_page-home">
-                                <div class="item_illustration_slider_page-home">
-                                    <img src="./../assets/img/illustration_calendar.svg" alt="">
-                                </div>
-                                <div class="item_content_slider_page-home">
-                                    <div class="item_title_content_slider_page-home">
-                                        <div>
-                                            <i class="fi fi-br-calendar-lines"></i>
-                                            <p>Emploi du temps</p>
-                                        </div>
-                                        <p>Quand est votre prochain cours ?</p>
-                                        <p>Consultez votre emploi du temps.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
                 </div>
-                
-                
-            </div>
+                </div>
 
-        </section>
 
-        <div style="height:30px"></div>
+            </section>
+
+            <div style="height:30px"></div>
+
+        <?php } else { ?>
+
+            <section class="section-home">
+
+                <div class="container_slider_pages-home">
+                    <div class="swiper mySwiper">
+                        <div class="swiper-wrapper home">
+                            <a role="button" href="./agenda_prof.php" class="swiper-slide">
+                                <div class="item_slider_page-home">
+                                    <div class="item_illustration_slider_page-home">
+                                        <img src="./../assets/img/illustration_agenda.svg" alt="">
+                                    </div>
+                                    <div class="item_content_slider_page-home">
+                                        <div class="item_title_content_slider_page-home">
+                                            <div>
+                                                <i class="fi fi-br-book-bookmark"></i>
+                                                <p>Agenda</p>
+                                            </div>
+                                            <p>Une nouvelle évaluation ?</p>
+                                            <p>Vérifiez sa présence dans l'agenda.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a role="button" href="./informations_add.php" class="swiper-slide">
+                                <div class="item_slider_page-home">
+                                    <div class="item_illustration_slider_page-home">
+                                        <img src="./../assets/img/illustration_info.svg" alt="">
+                                    </div>
+                                    <div class="item_content_slider_page-home">
+                                        <div class="item_title_content_slider_page-home">
+                                            <div>
+                                                <i class="fi fi-br-info"></i>
+                                                <p>Informations</p>
+                                            </div>
+                                            <p>Une absence de prévue ?</p>
+                                            <p>Prévenez vite les étudiant.e.s.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                            <a role="button" href="./calendar_dayview.php" class="swiper-slide">
+                                <div class="item_slider_page-home">
+                                    <div class="item_illustration_slider_page-home">
+                                        <img src="./../assets/img/illustration_calendar.svg" alt="">
+                                    </div>
+                                    <div class="item_content_slider_page-home">
+                                        <div class="item_title_content_slider_page-home">
+                                            <div>
+                                                <i class="fi fi-br-calendar-lines"></i>
+                                                <p>Emploi du temps</p>
+                                            </div>
+                                            <p>Quand est votre prochain cours ?</p>
+                                            <p>Consultez votre emploi du temps.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </section>
+
+            <div style="height:30px"></div>
 
         <?php } ?>
 
@@ -393,21 +401,20 @@ echo head('MMI Companion | Accueil', $additionalStyles);
     </main>
 
     <script src="../assets/js/script_all.js?v=1.1"></script>
-
-    <?php 
+            
+    <?php
     if (str_contains($user_sql['role'], 'prof')) { ?>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <?php } ?>
-    
-    <script>
 
+    <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_home-header');
         select_background_profil.classList.add('select_link-header');
 
         // -----------------------------
 
-        <?php 
+        <?php
         if (str_contains($user_sql['role'], 'prof')) { ?>
             let swiper = new Swiper(".mySwiper", {
                 autoHeight: true,
@@ -427,7 +434,11 @@ echo head('MMI Companion | Accueil', $additionalStyles);
         let dateDuJour = new Date();
 
         // Options pour formatter la date en français (changez cela selon vos besoins)
-        let options = { weekday: 'long', month: 'long', day: 'numeric' };
+        let options = {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric'
+        };
 
         // Mettre à jour le contenu de l'élément <h2> avec la date du jour
         document.querySelector('.date_content_title-home h2').innerHTML = "Nous sommes le <span style='font-weight:700'>" + dateDuJour.toLocaleDateString('fr-FR', options) + "</span>";
@@ -443,10 +454,10 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             // Ajouter "Z" à la fin de la date pour indiquer que c'est en temps universel coordonné (UTC)
             y = x.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})/, '$1-$2-$3T$4:$5:$6');
             let now = new Date();
-            
+
             // Convertir la date du cours en objet Date et spécifier le fuseau horaire (par exemple, "Europe/Paris")
             let dateCours = new Date(y);
-            
+
             // Calculer la différence entre les deux dates
             let diff = dateCours - now;
             let diffSec = diff / 1000;
@@ -467,15 +478,15 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             }
         }
 
-        setInterval(function () {
+        setInterval(function() {
             tempsRestant(tmstpCours);
         }, 1000);
 
 
 
-        <?php 
+        <?php
         if (!str_contains($user_sql['role'], 'prof')) { ?>
-        
+
 
             // -----------------------------
 
@@ -537,7 +548,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                             document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
                         } else if (nbDevoir == 1) {
                             document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
-                        } else{
+                        } else {
                             document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
                         }
 
@@ -545,14 +556,14 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                             document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
                         } else if (nbEval == 1) {
                             document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
-                        } else{
+                        } else {
                             document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
                         }
                     }
                 };
                 xhr.send("load=" + encodeURIComponent(true));
             });
-            
+
 
             document.addEventListener("DOMContentLoaded", function() {
                 checkboxes.forEach(function(checkbox) {
@@ -575,7 +586,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
                                 } else if (nbDevoir == 1) {
                                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâche à faire";
-                                } else{
+                                } else {
                                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = nbDevoir + " tâches à faire";
                                 }
 
@@ -583,7 +594,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                                     document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = "Pas d'évaluation";
                                 } else if (nbEval == 1) {
                                     document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluation";
-                                } else{
+                                } else {
                                     document.querySelector('.container_numbers_agenda-home a:first-child .item_number_agenda-home p').innerText = nbEval + " évaluations";
                                 }
                             }
@@ -619,17 +630,16 @@ echo head('MMI Companion | Accueil', $additionalStyles);
         //     // Récupérez le texte à l'intérieur de l'élément <h2> pour obtenir la date du menu
         //     var dateString = mealDiv.querySelector('h2').innerText;
 
-            
-            
+
+
         //     // Comparez directement la date du texte avec la date actuelle (ignorant l'heure)
         //     if (dateString.includes(today.toLocaleDateString('fr-FR'))) {
         //         // La date du menu correspond à la date actuelle, faites quelque chose avec cet élément
         //         mealDiv.classList.add('active'); // Ajoutez une classe 'active', par exemple
         //     }
         // });
-
-        
     </script>
 
 </body>
+
 </html>
