@@ -16,17 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_user']) && isset($_G
     ]);
 
     if (str_contains($user_sql['role'], 'prof')) {
-        header('Location: ./agenda_prof.php');
+        header('Location: ../agenda_prof.php');
     }else{
-        header('Location: ./agenda.php');
+        header('Location: ../agenda.php');
     }
     exit();
 }
 else{
     if (str_contains($user_sql['role'], 'prof')) {
-        header('Location: ./agenda_prof.php');
+        header('Location: ../agenda_prof.php');
     }else{
-        header('Location: ./agenda.php');
+        header('Location: ../agenda.php');
     }
     exit();
 }
