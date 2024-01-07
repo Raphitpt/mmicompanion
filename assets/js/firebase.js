@@ -19,13 +19,41 @@ const analytics = getAnalytics(app);
 const messaging = getMessaging(app);
 
 
-const myButton = document.querySelector("#push-permission-button");
-if (myButton){
-  myButton.addEventListener("click", requestPermission);
+// const myButton = document.querySelector("#push-permission-button");
+// if (myButton){
+//   myButton.addEventListener("click", requestPermission);
 
+// }
+// const permission = document.querySelector("#push-permission");
+//   if (
+//     !permission ||
+//     !("Notification" in window) ||
+//     !("serviceWorker" in navigator) || Notification.permission !== "default"
+
+//   ) {
+//     return;
+//   }
+//   const button = document.createElement("button");
+//   button.textContent = "Activer les notifications";
+//   permission.appendChild(button);
+//   button.addEventListener("click", askPermission);
+function main(){
+  const permission = document.querySelector("#push-permission");
+  if (
+    !permission ||
+    !("Notification" in window) ||
+    !("serviceWorker" in navigator) || Notification.permission !== "default"
+
+  ) {
+    return;
+  }
+  const button = document.createElement("button");
+  button.textContent = "Activer les notifications";
+  permission.appendChild(button);
+  button.addEventListener("click", requestPermission);
 }
 
-function requestPermission() {
+async function requestPermission() {
   Notification.requestPermission().then((permission) => {
     if (permission === 'granted') {
       // Retrieve the FCM registration token
@@ -49,5 +77,4 @@ function requestPermission() {
   });
 }
 
-// Call the requestPermission function when needed
-requestPermission();
+main();
