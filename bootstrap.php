@@ -18,6 +18,7 @@
 // On détecte le local car l'IP de la machine est 127.0.0.1
 require __DIR__.'/vendor/autoload.php';
 
+
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 

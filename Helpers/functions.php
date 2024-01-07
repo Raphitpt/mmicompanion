@@ -5,6 +5,12 @@
     Fichier : /Helpers/functions.php
  */
 require __DIR__ . '/../vendor/autoload.php';
+$path_maintenance = './../maintenance.txt'; // chemin vers le fichier maintenance.txt
+
+if(file_exists($path_maintenance) && file_get_contents($path_maintenance) != $_SERVER['REMOTE_ADDR']){
+    header('Location: ./../pages/maintenance.html');
+    exit();
+}
 
 use Carbon\Carbon;
 
