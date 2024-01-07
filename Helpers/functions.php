@@ -168,7 +168,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
 
         if ($notif['subject'] == 'Emploi du temps') {
             $icon = 'fi fi-br-calendar-lines';
-            $link = './calendar.php';
+            $link = './calendar_dayview.php';
         } else if ($notif['subject'] == 'Agenda') {
             $icon = 'fi fi-br-book-bookmark';
             $link = './agenda.php';
@@ -224,7 +224,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
                 </div>
             </a>
             <div class="burger_content_trait_header"></div>
-            <a href="./calendar.php">
+            <a href="./calendar_dayview.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-calendar-lines"></i>
                     <p>Emploi du temps</p>

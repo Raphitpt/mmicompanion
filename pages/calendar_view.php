@@ -189,6 +189,6 @@ echo head("MMI Companion | Emploi du temps");
 </html>
 <?php
 } else {
-    header('Location: ./calendar.php');
+    header('Location: ./calendar_dayview.php');
 }
 ?>

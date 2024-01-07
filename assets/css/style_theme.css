@@ -87,7 +87,7 @@ html{
 }
 
 
-/* CALENDAR.PHP */
+/* calendar_dayview.php */
 
 [data-theme="dark"] .fc-footer-toolbar .fc-toolbar-chunk:nth-child(2) button {
     color: var(--bleu-trs-clair-background) !important;

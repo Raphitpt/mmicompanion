@@ -55,7 +55,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_st
     ]);
     if($stmt->rowCount() > 0){
         $_SESSION['date'] = $dateStart;
-        header('Location: ./calendar.php');
+        header('Location: ./calendar_dayview.php');
         exit();
     }
 
@@ -128,7 +128,7 @@ echo head("MMI Companion | Emploi du temps");
 
             <div style="height:25px"></div>
             <div class="form_button-agenda">
-                <a role="button" href='./calendar.php'>Annuler</a>
+                <a role="button" href='./calendar_dayview.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
             </div>
             <div style="height:20px"></div>

@@ -159,7 +159,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
         <div style="height:20px"></div> 
 
         <div class="container_buttons_nav-home">
-            <a role="button" class="item_button_nav-home" href="./calendar.php">
+            <a role="button" class="item_button_nav-home" href="./calendar_dayview.php">
                 <i class="fi fi-br-calendar-lines"></i>
                 <p>Emploi du temps</p>
             </a>
@@ -342,7 +342,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                                 </div>
                             </div>
                         </a>
-                        <a role="button" href="./calendar.php" class="swiper-slide">
+                        <a role="button" href="./calendar_dayview.php" class="swiper-slide">
                             <div class="item_slider_page-home">
                                 <div class="item_illustration_slider_page-home">
                                     <img src="./../assets/img/illustration_calendar.svg" alt="">

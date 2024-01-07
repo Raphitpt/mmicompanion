@@ -33,7 +33,7 @@ $stmt_event->execute([
 ]);
 $event = $stmt_event->fetch(PDO::FETCH_ASSOC);
 if (!$event) {
-    header('Location: ./calendar.php');
+    header('Location: ./calendar_dayview.php');
     exit();
 }
 
@@ -57,7 +57,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_st
         'description' => $description,
         'color' => $color
     ]);
-    header('Location: ./calendar.php');
+    header('Location: ./calendar_dayview.php');
     exit();
 }
 // Fin de la vérification du formulaire
@@ -129,7 +129,7 @@ echo head("MMI Companion | Emploi du temps");
 
             <div style="height:25px"></div>
             <div class="form_button-agenda">
-                <a role="button" href='./calendar.php'>Annuler</a>
+                <a role="button" href='./calendar_dayview.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
             </div>
             <div style="height:20px"></div>

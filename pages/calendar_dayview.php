@@ -1,4 +1,4 @@
-<!-- Fichier calendar.php qui gère tout, ne pas cassez SVP 😂 -->
+<!-- Fichier calendar_dayview.php qui gère tout, ne pas cassez SVP 😂 -->
 <?php
 session_start();
 require '../bootstrap.php';
@@ -31,7 +31,7 @@ if (isset($_POST['annee']) && isset($_POST['tp'])) {
     'edu_group' => $annee . "-" . $tp,
     'id_user' => $user['id_user']
   ]);
-  header('Location: ./calendar.php');
+  header('Location: ./calendar_dayview.php');
   exit();
 }
 
@@ -320,7 +320,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             const color = info.el.style.backgroundColor;
             const start = info.event.start;
             const end = info.event.end;
-            window.location.href = './calendar_view.php?title=' + title + '&location=' + location + '&description=' + description + '&color=' + color + '&start=' + start + '&end=' + end + '&page=calendar.php';
+            window.location.href = './calendar_view.php?title=' + title + '&location=' + location + '&description=' + description + '&color=' + color + '&start=' + start + '&end=' + end + '&page=calendar_dayview.php';
           }
         },
         allDaySlot: false,
