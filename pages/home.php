@@ -452,21 +452,17 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             let diffSec = diff / 1000;
             let diffMin = diffSec / 60;
             let diffHeure = diffMin / 60;
-            let diffJour = diffHeure / 24;
 
             tempsBefore.innerHTML = "Dans ";
 
-            if (diffHeure >= 1) {
-                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure % 24) + ' h </span>';
-            }
-
-            if (diffMin <= 1) {
-                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minute </span>';
-            } else if (diffMin > 1) {
-                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin % 60) + ' minutes </span>';
-            }
-
-            if (diff <= 0) {
+            if (diffHeure >= 48) {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure / 24) + ' jours</span>';
+            } else if (diffHeure >= 1) {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure) + 'h ' + Math.floor(diffMin % 60) + 'min</span>';
+                if (diffHeure < 1) {
+                    tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin) + ' minutes</span>';
+                }
+            } else if (dateCours <= now) {
                 tempsBefore.innerHTML = "Maintenant";
             }
         }
@@ -474,6 +470,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
         setInterval(function () {
             tempsRestant(tmstpCours);
         }, 1000);
+
 
 
         <?php 
@@ -521,38 +518,6 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 
 
             // -----------------------------
-
-            // let checkboxes = document.querySelectorAll(".checkbox");
-
-            // checkboxes.forEach(function(checkbox) {
-            //     // Ici on fait une requête au fichier coche_agenda.php pour mettre à jour la base de données lors d'une coche ou décoche
-            //     checkbox.addEventListener("change", function() {
-
-            //         let idAgenda = this.getAttribute("data-idAgenda");
-            //         let checkedValue = this.checked ? 1 : 0;
-
-            //         let xhr = new XMLHttpRequest();
-            //         xhr.open("POST", "./coche_agenda.php", true);
-            //         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            //         xhr.onreadystatechange = function() {
-            //             if (xhr.readyState === 4 && xhr.status === 200) {
-            //                 let data = JSON.parse(xhr.responseText); // Use xhr.responseText
-            //                 let tachesCount = data.taches_count;
-            //                 console.log(data.message);
-            //                 if (tachesCount == 0) {
-            //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = "Pas de tâche";
-            //                 } else if (tachesCount == 1) {
-            //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâche à faire";
-            //                 } else{
-            //                     document.querySelector('.container_numbers_agenda-home a:last-child .item_number_agenda-home p').innerText = tachesCount + " tâches à faire";
-            //                 }
-            //             }
-            //         };
-            //         xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
-            //     });
-            // });
-
-
 
             let checkboxes = document.querySelectorAll(".checkbox");
 
