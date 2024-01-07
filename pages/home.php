@@ -50,12 +50,7 @@ $pp_original = $ppOriginalFiber->getReturn();
 if (srt_contains($user_sql['role'], "eleve" ) || str_contains($user_sql['role']),"admin") ) {
     $agendaMerged = $agendaMergedFiber->start();
     $agendaMerged = $agendaMergedFiber->getReturn();
-}
-
-
-
-
-// -----------------------------
+    // -----------------------------
 
 
 $userCahier = getUserCahier($dbh, $user_sql['edu_group']);
@@ -65,11 +60,17 @@ if ($userCahier != 'null') {
 } else {
     $nomUserCahier = 'Personne';
 }
+}
+
+
+
+
+
 
 
 // -----------------------------
 
-$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
+// $agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
 // dd($agendaMerged);
 
 // --------------------
