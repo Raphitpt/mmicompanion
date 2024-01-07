@@ -110,10 +110,10 @@ echo head('MMI Companion | Accueil', $additionalStyles);
     <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user_sql['id_user'], $user_sql['edu_group'])); ?>
 
     <main class="main_all">
-        <div id="push-permission" class="popup-container">
-            <div class="popup">
+        <div id="push-permission" class="popup_notification">
+            <div class="content_popup_notification">
                 <p>Activez les notifications</p>
-                <button id="enable-notifications">Activer les notifications</button>
+                <button id="enable-notifications">Accepter</button>
             </div>
         </div>
         <div style="height:30px"></div>
