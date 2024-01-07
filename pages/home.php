@@ -134,13 +134,13 @@ echo head('MMI Companion | Accueil', $additionalStyles);
         <div style="height:20px"></div> 
 
         <section class="section-home">
-            <!-- <div class="title_trait-home">
+            <div class="title_trait-home">
                 <div class="title_content_trait-home">
                     <i class="fi fi-br-calendar-lines"></i>
                     <h1>Le prochain cours</h1>
                 </div>
                 <div></div>
-            </div> -->
+            </div>
 
             <a href="./calendar_view.php?title=<?php echo $nextCours['summary'] ?>&location=<?php echo $nextCours['location'] ?>&description=<?php echo $nextCours['description'] ?>&color=#fff&start=<?php echo $nextCours['debut'] ?>&end=<?php echo $nextCours['fin'] ?>&page=home.php">
                 <div class="content_prochain_cours-home">

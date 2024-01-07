@@ -72,36 +72,24 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                     <select id="semestre">
                         <?php
                         if (strpos($user_sql['edu_group'], 'BUT1') !== false) {
-                            if ($year > $year1 || ($year == $year1 && $month > 1)) {
+                            if (date('Y-m-d') >= '2024-01-26') {
                                 echo "<option value='s1-2023' selected>1er année - S1</option>";
                                 echo "<option value='s2-2024' selected>1er année - S2</option>";
                             } else {
                                 echo "<option value='s1-2023' selected>1er année - S1</option>";
                             }
                         } else if (strpos($user_sql['edu_group'], 'BUT2') !== false) {
-                            if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
-                                echo "<option value='s1-2022'>1er année - S1</option>";
-                                echo "<option value='s2-2023'>1er année - S2</option>";
+                            if (date('Y-m-d') >= '2024-01-26') {
                                 echo "<option value='s3-2023'>2e année - S3</option>";
                                 echo "<option value='s4-2024' selected>2e année - S4</option>";
                             } else {
-                                echo "<option value='s1-2022'>1er année - S1</option>";
-                                echo "<option value='s2-2023'>1er année - S2</option>";
                                 echo "<option value='s3-2023' selected>2e année - S3</option>";
                             }
                         } else if (strpos($user_sql['edu_group'], 'BUT3') !== false) {
-                            if ($year > $year1 || ($year == $year + 1 && $month > 1)) {
-                                echo '<option value="s1-2021"1er année - S1</option>';
-                                echo '<option value="s2-2022">1er année - S2</option>';
-                                echo '<option value="s3-2022">2e année - S3</option>';
-                                echo '<option value="s4-2023">2e année - S4</option>';
+                            if (date('Y-m-d') >= '2024-01-26') {
                                 echo '<option value="s5-2023">3e année - S5</option>';
                                 echo '<option value="s6-2024" selected>3e année - S6</option>';
                             } else {
-                                echo '<option value="s1-2021">1er année - S1</option>';
-                                echo '<option value="s2-2022">1er année - S2</option>';
-                                echo '<option value="s3-2022">2e année - S3</option>';
-                                echo '<option value="s4-2023">2e année - S4</option>';
                                 echo '<option value="s5-2023" selected>3e année - S5</option>';
                             }
                         }
@@ -283,10 +271,10 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
             // Sélectionner l'élément #recapitulatif-absences
             const recapAbsencesContainer = document.querySelector('#recapitulatif-absences');
 
-            // Création de #details-absences comme frère de #recapitulatif-absences
-            const detailsAbsencesContainer = document.createElement('div');
-            detailsAbsencesContainer.classList.add('details-absences');
-            detailsAbsencesContainer.id = 'details-absences';
+            // // Création de #details-absences comme frère de #recapitulatif-absences
+            // const detailsAbsencesContainer = document.createElement('div');
+            // detailsAbsencesContainer.classList.add('details-absences');
+            // detailsAbsencesContainer.id = 'details-absences';
 
             // Ajout de #details-absences comme frère de #recapitulatif-absences
             recapAbsencesContainer.insertAdjacentHTML('afterend', detailsAbsencesContainer.outerHTML);
@@ -308,12 +296,12 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
             const iconElement = document.createElement('i');
             iconElement.classList.add('fi', 'fi-br-search');
 
-            const titleTextElement = document.createElement('p');
-            titleTextElement.textContent = 'Détail de tes absences :';
+            // const titleTextElement = document.createElement('p');
+            // titleTextElement.textContent = 'Détail de tes absences :';
 
             titleElement.appendChild(iconElement);
             titleElement.appendChild(titleTextElement);
-            detailsAbsencesContainer.appendChild(titleElement);
+            // detailsAbsencesContainer.appendChild(titleElement);
 
             // Créer et ajouter le contenu
             const contentElement = document.createElement('div');
@@ -331,17 +319,17 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                 contentElement.appendChild(listElement);
 
                 // Ajouter les détails d'absences à la liste
-                for (const semaine in detailled) {
-                    if (detailled.hasOwnProperty(semaine)) {
-                        const semaineDetail = document.createElement('li');
-                        semaineDetail.textContent = `Semaine ${semaine}: Justifiées: ${detailled[semaine].j}, Total: ${detailled[semaine].t}`;
-                        listElement.appendChild(semaineDetail);
-                    }
-                }
+                // for (const semaine in detailled) {
+                //     if (detailled.hasOwnProperty(semaine)) {
+                //         const semaineDetail = document.createElement('li');
+                //         semaineDetail.textContent = `Semaine ${semaine}: Justifiées: ${detailled[semaine].j}, Total: ${detailled[semaine].t}`;
+                //         listElement.appendChild(semaineDetail);
+                //     }
+                // }
             }
 
-            // Ajouter le contenu à #details-absences
-            detailsAbsencesContainer.appendChild(contentElement);
+            // // Ajouter le contenu à #details-absences
+            // detailsAbsencesContainer.appendChild(contentElement);
         }
 
         function loadAbsencesNotes() {
