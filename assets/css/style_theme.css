@@ -207,4 +207,7 @@ html{
     background: var(--bleu-clair-background) !important;
 }
 
+[data-theme="dark"] .container-calendar_view {
+ background: var(--bleu-clair-background) !important;
+}
 
