@@ -155,38 +155,38 @@ function generateBurgerMenuContent($role, $title, $notifs)
                     <i class="fi fi-sr-bell"></i>
                 </div>';
 
-                $menuHtml .= '
+    $menuHtml .= '
                 <div class="container_notifications-header">';
 
-                if (empty($notifs)) {
-                    $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
-                }
+    if (empty($notifs)) {
+        $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
+    }
 
-                foreach ($notifs as $notif) {
-                    $timestamp = strtotime($notif['timestamp']);
-                    $date = date('d/m H:i', $timestamp);
-                
-                    if ($notif['subject'] == 'Emploi du temps') {
-                        $icon = 'fi fi-br-calendar-lines';
-                        $link = './calendar.php';
-                    } else if ($notif['subject'] == 'Agenda') {
-                        $icon = 'fi fi-br-book-bookmark';
-                        $link = './agenda.php';
-                    } else if ($notif['subject'] == 'Informations') {
-                        $icon = 'fi fi-br-info';
-                        $link = './informations.php';
-                    } else if ($notif['subject'] == 'Scolarité') {
-                        $icon = 'fi fi-br-book-alt';
-                        $link = './scolarite.php';
-                    } else {
-                        $icon = 'fi fi-br-bell';
-                        $link = './home.php';
-                    }
-                
-                    $notificationClass = ($notif['read_status'] == 0) ? 'item_notification-header' : 'item_notification-header notification_read';
-                    $badgeNotif = ($notif['read_status'] == 0) ? '<div class="badge_item_notification-header"><div></div></div>' : '';
-                
-                    $menuHtml .= '
+    foreach ($notifs as $notif) {
+        $timestamp = strtotime($notif['timestamp']);
+        $date = date('d/m H:i', $timestamp);
+
+        if ($notif['subject'] == 'Emploi du temps') {
+            $icon = 'fi fi-br-calendar-lines';
+            $link = './calendar.php';
+        } else if ($notif['subject'] == 'Agenda') {
+            $icon = 'fi fi-br-book-bookmark';
+            $link = './agenda.php';
+        } else if ($notif['subject'] == 'Informations') {
+            $icon = 'fi fi-br-info';
+            $link = './informations.php';
+        } else if ($notif['subject'] == 'Scolarité') {
+            $icon = 'fi fi-br-book-alt';
+            $link = './scolarite.php';
+        } else {
+            $icon = 'fi fi-br-bell';
+            $link = './home.php';
+        }
+
+        $notificationClass = ($notif['read_status'] == 0) ? 'item_notification-header' : 'item_notification-header notification_read';
+        $badgeNotif = ($notif['read_status'] == 0) ? '<div class="badge_item_notification-header"><div></div></div>' : '';
+
+        $menuHtml .= '
                     <a href="' . $link . '">
                         <div class="' . $notificationClass . '">
                             ' . $badgeNotif . '
@@ -194,15 +194,15 @@ function generateBurgerMenuContent($role, $title, $notifs)
                                 <div class="title_item_notification-header">
                                     <i class="' . $icon . '"></i>
                                     <p>' . $notif['subject'] . ' - <span>' . $date . '</span></p>
+                                    <p style="display:none;" class="id_notif">' . $notif['id_notif'] . '</p>
                                 </div>
                                 <div class="description_item_notification-header">
-                                    <p>' . $notif['title'] . '</p>
+                                    <p>' . $notif['body'] . '</p>
                                 </div>
                             </div>
                         </div>
                     </a>';
-                }
-                
+    }
     $menuHtml .= '</div>
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
@@ -624,7 +624,7 @@ use Google\Auth\HttpHandler\HttpHandlerFactory;
 use GuzzleHttp\Client;
 
 
-function sendNotification($title, $body, $groups)
+function sendNotification($title, $body, $groups, $subject)
 {
     $projectId = 'mmi-companion';
     $apiKey = $_ENV['FCM_API_KEY'];
@@ -644,6 +644,8 @@ function sendNotification($title, $body, $groups)
 
     $groupsArray = explode(',', $groups);
 
+    $notificationSent = false;
+
     foreach ($groupsArray as $group) {
         $query = "SELECT s.* FROM subscriptions s
                   INNER JOIN users u ON s.id_user = u.id_user
@@ -652,6 +654,7 @@ function sendNotification($title, $body, $groups)
         $stmt->execute(['group' => trim($group)]);
 
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
         // Enhance the notification object with our custom options.
         foreach ($subscriptions as $subscriptionData) {
             $message = [
@@ -660,25 +663,33 @@ function sendNotification($title, $body, $groups)
                     'notification' => [
                         'title' => $title,
                         'body' => $body,
-
                     ],
                 ],
             ];
-            $response = $httpClient->post($uri, [
+
+            $response = $httpClient->request('POST', $uri, [
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
                 'body' => json_encode($message),
             ]);
+            if ($response->getStatusCode() == 200) {
+                $notificationSent = true;
+            }
         }
+            $sql_increment = "UPDATE users SET notif_message = notif_message + 1 WHERE edu_group = :group";
+            $stmt_increment = $dbh->prepare($sql_increment);
+            $stmt_increment->execute(['group' => trim($group)]);
     }
-    if ($response->getStatusCode() == 200) {
-        $sql_notifs = "INSERT INTO notif_history (title, body, groups) VALUES (:title, :body, :groups)";
+
+    if ($notificationSent) {
+        $sql_notifs = "INSERT INTO notif_history (title, body, groups, subject) VALUES (:title, :body, :groups, :subject)";
         $stmt_notifs = $dbh->prepare($sql_notifs);
-        $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups)]);
+        $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups), 'subject' => $subject]);
     }
 }
-function notifsHistory($dbh, $id_user, $edu_group) {
+function notifsHistory($dbh, $id_user, $edu_group)
+{
     $sql = "
         SELECT nh.*, 
                CASE WHEN rn.id_user IS NOT NULL THEN 1 ELSE 0 END AS read_status
@@ -718,10 +729,11 @@ function notifsHistory($dbh, $id_user, $edu_group) {
             'read_status' => 1
         )
     );
-    
+
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
     // return $tableauNotifs;
 }
+
 
 function readNotif($dbh, $id_user, $id_notif) {
     $sql = "INSERT INTO read_notif (id_user, id_notif) VALUES (:id_user, :id_notif)";
@@ -927,7 +939,7 @@ use ICal\ICal;
 
 function nextCours($edu_group)
 {
-    $ical = new ICal('https://calendar.google.com/calendar/ical/rtiphonet%40gmail.com/private-5a957604340233123df1415b08b46c24/basic.ics', array(
+    $ical = new ICal(calendar($edu_group), array(
         'defaultSpan'                 => 2,     // Default value
         'defaultTimeZone'             => 'UTC',
         'defaultWeekStart'            => 'MO',  // Default value

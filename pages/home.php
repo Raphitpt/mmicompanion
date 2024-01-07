@@ -23,7 +23,7 @@ function fetchAgenda($dbh, $user, $eduGroup) {
 }
 
 $user = onConnect($dbh);
-// $nextCours = nextCours($user['edu_group']);
+$nextCours = nextCours($user['edu_group']);
 
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 

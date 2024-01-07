@@ -298,7 +298,7 @@ cloche_notification.addEventListener("click", function () {
   if (idNotifArray.length > 0) {
     setTimeout(function () {
       const xhr = new XMLHttpRequest();
-      xhr.open("POST", "/pages/read_notif.php", true);
+      xhr.open("POST", "./../pages/read_notif.php", true);
       xhr.setRequestHeader("Content-Type", "application/json");
 
       
