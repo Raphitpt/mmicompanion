@@ -17,12 +17,8 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 // --------------------
 
 
-$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt_user = $dbh->prepare($sql_user);
-$stmt_user->execute([
-    ':id_user' => $user['id_user']
-]);
-$user_sql = $stmt_user->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
+
 
 // On vérifie si le formulaire est rempli et si oui on ajoute la tache dans la base de donnée
 // On appelle certaines variable du cookie pour les ajouter dans la base de donnée
@@ -53,7 +49,17 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'edu_group' => $user_sql['edu_group'],
         'content' => $content
     ]);
-    header('Location: ./agenda.php');
+    // si la requete sql est bonne
+    if ($stmt && $type == "eval") {
+        sendNotification('Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $user_sql['edu_group'] , 'Agenda' );
+    }
+
+    if (str_contains($user_sql['role'], 'prof')) {
+        header('Location: ./agenda_prof.php');
+    }else{
+        header('Location: ./agenda.php');
+    }
+    
     exit();
 }
 // Fin de la vérification du formulaire
@@ -90,6 +96,7 @@ $stmt_subject = $dbh->prepare($sql_subject);
 $stmt_subject->execute();
 $subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
+
 // --------------------
 // Fin de la récupération des matières
 
@@ -100,11 +107,11 @@ echo head("MMI Companion | Agenda");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
     <!-- Fin du menu de navigation -->
     
     <!-- Corps de la page -->
-    <main class="main-agenda">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Ajouter une tâche</h1>
@@ -115,7 +122,7 @@ echo head("MMI Companion | Agenda");
             <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
             <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda">
 
-                <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre" required>
+                <input type="text" name="title" class="input_title-agenda_add" placeholder="Ajouter un titre">
                 <div class="trait_agenda_add"></div>
                 <div class="form_content-informations_add">
                     <label for="content" class="label-agenda_add">
@@ -155,7 +162,7 @@ echo head("MMI Companion | Agenda");
                         <i class="fi fi-br-list"></i>
                         <select name="type" class="input_select-agenda_add input-agenda_add" required>
                             <option value="eval">Évaluation</option>
-                            <option value="devoir">Devoir à rendre</option>
+                            <option value="devoir">Tâche à faire</option>
                             <option value="autre">Autre</option>
                         </select>
                     </div>
@@ -189,7 +196,7 @@ echo head("MMI Companion | Agenda");
         <canvas id="fireworks"></canvas>
 
       </main>
-      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/script_all.js?v=1.1"></script> 
         <script src="../assets/js/fireworks.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>

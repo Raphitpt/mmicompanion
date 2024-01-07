@@ -66,7 +66,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             $stmt->execute([
                 'user_id' => $user['id_user'],
                 'session_id' => $session_id,
-                'expires_at' => date('Y-m-d H:i:s',strtotime('+260 days')),
+                'expires_at' => date('Y-m-d H:i:s', strtotime('+260 days')),
                 'ip_address' => $_SERVER['REMOTE_ADDR'],
                 'info_device' => $_SERVER["HTTP_USER_AGENT"]
             ]);
@@ -97,13 +97,10 @@ echo head("MMI Companion | Connexion");
     <main class="main-login">
         <h1 class="title-login">SE CONNECTER</h1>
         <div style="height:30px"></div>
-        <p style="color: red; text-align: center;">Bonjour, suite à l'amélioration de notre système de connexion, vous avez été déconnecté. Nous nous excusons pour cette interruption, mais cela a été fait afin de garantir la sécurité de vos données.</p>
-        <div style="height:30px"></div>
         <form method="POST" class="form-login">
             <input type="text" name="username" placeholder="email" id="username" class="input-login" required>
             <div style="height:20px"></div>
-            <input type="password" name="password" placeholder="mot de passe" id="password" class="input-login"
-                required>
+            <input type="password" name="password" placeholder="mot de passe" id="password" class="input-login" required>
             <div class="button_forget-login">
                 <p><a href="./lost_password.php" class="button_forget-login">Mot de passe oublié ?</a></p>
             </div>
@@ -111,22 +108,22 @@ echo head("MMI Companion | Connexion");
             <input type="submit" value="Se connecter" class="button_register">
             <div style="height:15px"></div>
             <?php if (isset($_SESSION['success_mail'])) : ?>
-            <div class="success_message-login">
-                <?= $_SESSION['success_mail']; ?>
-            </div>
-            <?php unset($_SESSION['success_mail']); ?>
+                <div class="success_message-login">
+                    <?= $_SESSION['success_mail']; ?>
+                </div>
+                <?php unset($_SESSION['success_mail']); ?>
             <?php endif; ?>
             <?php if (isset($_SESSION['error_mail'])) : ?>
-            <div class="error_message-login">
-                <?= $_SESSION['error_mail']; ?>
-            </div>
-            <?php unset($_SESSION['error_mail']); ?>
+                <div class="error_message-login">
+                    <?= $_SESSION['error_mail']; ?>
+                </div>
+                <?php unset($_SESSION['error_mail']); ?>
             <?php endif; ?>
             <div class="error_message-login"></div>
         </form>
     </main>
     <script>
-        document.querySelector('.form-login').addEventListener('submit', function (e) {
+        document.querySelector('.form-login').addEventListener('submit', function(e) {
             e.preventDefault();
 
             let username = document.querySelector('#username').value;
@@ -134,7 +131,19 @@ echo head("MMI Companion | Connexion");
 
             // Effectuez une requête AJAX vers le script "login.php" pour obtenir le JWT
             // Assurez-vous d'ajuster l'URL et les paramètres de la requête AJAX selon votre configuration
-            let url = window.location.origin + '/pages/login.php';
+            let url = window.location.origin + getDynamicPath() + '/pages/login.php';
+
+            function getDynamicPath() {
+                let path = window.location.pathname;
+                let index = path.indexOf('mmicompanion');
+
+                if (index !== -1) {
+                    return path.substring(0, index + 'mmicompanion'.length);
+                } else {
+                    return path;
+                }
+            }
+
 
             // Exemple d'utilisation de la bibliothèque jQuery pour la requête AJAX
             $.ajax({
@@ -144,14 +153,14 @@ echo head("MMI Companion | Connexion");
                     username: username,
                     password: password
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response.error) {
                         // Afficher le message d'erreur dans la console
                         console.log(response.error);
                         // Afficher le message d'erreur dans la page
                         document.querySelector('.error_message-login').innerHTML = response.error;
                     } else {
-                        if (response.active === false) {  // Vérification si active est égal à false
+                        if (response.active === false) { // Vérification si active est égal à false
                             // Créer un formulaire dynamique
                             let form = document.createElement('form');
                             form.method = 'post';
@@ -175,7 +184,7 @@ echo head("MMI Companion | Connexion");
                             activationCodeInput.name = 'activation_code';
                             activationCodeInput.value = response.activationCode;
                             form.appendChild(activationCodeInput);
-                            
+
                             // Ajouter le formulaire à la page et le soumettre
                             document.body.appendChild(form);
                             form.submit();
@@ -184,11 +193,11 @@ echo head("MMI Companion | Connexion");
                             // localStorage.setItem('jwt', response.jwt);
 
                             // Redirection vers la page d'accueil ou autre page sécurisée
-                            window.location.href = './calendar.php';
+                            window.location.href = './home.php';
                         }
                     }
                 },
-                error: function () {
+                error: function() {
                     // Gérer les erreurs de connexion ici
                 }
             });

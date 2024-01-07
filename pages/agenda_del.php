@@ -3,6 +3,8 @@ session_start();
 require "../bootstrap.php";
 $user = onConnect($dbh);
 
+$user_sql = userSQL($dbh, $user);
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_user']) && isset($_GET['id_task'])) {
     $id_user = $_GET['id_user'];
     $id_task = $_GET['id_task'];
@@ -12,10 +14,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_user']) && isset($_G
         'id_task' => $id_task,
         'id_user' => $id_user
     ]);
-    header('Location: ../agenda.php');
+
+    if (str_contains($user_sql['role'], 'prof')) {
+        header('Location: ./agenda_prof.php');
+    }else{
+        header('Location: ./agenda.php');
+    }
     exit();
 }
 else{
-    header('Location: ../agenda.php');
+    if (str_contains($user_sql['role'], 'prof')) {
+        header('Location: ./agenda_prof.php');
+    }else{
+        header('Location: ./agenda.php');
+    }
     exit();
 }

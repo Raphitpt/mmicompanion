@@ -69,9 +69,9 @@ echo head('MMI Companion | Informations');
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Informations') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
-    <main class="main-informations">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Ajouter une information</h1>
@@ -143,7 +143,7 @@ echo head('MMI Companion | Informations');
         
       </main>
 
-      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/script_all.js?v=1.1"></script> 
         <script src="../assets/js/fireworks.js"></script>
     <script src="../assets/js/tree.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

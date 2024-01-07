@@ -5,6 +5,7 @@ require '../bootstrap.php';
 $user = onConnect($dbh);
 
 $USER_name = $_ENV['ABSENCE_USERNAME'];
+// $USER_name = "raphael.tiphonet@etu.univ-poitiers.fr";
 $USER_password = $_ENV['ABSENCE_PASSWORD'];
 
 $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
@@ -25,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty(
 
     $credentials = base64_encode($USER_name . ':' . $USER_password);
 
-    $url = "https://mmi-angouleme-dashboard.alwaysdata.net/api-v1/absences/". $semestre ."/". $edu_mail ."?detailled=true";
+    $url = "https://mmi-angouleme-dashboard.alwaysdata.net/api-v1/". $semestre ."/". $edu_mail ."?detailled=true";
     $headers = [
         'Accept: application/json',
         "Authorization: Basic $credentials",
@@ -41,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['semestre']) && !empty(
     // sauvegarde les logs
     //curl_setopt($ch, CURLOPT_VERBOSE, true);
     //curl_setopt($ch, CURLOPT_STDERR, fopen(dirname(__FILE__) . '/' . $logFileName, 'w'));
+
 
     if (curl_error($ch)) {
         $error_msg = curl_error($ch);
