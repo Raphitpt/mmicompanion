@@ -87,7 +87,6 @@ header{
     z-index: 100;
     margin: 0;
     padding: 0;
-    padding-top: 50px;
 }
 
 .content_header {
@@ -98,13 +97,12 @@ header{
     border-radius: 0rem 0rem 1.25rem 1.25rem;
     background: var(--bleu-clair-background);
 }
-/* @supports (-webkit-touch-callout: none) {
+@supports (-webkit-touch-callout: none) {
   .content_header {
-    padding-top: 50px;
-    height: 4.5rem;
+    height: calc(4.0625rem + env(safe-area-inset-top));
   
 }
-} */
+}
 
 
 /* NEIGE */
