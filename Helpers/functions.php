@@ -7,7 +7,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 $path_maintenance = './../maintenance.txt'; // chemin vers le fichier maintenance.txt
 
-if(file_exists($path_maintenance) && file_get_contents($path_maintenance) != $_SERVER['REMOTE_ADDR']){
+if (file_exists($path_maintenance) && file_get_contents($path_maintenance) != $_SERVER['REMOTE_ADDR']) {
     header('Location: ./../pages/maintenance.html');
     exit();
 }
@@ -948,27 +948,29 @@ function nextCours($edu_group)
 {
     if ($edu_group == "LGTF") {
         $ical = new ICal('./../other_cal/vcs_combined.vcs', array(
-        'defaultSpan'                 => 2,     // Default value
-        'defaultTimeZone'             => 'UTC',
-        'defaultWeekStart'            => 'MO',  // Default value
-        'disableCharacterReplacement' => false, // Default value
-        'filterDaysAfter'             => null,  // Default value
-        'filterDaysBefore'            => null,  // Default value
-        'httpUserAgent'               => null,  // Default value
-        'skipRecurrence'              => false, // Default value
-    ));
+            'defaultSpan'                 => 2,     // Default value
+            'defaultTimeZone'             => 'UTC',
+            'defaultWeekStart'            => 'MO',  // Default value
+            'disableCharacterReplacement' => false, // Default value
+            'filterDaysAfter'             => null,  // Default value
+            'filterDaysBefore'            => null,  // Default value
+            'httpUserAgent'               => null,  // Default value
+            'skipRecurrence'              => false, // Default value
+        ));
     } else {
         $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
-        'defaultSpan'                 => 2,     // Default value
-        'defaultTimeZone'             => 'UTC',
-        'defaultWeekStart'            => 'MO',  // Default value
-        'disableCharacterReplacement' => false, // Default value
-        'filterDaysAfter'             => null,  // Default value
-        'filterDaysBefore'            => null,  // Default value
-        'httpUserAgent'               => null,  // Default value
-        'skipRecurrence'              => false, // Default value
-    ));
+            'defaultSpan'                 => 2,     // Default value
+            'defaultTimeZone'             => 'UTC',
+            'defaultWeekStart'            => 'MO',  // Default value
+            'disableCharacterReplacement' => false, // Default value
+            'filterDaysAfter'             => null,  // Default value
+            'filterDaysBefore'            => null,  // Default value
+            'httpUserAgent'               => null,  // Default value
+            'skipRecurrence'              => false, // Default value
+        ));
     }
+
+
 
     $now = new DateTime();
     $now->setTimezone(new DateTimeZone('Europe/Paris'));
@@ -1003,13 +1005,14 @@ function nextCours($edu_group)
 
         $anEvent['debut'] = $debut->format('H:i');
         $anEvent['fin'] = $fin->format('H:i');
+        $anEvent['dtstart_tz'] = date("D M d Y H:i:s O (T)", $debut->getTimestamp());
+        $anEvent['dtend_tz'] = date("D M d Y H:i:s O (T)", $fin->getTimestamp());
         unset($anEvent['uid']);
         unset($anEvent['dtstamp']);
         unset($anEvent['created']);
         unset($anEvent['last_modified']);
         unset($anEvent['sequence']);
         unset($anEvent['dtend']);
-        unset($anEvent['dtend_tz']);
         unset($anEvent['duration']);
         unset($anEvent['status']);
         unset($anEvent['organizer']);
@@ -1029,6 +1032,8 @@ function nextCours($edu_group)
             $nextEventFin->setTimezone($timezone);
             $nextEvent['debut'] = $nextEventDebut->format('H:i');
             $nextEvent['fin'] = $nextEventFin->format('H:i');
+            $nextEvent['dtstart_tz'] = date("D M d Y H:i:s O (T)", $nextEventDebut->getTimestamp());
+            $nextEvent['dtend_tz'] = date("D M d Y H:i:s O (T)", $nextEventFin->getTimestamp());
 
             // $nextEvent = reset($events);
             $nextEvent['description'] = preg_replace('/\([^)]*\)/', '', $nextEvent['description']);
@@ -1041,7 +1046,6 @@ function nextCours($edu_group)
             unset($nextEvent['last_modified']);
             unset($nextEvent['sequence']);
             unset($nextEvent['dtend']);
-            unset($nextEvent['dtend_tz']);
             unset($nextEvent['duration']);
             unset($nextEvent['status']);
             unset($nextEvent['organizer']);

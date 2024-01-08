@@ -1,5 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
-import { getMessaging, getToken } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging.js";
+import {
+  getMessaging,
+  getToken,
+} from "https://www.gstatic.com/firebasejs/10.7.0/firebase-messaging.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-analytics.js";
 import axios from "https://cdn.skypack.dev/axios";
 
@@ -17,7 +20,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const messaging = getMessaging(app);
-
 
 // const myButton = document.querySelector("#push-permission-button");
 // if (myButton){
@@ -38,9 +40,11 @@ const messaging = getMessaging(app);
 //   permission.appendChild(button);
 //   button.addEventListener("click", askPermission);
 
-function notif() {
+async function notif() {
   const permissionContainer = document.querySelector("#push-permission");
-  const enableNotificationsButton = document.querySelector("#enable-notifications");
+  const enableNotificationsButton = document.querySelector(
+    "#enable-notifications"
+  );
 
   if (
     !permissionContainer ||
@@ -64,26 +68,35 @@ function notif() {
 
 async function requestPermission() {
   Notification.requestPermission().then((permission) => {
-    if (permission === 'granted') {
+    if (permission === "granted") {
       // Retrieve the FCM registration token
-      getToken(messaging, { vapidKey: "BFyDCKvv1s5q49SnH0-SVGJl2kJ5UHzaqq1d8YjSDCQtAY3ub38YyVxmlPXWZHNR6RVMH_YGFqvkBzzY9DBrIz8" })
+      getToken(messaging, {
+        vapidKey:
+          "BFyDCKvv1s5q49SnH0-SVGJl2kJ5UHzaqq1d8YjSDCQtAY3ub38YyVxmlPXWZHNR6RVMH_YGFqvkBzzY9DBrIz8",
+      })
         .then((currentToken) => {
-
           // Send the token to your server for storage
-          axios.post('./../Helpers/saveSubscription.php', { token: currentToken })
-            .then(response => {
-            })
-            .catch(error => {
-              console.error('Error saving token:', error);
+          axios
+            .post("./../Helpers/saveSubscription.php", { token: currentToken })
+            .then((response) => {})
+            .catch((error) => {
+              console.error("Error saving token:", error);
             });
         })
         .catch((err) => {
-          console.error('Unable to retrieve token:', err);
+          console.error("Unable to retrieve token:", err);
         });
     } else {
-      console.log('Unable to get permission to notify.');
+      console.log("Unable to get permission to notify.");
     }
   });
 }
 
-notif();
+window.addEventListener("DOMContentLoaded", () => {
+  notif();
+  // si la permission est déjà accordée
+  console.log(Notification.permission);
+  if (Notification.permission === "granted") {
+    requestPermission();
+  }
+});

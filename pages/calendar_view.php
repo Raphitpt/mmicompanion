@@ -6,7 +6,6 @@ $user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
 
-// dd($_GET);
 
 if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']) && isset($_GET['end']) && isset($_GET['color'])) {
 
@@ -37,6 +36,8 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
         }
  
     }
+
+    
 
     $dateStart = $_GET['start']; 
     $dateStartObj = DateTime::createFromFormat('D M d Y H:i:s e+', $dateStart);
@@ -76,7 +77,9 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     $color = $_GET['color'];
 
     $page = $_GET['page'];
-
+    if (str_contains($location, 'AMPHI')){
+        $groupe = 'Tous les groupes';
+    }
     // dd($_GET);
 
 
