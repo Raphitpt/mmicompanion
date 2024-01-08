@@ -959,19 +959,6 @@ function nextCours($edu_group)
     ));
     } else {
         $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
-    if ($edu_group == "LGTF") {
-        $ical = new ICal('./../other_cal/vcs_combined.vcs', array(
-        'defaultSpan'                 => 2,     // Default value
-        'defaultTimeZone'             => 'UTC',
-        'defaultWeekStart'            => 'MO',  // Default value
-        'disableCharacterReplacement' => false, // Default value
-        'filterDaysAfter'             => null,  // Default value
-        'filterDaysBefore'            => null,  // Default value
-        'httpUserAgent'               => null,  // Default value
-        'skipRecurrence'              => false, // Default value
-    ));
-    } else {
-        $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
         'defaultSpan'                 => 2,     // Default value
         'defaultTimeZone'             => 'UTC',
         'defaultWeekStart'            => 'MO',  // Default value
