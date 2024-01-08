@@ -85,7 +85,7 @@ header{
     right: 0;
     width: 100%;
     z-index: 100;
-    margin: 0;
+    margin: 50px;
     padding: 0;
 }
 
@@ -97,13 +97,13 @@ header{
     border-radius: 0rem 0rem 1.25rem 1.25rem;
     background: var(--bleu-clair-background);
 }
-@supports (-webkit-touch-callout: none) {
+/* @supports (-webkit-touch-callout: none) {
   .content_header {
     padding-top: 50px;
     height: 4.5rem;
   
 }
-}
+} */
 
 
 /* NEIGE */
