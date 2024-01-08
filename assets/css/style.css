@@ -35,7 +35,6 @@
 
 
 html{
-    background-color: #058AF7;
     font-size: 16px;
 }
 
@@ -54,7 +53,6 @@ main {
 body, html {
     -webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background: #014473;
 }
 
 
@@ -97,12 +95,13 @@ header{
     border-radius: 0rem 0rem 1.25rem 1.25rem;
     background: var(--bleu-clair-background);
 }
-@supports (-webkit-touch-callout: none) {
+/* @supports (-webkit-touch-callout: none) {
   .content_header {
-    height: calc(4.0625rem + env(safe-area-inset-top));
+    padding-top: 50px;
+    height: 4.5rem;
   
 }
-}
+} */
 
 
 /* NEIGE */
