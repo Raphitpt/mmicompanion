@@ -105,7 +105,7 @@ $end_time = microtime(true);
 // Calculate script execution time 
 $execution_time = ($end_time - $start_time); 
   
-dd(" Execution time of script = ".$execution_time." sec"); 
+// dd(" Execution time of script = ".$execution_time." sec"); 
 ?>
 
 <body class="body-all">
