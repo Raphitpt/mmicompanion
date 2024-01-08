@@ -27,6 +27,7 @@ function fetchAgenda($dbh, $user, $eduGroup)
 
 $user = onConnect($dbh);
 $nextCours = nextCours($user['edu_group']);
+
 // dd($nextCours);
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 
@@ -138,7 +139,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 <div></div>
             </div>
 
-            <a href="./calendar_view.php?title=<?php echo urlencode($nextCours['summary']) ?>&location=<?php echo urlencode($nextCours['location']) ?>&description=<?php echo urlencode($nextCours['description']) ?>&color=%23fff&start=<?php echo urlencode($nextCours['debut']) ?>&end=<?php echo urlencode($nextCours['fin']) ?>&page=home.php">
+            <a href="./calendar_view.php?title=<?php echo urlencode($nextCours['summary']) ?>&location=<?php echo urlencode($nextCours['location']) ?>&description=<?php echo urlencode($nextCours['description']) ?>&color=%23fff&start=<?php echo urlencode($nextCours['dtstart_tz']) ?>&end=<?php echo urlencode($nextCours['dtend_tz']) ?>&page=home.php">
                 <div class="content_prochain_cours-home">
                     <div class="description_prochain_cours-home">
                         <p><?php echo $nextCours['summary'] ?></p>

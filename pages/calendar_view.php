@@ -37,6 +37,8 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
  
     }
 
+    
+
     $dateStart = $_GET['start']; 
     $dateStartObj = DateTime::createFromFormat('D M d Y H:i:s e+', $dateStart);
     $dateStart = $dateStartObj ? $dateStartObj->format('Y-m-d\TH:i:s') : '';
@@ -75,7 +77,9 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     $color = $_GET['color'];
 
     $page = $_GET['page'];
-
+    if (str_contains($location, 'AMPHI')){
+        $groupe = 'Tous les groupes';
+    }
     // dd($_GET);
 
 
