@@ -82,11 +82,12 @@ foreach ($agendaMerged as $semaine => $jours) {
     }
 }
 
+
 $colorsFiber = new Fiber(function () use ($dbh) {
     return fetchColors($dbh);
 });
 
-$colors = $colorsFiber->start();
+// $colors = $colorsFiber->start();
 
 }
 
@@ -266,9 +267,11 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 
                                 echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
                                 // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+
                                 foreach ($colors as $color) {
 
                                     if ($color['id_subject'] == $agenda['id_subject']) {
+                                        
                                         echo "<div class='subject_item_list_flexleft-agenda'>";
                                         echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
                                         if ($agenda['type'] == "eval") {
