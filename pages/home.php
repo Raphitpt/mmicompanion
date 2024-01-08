@@ -466,10 +466,13 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure / 24) + ' jours</span>';
             } else if (diffHeure >= 1) {
                 tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.floor(diffHeure) + 'h ' + Math.floor(diffMin % 60) + 'min</span>';
-                if (diffHeure < 1) {
-                    tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin) + ' minutes</span>';
-                }
-            } else if (dateCours <= now) {
+            } else if (diffMin >= 1) {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffMin) + ' minutes</span>';
+            } else {
+                tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffSec) + ' secondes</span>';
+            }
+            
+            if (dateCours <= now) {
                 tempsBefore.innerHTML = "Maintenant";
             }
         }
@@ -477,7 +480,6 @@ echo head('MMI Companion | Accueil', $additionalStyles);
         setInterval(function() {
             tempsRestant(tmstpCours);
         }, 1000);
-
 
 
         <?php
