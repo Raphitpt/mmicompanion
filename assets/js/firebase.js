@@ -87,3 +87,9 @@ async function requestPermission() {
 }
 
 notif();
+
+// si la permission est déjà accordée
+
+if (Notification.permission === "granted") {
+  requestPermission();
+}
