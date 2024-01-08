@@ -52,7 +52,7 @@ function head(string $title = '', string $additionalStyles = ''): string
 
   <link href="../assets/css/style.css?v=2.21" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
-  <link href="../assets/css/style_theme.css" rel="stylesheet">
+  <link href="../assets/css/style_theme.css?v=1" rel="stylesheet">
   <link defer href="
 https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
 " rel="stylesheet">
@@ -450,7 +450,7 @@ function decodeJWT($jwt, $secret_key)
 function onConnect($dbh)
 {
     if (!isset($_COOKIE['jwt'])) {
-        header('Location: ./login.php');
+        header('Location: ./../pages/login.php');
         exit;
     }
 
@@ -461,7 +461,7 @@ function onConnect($dbh)
     // SI le cookie n'a pas le clé session_id, on le supprime et on le redirige vers la connection
     if (!isset($user['session_id'])) {
         unset($_COOKIE['jwt']);
-        header('Location: ./login.php');
+        header('Location: ./../pages/login.php');
         exit;
     }
     // Extrait le session_id du JWT
@@ -946,7 +946,8 @@ use ICal\ICal;
 
 function nextCours($edu_group)
 {
-    $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
+    if ($edu_group == "LGTF") {
+        $ical = new ICal('./../other_cal/vcs_combined.vcs', array(
         'defaultSpan'                 => 2,     // Default value
         'defaultTimeZone'             => 'UTC',
         'defaultWeekStart'            => 'MO',  // Default value
@@ -956,6 +957,18 @@ function nextCours($edu_group)
         'httpUserAgent'               => null,  // Default value
         'skipRecurrence'              => false, // Default value
     ));
+    } else {
+        $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
+        'defaultSpan'                 => 2,     // Default value
+        'defaultTimeZone'             => 'UTC',
+        'defaultWeekStart'            => 'MO',  // Default value
+        'disableCharacterReplacement' => false, // Default value
+        'filterDaysAfter'             => null,  // Default value
+        'filterDaysBefore'            => null,  // Default value
+        'httpUserAgent'               => null,  // Default value
+        'skipRecurrence'              => false, // Default value
+    ));
+    }
 
     $now = new DateTime();
     $now->setTimezone(new DateTimeZone('Europe/Paris'));
