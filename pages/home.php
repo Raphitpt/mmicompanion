@@ -138,7 +138,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 <div></div>
             </div>
 
-            <a href="./calendar_view.php?title=<?php echo $nextCours['summary'] ?>&location=<?php echo $nextCours['location'] ?>&description=<?php echo $nextCours['description'] ?>&color=#fff&start=<?php echo $nextCours['debut'] ?>&end=<?php echo $nextCours['fin'] ?>&page=home.php">
+            <a href="./calendar_view.php?title=<?php echo urlencode($nextCours['summary']) ?>&location=<?php echo urlencode($nextCours['location']) ?>&description=<?php echo urlencode($nextCours['description']) ?>&color=%23fff&start=<?php echo urlencode($nextCours['debut']) ?>&end=<?php echo urlencode($nextCours['fin']) ?>&page=home.php">
                 <div class="content_prochain_cours-home">
                     <div class="description_prochain_cours-home">
                         <p><?php echo $nextCours['summary'] ?></p>
