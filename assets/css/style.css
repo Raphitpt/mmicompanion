@@ -99,6 +99,7 @@ header{
 }
 @supports (-webkit-touch-callout: none) {
   .content_header {
+    padding-top: 50px;
     height: 4.5rem;
   
 }
