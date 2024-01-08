@@ -6,9 +6,8 @@ $user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
 
-dd($_GET);
 
-// if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']) && isset($_GET['end']) && isset($_GET['color'])) {
+if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']) && isset($_GET['end']) && isset($_GET['color'])) {
 
     $daysMonth = getDaysMonth();
     $semaine = $daysMonth['semaine'];
@@ -188,7 +187,7 @@ echo head("MMI Companion | Emploi du temps");
 
 </html>
 <?php
-// } else {
-//     header('Location: ./calendar_dayview.php');
-// }
+} else {
+    header('Location: ./calendar_dayview.php');
+}
 ?>
