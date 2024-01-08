@@ -1,7 +1,9 @@
 <?php
 
 session_start();
+
 require '../bootstrap.php';
+
 
 
 function fetchUser($dbh, $userId)
@@ -26,9 +28,8 @@ function fetchAgenda($dbh, $user, $eduGroup)
 }
 
 $user = onConnect($dbh);
-$nextCours = nextCours($user['edu_group']);
 
-// dd($nextCours);
+$nextCours = nextCours($user['edu_group']);
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 
 $userSqlFiber = new Fiber(function () use ($dbh, $user) {
@@ -52,17 +53,22 @@ $colorsFiber = new Fiber(function () use ($dbh) {
 // Start fibers and get results
 $user_sql = $userSqlFiber->start();
 $user_sql = $userSqlFiber->getReturn();
+
 $pp_original = $ppOriginalFiber->start();
 $pp_original = $ppOriginalFiber->getReturn();
+
+
 if (str_contains($user_sql['role'], "eleve") || str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "chef")) {
     $agendaMerged = $agendaMergedFiber->start();
     $agendaMerged = $agendaMergedFiber->getReturn();
+    
     $colors = $colorsFiber->start();
     $colors = $colorsFiber->getReturn();
     // -----------------------------
 
-
+ 
     $userCahier = getUserCahier($dbh, $user_sql['edu_group']);
+
     // dd($userCahier);
     if ($userCahier != 'null') {
         $nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
@@ -90,6 +96,7 @@ $additionalStyles = (str_contains($user_sql['role'], 'prof'))
     : '';
 
 echo head('MMI Companion | Accueil', $additionalStyles);
+
 ?>
 
 <body class="body-all">

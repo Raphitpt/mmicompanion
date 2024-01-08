@@ -57,7 +57,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
                     <?php 
-                    if (empty(getMenu())==true) { ?>
+                    if (empty(getMenu("./../backup_cal/menu.html"))==true) { ?>
 
                         <div class="swiper-slide item_menu_content-menu">
                             <p style='font-weight:600'>Le menu est indisponible</p>
@@ -65,7 +65,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                     
                     <?php } else{
                     // Récupération du menu
-                    $menuDataByDay = getMenu();
+                    $menuDataByDay = getMenu("./../backup_cal/menu.html");
 
                     foreach ($menuDataByDay as $date => $menuInfo) {
                         // Obtenez la date actuelle au format "l j F Y"
