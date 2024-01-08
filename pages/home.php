@@ -42,65 +42,46 @@ $agendaMergedFiber = new Fiber(function () use ($dbh, $user) {
     return fetchAgenda($dbh, $user, userSQL($dbh, $user)['edu_group']);
 });
 
+$colorsFiber = new Fiber(function () use ($dbh) {
+    return fetchColors($dbh);
+});
+
+
+
 // Start fibers and get results
 $user_sql = $userSqlFiber->start();
 $user_sql = $userSqlFiber->getReturn();
 $pp_original = $ppOriginalFiber->start();
 $pp_original = $ppOriginalFiber->getReturn();
-if (str_contains($user_sql['role'], "eleve" ) || str_contains($user_sql['role'],"admin") || str_contains($user_sql['role'],"chef") ) {
+if (str_contains($user_sql['role'], "eleve") || str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "chef")) {
     $agendaMerged = $agendaMergedFiber->start();
     $agendaMerged = $agendaMergedFiber->getReturn();
+    $colors = $colorsFiber->start();
+    $colors = $colorsFiber->getReturn();
     // -----------------------------
 
 
-$userCahier = getUserCahier($dbh, $user_sql['edu_group']);
-// dd($userCahier);
-if ($userCahier != 'null') {
-    $nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
-} else {
-    $nomUserCahier = 'Personne';
-}
-    // --------------------
-// Récupérer les couleurs des matières
+    $userCahier = getUserCahier($dbh, $user_sql['edu_group']);
+    // dd($userCahier);
+    if ($userCahier != 'null') {
+        $nomUserCahier = ucwords(strtolower($userCahier['prenom'])) . ' ' . ucwords(strtolower($userCahier['nom']));
+    } else {
+        $nomUserCahier = 'Personne';
+    }
 
-$sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
-$stmt_color = $dbh->prepare($sql_color);
-$stmt_color->execute();
-$colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
-
-
-
-// Récupérer les tâches à faire pour demain
-$tasksForTomorrow = [];
-foreach ($agendaMerged as $semaine => $jours) {
-    foreach ($jours as $jour => $taches) {
-        if ($jour == 'Demain') {
-            foreach ($taches as $tache) {
-                $tasksForTomorrow[] = $tache;
+    // Récupérer les tâches à faire pour demain
+    $tasksForTomorrow = [];
+    foreach ($agendaMerged as $semaine => $jours) {
+        foreach ($jours as $jour => $taches) {
+            if ($jour == 'Demain') {
+                foreach ($taches as $tache) {
+                    $tasksForTomorrow[] = $tache;
+                }
             }
         }
     }
 }
 
-
-$colorsFiber = new Fiber(function () use ($dbh) {
-    return fetchColors($dbh);
-});
-
-// $colors = $colorsFiber->start();
-
-}
-
-
-
-
-
-
-
-// -----------------------------
-
-// $agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
-// dd($agendaMerged);
 
 
 $additionalStyles = (str_contains($user_sql['role'], 'prof'))
@@ -271,7 +252,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                                 foreach ($colors as $color) {
 
                                     if ($color['id_subject'] == $agenda['id_subject']) {
-                                        
+
                                         echo "<div class='subject_item_list_flexleft-agenda'>";
                                         echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
                                         if ($agenda['type'] == "eval") {
@@ -398,11 +379,11 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 
             <a href="./menu.php">
                 <div class='content_menu-home'>
-                <?php if (empty(getMenuToday())==true) { ?>
-                    <div class="swiper-slide item_menu_content-menu">
-                        <p style='font-weight:600'>Le menu est indisponible</p>
-                    </div>
-                    <?php } else{
+                    <?php if (empty(getMenuToday()) == true) { ?>
+                        <div class="swiper-slide item_menu_content-menu">
+                            <p style='font-weight:600'>Le menu est indisponible</p>
+                        </div>
+                    <?php } else {
                         echo getMenuToday();
                     } ?>
                 </div>
@@ -415,7 +396,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
     </main>
 
     <script src="../assets/js/script_all.js?v=1.1"></script>
-            
+
     <?php
     if (str_contains($user_sql['role'], 'prof')) { ?>
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
