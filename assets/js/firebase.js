@@ -40,7 +40,7 @@ const messaging = getMessaging(app);
 //   permission.appendChild(button);
 //   button.addEventListener("click", askPermission);
 
-function notif() {
+async function notif() {
   const permissionContainer = document.querySelector("#push-permission");
   const enableNotificationsButton = document.querySelector(
     "#enable-notifications"
@@ -95,7 +95,7 @@ async function requestPermission() {
 window.addEventListener("DOMContentLoaded", () => {
   notif();
   // si la permission est déjà accordée
-
+  console.log(Notification.permission);
   if (Notification.permission === "granted") {
     requestPermission();
   }
