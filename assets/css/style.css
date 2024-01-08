@@ -97,6 +97,12 @@ header{
     border-radius: 0rem 0rem 1.25rem 1.25rem;
     background: var(--bleu-clair-background);
 }
+@supports (-webkit-touch-callout: none) {
+  .content_header {
+    height: 8rem;
+  
+}
+}
 
 
 /* NEIGE */
