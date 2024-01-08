@@ -99,7 +99,7 @@ header{
 }
 @supports (-webkit-touch-callout: none) {
   .content_header {
-    height: 8rem;
+    height: auto;
   
 }
 }
