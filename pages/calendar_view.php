@@ -6,7 +6,7 @@ $user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
 
-// dd($_GET);
+dd($_GET);
 
 // if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']) && isset($_GET['end']) && isset($_GET['color'])) {
 
