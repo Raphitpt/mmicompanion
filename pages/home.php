@@ -98,11 +98,11 @@ $additionalStyles = (str_contains($user_sql['role'], 'prof'))
 echo head('MMI Companion | Accueil', $additionalStyles);
 
 ?>
-
+<!-- Menu de navigation -->
+    <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user_sql['id_user'], $user_sql['edu_group'])); ?>
 <body class="body-all">
 
-    <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user_sql['id_user'], $user_sql['edu_group'])); ?>
+    
 
     <main class="main_all">
         <div id="push-permission" class="popup_notification">
