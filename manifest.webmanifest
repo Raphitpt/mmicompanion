@@ -1,5 +1,5 @@
 {
-	"id" : "/mmicompanion/pages/home.php",
+	"id" : "/pages/home.php",
 	
 	"short_name": "MMI Companion",
 
@@ -100,7 +100,7 @@
 	],
 
 
-	"start_url": "/mmicompanion/pages/home.php",
+	"start_url": "/pages/home.php",
 
 	"background_color": "#ffffff",
 
