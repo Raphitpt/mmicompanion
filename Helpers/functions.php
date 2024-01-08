@@ -50,7 +50,7 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="../manifest.webmanifest?v=1.2">
 
-  <link href="../assets/css/style.css?v=2.24" rel="stylesheet">
+  <link href="../assets/css/style.css?v=2.25" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
   <link href="../assets/css/style_theme.css?v=1" rel="stylesheet">
   <link defer href="
