@@ -32,11 +32,6 @@
     --blanc: #fff; */
 
 }
-body, html {
-    -webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background: #014473;
-}
 
 
 html{
@@ -56,6 +51,12 @@ body {
 main {
     touch-action: manipulation;
 }
+body, html {
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background: #014473;
+}
+
 
 .no-scroll {
     overflow: hidden;
