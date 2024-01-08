@@ -28,10 +28,8 @@ function fetchAgenda($dbh, $user, $eduGroup)
 }
 
 $user = onConnect($dbh);
-    $start_time = microtime(true);
-$nextCours = nextCours($user['edu_group']); // Cette requete est très longue, il faut la mettre dans une fonction asynchrone
 
-// dd($nextCours);
+$nextCours = nextCours($user['edu_group']);
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 
 $userSqlFiber = new Fiber(function () use ($dbh, $user) {
@@ -62,14 +60,14 @@ $pp_original = $ppOriginalFiber->getReturn();
 
 if (str_contains($user_sql['role'], "eleve") || str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "chef")) {
     $agendaMerged = $agendaMergedFiber->start();
-    $agendaMerged = $agendaMergedFiber->getReturn(); // Cette requete est très longue, il faut la mettre dans une fonction asynchrone
+    $agendaMerged = $agendaMergedFiber->getReturn();
     
     $colors = $colorsFiber->start();
     $colors = $colorsFiber->getReturn();
     // -----------------------------
 
  
-    $userCahier = getUserCahier($dbh, $user_sql['edu_group']); // Cette requete est très longue, il faut la mettre dans une fonction asynchrone
+    $userCahier = getUserCahier($dbh, $user_sql['edu_group']);
 
     // dd($userCahier);
     if ($userCahier != 'null') {
@@ -99,13 +97,6 @@ $additionalStyles = (str_contains($user_sql['role'], 'prof'))
 
 echo head('MMI Companion | Accueil', $additionalStyles);
 
-// End clock time in seconds 
-$end_time = microtime(true); 
-  
-// Calculate script execution time 
-$execution_time = ($end_time - $start_time); 
-  
-// dd(" Execution time of script = ".$execution_time." sec"); 
 ?>
 
 <body class="body-all">
