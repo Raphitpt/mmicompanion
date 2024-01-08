@@ -47,9 +47,8 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="../manifest.webmanifest?v=1.2">
-  <meta name="theme-color" content="#fff">
 
   <link href="../assets/css/style.css?v=2.21" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
