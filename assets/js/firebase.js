@@ -66,7 +66,7 @@ async function notif() {
   }, 2000);
 }
 
-async function requestPermission() {
+function requestPermission() {
   Notification.requestPermission().then((permission) => {
     if (permission === "granted") {
       // Retrieve the FCM registration token
