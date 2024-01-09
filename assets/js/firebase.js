@@ -91,12 +91,34 @@ function requestPermission() {
     }
   });
 }
-
+function saveToken() {
+  if (permission === "granted") {
+      // Retrieve the FCM registration token
+      getToken(messaging, {
+        vapidKey:
+          "BFyDCKvv1s5q49SnH0-SVGJl2kJ5UHzaqq1d8YjSDCQtAY3ub38YyVxmlPXWZHNR6RVMH_YGFqvkBzzY9DBrIz8",
+      })
+        .then((currentToken) => {
+          // Send the token to your server for storage
+          axios
+            .post("./../Helpers/saveSubscription.php", { token: currentToken })
+            .then((response) => {})
+            .catch((error) => {
+              console.error("Error saving token:", error);
+            });
+        })
+        .catch((err) => {
+          console.error("Unable to retrieve token:", err);
+        });
+    } else {
+      console.log("Unable to get permission to notify.");
+    }
+}
 window.addEventListener("DOMContentLoaded", () => {
   notif();
   // si la permission est déjà accordée
   console.log(Notification.permission);
   if (Notification.permission === "granted" || Notification.permission === "default") {
-    requestPermission();
+    saveToken();
   }
 });
