@@ -66,7 +66,7 @@ if (isset($_POST['button-validate'])) {
 }
 
 $additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
-
+dd($agendaMerged);
 // Obligatoire pour afficher la page
 echo head("MMI Companion | Agenda", $additionalStyles);
 ?>
