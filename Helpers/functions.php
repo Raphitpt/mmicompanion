@@ -1335,7 +1335,7 @@ function getAgenda($dbh, $user, $edu_group)
     $sql_common_conditions = "AND (
         (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
         OR
-        (a.date_finish LIKE '____-W__' AND a.date_finish > :current_week_year)
+        (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
     )";
 
     // Récupération des tâches
