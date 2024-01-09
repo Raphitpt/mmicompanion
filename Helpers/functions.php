@@ -1435,7 +1435,7 @@ function getAgenda($dbh, $user, $edu_group)
         $eventWeek = date('W', $date);
 
         // Comparez la semaine actuelle avec la semaine de l'événement
-        if ($currentWeek !== $eventWeek) {
+        if ($eventWeek >= $currentWeek) {
             // Ajoutez les semaines manquantes au tableau
             for ($missingWeek = $currentWeek + 1; $missingWeek < $eventWeek; $missingWeek++) {
                 $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
