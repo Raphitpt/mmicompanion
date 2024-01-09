@@ -255,6 +255,25 @@ header{
     color: var(--texte);
     font-size: 1.5625rem;
 }
+.btn_notification_right_content_title-header{
+    position: relative;
+}
+.notification-badge {
+    position: absolute;
+    top: -5px; /* Ajustez la distance du haut en fonction de vos besoins */
+    right: -5px; /* Ajustez la distance de la droite en fonction de vos besoins */
+    background-color: #F6F6F6; /* Couleur de fond du badge */
+    color: var(--texte);
+    border-radius: 50%; /* Pour rendre le badge circulaire */
+    width: 1rem; /* Ajustez la taille du badge en fonction de vos besoins */
+    height: 1.2rem; /* Ajustez la taille du badge en fonction de vos besoins */
+    text-align: center;
+    font-family: Montserrat;
+    line-height: 1.2rem;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 900;
+}
 
 .container_notifications-header{
     display: flex;

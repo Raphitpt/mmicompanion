@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
             $message = "Nouvelle information";
             $body = 'Une nouvelle information de ' . $name . ' a été ajoutée !';
             $group = $group_info;
-            sendNotification($message, $body, $group);
+            sendNotification($dbh, 'Informations', $body, $group, 'Informations');
         } else {
             $_SESSION['error'] = "Une erreur est survenue";
         }

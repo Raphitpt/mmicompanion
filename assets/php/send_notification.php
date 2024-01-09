@@ -4,7 +4,7 @@ require '../../bootstrap.php'; // Inclure la bibliothèque JWT si nécessaire
 use Minishlink\WebPush\WebPush;
 use Minishlink\WebPush\Subscription;
 
-function sendNotification($message, $body, $group) {
+function sendNotification($dbh, $message, $body, $group) {
     // Assuming you already have a valid $dbh connection to your database
     if ($group != null) {
         $query = "SELECT s.* FROM subscriptions s

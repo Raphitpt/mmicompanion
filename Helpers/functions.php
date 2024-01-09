@@ -50,9 +50,9 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="manifest" href="../manifest.webmanifest?v=1.2">
 
-  <link href="../assets/css/style.css?v=2.36" rel="stylesheet">
+  <link href="../assets/css/style.css?v=2.37" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
-  <link href="../assets/css/style_theme.css?v=1" rel="stylesheet">
+  <link href="../assets/css/style_theme.css?v=1.1" rel="stylesheet">
   <link defer href="
 https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
 " rel="stylesheet">
@@ -158,8 +158,15 @@ function generateBurgerMenuContent($role, $title, $notifs)
             </div>
             <div class="right_content_title-header">
                 <div id="btn_notification" class="btn_notification_right_content_title-header">
-                    <i class="fi fi-sr-bell"></i>
-                </div>';
+                    <i class="fi fi-sr-bell"></i>';
+    if ($notifs[1]['notif_message'] >= 1) {
+        if ($notifs[1]['notif_message'] >= 10){
+            $menuHtml .= '<div class="notification-badge">9+</div>';
+        } else {
+            $menuHtml .= '<div class="notification-badge">' . $notifs[1]['notif_message'] . '</div>';
+        }
+    } 
+    $menuHtml .= ' </div>';
 
     $menuHtml .= '
                 <div class="container_notifications-header">';
@@ -167,8 +174,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
     if (empty($notifs)) {
         $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
     }
-
-    foreach ($notifs as $notif) {
+    foreach ($notifs[0] as $notif) {
         $timestamp = strtotime($notif['timestamp']);
         $date = date('d/m H:i', $timestamp);
 
@@ -630,7 +636,7 @@ use Google\Auth\HttpHandler\HttpHandlerFactory;
 use GuzzleHttp\Client;
 
 
-function sendNotification($title, $body, $groups, $subject)
+function sendNotification($dbh, $title, $body, $groups, $subject)
 {
     $projectId = 'mmi-companion';
     $apiKey = $_ENV['FCM_API_KEY'];
@@ -645,8 +651,6 @@ function sendNotification($title, $body, $groups, $subject)
 
     $httpClient = $client->authorize();
     $uri = "https://fcm.googleapis.com/v1/projects/$projectId/messages:send";
-
-    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
 
     $groupsArray = explode(',', $groups);
 
@@ -735,17 +739,20 @@ function notifsHistory($dbh, $id_user, $edu_group)
             'read_status' => 1
         )
     );
+    $nbNotif = countNotif($dbh, $id_user);
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    // return $tableauNotifs;
+    $notif = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return array($notif, $nbNotif);
 }
 
 
-function readNotif($dbh, $id_user, $id_notif)
+function countNotif($dbh, $id_user)
 {
-    $sql = "INSERT INTO read_notif (id_user, id_notif) VALUES (:id_user, :id_notif)";
+    $sql = "SELECT notif_message FROM users WHERE id_user = :id_user";
     $stmt = $dbh->prepare($sql);
-    $stmt->execute(['id_user' => $id_user, 'id_notif' => $id_notif]);
+    $stmt->execute(['id_user' => $id_user]);
+    $count = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $count;
 }
 
 
