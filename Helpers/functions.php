@@ -44,13 +44,13 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="manifest" href="../manifest.webmanifest?v=1.2">
 
-  <link href="../assets/css/style.css?v=2.21" rel="stylesheet">
+  <link href="../assets/css/style.css?v=2.36" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
   <link href="../assets/css/style_theme.css?v=1" rel="stylesheet">
   <link defer href="
@@ -1696,20 +1696,25 @@ function getUserCahier($dbh, $edu_group)
     $dates = new DatePeriod($dateDebut, $interval, $dateFin);
 
     // Parcours de chaque semaine dans la période
-    foreach ($dates as $date) {
-        // Vérification si la semaine est une semaine de vacances scolaires
-        $currentDate = $date->format('Y-m-d');
-        if (!in_array($currentDate, $vacancesScolaires)) {
-            // Ajout du nom correspondant à la semaine
-            $nomsParSemaine[$currentDate] = $noms[$indexNom];
+    if ($noms != null) {
+        foreach ($dates as $date) {
+            // Vérification si la semaine est une semaine de vacances scolaires
+            $currentDate = $date->format('Y-m-d');
+            if (!in_array($currentDate, $vacancesScolaires)) {
+                // Ajout du nom correspondant à la semaine
+                $nomsParSemaine[$currentDate] = $noms[$indexNom];
 
-            // Passage au nom suivant dans le tableau
-            $indexNom = ($indexNom + 1) % count($noms);
-        } else {
-            // Si c'est une semaine de vacances, ajouter null comme valeur
-            $nomsParSemaine[$currentDate] = 'null';
+                // Passage au nom suivant dans le tableau
+                $indexNom = ($indexNom + 1) % count($noms);
+            } else {
+                // Si c'est une semaine de vacances, ajouter null comme valeur
+                $nomsParSemaine[$currentDate] = 'null';
+            }
         }
+    } else {
+        $nomsParSemaine = null;
     }
+
 
     // -----------------
 

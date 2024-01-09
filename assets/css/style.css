@@ -34,7 +34,6 @@
 }
 
 
-
 html{
     font-size: 16px;
 }
@@ -51,6 +50,11 @@ body {
 main {
     touch-action: manipulation;
 }
+body, html {
+    -webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
 
 .no-scroll {
     overflow: hidden;
@@ -79,6 +83,8 @@ header{
     right: 0;
     width: 100%;
     z-index: 100;
+    margin: 0;
+    padding: 0;
 }
 
 .content_header {
@@ -89,6 +95,13 @@ header{
     border-radius: 0rem 0rem 1.25rem 1.25rem;
     background: var(--bleu-clair-background);
 }
+/* @supports (-webkit-touch-callout: none) {
+  .content_header {
+    padding-top: 50px;
+    height: 4.5rem;
+  
+}
+} */
 
 
 /* NEIGE */
