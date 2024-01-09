@@ -1696,20 +1696,25 @@ function getUserCahier($dbh, $edu_group)
     $dates = new DatePeriod($dateDebut, $interval, $dateFin);
 
     // Parcours de chaque semaine dans la période
-    foreach ($dates as $date) {
-        // Vérification si la semaine est une semaine de vacances scolaires
-        $currentDate = $date->format('Y-m-d');
-        if (!in_array($currentDate, $vacancesScolaires)) {
-            // Ajout du nom correspondant à la semaine
-            $nomsParSemaine[$currentDate] = $noms[$indexNom];
+    if ($noms != null) {
+        foreach ($dates as $date) {
+            // Vérification si la semaine est une semaine de vacances scolaires
+            $currentDate = $date->format('Y-m-d');
+            if (!in_array($currentDate, $vacancesScolaires)) {
+                // Ajout du nom correspondant à la semaine
+                $nomsParSemaine[$currentDate] = $noms[$indexNom];
 
-            // Passage au nom suivant dans le tableau
-            $indexNom = ($indexNom + 1) % count($noms);
-        } else {
-            // Si c'est une semaine de vacances, ajouter null comme valeur
-            $nomsParSemaine[$currentDate] = 'null';
+                // Passage au nom suivant dans le tableau
+                $indexNom = ($indexNom + 1) % count($noms);
+            } else {
+                // Si c'est une semaine de vacances, ajouter null comme valeur
+                $nomsParSemaine[$currentDate] = 'null';
+            }
         }
+    } else {
+        $nomsParSemaine = null;
     }
+
 
     // -----------------
 
