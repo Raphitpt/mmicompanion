@@ -353,7 +353,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
             // console.log(week);
             // console.log(currentWeek);
-
+            swiper.slideTo(week < 0 ? 0 : week, 0);
             // swiper.slideTo(week, 0, false);
 
             // Faire apparaître le background dans le menu burger
