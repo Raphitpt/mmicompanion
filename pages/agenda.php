@@ -337,23 +337,24 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
                 return weekNumber;
             }
-            let currentWeek = getWeekNumber();
 
+            let currentWeek = getWeekNumber();
+            let week = currentWeek - 1;
             // Swiper
             let swiper = new Swiper(".mySwiper", {
                 autoHeight: true,
-
+                initialSlide: week < 0 ? 0 : week,
                 spaceBetween: 30,
                 navigation: {
                     nextEl: ".btn_next_agenda",
                     prevEl: ".btn_prev_agenda",
                 },
             });
-            let week = currentWeek - 1;
-            console.log(week);
-            console.log(currentWeek);
 
-            swiper.slideTo(week, 0, false);
+            // console.log(week);
+            // console.log(currentWeek);
+            swiper.slideTo(week < 0 ? 0 : week, 0);
+            // swiper.slideTo(week, 0, false);
 
             // Faire apparaître le background dans le menu burger
             let select_background_profil = document.querySelector('#select_background_agenda-header');
