@@ -100,11 +100,11 @@
 	],
 
 
-	"start_url": "/mmicompanion/pages/home.php",
+	"start_url": "/pages/home.php",
 
 	"background_color": "#ffffff",
 
-	"display": "standalone",
+	"display": "fullscreen",
 
 	"orientation": "portrait",
 
