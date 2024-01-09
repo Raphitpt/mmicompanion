@@ -1327,7 +1327,7 @@ function getAgenda($dbh, $user, $edu_group)
     $eduGroupAll = $but . "-" . $allGroup;
 
     $currentYear = date("Y");
-    $currentWeek = null;
+    $currentWeek = date("W");
     $currentDate = date('Y-m-d');
 
     // -----------------
@@ -1434,36 +1434,43 @@ function getAgenda($dbh, $user, $edu_group)
         // Obtenez la semaine de l'événement
         $eventWeek = date('W', $date);
 
+
         // Comparez la semaine actuelle avec la semaine de l'événement
-        if ($eventWeek >= $currentWeek) {
+        if ($eventWeek != $currentWeek) {
             // Ajoutez les semaines manquantes au tableau
-            for ($missingWeek = $currentWeek + 1; $missingWeek < $eventWeek; $missingWeek++) {
+            for ($missingWeek = $currentWeek + 1; $missingWeek <= $eventWeek; $missingWeek++) {
                 $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
                 $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(4);   // Se termine le vendredi
-
+                // var_dump($missingWeek);
+                // var_dump($startDate);
+                // var_dump($endDate);
                 $missingWeekStartDate = $startDate->format('d/m');
                 $missingWeekEndDate = $endDate->format('d/m');
                 if ($missingWeek < 10) {
                     $missingWeek = "0" . $missingWeek;
                 }
                 $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
-                $agendaMerged[$missingWeekLabel] = [];
+                // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
+                $weekLabel = $missingWeekLabel;
+                // Ajoutez la nouvelle entrée dans le tableau
+                $agendaMerged[$weekLabel] = [];
             }
-
             // Mettez à jour la semaine actuelle
             $currentWeek = $eventWeek;
+        }
 
-            // Calculez la date de début de la semaine
-            $weekStartDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-1"));
+        // Calculez la date de début de la semaine
+        $weekStartDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-1"));
 
-            // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
-            $weekLabel = "Semaine {$currentWeek} (du {$weekStartDate} au ";
+        // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
+        $weekLabel = "Semaine {$currentWeek} (du {$weekStartDate} au ";
 
-            // Calculez la date de fin de la semaine (5 jours plus tard)
-            $weekEndDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-5"));
-            $weekLabel .= "{$weekEndDate})";
+        // Calculez la date de fin de la semaine (5 jours plus tard)
+        $weekEndDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-5"));
+        $weekLabel .= "{$weekEndDate})";
 
-            // Ajoutez la nouvelle entrée dans le tableau
+        // Ajoutez la nouvelle entrée dans le tableau
+        if (!isset($agendaMerged[$weekLabel])) {
             $agendaMerged[$weekLabel] = [];
         }
 
