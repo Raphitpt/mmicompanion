@@ -337,19 +337,20 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
                 return weekNumber;
             }
+
             let currentWeek = getWeekNumber();
             let week = currentWeek - 1;
             // Swiper
             let swiper = new Swiper(".mySwiper", {
                 autoHeight: true,
-                initialSlide: week,
+                initialSlide: week < 0 ? 0 : week,
                 spaceBetween: 30,
                 navigation: {
                     nextEl: ".btn_next_agenda",
                     prevEl: ".btn_prev_agenda",
                 },
             });
-            
+
             // console.log(week);
             // console.log(currentWeek);
 
