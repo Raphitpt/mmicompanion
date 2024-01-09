@@ -92,7 +92,7 @@ function requestPermission() {
   });
 }
 function saveToken() {
-  if (permission === "granted") {
+  if (Notification.permission === "granted") {
       // Retrieve the FCM registration token
       getToken(messaging, {
         vapidKey:
