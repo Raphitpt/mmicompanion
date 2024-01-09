@@ -96,7 +96,7 @@ window.addEventListener("DOMContentLoaded", () => {
   notif();
   // si la permission est déjà accordée
   console.log(Notification.permission);
-  if (Notification.permission === "granted") {
+  if (Notification.permission === "granted" || Notification.permission === "default") {
     requestPermission();
   }
 });
