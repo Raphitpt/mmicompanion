@@ -47,6 +47,7 @@ echo head('MMI Companion | Emploi du temps');
 
 <!-- Mise en place du tutoriel -->
 <?php
+
 if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-welcome">
@@ -461,6 +462,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             } else if (eventLocation && calendar.view.type === 'timeGridDay') {
               eventContent = '<div class="fc-description" style="font-size:0.8rem">' + eventTitle + ' - ' + test + ' - ' + eventLocation + ' - ' + eventHour + '</div>';
             }
+          }
+          if (eventTitle == "Projection concours 48H - Entrée libre"){
+            eventContent = '<div class="fc-title" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">🎬' + eventTitle + '</div><div class="fc-description" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">Venez nombreux ! 🎬</div><div class="fc-location" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">' + eventLocation + ' / '+ eventHour + '</div><div><img src="./../assets/img/pop-corn.png"  style="width:20%; height: auto; position:absolute; top:50%; right:0; transform: rotate(20deg);"></div>';
           }
           return {
             html: eventContent
