@@ -462,6 +462,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
               eventContent = '<div class="fc-description" style="font-size:0.8rem">' + eventTitle + ' - ' + test + ' - ' + eventLocation + ' - ' + eventHour + '</div>';
             }
           }
+          if (eventTitle == "Projection concours 48H - Entrée libre"){
+            eventContent = '<div class="fc-description" style="font-size:0.8rem; color:#2C1a17"; background:#F9EDDD; font-family: Poppins;>🎬' + eventTitle + '</br><div class="fc-description" style="font-size:0.8rem">Venez nombreux ! 🎬</div>' + eventLocation + ' </br>  ' + eventHour + '</div><div><img src="./../assets/img/pop-corn.png"  style="width:40%; height: auto; position:absolute; top:50%; right:0; transform: rotate(20deg);"></div>';
+          }
           return {
             html: eventContent
           };
