@@ -44,8 +44,9 @@ html{
 
 [data-theme="dark"] {
     --fc-today-bg-color: rgba(155, 155, 155, 0.192);
-    --bleu-trs-clair-background: #000000;
-    --bleu-clair-background: #252525;
+    --bleu-trs-clair-background: #1e1e1e;
+    --bleu-clair-background: #000;
+    --bleu-moyen-bis: #323232;
     --bleu-moyen: #ffffff;
     --texte: #ffffff;
 }
@@ -67,19 +68,19 @@ html{
 /* HOME.PHP */
 
 [data-theme="dark"] .description_prochain_cours-home{
-    background-color: var(--bleu-trs-clair-background) !important;
+    background-color: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .container_numbers_agenda-home a{
-    background-color: var(--bleu-clair-background) !important;
+    background-color: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .agenda_tomorrow-home {
-    background-color: var(--bleu-clair-background) !important;
+    background-color: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .content_menu-home{
-    background-color: var(--bleu-clair-background) !important;
+    background-color: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .item_slider_page-home{
@@ -94,15 +95,15 @@ html{
 }
 
 [data-theme="dark"] .title_flextopright-agenda a {
-    color: var(--bleu-trs-clair-background) !important;
+    color: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] #calendar {
-    background: var(--bleu-clair-background) !important;
+    background: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .fc-timegrid-slot-label-cushion{
-    background: var(--bleu-clair-background) !important;
+    background: var(--bleu-moyen-bis) !important;
 }
 
 
@@ -122,7 +123,7 @@ html{
 }
 
 [data-theme="dark"] .container_content-agenda {
-    background: var(--bleu-clair-background) !important;
+    background: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .content_item_list_flexleft-agenda label{
@@ -134,7 +135,7 @@ html{
 /* INFORMATIONS.PHP */
 
 [data-theme="dark"] .item-information {
-    background: var(--bleu-clair-background) !important;
+    background: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .item_content_title_flexbottom-information p:nth-child(1) {
@@ -184,7 +185,7 @@ html{
 /* SCOLARITE.PHP */
 
 [data-theme="dark"] .content_recapitulatif_details-absences{
-    background: var(--bleu-clair-background) !important;
+    background: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .content_select-absences select{
@@ -192,7 +193,7 @@ html{
 }
 
 [data-theme="dark"] .container-notes{
-    background: var(--bleu-clair-background) !important;
+    background: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .separation_item-scolarite{
@@ -204,7 +205,7 @@ html{
 /* MENU.PHP */
 
 [data-theme="dark"] .menu_content-menu{
-    background: var(--bleu-clair-background) !important;
+    background: var(--bleu-moyen-bis) !important;
 }
 
 [data-theme="dark"] .container-calendar_view {
@@ -214,7 +215,7 @@ html{
     color: var(--bleu-clair-background) !important;
 }
 [data-theme="dark"] .notification-badge {
-    background-color: var(--bleu-trs-clair-background);
+    background-color: var(--bleu-moyen-bis);
     color: var(--texte);
 }
 
