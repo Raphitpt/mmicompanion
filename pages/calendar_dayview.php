@@ -464,7 +464,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             }
           }
           if (eventTitle == "Projection concours 48H - Entrée libre"){
-            eventContent = '<div class="fc-title" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">🎬' + eventTitle + '</div><div class="fc-description" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">Venez nombreux ! 🎬</div><div class="fc-location" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">' + eventLocation + ' / '+ eventHour + '</div><div><img src="./../assets/img/pop-corn.png"  style="width:20%; height: auto; position:absolute; top:50%; right:0; transform: rotate(20deg);"></div>';
+            eventContent = '<div class="fc-title" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">🎬' + eventTitle + '</div><div class="fc-description" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">Venez nombreux ! 🎬</div><div class="fc-location" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">' + eventLocation + ' / '+ eventHour + '</div><div><img src="./../assets/img/pop-corn.gif"  style="width:20%; height: auto; position:absolute; top:50%; right:0;"></div>';
           }
           return {
             html: eventContent
