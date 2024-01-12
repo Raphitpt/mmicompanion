@@ -1629,7 +1629,7 @@ function getAgendaProf($dbh, $user, $edu_group)
             // Ajoutez les semaines manquantes au tableau
             for ($missingWeek = $currentWeek + 1; $missingWeek < $eventWeek; $missingWeek++) {
                 $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
-                $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(4);   // Se termine le vendredi
+                $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(5);   // Se termine le vendredi
 
                 $missingWeekStartDate = $startDate->format('d/m');
                 $missingWeekEndDate = $endDate->format('d/m');
@@ -1746,7 +1746,7 @@ function getUserCahier($dbh, $edu_group)
     $endOfWeek->add(new DateInterval('P4D')); // Ajouter seulement 4 jours pour obtenir une semaine de 5 jours
 
     // Si on est après le vendredi, passer à la semaine suivante
-    if ($currentDay > 5) {
+    if ($currentDay > 6) {
         $startOfWeek->add(new DateInterval('P7D'));
         $endOfWeek->add(new DateInterval('P7D'));
     }

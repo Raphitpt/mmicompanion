@@ -520,7 +520,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 endOfWeek.setDate(today.getDate() + (5 - currentDay));
 
                 // Si on est après le vendredi, passer à la semaine suivante
-                if (currentDay > 4) {
+                if (currentDay > 5) {
                     startOfWeek.setDate(startOfWeek.getDate() + 7); // Ajouter 7 jours pour passer à la semaine suivante
                     endOfWeek.setDate(endOfWeek.getDate() + 7);
                 }
