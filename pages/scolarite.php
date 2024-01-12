@@ -370,10 +370,10 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                     recapAbsences.innerHTML = '';
 
                     const absences = result.absences;
-                    const total = absences.total; // Correction de la référence à la variable total
-                    const unjustified = absences.unjustified;
+                    const total = absences.total_abs; // Correction de la référence à la variable total
+                    const unjustified = absences.total_absI;
                     const justified = total - unjustified;
-                    const detailled = absences.detailled;
+                    const detailled = absences.calendaires;
 
                     if (total === 0) {
                         let totalElement = document.createElement('p');
