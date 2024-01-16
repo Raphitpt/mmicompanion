@@ -124,19 +124,12 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
             let swiper = new Swiper(".mySwiper", {
                 slidesPerView: 1, // Nombre de diapositives à afficher simultanément
                 spaceBetween: 10,
+                autoHeight: true,
+                
                 navigation: {
                     nextEl: ".btn_next",
                     prevEl: ".btn_prev",
                 },
-                on: {
-                    init: function() {
-                        checkSlideCount();
-                    },
-                    slidesLength: function() {
-                        checkSlideCount();
-                    },
-
-                }
             });
             swiper.slideTo(getSlideIndexByClass('today'),0, false);
 
