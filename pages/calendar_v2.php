@@ -19,83 +19,11 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
 ?>
 
 <body class="body-all">
-    <!-- Menu de navigation -->
-    <?php //generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])); 
-    ?>
     <main class="main_all">
         <div class="menu_content-menu">
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <?php
-                    $ical = new ICal('./../backup_cal/BUT2-TP3.ics');
-                    $events = $ical->events();
-                    usort($events, function ($a, $b) {
-                        return strtotime($a->dtstart) - strtotime($b->dtstart);
-                    });
-
-
-                    // Générer la liste des jours de l'année scolaire (du 1er septembre au 31 juillet)
-                    $currentDate = new DateTime('first day of September ' . date('Y') - 1);
-                    $endOfYear = new DateTime('last day of July ' . date('Y'));
-
-                    $daysOfWeek = []; // Initialisez $daysOfWeek en tant qu'array vide
-
-                    while ($currentDate <= $endOfYear) {
-                        // Exclure les samedis (6) et dimanches (0)
-                        if ($currentDate->format('N') != 6 && $currentDate->format('N') != 7) {
-                            $date = $currentDate->format('Y-m-d');
-                            echo '<div class="swiper-slide';
-
-                            // Ajouter la classe today si la date est celle d'aujourd'hui
-                            if ($currentDate->format('Y-m-d') == date('Y-m-d')) {
-                                echo ' today';
-                            }
-
-                            echo '">';
-                            echo "<h2>{$date}</h2>";
-
-                            $eventsForDay = array_filter($events, function ($event) use ($date) {
-                                return date('Y-m-d', strtotime($event->dtstart)) === $date;
-                            });
-
-                            if (!empty($eventsForDay)) {
-                                foreach ($eventsForDay as $event) {
-                                    echo "<div>";
-                                    echo $event->summary;
-                                    echo $event->location;
-                                    echo $event->description;
-
-                                    // Conversion de la date et de l'heure
-                                    $startDateTime = new DateTime($event->dtstart);
-                                    $formattedStartTime = $startDateTime->format('Ymd\THis\Z');
-                                    echo $formattedStartTime;
-
-                                    $endDateTime = new DateTime($event->dtend);
-                                    $formattedEndTime = $endDateTime->format('Ymd\THis\Z');
-                                    echo $formattedEndTime;
-
-                                    echo "</div>";
-                                    // Ajouter la date au tableau $daysOfWeek
-                                    $daysOfWeek[] = $date;
-                                }
-                            } else {
-                                echo "<p>Aucun événement pour cette journée.</p>";
-                            }
-
-                            echo '</div>';
-                        }
-
-
-
-                        $currentDate->modify('+1 day');
-                    }
-                    // Utiliser count() seulement si $daysOfWeek est un tableau
-                    if (is_array($daysOfWeek)) {
-                        echo 'Nombre de jours de la semaine : ' . count($daysOfWeek);
-                    } else {
-                        echo 'Le tableau $daysOfWeek n\'est pas défini ou n\'est pas un tableau.';
-                    }
-                    ?>
+                <div class="swiper-wrapper" id="calendarContainer">
+                    <!-- Calendar events will be dynamically added here -->
                 </div>
                 <div class="btn_content-menu btn_next">
                     <p>Suivant</p>
@@ -110,39 +38,119 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./../assets/js/ical.js"></script>
     <script>
-        function checkSlideCount() {
-            const swiper = document.querySelector('.mySwiper').swiper;
+        document.addEventListener('DOMContentLoaded', function() {
+            const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
 
-            if (swiper.slides.length <= 1) {
-                document.querySelector('.swiper-wrapper').style.marginBottom = "auto";
-            } else {
-                document.querySelector('.swiper-wrapper').style.marginBottom = "4rem";
-            }
-        }
-        // Swiper
-            let swiper = new Swiper(".mySwiper", {
-                slidesPerView: 1, // Nombre de diapositives à afficher simultanément
-                spaceBetween: 10,
-                autoHeight: true,
-                
-                navigation: {
-                    nextEl: ".btn_next",
-                    prevEl: ".btn_prev",
-                },
-            });
-            swiper.slideTo(getSlideIndexByClass('today'),0, false);
+            // Charger le fichier ICS de manière asynchrone
+            fetch('./../backup_cal/BUT2-TP3.ics')
+                .then(response => response.text())
+                .then(icsData => {
+                    // Analyser les données ICS
+                    const data = ical.parseICS(icsData);
 
-            function getSlideIndexByClass(className) {
-                let slides = document.querySelectorAll('.swiper-wrapper .swiper-slide');
-                for (let i = 0; i < slides.length; i++) {
-                    if (slides[i].classList.contains(className)) {
-                        return i;
+                    // Créer un tableau de jours de septembre à juillet (en excluant les week-ends)
+                    const startDate = new Date(Date.UTC(new Date().getUTCFullYear() - 1, 8, 1));
+                    const endDate = new Date(Date.UTC(new Date().getUTCFullYear(), 6, 31));
+
+                    // Convertir les dates au fuseau horaire de Paris (heure d'Europe centrale)
+                    startDate.setUTCHours(startDate.getUTCHours() + 2);
+                    endDate.setUTCHours(endDate.getUTCHours() + 2);
+
+                    const allDays = getDates(startDate, endDate);
+
+                    // Stocker les événements par date
+                    const eventsByDate = {};
+                    for (let k in data) {
+                        if (data.hasOwnProperty(k)) {
+                            var event = data[k];
+                            if (data[k].type === 'VEVENT') {
+                                // Convertir la date au format ISO (YYYY-MM-DD)
+                                const dateKey = `${event.start.getFullYear()}-${padZeroes(event.start.getMonth() + 1)}-${padZeroes(event.start.getDate())}`;
+
+                                function padZeroes(value) {
+                                    return value.toString().padStart(2, '0');
+                                }
+                                console.log(dateKey)
+                                if (!eventsByDate[dateKey]) {
+                                    eventsByDate[dateKey] = [];
+                                }
+                                eventsByDate[dateKey].push(event);
+                            }
+                        }
                     }
+                    // Fri Sep 01 2023 00:00:00 GMT+0200 (heure d’été d’Europe centrale)
+                    // Fri Dec 01 2023 08:00:00 GMT+0100 (heure normale d’Europe centrale)
+
+                    // Créer les slides
+                    const eventsContainer = document.getElementById('calendarContainer');
+                    allDays.forEach(day => {
+                        // Convertir la date au format ISO (YYYY-MM-DD)
+                        const dateKey = day.toISOString().split('T')[0];
+                        const eventsForDate = eventsByDate[dateKey] || [];
+                        // console.log(eventsByDate);
+
+                        // Trier les événements par ordre chronologique
+                        eventsForDate.sort((a, b) => new Date(a.start) - new Date(b.start));
+
+                        const slideElement = document.createElement('div');
+                        slideElement.classList.add('swiper-slide');
+
+                        // Afficher la date correspondant à la slide
+                        const slideDateString = `${day.getDate()} ${months[day.getMonth()]} ${day.getFullYear()}`;
+                        const dateHeader = document.createElement('h2');
+                        dateHeader.textContent = slideDateString;
+                        slideElement.appendChild(dateHeader);
+
+                        eventsForDate.forEach(event => {
+                            const eventElement = document.createElement('div');
+                            // Utiliser directement les dates
+                            eventElement.innerHTML = `
+            <p>Début : ${event.start}</p>
+            <p>Fin : ${event.end}</p>
+            <p>Lieu : ${event.location}</p>
+            <p>Description : ${event.description}</p>
+            <hr>
+        `;
+                            slideElement.appendChild(eventElement);
+                        });
+
+                        eventsContainer.appendChild(slideElement);
+                    });
+
+                    // Initialiser Swiper
+                    let swiper = new Swiper(".mySwiper", {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                        navigation: {
+                            nextEl: ".btn_next",
+                            prevEl: ".btn_prev",
+                        },
+                    });
+                })
+                .catch(error => {
+                    console.error('Erreur lors du chargement ou de l\'analyse du fichier ICS', error);
+                });
+        });
+
+        function getDates(startDate, endDate) {
+            const dates = [];
+            let currentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), startDate.getUTCDate()));
+            endDate = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate()));
+
+            while (currentDate <= endDate) {
+                // Exclure les samedis (6) et dimanches (0)
+                if (currentDate.getUTCDay() !== 0 && currentDate.getUTCDay() !== 6) {
+                    dates.push(new Date(currentDate));
                 }
-                return 0;
+                currentDate.setUTCDate(currentDate.getUTCDate() + 1);
             }
+            return dates;
+        }
     </script>
 </body>
+
+</html>
 
 </html>
