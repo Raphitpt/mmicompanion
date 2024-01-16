@@ -333,6 +333,13 @@ function generateBurgerMenuContent($role, $title, $notifs)
                 <p>Administration</p>
                 <div id="select_background_profil-header" class=""></div>
             </div>
+        </a>
+        <a href="./calendar_v2.php">
+            <div class="burger_content_link-header">
+            <i class="fi fi-br-tool-box"></i>
+                <p>EDT V2</p>
+                <div id="select_background_profil-header" class=""></div>
+            </div>
         </a>';
     }
     $menuHtml .= '
@@ -1067,6 +1074,23 @@ function nextCours($edu_group)
     }
 
     return $result;
+}
+
+function timetable($edu_group, $id_user) {
+    $ical = new ICal('./../backup_cal/' . $edu_group . '.ics');
+
+    $events = $ical->events();
+    foreach ($events as $event){
+        echo "<div>";
+        echo $event->summary ;
+        echo $event->location;
+        echo $event->description;
+        echo $event->dtstart;
+        echo $event->dtend;
+        echo "</div>";
+
+    }
+    
 }
 
 
