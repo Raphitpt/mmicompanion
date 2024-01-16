@@ -19,10 +19,13 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
 ?>
 
 <body class="body-all">
+    <!-- Menu de navigation -->
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
+
     <main class="main_all">
         <div class="menu_content-menu">
             <div class="swiper mySwiper">
-                <div class="swiper-wrapper" id="calendarContainer">
+                <div class="swiper-wrapper agenda" id="calendarContainer">
                     <!-- Calendar events will be dynamically added here -->
                 </div>
                 <div class="btn_content-menu btn_next">
@@ -75,7 +78,9 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                     }
 
                     const eventsContainer = document.getElementById('calendarContainer');
-                    allDays.forEach(day => {
+                    let todayIndex = -1; // Index de la slide correspondant à la date actuelle
+
+                    allDays.forEach((day, index) => {
                         const dateKey = day.toISOString().split('T')[0];
                         const eventsForDate = eventsByDate[dateKey] || [];
                         eventsForDate.sort((a, b) => new Date(a.start) - new Date(b.start));
@@ -84,12 +89,21 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                         slideElement.classList.add('swiper-slide');
 
                         const slideDateString = `${day.getDate()} ${months[day.getMonth()]} ${day.getFullYear()}`;
-                        const dateHeader = document.createElement('h2');
-                        dateHeader.textContent = slideDateString;
+
+                        const dateHeader = document.createElement('div');
+                        dateHeader.classList.add('item_title_content-agenda');
+                        const bookMark = document.createElement('div');
+                        bookMark.classList.add('fi');
+                        bookMark.classList.add('fi-br-bookmark');
+                        dateHeader.appendChild(bookMark);
+                        const dateHeaderP = document.createElement('p');
+                        dateHeaderP.textContent = slideDateString;
+                        dateHeader.appendChild(dateHeaderP);
                         slideElement.appendChild(dateHeader);
 
                         eventsForDate.forEach(event => {
                             const eventElement = document.createElement('div');
+                            eventElement.classList.add('container_list_content-agenda');
                             eventElement.innerHTML = `
                         <p>Début : ${event.start}</p>
                         <p>Fin : ${event.end}</p>
@@ -101,6 +115,12 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                         });
 
                         eventsContainer.appendChild(slideElement);
+
+                        // Comparer la date actuelle avec la date de la slide
+                        if (isToday(day)) {
+                            todayIndex = index;
+                            slideElement.classList.add('today');
+                        }
                     });
 
                     let swiper = new Swiper(".mySwiper", {
@@ -110,9 +130,10 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                             nextEl: ".btn_next",
                             prevEl: ".btn_prev",
                         },
-                        speed: 500, // Ajout d'une vitesse de transition
-                        grabCursor: true, // Curseur de main au survol
-                        autoHeight: true, // Ajuster automatiquement la hauteur
+                        speed: 500,
+                        grabCursor: true,
+                        autoHeight: true,
+                        initialSlide: todayIndex, // Aller à la slide correspondant à la date actuelle
                     });
                 })
                 .catch(error => {
@@ -123,7 +144,7 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
         function getDates(startDate, endDate) {
             const dates = [];
             let currentDate = new Date(Date.UTC(startDate.getUTCFullYear(), startDate.getUTCMonth(), startDate.getUTCDate()));
-            endDate = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate()));
+            endDate = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCMonth()));
 
             while (currentDate <= endDate) {
                 if (currentDate.getUTCDay() !== 0 && currentDate.getUTCDay() !== 6) {
@@ -132,6 +153,13 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                 currentDate.setUTCDate(currentDate.getUTCDate() + 1);
             }
             return dates;
+        }
+
+        function isToday(someDate) {
+            const today = new Date();
+            return someDate.getDate() === today.getDate() &&
+                someDate.getMonth() === today.getMonth() &&
+                someDate.getFullYear() === today.getFullYear();
         }
     </script>
 </body>
