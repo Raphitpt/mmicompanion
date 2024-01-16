@@ -104,11 +104,13 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                         eventsForDate.forEach(event => {
                             const eventElement = document.createElement('div');
                             eventElement.classList.add('container_list_content-agenda');
+                            let eventDescriptionModifie = event.description.replace(/\([^)]*\)/g, '');
+                            let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1</p><br><p>');
                             eventElement.innerHTML = `
-                        <p>Début : ${event.start}</p>
-                        <p>Fin : ${event.end}</p>
+                        <p>Début : ${event.start.getHours()}:${padZeroes(event.start.getMinutes())}</p>
+                        <p>Fin : ${event.end.getHours()}:${padZeroes(event.end.getMinutes())}</p>
                         <p>Lieu : ${event.location}</p>
-                        <p>Description : ${event.description}</p>
+                        <p>Description : ${test}</p>
                         <hr>
                     `;
                             slideElement.appendChild(eventElement);
