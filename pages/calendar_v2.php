@@ -43,36 +43,29 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
         document.addEventListener('DOMContentLoaded', function() {
             const months = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin', 'Juil', 'Août', 'Sep', 'Oct', 'Nov', 'Déc'];
 
-            // Charger le fichier ICS de manière asynchrone
             fetch('./../backup_cal/BUT2-TP3.ics')
                 .then(response => response.text())
                 .then(icsData => {
-                    // Analyser les données ICS
                     const data = ical.parseICS(icsData);
 
-                    // Créer un tableau de jours de septembre à juillet (en excluant les week-ends)
                     const startDate = new Date(Date.UTC(new Date().getUTCFullYear() - 1, 8, 1));
                     const endDate = new Date(Date.UTC(new Date().getUTCFullYear(), 6, 31));
-
-                    // Convertir les dates au fuseau horaire de Paris (heure d'Europe centrale)
                     startDate.setUTCHours(startDate.getUTCHours() + 2);
                     endDate.setUTCHours(endDate.getUTCHours() + 2);
 
                     const allDays = getDates(startDate, endDate);
-
-                    // Stocker les événements par date
                     const eventsByDate = {};
+
                     for (let k in data) {
                         if (data.hasOwnProperty(k)) {
                             var event = data[k];
                             if (data[k].type === 'VEVENT') {
-                                // Convertir la date au format ISO (YYYY-MM-DD)
                                 const dateKey = `${event.start.getFullYear()}-${padZeroes(event.start.getMonth() + 1)}-${padZeroes(event.start.getDate())}`;
 
                                 function padZeroes(value) {
                                     return value.toString().padStart(2, '0');
                                 }
-                                console.log(dateKey)
+
                                 if (!eventsByDate[dateKey]) {
                                     eventsByDate[dateKey] = [];
                                 }
@@ -80,24 +73,16 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                             }
                         }
                     }
-                    // Fri Sep 01 2023 00:00:00 GMT+0200 (heure d’été d’Europe centrale)
-                    // Fri Dec 01 2023 08:00:00 GMT+0100 (heure normale d’Europe centrale)
 
-                    // Créer les slides
                     const eventsContainer = document.getElementById('calendarContainer');
                     allDays.forEach(day => {
-                        // Convertir la date au format ISO (YYYY-MM-DD)
                         const dateKey = day.toISOString().split('T')[0];
                         const eventsForDate = eventsByDate[dateKey] || [];
-                        // console.log(eventsByDate);
-
-                        // Trier les événements par ordre chronologique
                         eventsForDate.sort((a, b) => new Date(a.start) - new Date(b.start));
 
                         const slideElement = document.createElement('div');
                         slideElement.classList.add('swiper-slide');
 
-                        // Afficher la date correspondant à la slide
                         const slideDateString = `${day.getDate()} ${months[day.getMonth()]} ${day.getFullYear()}`;
                         const dateHeader = document.createElement('h2');
                         dateHeader.textContent = slideDateString;
@@ -105,21 +90,19 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
 
                         eventsForDate.forEach(event => {
                             const eventElement = document.createElement('div');
-                            // Utiliser directement les dates
                             eventElement.innerHTML = `
-            <p>Début : ${event.start}</p>
-            <p>Fin : ${event.end}</p>
-            <p>Lieu : ${event.location}</p>
-            <p>Description : ${event.description}</p>
-            <hr>
-        `;
+                        <p>Début : ${event.start}</p>
+                        <p>Fin : ${event.end}</p>
+                        <p>Lieu : ${event.location}</p>
+                        <p>Description : ${event.description}</p>
+                        <hr>
+                    `;
                             slideElement.appendChild(eventElement);
                         });
 
                         eventsContainer.appendChild(slideElement);
                     });
 
-                    // Initialiser Swiper
                     let swiper = new Swiper(".mySwiper", {
                         slidesPerView: 1,
                         spaceBetween: 10,
@@ -127,6 +110,9 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                             nextEl: ".btn_next",
                             prevEl: ".btn_prev",
                         },
+                        speed: 500, // Ajout d'une vitesse de transition
+                        grabCursor: true, // Curseur de main au survol
+                        autoHeight: true, // Ajuster automatiquement la hauteur
                     });
                 })
                 .catch(error => {
@@ -140,7 +126,6 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
             endDate = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), endDate.getUTCDate()));
 
             while (currentDate <= endDate) {
-                // Exclure les samedis (6) et dimanches (0)
                 if (currentDate.getUTCDay() !== 0 && currentDate.getUTCDay() !== 6) {
                     dates.push(new Date(currentDate));
                 }
