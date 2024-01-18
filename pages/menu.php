@@ -47,9 +47,9 @@ if ($user_sql['edu_group'] === "LGTF") {
                     <div class="content_item_menu_title-menu">
                         <p>Contact</p>
     <?php if ($user_sql['edu_group'] === "LGTF"){
-    echo "<a href="tel:0623785183">06 23 78 51 83</a>";
+    echo '<a href="tel:0623785183">06 23 78 51 83</a>';
 }else{
-    echo "<a href="tel:0545255151">05 45 25 51 51</a>";
+    echo '<a href="tel:0545255151">05 45 25 51 51</a>';
 } ?>
                         
                     </div>
