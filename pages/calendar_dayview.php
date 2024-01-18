@@ -260,7 +260,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
       let eventSources = [{
-        url: url1
+        url: url1,
+        cache: false
       }];
 
       if (url1 === './custom_cal.php') {
