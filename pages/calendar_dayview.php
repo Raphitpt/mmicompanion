@@ -252,12 +252,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     let url1 = './../backup_cal/<?php echo $user_sql['edu_group'] ?>.ics';
 
 
-    if ("<?php echo $user_sql['role'] ?>" === "autre") {
+    if ("<?php echo $user_sql['edu_group'] ?>" === "LGTF") {
       url1 = './custom_cal.php';
     }
-    if ("<?php echo $user_sql['edu_group'] ?>" === "LGTF") {
-      url1 = './../other_cal/vcs_combined.vcs';
-    }
+
 
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
