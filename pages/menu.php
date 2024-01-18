@@ -22,11 +22,14 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
         <div style="height:30px"></div>
         <div class="menu_title-menu">
             <div class="title_trait">
-<?php if ($user_sql['edu_group'] === "LGTF"{
+<?php
+if ($user_sql['edu_group'] === "LGTF") {
     echo "<h1>Le menu de La Bastide</h1>";
-}else{
- echo "<h1>Le menu du Crousty</h1>";
-} ?>
+} else {
+    echo "<h1>Le menu du Crousty</h1>";
+}
+?>
+
           
                 
                 <div></div>
@@ -43,10 +46,10 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                     <i class="fi fi-sr-phone-call"></i>
                     <div class="content_item_menu_title-menu">
                         <p>Contact</p>
-    <?php if ($user_sql['edu_group'] === "LGTF"{
-echo "<a href="tel:0623785183">06 23 78 51 83</a>";
+    <?php if ($user_sql['edu_group'] === "LGTF"){
+    echo "<a href="tel:0623785183">06 23 78 51 83</a>";
 }else{
-echo "<a href="tel:0545255151">05 45 25 51 51</a>";
+    echo "<a href="tel:0545255151">05 45 25 51 51</a>";
 } ?>
                         
                     </div>
@@ -55,7 +58,7 @@ echo "<a href="tel:0545255151">05 45 25 51 51</a>";
                     <i class="fi fi-br-site-alt"></i>
                     <div class="content_item_menu_title-menu">
                         <p>Site web</p>
-    <?php if ($user_sql['edu_group'] === "LGTF"{
+    <?php if ($user_sql['edu_group'] === "LGTF"){
 echo "<a href="https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/" target="_blank">https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/</a>";
 }else{
 echo "<a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_blank">https://www.crous-poitiers.fr/restaurant/r-u-crousty/</a>";
@@ -81,7 +84,7 @@ echo "<a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_b
                     
                     <?php } else{
                     // Récupération du menu
-                        if ($user_sql['edu_group'] === "LGTF"{
+                        if ($user_sql['edu_group'] === "LGTF"){
                         $menuDataByDay = getMenu("./../backup_cal/menu_bastide.html");
                         }else{
                         $menuDataByDay = getMenu("./../backup_cal/menu.html");
