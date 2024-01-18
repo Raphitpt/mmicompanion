@@ -22,7 +22,13 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
         <div style="height:30px"></div>
         <div class="menu_title-menu">
             <div class="title_trait">
-                <h1>Le menu du Crousty</h1>
+<?php if ($user_sql['edu_group'] === "LGTF"{
+<h1>Le menu de La Bastide</h1>
+}else{
+<h1>Le menu du Crousty</h1>
+} ?>
+          
+                
                 <div></div>
             </div>
             <div class="content_menu_title-menu">
@@ -37,14 +43,24 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                     <i class="fi fi-sr-phone-call"></i>
                     <div class="content_item_menu_title-menu">
                         <p>Contact</p>
-                        <a href="tel:0545255151">05 45 25 51 51</a>
+    <?php if ($user_sql['edu_group'] === "LGTF"{
+<a href="tel:0623785183">06 23 78 51 83</a>
+}else{
+<a href="tel:0545255151">05 45 25 51 51</a>
+} ?>
+                        
                     </div>
                 </div>
                 <div class="item_menu_title-menu">
                     <i class="fi fi-br-site-alt"></i>
                     <div class="content_item_menu_title-menu">
                         <p>Site web</p>
-                        <a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_blank">https://www.crous-poitiers.fr/restaurant/r-u-crousty/</a>
+    <?php if ($user_sql['edu_group'] === "LGTF"{
+<a href="https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/" target="_blank">https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/</a>
+}else{
+<a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_blank">https://www.crous-poitiers.fr/restaurant/r-u-crousty/</a>
+} ?>
+                        
                     </div>
                 </div>
                 
@@ -65,7 +81,12 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                     
                     <?php } else{
                     // Récupération du menu
-                    $menuDataByDay = getMenu("./../backup_cal/menu.html");
+                        if ($user_sql['edu_group'] === "LGTF"{
+                        $menuDataByDay = getMenu("./../backup_cal/menu_bastide.html");
+                        }else{
+                        $menuDataByDay = getMenu("./../backup_cal/menu.html");
+                        }
+                    
 
                     foreach ($menuDataByDay as $date => $menuInfo) {
                         // Obtenez la date actuelle au format "l j F Y"
