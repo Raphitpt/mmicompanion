@@ -59,9 +59,9 @@ if ($user_sql['edu_group'] === "LGTF") {
                     <div class="content_item_menu_title-menu">
                         <p>Site web</p>
     <?php if ($user_sql['edu_group'] === "LGTF"){
-echo "<a href="https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/" target="_blank">https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/</a>";
+echo '<a href="https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/" target="_blank">https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/</a>';
 }else{
-echo "<a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_blank">https://www.crous-poitiers.fr/restaurant/r-u-crousty/</a>";
+echo '<a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_blank">https://www.crous-poitiers.fr/restaurant/r-u-crousty/</a>';
 } ?>
                         
                     </div>
