@@ -27,7 +27,7 @@ function downloadMenuFile($menu_url, $destination_path)
 
 // Spécifiez le chemin complet du fichier de destination.
 $menu_url = 'https://www.crous-poitiers.fr/restaurant/r-u-crousty/';
-$destination_path = './backup_cal/menu.html';
+$destination_path = '/backup_cal/menu.html';
 
 // Appelez la fonction avec les paramètres.
 downloadMenuFile($menu_url, $destination_path);
