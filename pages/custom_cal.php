@@ -16,8 +16,8 @@ if ($start !== null && $end !== null) {
     {
         $matieres = [
             "ALLEMAND1" => "#0097CF", // Orange
-            "ANGLAIS1" => "#00CF61", // Vert clair
-            "AOPS1" => "#A2D100", // Bleu violet
+            "ANGLAIS2" => "#00CF61", // Vert clair
+            "AOPS2" => "#A2D100", // Bleu violet
             "AUTRE" => "#1989E1", // Cyan
             "CALCMATHS" => "#A261FF", // Magenta
             "COM-EXP1" => "#F3A0FF", // Jaune
@@ -39,6 +39,8 @@ if ($start !== null && $end !== null) {
             "CO-GENE" => "#CE6F87", // Vert clair
             "ORSE" => "#0097CF", // Bleu violet
             "SAE-1-3" => "#00CF61", // Cyan clair
+            "ECO-TRANSP" => "#5AA544",
+            "CCT" => "#1989E1",
         ];
         $search_term = $matiereName;
         foreach ($matieres as $matiere => $colorCode) {
@@ -68,6 +70,8 @@ function findProf($profName){
         "RAVON001" => "RAVON",
         "KLAJA" => "KLAJA",
         "BARIO001" => "BARIOULET",
+        "ZERGU001" => "ZERGUINI",
+        "DIAKI001" => "DIAKITE"
     ];
     $search_term = $profName;
     foreach ($prof as $profCode => $profName) {
