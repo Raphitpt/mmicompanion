@@ -31,4 +31,5 @@ $destination_path = __DIR__ . '/backup_cal/menu.html';
 
 // Appelez la fonction avec les paramètres.
 downloadMenuFile($menu_url, $destination_path);
+downloadMenuFile("https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/", __DIR__ . '/backup_cal/menu_bastide.html');
 ?>
