@@ -23,9 +23,9 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
         <div class="menu_title-menu">
             <div class="title_trait">
 <?php if ($user_sql['edu_group'] === "LGTF"{
-<h1>Le menu de La Bastide</h1>
+    echo "<h1>Le menu de La Bastide</h1>";
 }else{
-<h1>Le menu du Crousty</h1>
+ echo "<h1>Le menu du Crousty</h1>";
 } ?>
           
                 
@@ -44,9 +44,9 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                     <div class="content_item_menu_title-menu">
                         <p>Contact</p>
     <?php if ($user_sql['edu_group'] === "LGTF"{
-<a href="tel:0623785183">06 23 78 51 83</a>
+echo "<a href="tel:0623785183">06 23 78 51 83</a>";
 }else{
-<a href="tel:0545255151">05 45 25 51 51</a>
+echo "<a href="tel:0545255151">05 45 25 51 51</a>";
 } ?>
                         
                     </div>
@@ -56,9 +56,9 @@ echo head('MMI Companion | Menu du Crousty', $additionalStyles);
                     <div class="content_item_menu_title-menu">
                         <p>Site web</p>
     <?php if ($user_sql['edu_group'] === "LGTF"{
-<a href="https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/" target="_blank">https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/</a>
+echo "<a href="https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/" target="_blank">https://www.crous-bordeaux.fr/restaurant/resto-u-la-bastide-3/</a>";
 }else{
-<a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_blank">https://www.crous-poitiers.fr/restaurant/r-u-crousty/</a>
+echo "<a href="https://www.crous-poitiers.fr/restaurant/r-u-crousty/" target="_blank">https://www.crous-poitiers.fr/restaurant/r-u-crousty/</a>";
 } ?>
                         
                     </div>
