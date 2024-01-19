@@ -20,6 +20,12 @@ $prof_list = "SELECT * FROM personnels LEFT JOIN users ON personnels.nom = users
 $stmt = $dbh->prepare($prof_list);
 $stmt->execute();
 $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$all_etudiants = "SELECT * FROM etudiants";
+$stmt = $dbh->prepare($all_etudiants);
+$stmt->execute();
+$all_etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 // var_dump($eleve_list);
 ?>
 <!doctype html>
@@ -95,6 +101,10 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div style="height:30px"></div>
     <div>
       <h2>Liste des élèves</h2>
+      <p> Nombre d'élèves inscrit en BUT1 : <?php echo count(array_filter($eleve_list, function($eleve) { return strpos($eleve['edu_group'], 'BUT1') !== false; })); ?> / <?php echo count(array_filter($all_etudiants, function($alleleve) { return strpos($alleleve['edu_group'], 'BUT1') !== false; })); ?></p>
+      <p> Nombre d'élèves inscrit en BUT2 : <?php echo count(array_filter($eleve_list, function($eleve) { return strpos($eleve['edu_group'], 'BUT2') !== false; })); ?> / <?php echo count(array_filter($all_etudiants, function($alleleve) { return strpos($alleleve['edu_group'], 'BUT2') !== false; })); ?></p>
+      <p> Nombre d'élèves inscrit en BUT3 : <?php echo count(array_filter($eleve_list, function($eleve) { return strpos($eleve['edu_group'], 'BUT3') !== false; })); ?> / <?php echo count(array_filter($all_etudiants, function($alleleve) { return strpos($alleleve['edu_group'], 'BUT3') !== false; })); ?></p>
+      <div class="table-responsive">
       <table class="table" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
         <thead style="background-color: #AAAAAA !important;">
           <tr>
@@ -130,6 +140,7 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
           ?>
         </tbody>
       </table>
+      </div>
     </div>
     <div style="height:30px"></div>
     <div>
@@ -137,6 +148,7 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <div class="toolbar">
         <button class="btn btn-primary" id="order1">Ajouter un personnel</button>
       </div>
+      <div class="table-responsive">
       <table class="table" data-toolbar=".toolbar" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
         <thead style="background-color: #AAAAAA !important;">
           <tr>
@@ -174,6 +186,9 @@ $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
           }
           
           ?>
+        </tbody>
+      </table>
+      </div>
     </div>
   </div>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
