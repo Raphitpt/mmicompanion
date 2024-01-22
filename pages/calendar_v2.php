@@ -13,6 +13,7 @@ $user_sql = userSQL($dbh, $user);
 
 
 $additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
+generate_password_prof("raphael.tiphonet@etu.univ-poitiers.fr", "Tiphonet", "Raphaël", "RTP");
 
 echo head('MMI Companion | Menu du Crousty', $additionalStyles);
 

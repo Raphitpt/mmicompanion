@@ -923,9 +923,32 @@ HTML;
 
     // send the email
     $_SESSION['mail_message'] = "";
-    if (mail($email, $subject, nl2br($message), $headers)) {
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = $_ENV['SERVEUR_MAIL'];                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = $_ENV['MAIL_PORT'];                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
         $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
-    } else {
+    } catch (Exception $e) {
         $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
         error_log("Error sending activation email to $email");
     }
@@ -1781,4 +1804,85 @@ function getUserCahier($dbh, $edu_group)
     $nomActuel = $nomsParSemaine[$formattedStart] ?? 'null'; // Utilisation de l'opérateur null coalescent pour obtenir la valeur ou null si non définie
 
     return $nomActuel;
+}
+function randomPassword() {
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array(); //remember to declare $pass as an array
+    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    for ($i = 0; $i < 10; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); //turn the array into a string
+}
+
+function generate_password_prof ($email, $name, $pname, $trigramme){
+    global $dbh;
+    $password = randomPassword();
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // $sql_insert = "INSERT INTO users (pname, name, password, edu_mail, adu_group, role, pp_link, active, tuto_agenda) VALUES (:pname, :name, :password, :edu_mail, :edu_group, :role, pp_link, :active)";
+    // $stmt_insert = $dbh->prepare($sql_insert);
+    // $stmt_insert->execute([
+    //     'pname' => $pname,
+    //     'name' => $name,
+    //     'password' => $password_hash,
+    //     'edu_mail' => $email,
+    //     'edu_group' => $trigramme,
+    //     'role' => 'prof',
+    //     'pp_link' => 'https://www.mmi-lepuy.fr/wp-content/uploads/2019/10/Logo-MMI-2019-300x300.png',
+    //     'active' => 1
+    // ]);
+
+
+    // set email subjectj
+    $subject = 'Voici vos identifiants pour MMI Companion !';
+
+    // load HTML content from a file
+    $message = file_get_contents('./../idmail.html');
+
+    $message = str_replace('{{FirstName}}', $pname, $message);
+    $message = str_replace('{{LastName}}', $name, $message);
+    $message = str_replace('{{IdentifiantMail}}', $email, $message);
+    $message = str_replace('{{IdentifiantMdp}}', $password, $message);
+
+
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = $_ENV['SERVEUR_MAIL'];                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = $_ENV['MAIL_PORT'];                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email, $name);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } catch (Exception $e) {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
+
 }
