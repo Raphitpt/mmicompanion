@@ -1,4 +1,4 @@
-<!-- Fichier calendar.php qui gère tout, ne pas cassez SVP 😂 -->
+<!-- Fichier calendar_dayview.php qui gère tout, ne pas cassez SVP 😂 -->
 <?php
 session_start();
 require '../bootstrap.php';
@@ -16,12 +16,7 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-  'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
 // On récupère le lien de l'emploi du temps de l'utilisateur via la base de données
 $cal_link = calendar($user_sql['edu_group']);
@@ -36,12 +31,9 @@ if (isset($_POST['annee']) && isset($_POST['tp'])) {
     'edu_group' => $annee . "-" . $tp,
     'id_user' => $user['id_user']
   ]);
-  header('Location: ./calendar.php');
+  header('Location: ./calendar_dayview.php');
   exit();
 }
-
-
-
 
 $color_subjects = "SELECT * FROM sch_ressource";
 $stmt = $dbh->prepare($color_subjects);
@@ -55,10 +47,11 @@ echo head('MMI Companion | Emploi du temps');
 
 <!-- Mise en place du tutoriel -->
 <?php
+
 if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-welcome">
-    <main class="main-welcome">
+    <main class="main_all">
       <form action="" method="post" class="form-welcome">
         <section class="welcome_page1-index">
           <a href="./logout.php" class="back_btn">
@@ -219,18 +212,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
   <body class="body-all">
 
-    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <div style="height:15px"></div>
 
-    <main class="main-calendar">
-      <?php if ($user_sql['role'] == "prof") { ?>
-        <div class="welcome_title-calendar_prof">
-          <p>Bienvenue <span style="font-weight:900"><?php echo strtoupper(substr($user['pname'], 0, 1)) . "." . ucfirst($user['name']) ?></span> sur votre espace professeur</p>
-          <img src="./../assets/img/hello_emoji.webp" alt="">
-        </div>
-        <div style="height:15px"></div>
-      <?php } ?>
+    <main class="main_all main-calendar">
       <section class="section_calendar-calendar">
         <div class="container_calendar-calendar">
 
@@ -238,7 +224,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         </div>
       </section>
       <div style="height:10px"></div>
-      <div class="last_backup_cal">
+      <div class="p_credit-calendar">
         <p>Dernière sauvegarde: <?php echo date("d F Y H:i:s", filemtime($cal_link)) ?></p>
       </div>
 
@@ -253,7 +239,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/icalendar@6.1.8/index.global.min.js"></script>
   <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
-  <script src="../assets/js/menu-navigation.js?v=1.1"></script>
+  <script src="../assets/js/script_all.js?v=1.1"></script>
   <script src="../assets/js/fireworks.js"></script>
    
   <script src="../assets/js/app.js"></script>
@@ -266,14 +252,16 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
     let url1 = './../backup_cal/<?php echo $user_sql['edu_group'] ?>.ics';
 
 
-    if ("<?php echo $user_sql['role'] ?>" === "autre") {
+    if ("<?php echo $user_sql['edu_group'] ?>" === "LGTF") {
       url1 = './custom_cal.php';
     }
+
 
     document.addEventListener("DOMContentLoaded", function() {
       // Gestion et affichage de l'emploi du temps en utilisant FullCalendar
       let eventSources = [{
-        url: url1
+        url: url1,
+        cache: false
       }];
 
       if (url1 === './custom_cal.php') {
@@ -309,6 +297,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
         weekNumbers: true,
+        events: [
+          { title: 'Pause Repas', start: '11:45', end: '13:30', dow: [1, 2, 3, 4, 5] }, // Pause Repas chaque jour de la semaine
+        ],
         views: {
           timeGridWeek: {
             type: 'timeGrid',
@@ -332,12 +323,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             const color = info.el.style.backgroundColor;
             const start = info.event.start;
             const end = info.event.end;
-            window.location.href = './calendar_view.php?title=' + title + '&location=' + location + '&description=' + description + '&color=' + color + '&start=' + start + '&end=' + end;
+            window.location.href = './calendar_view.php?title=' + title + '&location=' + location + '&description=' + description + '&color=' + color + '&start=' + start + '&end=' + end + '&page=calendar_dayview.php';
           }
         },
         allDaySlot: false,
         eventMinHeight: 30,
-        height: 'calc(98vh - 95px)',
+        height: 'calc(100vh - 117px)',
         nowIndicator: true,
         initialView: "timeGridDay",
         footerToolbar: {
@@ -473,6 +464,9 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             } else if (eventLocation && calendar.view.type === 'timeGridDay') {
               eventContent = '<div class="fc-description" style="font-size:0.8rem">' + eventTitle + ' - ' + test + ' - ' + eventLocation + ' - ' + eventHour + '</div>';
             }
+          }
+          if (eventTitle == "Projection concours 48H - Entrée libre"){
+            eventContent = '<div class="fc-title" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">🎬' + eventTitle + '</div><div class="fc-description" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">Venez nombreux ! 🎬</div><div class="fc-location" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">' + eventLocation + ' / '+ eventHour + '</div><div><img src="./../assets/img/pop-corn.gif"  style="width:20%; height: auto; position:absolute; top:50%; right:0;"></div>';
           }
           return {
             html: eventContent

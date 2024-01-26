@@ -1,7 +1,9 @@
 {
   "dependencies": {
+    "@flaticon/flaticon-uicons": "^3.1.0",
     "@widgetjs/tree": "^1.8.3",
+    "bootstrap-table": "^1.22.1",
+    "firebase": "^10.7.1",
     "fireworks-js": "^2.10.7"
-    "bootstrap-table": "^1.22.1"
   }
 }

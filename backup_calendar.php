@@ -1,5 +1,5 @@
 <?php
-require ('./bootstrap.php');
+require('bootstrap.php');
 
 // Définissez un tableau associatif avec les liens iCal pour chaque groupe
 $sql_but = "SELECT * FROM mmi_but";

@@ -37,9 +37,9 @@ echo head("MMI Companion | Profil");
 
 <body class="body-all">
 
-    <?php generateBurgerMenuContent($user_sql['role'], 'Profil') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Profil', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
-    <main class="main-profil">
+    <main class="main_all main_flex">
         <div class="profil_picture-profil">
             <div class="edit_profil_picture-img" id="edit_profil_picture">
                 <i class="fi fi-br-pencil"></i>
@@ -48,7 +48,9 @@ echo head("MMI Companion | Profil");
             <input id="profil_picture-input" class="profil_picture-input" type="file" name="profil-picture">
         </div>
 
-        <div id="push-permission" class="button_notifications-profil"></div>
+        <div id="push-permission" class="button_notifications-profil">
+            <button id="push-permission-button" class="button_notifications-button-profil">Activer les notifications</button>
+        </div>
         <div style="height:25px"></div>
         <div class="profil_form-profil">
             <div class="profil_form-disabled">
@@ -110,46 +112,34 @@ echo head("MMI Companion | Profil");
                     </form>
                 </div>
             <?php } ?>
-            <?php if (str_contains($user_sql['role'], "admin")){ ?>
+
             <div class="trait-profil"></div>
-            <div class="profil_theme-profil">
-                <label for="theme">Choix du thème : </label>
-                <div class="profil_theme-switch">
-                    <select name="theme" id="SelectTheme">
-                        <option value="light">Clair</option>
-                        <option value="dark">Sombre</option>
-                    </select>
 
-
-                </div>
-                <div class="profil_themes-festifs">
-                    <input type="checkbox" id="switchTheme" name="theme" checked disabled/>
-                    <p class="label" for="switch">Thèmes festifs</p>
-                </div>
-            </div>
-            <?php } ?>
-            <div class="trait-profil"></div>
-            <div class="profil_theme-profil">
-                <label for="theme">Choix du thème : </label>
-                <div class="profil_theme-switch">
-                    <select name="theme" id="SelectTheme">
-                        <option value="light">Clair</option>
-                        <option value="dark">Sombre</option>
-                    </select>
-
-
-                </div>
-                <div class="profil_themes-festifs">
-                    <input type="checkbox" id="switchTheme" name="theme" checked disabled/>
-                    <p class="label" for="switch">Thèmes festifs</p>
+            <div class="change_theme-profil">
+                <label for="themeSelect">Choix du thème :</label>
+                <div class="content_change_theme-profil">
+                    <div class="select_content_change_theme-profil">
+                        <select name="themeSelect" id="themeSelect">
+                            <option value="light">Clair</option>
+                            <option value="dark">Sombre</option>
+                        </select>
+                    </div>
+                    <div class="description_content_change_theme-profil">
+                        <input type="checkbox" id="themeFestif" name="themeFestif" checked disabled/>
+                        <label for="themeFestif">Thèmes festifs</label>
+                    </div>
                 </div>
             </div>
 
             <div class="trait-profil"></div>
 
             <a role="button" href="./logout.php" class="profil_form-button_logout">Se déconnecter</a>
-            <p class="profil_form-score">Version 0.9 - Alpha</p>
-            <a href="https://mmi-companion.fr/cgu.html" class="profil_cgu">conditions d'utilisation</a>
+
+            <div class="p_credit-profil">
+                <p class="profil_form-score">Version 0.9 - Alpha</p>
+                <a href="https://mmi-companion.fr/cgu.html" class="profil_cgu">conditions d'utilisation</a>
+            </div>
+            
         </div>
         <div style="height:30px"></div>
 
@@ -159,7 +149,7 @@ echo head("MMI Companion | Profil");
 
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js" integrity="sha512-MgYeYFj8R3S6rvZHiJ1xA9cM/VDGcT4eRRFQwGA7qDP7NHbnWKNmAm28z0LVjOuUqjD0T9JxpDMdVqsZOSHaSA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
     <script src="../assets/js/fireworks.js"></script>
      
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.min.js" integrity="sha512-Gs+PsXsGkmr+15rqObPJbenQ2wB3qYvTHuJO6YJzPe/dTLvhy0fmae2BcnaozxDo5iaF8emzmCZWbQ1XXiX2Ig==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->

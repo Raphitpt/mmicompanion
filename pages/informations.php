@@ -5,12 +5,7 @@ $user = onConnect($dbh);
 
 
 
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-  'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
 $sql_informations = "SELECT informations.*, users.role FROM informations INNER JOIN users ON informations.id_user = users.id_user WHERE informations.group_info = :edu_group_common
                     UNION ALL
@@ -66,9 +61,9 @@ echo head("MMI Companion | Informations");
 ?>
 <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Informations') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
-    <main class="main-informations">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="info_title_flextop-informations">
             <div class="title_trait">
@@ -138,7 +133,7 @@ echo head("MMI Companion | Informations");
       </main>
 
     <script src="../assets/js/fireworks.js"></script>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+    <script src="../assets/js/script_all.js?v=1.1"></script> 
     <script src='../assets/js/tree.min.js'></script>
 
     <script>

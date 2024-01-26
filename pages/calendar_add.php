@@ -55,7 +55,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_st
     ]);
     if($stmt->rowCount() > 0){
         $_SESSION['date'] = $dateStart;
-        header('Location: ./calendar.php');
+        header('Location: ./calendar_dayview.php');
         exit();
     }
 
@@ -68,11 +68,11 @@ echo head("MMI Companion | Emploi du temps");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
     <!-- Fin du menu de navigation -->
     
     <!-- Corps de la page -->
-    <main class="main-calendar_add">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Ajouter un évènement</h1>
@@ -128,7 +128,7 @@ echo head("MMI Companion | Emploi du temps");
 
             <div style="height:25px"></div>
             <div class="form_button-agenda">
-                <a role="button" href='./calendar.php'>Annuler</a>
+                <a role="button" href='./calendar_dayview.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
             </div>
             <div style="height:20px"></div>
@@ -138,7 +138,7 @@ echo head("MMI Companion | Emploi du temps");
         <canvas id="fireworks"></canvas>
 
       </main>
-      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/script_all.js?v=1.1"></script> 
         <script src="../assets/js/fireworks.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger

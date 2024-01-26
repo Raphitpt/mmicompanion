@@ -11,13 +11,7 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 // Fin de la récupération du cookie
 // --------------------
 
-
-$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt_user = $dbh->prepare($sql_user);
-$stmt_user->execute([
-    ':id_user' => $user['id_user']
-]);
-$user_sql = $stmt_user->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
 // On vérifie si le formulaire est rempli et si oui on ajoute la tache dans la base de donnée
 // On appelle certaines variable du cookie pour les ajouter dans la base de donnée
@@ -32,62 +26,60 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         $content = "";
     }
 
-    if ($_POST['tp'] == "TDA" || $_POST['tp'] == "TDB") {
-        if ($_POST['tp'] == "TDA") {
-            $td = [
-                'TP1',
-                'TP2'
-            ];
-        } else {
-            $td = [
-                'TP3',
-                'TP4'
-            ];
-        }
-
-        // On rèpète pour faire 2 lignes dans la base de donnée par tp dans le TD
-        foreach ($td as $tpValue) {
-            $edu_group = $_POST['but'] . "-" . $tpValue;
-
-            $school_subject = $_POST['school_subject'];
-            $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute([
-                'title' => $title,
-                'date' => $date,
-                'id_user' => $user['id_user'],
-                'type' => $type,
-                'id_subject' => $school_subject,
-                'edu_group' => $edu_group,
-                'content' => $content
-            ]);
-        }
+    if ($_POST['tp'] == "ALL") {
+        $edu_group = $_POST['but'] . "-" . $_POST['tp'];
     } else {
-        if ($_POST['tp'] == "all") {
-            $edu_group = $_POST['but'];
-        } else {
-            $edu_group = $_POST['but'] . "-" . $_POST['tp'];
-        }
-
-        $school_subject = $_POST['school_subject'];
-
-        $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute([
-            'title' => $title,
-            'date' => $date,
-            'id_user' => $user['id_user'],
-            'type' => $type,
-            'id_subject' => $school_subject,
-            'edu_group' => $edu_group,
-            'content' => $content
-
-        ]);
+        $edu_group = $_POST['but'] . "-" . $_POST['tp'];
     }
+
+    $school_subject = $_POST['school_subject'];
+
+    $sql = "INSERT INTO agenda (title, date_finish, type, id_user, id_subject, edu_group, content) VALUES (:title, :date, :type, :id_user, :id_subject, :edu_group, :content)";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute([
+        'title' => $title,
+        'date' => $date,
+        'id_user' => $user['id_user'],
+        'type' => $type,
+        'id_subject' => $school_subject,
+        'edu_group' => $edu_group,
+        'content' => $content
+
+    ]);
+
 
     header('Location: ./agenda_prof.php');
     exit();
 }
+
+
+if (strpos($user_sql['edu_group'], 'BUT1') !== false) {
+    $sql_subject = "SELECT DISTINCT rs.name_subject, ss.id_subject, ss.name_subject
+    FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R1%' OR rs.code_ressource LIKE 'R2%' OR rs.code_ressource LIKE 'SAE1%' OR rs.code_ressource LIKE 'SAE2%'
+    ORDER BY ss.name_subject ASC";
+} elseif (strpos($user_sql['edu_group'], 'BUT2') !== false) {
+    $sql_subject = "SELECT DISTINCT rs.name_subject, ss.id_subject, ss.name_subject
+    FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R3%' OR rs.code_ressource LIKE 'R4%' OR rs.code_ressource LIKE 'SAE3%' OR rs.code_ressource LIKE 'SAE4%'
+    ORDER BY ss.name_subject ASC";
+} elseif (strpos($user_sql['edu_group'], 'BUT3') !== false) {
+    $sql_subject = "SELECT DISTINCT rs.name_subject, ss.id_subject, ss.name_subject
+    FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject
+    WHERE rs.code_ressource LIKE 'R5%' OR rs.code_ressource LIKE 'R6%' OR rs.code_ressource LIKE 'SAE5%' OR rs.code_ressource LIKE 'SAE6%'
+    ORDER BY ss.name_subject ASC";
+} else {
+    $sql_subject = "SELECT rs.*, ss.name_subject, ss.id_subject FROM sch_ressource rs
+    JOIN sch_subject ss ON rs.name_subject = ss.id_subject ORDER BY ss.name_subject ASC";
+}
+
+
+$stmt_subject = $dbh->prepare($sql_subject);
+$stmt_subject->execute();
+$subject = $stmt_subject->fetchAll(PDO::FETCH_ASSOC);
 
 // Fin de la vérification du formulaire
 
@@ -96,16 +88,18 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 
 // Obligatoire pour afficher la page
 echo head("MMI Companion | Agenda");
+
+
 ?>
 <link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
     <!-- Fin du menu de navigation -->
     
     <!-- Corps de la page -->
-    <main class="main-agenda">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Ajouter une tâche</h1>
@@ -126,20 +120,26 @@ echo head("MMI Companion | Agenda");
                     <textarea class="form_content_input-informations_add" id="editor"></textarea>
                     <input name="content" id="content" type="hidden">
                 </div>
+
                 <div class="trait_agenda_add"></div>
+
                 <label for="date" class="label-agenda_add">
                     <h2>Ajouter une date</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="container_input_date-agenda_add">
-                    <i class="fi fi-br-calendar"></i>
-                    <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                <div class="container_date-agenda_add">
+                    <div class="container_input_date-agenda_add">
+                        <i class="fi fi-br-calendar"></i>
+                        <input type="date" name="date" class="input_date-agenda_add input-agenda_add" value="<?php echo date('Y-m-d'); ?>" placeholder="yyyy-mm-dd" min="<?php echo date("Y-m-d") ?>" required>
+                    </div>
+                    <div id="cocheWeek" class="container_input_week-agenda_add">
+                        <input type="checkbox" id="choosenWeek" name="choosenWeek" />
+                        <label for="choosenWeek">Afficher les semaines</label>
+                    </div>
                 </div>
-                <div id="cocheWeek">
-                    <input type="checkbox" id="choosenWeek" name="choosenWeek" />
-                    <label for="choosenWeek">Afficher les semaines</label>
-                </div>
+
                 <div style="height:15px"></div>
+
                 <label for="type" class="label-agenda_add">
                     <h2>Type de tâche</h2>
                 </label>
@@ -148,15 +148,17 @@ echo head("MMI Companion | Agenda");
                     <i class="fi fi-br-list"></i>
                     <select name="type" class="input_select-agenda_add input-agenda_add" required>
                         <option value="eval">Évaluation</option>
-                        <option value="devoir">Devoir à rendre</option>
+                        <option value="devoir">Tâche à faire</option>
                     </select>
                 </div>
+
                 <div style="height:15px"></div>
+
                 <label for="type" class="label-agenda_add">
                     <h2>Sélectionner un groupe</h2>
                 </label>
                 <div style="height:5px"></div>
-                <div class="select_but_agenda_prof">
+                <div class="container_select_but-agenda">
                     <select name="but" id="but">
                         <?php
                         $butOptions = array("BUT1", "BUT2", "BUT3");
@@ -170,24 +172,34 @@ echo head("MMI Companion | Agenda");
                     </select>
 
                     <select name="tp" id="tp">
-                        <option value="all">Tous</option>
+                        <?php 
+                            echo "<option value='ALL'>Tous</option>";
+                        ?>
                         <option disabled>------ TD ------</option>
-                        <option value="TDA">TDA</option>
-                        <option value="TDB">TDB</option>
+                        <?php
+                            $tdOptions = array("TDA", "TDB");
+                            $selectedTd = isset($_GET['tp']) ? $_GET['tp'] : '';
+
+                            foreach ($tdOptions as $option) {
+                                $selected = ($selectedTd === $option) ? 'selected' : '';
+                                echo "<option value='$option' $selected>$option</option>";
+                            }
+                        ?>
                         <option disabled>------ TP ------</option>
                         <?php
-                        $tpOptions = array("TP1", "TP2", "TP3", "TP4");
-                        $selectedTp = isset($_GET['tp']) ? $_GET['tp'] : '';
+                            $tpOptions = array("TP1", "TP2", "TP3", "TP4");
+                            $selectedTp = isset($_GET['tp']) ? $_GET['tp'] : '';
 
-                        foreach ($tpOptions as $option) {
-                            $selected = ($selectedTp === $option) ? 'selected' : '';
-                            echo "<option value='$option' $selected>$option</option>";
-                        }
+                            foreach ($tpOptions as $option) {
+                                $selected = ($selectedTp === $option) ? 'selected' : '';
+                                echo "<option value='$option' $selected>$option</option>";
+                            }
                         ?>
                     </select>
-
                 </div>
+
                 <div class="trait_agenda_add"></div>
+                
                 <label for="type" class="label-agenda_add">
                     <h2>Ajouter une matière</h2>
                 </label>
@@ -216,7 +228,7 @@ echo head("MMI Companion | Agenda");
         <canvas id="fireworks"></canvas>
 
       </main>
-      <script src="../assets/js/menu-navigation.js?v=1.1"></script> 
+      <script src="../assets/js/script_all.js?v=1.1"></script> 
         <script src="../assets/js/fireworks.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
