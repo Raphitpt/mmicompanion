@@ -1441,14 +1441,7 @@ function getAgenda($dbh, $user, $edu_group)
     $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
 
     // Récupération des devoirs
-    $sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role, e.id_event
-    FROM agenda a 
-    JOIN sch_subject s ON a.id_subject = s.id_subject 
-    LEFT JOIN event_check e ON a.id_user = e.id_user AND a.id_task = e.id_event
-    JOIN users u ON a.id_user = u.id_user 
-    WHERE (a.edu_group = :edu_group OR a.edu_group = :tdGroupAll OR a.edu_group = :eduGroupAll) 
-    AND a.type = 'devoir'
-    AND (e.id_user = :id_user OR e.id_user IS NULL) -- Ajout de parenthèses pour une logique claire
+    $sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir' -- Ajout de parenthèses pour une logique claire
     $sql_common_conditions
     ORDER BY a.title ASC";
 
