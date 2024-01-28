@@ -147,8 +147,8 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 </div>
                 <div></div>
             </div>
-
-            <a href="./calendar_view.php?
+            <div>
+                <a href="./calendar_view.php?
     <?php if (!empty($nextCours['summary'])) : ?>title=<?php echo urlencode($nextCours['summary']) ?>&<?php endif; ?>
     <?php if (!empty($nextCours['location'])) : ?>location=<?php echo urlencode($nextCours['location']) ?>&<?php endif; ?>
     <?php if (!empty($nextCours['description'])) : ?>description=<?php echo urlencode($nextCours['description']) ?>&<?php endif; ?>
@@ -157,19 +157,22 @@ echo head('MMI Companion | Accueil', $additionalStyles);
     <?php if (!empty($nextCours['dtend_tz'])) : ?>end=<?php echo urlencode($nextCours['dtend_tz']) ?>&<?php endif; ?>
         <?php if (!empty($nextCours['groupe'])) : ?>groupe=<?php echo urlencode($nextCours['groupe']) ?>&<?php endif; ?>
     page=home.php">
-                <div class="content_prochain_cours-home">
-                    <div class="description_prochain_cours-home">
-                        <p><?php echo $nextCours['summary'] ?></p>
-                        <p><?php echo $nextCours['location'] ?> - <?php echo $nextCours['description'] ?></p>
-                    </div>
-            </a>
-            <a href="./calendar_dayview.php">
+                    <div class="content_prochain_cours-home">
+                        <div class="description_prochain_cours-home">
+                            <p><?php echo $nextCours['summary'] ?></p>
+                            <p><?php echo $nextCours['location'] ?> - <?php echo $nextCours['description'] ?></p>
+                        </div>
+                </a>
+
                 <div class=" date_content_prochain_cours-home">
-                    <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
-                    <p id="tempsBefore">Chargement...</p>
+                    <a href="./calendar_dayview.php">
+                        <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
+                        <p id="tempsBefore">Chargement...</p>
+                    </a>
                 </div>
-                </div>
-            </a>
+            </div>
+
+            </div>
         </section>
 
         <div style="height:20px"></div>
