@@ -13,7 +13,8 @@ $user_sql = userSQL($dbh, $user);
 $dateSemaine = formatSemaineScolaire();
 
 
-function countEvent($agenda, $dateSemaine){
+function countEvent($agenda, $dateSemaine)
+{
     $nbEval = 0;
     $nbDevoir = 0;
 
@@ -64,6 +65,7 @@ if ($load == 'false') {
 
 
 $agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
+// print_r($agendaMerged);
 
 $countResult = countEvent($agendaMerged, $dateSemaine);
 $nbEval = $countResult['nbEval'];
@@ -72,6 +74,3 @@ $nbDevoir = $countResult['nbDevoir'];
 
 
 echo json_encode(['message' => "Mise à jour effectuée avec succès !", 'nbDevoir' => $nbDevoir, 'nbEval' => $nbEval]);
-
-
-?>
