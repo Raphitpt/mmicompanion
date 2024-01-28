@@ -155,20 +155,19 @@ function generateBurgerMenuContent($role, $title, $notifs)
                 <div style="width:20px"></div>
                 <!--<h1>' . $title . '</h1>-->
                 <div class="title-header">
-                    <h1>Bonne année 2024</h1>
-                    <p>' . $title . '</p>
+                    <h1>' . $title . '</h1>
                 </div>
             </div>
             <div class="right_content_title-header">
                 <div id="btn_notification" class="btn_notification_right_content_title-header">
                     <i class="fi fi-sr-bell"></i>';
     if ($notifs[1]['notif_message'] >= 1) {
-        if ($notifs[1]['notif_message'] >= 10){
+        if ($notifs[1]['notif_message'] >= 10) {
             $menuHtml .= '<div class="notification-badge">9+</div>';
         } else {
             $menuHtml .= '<div class="notification-badge">' . $notifs[1]['notif_message'] . '</div>';
         }
-    } 
+    }
     $menuHtml .= ' </div>';
 
     $menuHtml .= '
@@ -331,6 +330,13 @@ function generateBurgerMenuContent($role, $title, $notifs)
             <div class="burger_content_link-header">
             <i class="fi fi-br-tool-box"></i>
                 <p>Administration</p>
+                <div id="select_background_profil-header" class=""></div>
+            </div>
+        </a>
+        <a href="./calendar_v2.php">
+            <div class="burger_content_link-header">
+            <i class="fi fi-br-tool-box"></i>
+                <p>EDT V2</p>
                 <div id="select_background_profil-header" class=""></div>
             </div>
         </a>';
@@ -916,9 +922,32 @@ HTML;
 
     // send the email
     $_SESSION['mail_message'] = "";
-    if (mail($email, $subject, nl2br($message), $headers)) {
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = $_ENV['SERVEUR_MAIL'];                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = $_ENV['MAIL_PORT'];                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
         $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
-    } else {
+    } catch (Exception $e) {
         $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
         error_log("Error sending activation email to $email");
     }
@@ -1009,6 +1038,10 @@ function nextCours($edu_group)
         $fin->setTimezone($timezone);
 
         // $$anEvent = reset($events);
+        if (preg_match('/\b(CM|TDA|TDB|TP[1-4])\b/', $anEvent['description'], $matches)) {
+            $groupe = $matches[1];
+            $anEvent['groupe'] = $groupe;
+        }
         $anEvent['description'] = preg_replace('/\([^)]*\)/', '', $anEvent['description']);
         $anEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $anEvent['description']);
         $anEvent['description'] = trim($anEvent['description']);
@@ -1045,6 +1078,11 @@ function nextCours($edu_group)
             $nextEvent['dtstart_tz'] = date("D M d Y H:i:s O (T)", $nextEventDebut->getTimestamp());
             $nextEvent['dtend_tz'] = date("D M d Y H:i:s O (T)", $nextEventFin->getTimestamp());
 
+            if (preg_match('/\b(CM|TDA|TDB|TP[1-4])\b/', $nextEvent['description'], $matches)) {
+                $groupe = $matches[1];
+                $nextEvent['groupe'] = $groupe;
+            }
+
             // $nextEvent = reset($events);
             $nextEvent['description'] = preg_replace('/\([^)]*\)/', '', $nextEvent['description']);
             $nextEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $nextEvent['description']);
@@ -1067,6 +1105,22 @@ function nextCours($edu_group)
     }
 
     return $result;
+}
+
+function timetable($edu_group, $id_user)
+{
+    $ical = new ICal('./../backup_cal/' . $edu_group . '.ics');
+
+    $events = $ical->events();
+    foreach ($events as $event) {
+        echo "<div>";
+        echo $event->summary;
+        echo $event->location;
+        echo $event->description;
+        echo $event->dtstart;
+        echo $event->dtend;
+        echo "</div>";
+    }
 }
 
 
@@ -1390,7 +1444,7 @@ function getAgenda($dbh, $user, $edu_group)
     $sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role, e.id_event
     FROM agenda a 
     JOIN sch_subject s ON a.id_subject = s.id_subject 
-    LEFT JOIN event_check e ON a.id_user = e.id_user AND a.id_task = e.id_event
+    LEFT JOIN event_check e ON :id_user = e.id_user AND a.id_task = e.id_event
     JOIN users u ON a.id_user = u.id_user 
     WHERE (a.edu_group = :edu_group OR a.edu_group = :tdGroupAll OR a.edu_group = :eduGroupAll) 
     AND a.type = 'devoir'
@@ -1633,6 +1687,9 @@ function getAgendaProf($dbh, $user, $edu_group)
 
                 $missingWeekStartDate = $startDate->format('d/m');
                 $missingWeekEndDate = $endDate->format('d/m');
+                if ($missingWeek < 10) {
+                    $missingWeek = "0" . $missingWeek;
+                }
                 $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
                 $agendaMerged[$missingWeekLabel] = [];
             }
@@ -1757,4 +1814,86 @@ function getUserCahier($dbh, $edu_group)
     $nomActuel = $nomsParSemaine[$formattedStart] ?? 'null'; // Utilisation de l'opérateur null coalescent pour obtenir la valeur ou null si non définie
 
     return $nomActuel;
+}
+function randomPassword()
+{
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array(); //remember to declare $pass as an array
+    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    for ($i = 0; $i < 10; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); //turn the array into a string
+}
+
+function generate_password_prof($email, $name, $pname, $trigramme)
+{
+    global $dbh;
+    $password = randomPassword();
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+
+    // $sql_insert = "INSERT INTO users (pname, name, password, edu_mail, adu_group, role, pp_link, active, tuto_agenda) VALUES (:pname, :name, :password, :edu_mail, :edu_group, :role, pp_link, :active)";
+    // $stmt_insert = $dbh->prepare($sql_insert);
+    // $stmt_insert->execute([
+    //     'pname' => $pname,
+    //     'name' => $name,
+    //     'password' => $password_hash,
+    //     'edu_mail' => $email,
+    //     'edu_group' => $trigramme,
+    //     'role' => 'prof',
+    //     'pp_link' => 'https://www.mmi-lepuy.fr/wp-content/uploads/2019/10/Logo-MMI-2019-300x300.png',
+    //     'active' => 1
+    // ]);
+
+
+    // set email subjectj
+    $subject = 'Voici vos identifiants pour MMI Companion !';
+
+    // load HTML content from a file
+    $message = file_get_contents('./../idmail.html');
+
+    $message = str_replace('{{FirstName}}', $pname, $message);
+    $message = str_replace('{{LastName}}', $name, $message);
+    $message = str_replace('{{IdentifiantMail}}', $email, $message);
+    $message = str_replace('{{IdentifiantMdp}}', $password, $message);
+
+
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = $_ENV['SERVEUR_MAIL'];                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = $_ENV['MAIL_PORT'];                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email, $name);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } catch (Exception $e) {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
 }

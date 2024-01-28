@@ -46,9 +46,14 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'content' => $content
 
     ]);
+    if ($stmt && $type == "eval") {
+        sendNotification($dbh, 'Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $edu_group, 'Agenda');
+    }
+    if ($stmt && $type == "devoir") {
+        sendNotification($dbh, 'Agenda', 'Un nouveau devoir a été ajoutée pour le ' . $date, $edu_group, 'Agenda');
+    }
 
-
-    header('Location: ./agenda_prof.php');
+    header('Location: ./agenda_prof.php?but=' . $_POST['but'] . '&tp=' . $_POST['tp']);
     exit();
 }
 
@@ -97,7 +102,7 @@ echo head("MMI Companion | Agenda");
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
     <!-- Fin du menu de navigation -->
-    
+
     <!-- Corps de la page -->
     <main class="main_all">
         <div style="height:30px"></div>
@@ -172,34 +177,34 @@ echo head("MMI Companion | Agenda");
                     </select>
 
                     <select name="tp" id="tp">
-                        <?php 
-                            echo "<option value='ALL'>Tous</option>";
+                        <?php
+                        echo "<option value='ALL'>Tous</option>";
                         ?>
                         <option disabled>------ TD ------</option>
                         <?php
-                            $tdOptions = array("TDA", "TDB");
-                            $selectedTd = isset($_GET['tp']) ? $_GET['tp'] : '';
+                        $tdOptions = array("TDA", "TDB");
+                        $selectedTd = isset($_GET['tp']) ? $_GET['tp'] : '';
 
-                            foreach ($tdOptions as $option) {
-                                $selected = ($selectedTd === $option) ? 'selected' : '';
-                                echo "<option value='$option' $selected>$option</option>";
-                            }
+                        foreach ($tdOptions as $option) {
+                            $selected = ($selectedTd === $option) ? 'selected' : '';
+                            echo "<option value='$option' $selected>$option</option>";
+                        }
                         ?>
                         <option disabled>------ TP ------</option>
                         <?php
-                            $tpOptions = array("TP1", "TP2", "TP3", "TP4");
-                            $selectedTp = isset($_GET['tp']) ? $_GET['tp'] : '';
+                        $tpOptions = array("TP1", "TP2", "TP3", "TP4");
+                        $selectedTp = isset($_GET['tp']) ? $_GET['tp'] : '';
 
-                            foreach ($tpOptions as $option) {
-                                $selected = ($selectedTp === $option) ? 'selected' : '';
-                                echo "<option value='$option' $selected>$option</option>";
-                            }
+                        foreach ($tpOptions as $option) {
+                            $selected = ($selectedTp === $option) ? 'selected' : '';
+                            echo "<option value='$option' $selected>$option</option>";
+                        }
                         ?>
                     </select>
                 </div>
 
                 <div class="trait_agenda_add"></div>
-                
+
                 <label for="type" class="label-agenda_add">
                     <h2>Ajouter une matière</h2>
                 </label>
@@ -227,9 +232,9 @@ echo head("MMI Companion | Agenda");
 
         <canvas id="fireworks"></canvas>
 
-      </main>
-      <script src="../assets/js/script_all.js?v=1.1"></script> 
-        <script src="../assets/js/fireworks.js"></script>
+    </main>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>

@@ -15,31 +15,39 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
 
     $title = $_GET['title'];
     $description = $_GET['description'];
+    $patternName = '/\b(?:[A-Za-z]+\s+[A-Za-z]+|[A-Za-z]\. \D+|TDA|TDB|TP[1-4])\b/';
 
-    // Diviser la chaîne en parties en utilisant l'espace comme séparateur
-    $parties = explode(' ', $description);
-
-    // Assurez-vous qu'il y a au moins deux parties avant d'affecter aux variables
-    if (count($parties) >= 2) {
-        // Affecter les parties aux variables appropriées
-        $groupe = $parties[0];  // TP2
-        $professeur = implode(' ', array_slice($parties, 1));  // M. Dupont
+    // Initialiser les variables
+    if (!empty($_GET['groupe'])) {
+        $groupe = $_GET['groupe'];
     } else {
-        // En cas de professeur externe, son nom est dans le titre donc on extrait la forme M. Dupont
-        $pattern = '/\b[A-Za-z]\. [A-Za-z]+\b/';
-        if (preg_match($pattern, $title, $matches)) {
+        $groupe = 'Non défini';
+    }
+    $professeur = 'Non défini';
+
+    // Vérifier si la description contient le motif correspondant à un professeur
+    if (preg_match($patternName, $description, $matches)) {
+        $professeur = $matches[0];
+    } else {
+        // Diviser la chaîne en parties en utilisant l'espace comme séparateur
+        $parties = explode(' ', $description);
+        // Assurez-vous qu'il y a au moins deux parties avant d'affecter aux variables
+        if (count($parties) >= 2) {
+            // Affecter les parties aux variables appropriées
             $groupe = $parties[0];  // TP2
-            $professeur = $matches[0];  // M. Dupont
+            $professeur = implode(' ', array_slice($parties, 1));  // M. Dupont
         } else {
-            $groupe = 'Non défini';  // TP2
-            $professeur = 'Non défini';  // M. Dupont
+            // En cas de professeur externe, son nom est dans le titre
+            if (preg_match($patternName, $title, $matches)) {
+                $professeur = $matches[0];  // M. Dupont
+            }
         }
- 
     }
 
-    
 
-    $dateStart = $_GET['start']; 
+
+
+    $dateStart = $_GET['start'];
     $dateStartObj = DateTime::createFromFormat('D M d Y H:i:s e+', $dateStart);
     $dateStart = $dateStartObj ? $dateStartObj->format('Y-m-d\TH:i:s') : '';
 
@@ -61,7 +69,7 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     }
 
     $date = $dateStartObj ? $semaine[$dateStartObj->format('w')] . $dateStartObj->format(' d') . $mois[$dateStartObj->format('n')] : '';
-    
+
 
     // Calcul de la durée en heures et minutes
     $dureeDebut = $heureDebutExplode[0] * 60 + $heureDebutExplode[1];
@@ -73,123 +81,144 @@ if (isset($_GET['title']) && isset($_GET['description']) && isset($_GET['start']
     $minutes = $duree % 60;
     $duree = $heures . 'h' . $minutes;
 
-    $location = $_GET['location'];
+    if (!empty($_GET['location'])) {
+        $location = $_GET['location'];
+    }
+
     $color = $_GET['color'];
 
     $page = $_GET['page'];
-    if (str_contains($location, 'AMPHI')){
+    if (!empty($location) && str_contains($location, 'AMPHI')) {
         $groupe = 'Tous les groupes';
     }
-    // dd($_GET);
 
 
-echo head("MMI Companion | Emploi du temps");
+
+    echo head("MMI Companion | Emploi du temps");
 ?>
 
-<body class="body-all">
+    <body class="body-all">
 
-    <?php generateBurgerMenuContent($user['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
+        <?php //generateBurgerMenuContent($user['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) 
+        ?>
 
-    <main class="main_all">
-        <div style="height:15px"></div>
+        <main class="main_all">
+            <div style="height:15px"></div>
 
-        <div class="title-calendar_view">
-            <div style="background-color : <?php echo $color ?>"></div>
-            <h1><?php echo $title ?></h1>
-        </div>
-
-        <div style="height:20px"></div>
-
-        <div class="content-calendar_view">
-            <div class="container-calendar_view">
-                <div class="item-calendar_view">
-                    <i class="fi fi-br-door-open"></i>
-                    <div class="item_content-calendar_view">
-                        <p>Salle de cours</p>
-                        <p><?php echo $location ?></p>
-                    </div>
-                </div>
-                <div class="item-calendar_view">
-                    <i class="fi fi-br-user"></i>
-                    <div class="item_content-calendar_view">
-                        <p>Professeur.e</p>
-                        <p><?php echo $professeur ?></p>
-                    </div>
-                </div>
-                <div class="item-calendar_view">
-                    <i class="fi fi-br-users-alt"></i>
-                    <div class="item_content-calendar_view">
-                        <p>Groupe</p>
-                        <p><?php echo $groupe ?></p>
-                    </div>
-                </div>
+            <div class="title-calendar_view">
+                <div style="background-color : <?php echo $color ?>"></div>
+                <h1><?php if (!empty($title)) {
+                        echo $title;
+                    }  ?></h1>
             </div>
-            <div class="container-calendar_view">
-                <div class="item-calendar_view">
-                    <i class="fi fi-br-calendar-lines"></i>
-                    <div class="item_content-calendar_view">
-                        <p>Date du cours</p>
-                        <p><?php echo $date ?></p>
+
+            <div style="height:20px"></div>
+
+            <div class="content-calendar_view">
+                <div class="container-calendar_view">
+                    <?php if (!empty($location)) { ?>
+                        <div class="item-calendar_view">
+                            <i class="fi fi-br-door-open"></i>
+                            <div class="item_content-calendar_view">
+                                <p>Salle de cours</p>
+                                <p><?php if (!empty($location)) {
+                                        echo $location;
+                                    }  ?></p>
+                            </div>
+                        </div>
+                    <?php }; ?>
+                    <div class="item-calendar_view">
+                        <i class="fi fi-br-user"></i>
+                        <div class="item_content-calendar_view">
+                            <p>Professeur.e</p>
+                            <p><?php if (!empty($professeur)) {
+                                    echo $professeur;
+                                }  ?></p>
+                        </div>
+                    </div>
+                    <div class="item-calendar_view">
+                        <i class="fi fi-br-users-alt"></i>
+                        <div class="item_content-calendar_view">
+                            <p>Groupe</p>
+                            <p><?php if (!empty($groupe)) {
+                                    echo $groupe;
+                                }  ?></p>
+                        </div>
                     </div>
                 </div>
-                <div class="item-calendar_view">
-                    <i class="fi fi-br-hourglass"></i>
-                    <div class="item_content-calendar_view">
-                        <p>Durée du cours</p>
-                        <p><?php echo $duree ?></p>
+                <div class="container-calendar_view">
+                    <div class="item-calendar_view">
+                        <i class="fi fi-br-calendar-lines"></i>
+                        <div class="item_content-calendar_view">
+                            <p>Date du cours</p>
+                            <p><?php if (!empty($date)) {
+                                    echo $date;
+                                }  ?></p>
+                        </div>
+                    </div>
+                    <div class="item-calendar_view">
+                        <i class="fi fi-br-hourglass"></i>
+                        <div class="item_content-calendar_view">
+                            <p>Durée du cours</p>
+                            <p><?php if (!empty($duree)) {
+                                    echo $duree;
+                                }  ?></p>
+                        </div>
+                    </div>
+                    <div class="item-calendar_view">
+                        <i class="fi fi-br-clock"></i>
+                        <div class="item_content-calendar_view">
+                            <p>Début du cours</p>
+                            <p><?php if (!empty($dateStart)) {
+                                    echo $dateStart;
+                                }  ?></p>
+                        </div>
+                    </div>
+                    <div class="item-calendar_view">
+                        <i class="fi fi-br-clock-eleven-thirty"></i>
+                        <div class="item_content-calendar_view">
+                            <p>Fin du cours</p>
+                            <p><?php if (!empty($dateEnd)) {
+                                    echo $dateEnd;
+                                }  ?></p>
+                        </div>
                     </div>
                 </div>
-                <div class="item-calendar_view">
-                    <i class="fi fi-br-clock"></i>
-                    <div class="item_content-calendar_view">
-                        <p>Début du cours</p>
-                        <p><?php echo $dateStart ?></p>
-                    </div>
-                </div>
-                <div class="item-calendar_view">
-                    <i class="fi fi-br-clock-eleven-thirty"></i>
-                    <div class="item_content-calendar_view">
-                        <p>Fin du cours</p>
-                        <p><?php echo $dateEnd ?></p>
-                    </div>
-                </div>
+                <a role="button" href="./<?php echo $page ?>" class="btn_back-calendar_view">
+                    <i class="fi fi-br-angle-left"></i>
+                    <p>Retour</p>
+                </a>
             </div>
-            <a role="button" href="./<?php echo $page ?>" class="btn_back-calendar_view">
-                <i class="fi fi-br-angle-left"></i>
-                <p>Retour</p>
-            </a>
-        </div>
-        
-        <div style="height:30px"></div>
-    </main>
-    <script src="../assets/js/script_all.js?v=1.1"></script> 
-    <script>
-        // Faire apparaître le background dans le menu burger
-        let select_background_profil = document.querySelector('#select_background_calendar-header');
-        select_background_profil.classList.add('select_link-header');
 
-        // const dateStartInput = document.getElementById('date_start');
-        // const dateEndInput = document.getElementById('date_end');
+            <div style="height:30px"></div>
+        </main>
+        <script src="../assets/js/script_all.js?v=1.1"></script>
+        <script>
+            // Faire apparaître le background dans le menu burger
+            let select_background_profil = document.querySelector('#select_background_calendar-header');
+            select_background_profil.classList.add('select_link-header');
 
-        // dateStartInput.addEventListener('input', () => {
-        //     // Obtenez la nouvelle valeur de date de début
-        //     const dateStartValue = new Date(dateStartInput.value);
+            // const dateStartInput = document.getElementById('date_start');
+            // const dateEndInput = document.getElementById('date_end');
 
-        //     // Ajoutez 15 minutes à la nouvelle date de début
-        //     dateStartValue.setMinutes(dateStartValue.getMinutes() + 15);
+            // dateStartInput.addEventListener('input', () => {
+            //     // Obtenez la nouvelle valeur de date de début
+            //     const dateStartValue = new Date(dateStartInput.value);
 
-        //     // Ajoutez 2 heures pour corriger le décalage
-        //     dateStartValue.setHours(dateStartValue.getHours() + 1);
+            //     // Ajoutez 15 minutes à la nouvelle date de début
+            //     dateStartValue.setMinutes(dateStartValue.getMinutes() + 15);
 
-        //     // Mettez à jour la date de fin
-        //     dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
-        //     dateEndInput.value = dateStartValue.toISOString().slice(0, 16);
-        // });
+            //     // Ajoutez 2 heures pour corriger le décalage
+            //     dateStartValue.setHours(dateStartValue.getHours() + 1);
 
-    </script>
-</body>
+            //     // Mettez à jour la date de fin
+            //     dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
+            //     dateEndInput.value = dateStartValue.toISOString().slice(0, 16);
+            // });
+        </script>
+    </body>
 
-</html>
+    </html>
 <?php
 } else {
     header('Location: ./calendar_dayview.php');
