@@ -1455,7 +1455,6 @@ function getAgenda($dbh, $user, $edu_group)
         'edu_group' => $edu_group,
         'current_week_year' => $current_week_year,
         'current_date' => $today->format('Y-m-d'),
-        'id_user' => $user['id_user'],
         'tdGroupAll' => $tdGroupAll,
         'eduGroupAll' => $eduGroupAll
     ]);
