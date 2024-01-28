@@ -21,30 +21,19 @@ echo head("MMI Companion | Liens externes");
     <main class="main_all">
         <div style="height:30px"></div>
         <div class="container-liens_externes">
-            <a href="https://concours48h.fr" target="_blank">
-                <div class="item-liens_externes brown">
-                    <div class="item_flextop-liens_externes concours48h_img">
-                        <h1>Concours 48h</h1>
-                        <img src="./../assets/img/logo_48h.webp" alt="Logo du concours 48h">
-                    </div>
-                    <div class="item_flexbottom-liens_externes">
-                        <p>Le site officiel du concours 48h</p>
-                    </div>
-                </div>
-            </a>
             <a href="https://zimbra.univ-poitiers.fr" target="_blank">
                 <div class="item-liens_externes red">
                     <div class="item_flextop-liens_externes">
                         <h1>Messagerie
-                        <br>(webmail)
+                            <br>(webmail)
                         </h1>
                         <img src="./../assets/img/messagerie.webp" alt="Une personne envoyant un email">
                     </div>
                     <div class="item_flexbottom-liens_externes">
-                        <?php 
+                        <?php
                         if ($user_sql['role'] == "prof") {
                             echo "<p>Votre messagerie de l’université de Poitiers</p>";
-                        }else{
+                        } else {
                             echo "<p>Ta messagerie de l’université de Poitiers</p>";
                         }
                         ?>
@@ -58,12 +47,12 @@ echo head("MMI Companion | Liens externes");
                         <img src="./../assets/img/ENT.webp" alt="Une personne qui travaille">
                     </div>
                     <div class="item_flexbottom-liens_externes">
-                        <?php 
+                        <?php
                         if ($user_sql['role'] == "prof") {
                             echo "<p>Votre espace numérique de travail</p>";
-                        }else{
+                        } else {
                             echo "<p>Ton espace numérique de travail</p>";
-                        }   
+                        }
                         ?>
                     </div>
                 </div>
@@ -75,11 +64,10 @@ echo head("MMI Companion | Liens externes");
                         <img src="./../assets/img/UPdago.webp" alt="Logo de UPdago">
                     </div>
                     <div class="item_flexbottom-liens_externes">
-                        <?php 
+                        <?php
                         if ($user_sql['role'] == "prof") {
                             echo "<p>Votre plateforme d’enseignement en ligne</p>";
-                            
-                        }else{
+                        } else {
                             echo "<p>Ta plateforme d’enseignement en ligne</p>";
                         }
                         ?>
@@ -97,16 +85,27 @@ echo head("MMI Companion | Liens externes");
                     </div>
                 </div>
             </a>
-        
+            <a href="https://concours48h.fr" target="_blank">
+                <div class="item-liens_externes brown">
+                    <div class="item_flextop-liens_externes concours48h_img">
+                        <h1>Concours 48h</h1>
+                        <img src="./../assets/img/logo_48h.webp" alt="Logo du concours 48h">
+                    </div>
+                    <div class="item_flexbottom-liens_externes">
+                        <p>Le site officiel du concours 48h</p>
+                    </div>
+                </div>
+            </a>
+
         </div>
-        
+
         <div style="height:30px"></div>
 
         <canvas id="fireworks"></canvas>
-      </main>
+    </main>
 
-      <script src="../assets/js/script_all.js?v=1.1"></script> 
-        <script src="../assets/js/fireworks.js"></script>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_liens_externes-header');
@@ -122,7 +121,7 @@ echo head("MMI Companion | Liens externes");
         //         const data = JSON.parse(xhr.responseText);
         //         menu_jour.innerHTML = data;
 
-                
+
         //     }
         // }
         // xhr.send();
@@ -148,7 +147,7 @@ echo head("MMI Companion | Liens externes");
         //         }
         //     })
         // });
-
     </script>
 </body>
+
 </html>

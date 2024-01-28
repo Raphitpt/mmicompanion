@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require "../bootstrap.php";
 $user = onConnect($dbh);
@@ -16,16 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id_user']) && isset($_G
     ]);
 
     if (str_contains($user_sql['role'], 'prof')) {
-        header('Location: ../agenda_prof.php');
-    }else{
+        header('Location: ../agenda_prof.php?but=' . $_GET['but'] . '&tp=' . $_GET['tp']);
+    } else {
         header('Location: ../agenda.php');
     }
     exit();
-}
-else{
+} else {
     if (str_contains($user_sql['role'], 'prof')) {
-        header('Location: ../agenda_prof.php');
-    }else{
+        header('Location: ../agenda_prof.php?but=' . $_GET['but'] . '&tp=' . $_GET['tp']);
+    } else {
         header('Location: ../agenda.php');
     }
     exit();

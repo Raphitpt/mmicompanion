@@ -51,15 +51,18 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     ]);
     // si la requete sql est bonne
     if ($stmt && $type == "eval") {
-        sendNotification($dbh, 'Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $user_sql['edu_group'] , 'Agenda' );
+        sendNotification($dbh, 'Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $user_sql['edu_group'], 'Agenda');
+    }
+    if ($stmt && $type == "devoir") {
+        sendNotification($dbh, 'Agenda', 'Un nouveau devoir a été ajoutée pour le ' . $date, $user_sql['edu_group'], 'Agenda');
     }
 
     if (str_contains($user_sql['role'], 'prof')) {
         header('Location: ./agenda_prof.php');
-    }else{
+    } else {
         header('Location: ./agenda.php');
     }
-    
+
     exit();
 }
 // Fin de la vérification du formulaire
@@ -109,7 +112,7 @@ echo head("MMI Companion | Agenda");
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
     <!-- Fin du menu de navigation -->
-    
+
     <!-- Corps de la page -->
     <main class="main_all">
         <div style="height:30px"></div>
@@ -147,7 +150,7 @@ echo head("MMI Companion | Agenda");
                         <label for="choosenWeek">Afficher les semaines</label>
                     </div>
                 </div>
-                
+
 
 
 
@@ -195,9 +198,9 @@ echo head("MMI Companion | Agenda");
 
         <canvas id="fireworks"></canvas>
 
-      </main>
-      <script src="../assets/js/script_all.js?v=1.1"></script> 
-        <script src="../assets/js/fireworks.js"></script>
+    </main>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
@@ -217,7 +220,7 @@ echo head("MMI Companion | Agenda");
             // Supprimer le padding-left
             inputElement.style.paddingLeft = '0';
         }
-        
+
         $('#editor').trumbowyg({
             btns: [
                 ['viewHTML'],
@@ -240,7 +243,7 @@ echo head("MMI Companion | Agenda");
             });
         });
 
-        
+
         const dateInput = document.querySelector('[name="date"]');
         const choosenWeekCheckbox = document.querySelector('#choosenWeek');
         const cocheWeek = document.querySelector('#cocheWeek');

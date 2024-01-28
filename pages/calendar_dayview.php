@@ -154,7 +154,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </form>
 
 
-        
+
     </main>
 
   </body>
@@ -230,7 +230,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
 
 
       <canvas id="fireworks"></canvas>
-        
+
     </main>
 
   </body>
@@ -241,7 +241,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
   <!-- <script src="../assets/js/swipeCalendar.js"></script> -->
   <script src="../assets/js/script_all.js?v=1.1"></script>
   <script src="../assets/js/fireworks.js"></script>
-   
+
   <script src="../assets/js/app.js"></script>
   <script>
     // Faire apparaître le background dans le menu burger
@@ -297,8 +297,12 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
         slotMinTime: '08:00',
         slotMaxTime: '18:30',
         weekNumbers: true,
-        events: [
-          { title: 'Pause Repas', start: '11:45', end: '13:30', dow: [1, 2, 3, 4, 5] }, // Pause Repas chaque jour de la semaine
+        events: [{
+            title: 'Pause Repas',
+            start: '11:45',
+            end: '13:30',
+            dow: [1, 2, 3, 4, 5]
+          }, // Pause Repas chaque jour de la semaine
         ],
         views: {
           timeGridWeek: {
@@ -462,11 +466,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             if (eventLocation && calendar.view.type === 'timeGridWeek') {
               eventContent = '<div class="fc-description" style="font-size:0.52rem">' + eventTitle + ' - ' + eventLocation + '</div>';
             } else if (eventLocation && calendar.view.type === 'timeGridDay') {
-              eventContent = '<div class="fc-description" style="font-size:0.8rem">' + eventTitle + ' - ' + test + ' - ' + eventLocation + ' - ' + eventHour + '</div>';
+              eventContent = '<div class="fc-description" style="font-size:0.8rem">' + eventTitle + '  - ' + eventLocation + ' - ' + eventHour + '</div>';
             }
           }
-          if (eventTitle == "Projection concours 48H - Entrée libre"){
-            eventContent = '<div class="fc-title" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">🎬' + eventTitle + '</div><div class="fc-description" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">Venez nombreux ! 🎬</div><div class="fc-location" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">' + eventLocation + ' / '+ eventHour + '</div><div><img src="./../assets/img/pop-corn.gif"  style="width:20%; height: auto; position:absolute; top:50%; right:0;"></div>';
+          if (eventTitle == "Projection concours 48H - Entrée libre") {
+            eventContent = '<div class="fc-title" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">🎬' + eventTitle + '</div><div class="fc-description" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">Venez nombreux ! 🎬</div><div class="fc-location" style="font-size:0.8rem; font-family: Poppins; color:#2C1a17; font-weight: bold;">' + eventLocation + ' / ' + eventHour + '</div><div><img src="./../assets/img/pop-corn.gif"  style="width:20%; height: auto; position:absolute; top:50%; right:0;"></div>';
           }
           return {
             html: eventContent

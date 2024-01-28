@@ -155,20 +155,19 @@ function generateBurgerMenuContent($role, $title, $notifs)
                 <div style="width:20px"></div>
                 <!--<h1>' . $title . '</h1>-->
                 <div class="title-header">
-                    <h1>Bonne année 2024</h1>
-                    <p>' . $title . '</p>
+                    <h1>' . $title . '</h1>
                 </div>
             </div>
             <div class="right_content_title-header">
                 <div id="btn_notification" class="btn_notification_right_content_title-header">
                     <i class="fi fi-sr-bell"></i>';
     if ($notifs[1]['notif_message'] >= 1) {
-        if ($notifs[1]['notif_message'] >= 10){
+        if ($notifs[1]['notif_message'] >= 10) {
             $menuHtml .= '<div class="notification-badge">9+</div>';
         } else {
             $menuHtml .= '<div class="notification-badge">' . $notifs[1]['notif_message'] . '</div>';
         }
-    } 
+    }
     $menuHtml .= ' </div>';
 
     $menuHtml .= '
@@ -1039,6 +1038,10 @@ function nextCours($edu_group)
         $fin->setTimezone($timezone);
 
         // $$anEvent = reset($events);
+        if (preg_match('/\b(CM|TDA|TDB|TP[1-4])\b/', $anEvent['description'], $matches)) {
+            $groupe = $matches[1];
+            $anEvent['groupe'] = $groupe;
+        }
         $anEvent['description'] = preg_replace('/\([^)]*\)/', '', $anEvent['description']);
         $anEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $anEvent['description']);
         $anEvent['description'] = trim($anEvent['description']);
@@ -1075,6 +1078,11 @@ function nextCours($edu_group)
             $nextEvent['dtstart_tz'] = date("D M d Y H:i:s O (T)", $nextEventDebut->getTimestamp());
             $nextEvent['dtend_tz'] = date("D M d Y H:i:s O (T)", $nextEventFin->getTimestamp());
 
+            if (preg_match('/\b(CM|TDA|TDB|TP[1-4])\b/', $nextEvent['description'], $matches)) {
+                $groupe = $matches[1];
+                $nextEvent['groupe'] = $groupe;
+            }
+
             // $nextEvent = reset($events);
             $nextEvent['description'] = preg_replace('/\([^)]*\)/', '', $nextEvent['description']);
             $nextEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $nextEvent['description']);
@@ -1099,21 +1107,20 @@ function nextCours($edu_group)
     return $result;
 }
 
-function timetable($edu_group, $id_user) {
+function timetable($edu_group, $id_user)
+{
     $ical = new ICal('./../backup_cal/' . $edu_group . '.ics');
 
     $events = $ical->events();
-    foreach ($events as $event){
+    foreach ($events as $event) {
         echo "<div>";
-        echo $event->summary ;
+        echo $event->summary;
         echo $event->location;
         echo $event->description;
         echo $event->dtstart;
         echo $event->dtend;
         echo "</div>";
-
     }
-    
 }
 
 
@@ -1680,6 +1687,9 @@ function getAgendaProf($dbh, $user, $edu_group)
 
                 $missingWeekStartDate = $startDate->format('d/m');
                 $missingWeekEndDate = $endDate->format('d/m');
+                if ($missingWeek < 10) {
+                    $missingWeek = "0" . $missingWeek;
+                }
                 $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
                 $agendaMerged[$missingWeekLabel] = [];
             }
@@ -1805,7 +1815,8 @@ function getUserCahier($dbh, $edu_group)
 
     return $nomActuel;
 }
-function randomPassword() {
+function randomPassword()
+{
     $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
     $pass = array(); //remember to declare $pass as an array
     $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
@@ -1816,7 +1827,8 @@ function randomPassword() {
     return implode($pass); //turn the array into a string
 }
 
-function generate_password_prof ($email, $name, $pname, $trigramme){
+function generate_password_prof($email, $name, $pname, $trigramme)
+{
     global $dbh;
     $password = randomPassword();
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
@@ -1884,5 +1896,4 @@ function generate_password_prof ($email, $name, $pname, $trigramme){
         $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
         error_log("Error sending activation email to $email");
     }
-
 }

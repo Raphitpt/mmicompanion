@@ -30,6 +30,7 @@ function fetchAgenda($dbh, $user, $eduGroup)
 $user = onConnect($dbh);
 
 $nextCours = nextCours($user['edu_group']);
+
 setlocale(LC_TIME, 'fr_FR.UTF-8');
 
 $userSqlFiber = new Fiber(function () use ($dbh, $user) {
@@ -61,12 +62,12 @@ $pp_original = $ppOriginalFiber->getReturn();
 if (str_contains($user_sql['role'], "eleve") || str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "chef")) {
     $agendaMerged = $agendaMergedFiber->start();
     $agendaMerged = $agendaMergedFiber->getReturn();
-    
+
     $colors = $colorsFiber->start();
     $colors = $colorsFiber->getReturn();
     // -----------------------------
 
- 
+
     $userCahier = getUserCahier($dbh, $user_sql['edu_group']);
 
     // dd($userCahier);
@@ -99,10 +100,11 @@ echo head('MMI Companion | Accueil', $additionalStyles);
 
 ?>
 <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user_sql['id_user'], $user_sql['edu_group'])); ?>
+<?php generateBurgerMenuContent($user_sql['role'], 'Accueil', notifsHistory($dbh, $user_sql['id_user'], $user_sql['edu_group'])); ?>
+
 <body class="body-all">
 
-    
+
 
     <main class="main_all">
         <div id="push-permission" class="popup_notification">
@@ -146,16 +148,26 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 <div></div>
             </div>
 
-            <a href="./calendar_view.php?title=<?php echo urlencode($nextCours['summary']) ?>&location=<?php echo urlencode($nextCours['location']) ?>&description=<?php echo urlencode($nextCours['description']) ?>&color=%23fff&start=<?php echo urlencode($nextCours['dtstart_tz']) ?>&end=<?php echo urlencode($nextCours['dtend_tz']) ?>&page=home.php">
+            <a href="./calendar_view.php?
+    <?php if (!empty($nextCours['summary'])) : ?>title=<?php echo urlencode($nextCours['summary']) ?>&<?php endif; ?>
+    <?php if (!empty($nextCours['location'])) : ?>location=<?php echo urlencode($nextCours['location']) ?>&<?php endif; ?>
+    <?php if (!empty($nextCours['description'])) : ?>description=<?php echo urlencode($nextCours['description']) ?>&<?php endif; ?>
+    color=%23fff&
+    <?php if (!empty($nextCours['dtstart_tz'])) : ?>start=<?php echo urlencode($nextCours['dtstart_tz']) ?>&<?php endif; ?>
+    <?php if (!empty($nextCours['dtend_tz'])) : ?>end=<?php echo urlencode($nextCours['dtend_tz']) ?>&<?php endif; ?>
+        <?php if (!empty($nextCours['groupe'])) : ?>groupe=<?php echo urlencode($nextCours['groupe']) ?>&<?php endif; ?>
+    page=home.php">
                 <div class="content_prochain_cours-home">
                     <div class="description_prochain_cours-home">
                         <p><?php echo $nextCours['summary'] ?></p>
                         <p><?php echo $nextCours['location'] ?> - <?php echo $nextCours['description'] ?></p>
                     </div>
-                    <div class="date_content_prochain_cours-home">
-                        <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
-                        <p id="tempsBefore">Chargement...</p>
-                    </div>
+            </a>
+            <a href="./calendar_dayview.php">
+                <div class=" date_content_prochain_cours-home">
+                    <p>De <?php echo $nextCours['debut'] ?> à <?php echo $nextCours['fin'] ?></p>
+                    <p id="tempsBefore">Chargement...</p>
+                </div>
                 </div>
             </a>
         </section>
@@ -478,7 +490,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
             } else {
                 tempsBefore.innerHTML += "<span style='font-weight:700'>" + Math.ceil(diffSec) + ' secondes</span>';
             }
-            
+
             if (dateCours <= now) {
                 tempsBefore.innerHTML = "Maintenant";
             }
