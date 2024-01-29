@@ -196,7 +196,7 @@ echo head("MMI Companion | Agenda");
             </form>
         </div>
 
-        <canvas id="fireworks"></canvas>
+
 
     </main>
     <script src="../assets/js/script_all.js?v=1.1"></script>

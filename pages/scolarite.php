@@ -48,7 +48,7 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                 <div class="title_trait">
                     <h1>Absences</h1>
                     <div></div>
-                </div> 
+                </div>
             </div>
 
             <div style="height:15px"></div>
@@ -72,21 +72,21 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                     <select id="semestre">
                         <?php
                         if (strpos($user_sql['edu_group'], 'BUT1') !== false) {
-                            if (date('Y-m-d') >= '2024-01-26') {
+                            if (date('Y-m-d') >= '2024-02-10') {
                                 echo "<option value='s1-2023' selected>1er année - S1</option>";
                                 echo "<option value='s2-2024' selected>1er année - S2</option>";
                             } else {
                                 echo "<option value='s1-2023' selected>1er année - S1</option>";
                             }
                         } else if (strpos($user_sql['edu_group'], 'BUT2') !== false) {
-                            if (date('Y-m-d') >= '2024-01-26') {
+                            if (date('Y-m-d') >= '2024-02-10') {
                                 echo "<option value='s3-2023'>2e année - S3</option>";
                                 echo "<option value='s4-2024' selected>2e année - S4</option>";
                             } else {
                                 echo "<option value='s3-2023' selected>2e année - S3</option>";
                             }
                         } else if (strpos($user_sql['edu_group'], 'BUT3') !== false) {
-                            if (date('Y-m-d') >= '2024-01-26') {
+                            if (date('Y-m-d') >= '2024-02-10') {
                                 echo '<option value="s5-2023">3e année - S5</option>';
                                 echo '<option value="s6-2024" selected>3e année - S6</option>';
                             } else {
@@ -120,7 +120,7 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                 <div class="title_trait">
                     <h1>Notes</h1>
                     <div></div>
-                </div> 
+                </div>
             </div>
 
             <div style="height:15px"></div>
@@ -224,22 +224,22 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
             </div>
 
         </section>
-        
+
         <div style="height:30px"></div>
-        
+
         <div class="p_credit-scolarite">
             <p>Mis à jour selon les données de <a href="https://mmi-angouleme-dashboard.alwaysdata.net/" target="_blank">MMI Dashboard</a></p>
         </div>
 
         <div style="height:30px"></div>
         <!-- <p>Le relevé de notes arrive prochainement</p> -->
-        <!-- <canvas id="fireworks"></canvas> -->
+
     </main>
 
     <script src="../assets/js/script_all.js?v=1.1"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- <script src="../assets/js/fireworks.js"></script> -->
-    
+
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_vie_sco-header');
@@ -263,11 +263,11 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
         const semestre = document.querySelector('#semestre');
 
         const recapAbsences = document.querySelector('#content_recapitulatif-absences');
-        
+
         window.addEventListener('load', loadAbsencesNotes);
 
         function buildDetailsAbsences(detailled) {
-            
+
             // Sélectionner l'élément #recapitulatif-absences
             const recapAbsencesContainer = document.querySelector('#recapitulatif-absences');
 
@@ -333,87 +333,86 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
         }
 
         function loadAbsencesNotes() {
-    const semestreVal = semestre.value;
-    const xhr = new XMLHttpRequest();
+            const semestreVal = semestre.value;
+            const xhr = new XMLHttpRequest();
 
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                try {
-                    const result = JSON.parse(xhr.responseText);
-                    console.log(result);
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        try {
+                            const result = JSON.parse(xhr.responseText);
+                            console.log(result);
 
-                    let contentItemNotes = document.querySelectorAll('.content_item-notes');
-                    console.log(contentItemNotes);
+                            let contentItemNotes = document.querySelectorAll('.content_item-notes');
+                            console.log(contentItemNotes);
 
-                    // Notes
-                    let index = 0; // Ajoutez un index pour suivre l'élément à mettre à jour
-                    for (let ue in result.notes.ues) {
-                        if (result.notes.ues.hasOwnProperty(ue) && result.notes.ues[ue].moy !== null) {
-                            let ueData = result.notes.ues[ue];
-                            console.log(ueData);
+                            // Notes
+                            let index = 0; // Ajoutez un index pour suivre l'élément à mettre à jour
+                            for (let ue in result.notes.ues) {
+                                if (result.notes.ues.hasOwnProperty(ue) && result.notes.ues[ue].moy !== null) {
+                                    let ueData = result.notes.ues[ue];
+                                    console.log(ueData);
 
-                            // Utilisez forEach pour itérer sur chaque élément
-                            contentItemNotes.forEach((element, i) => {
-                                if (i === index) {
-                                    element.querySelector('p:nth-child(1) span').textContent = ueData.moy.toFixed(2);
-                                    element.querySelector('p:nth-child(2) span').textContent = ueData.moy_promo.toFixed(2);
-                                    element.querySelector('p:nth-child(3) span').textContent = ueData.rang;
+                                    // Utilisez forEach pour itérer sur chaque élément
+                                    contentItemNotes.forEach((element, i) => {
+                                        if (i === index) {
+                                            element.querySelector('p:nth-child(1) span').textContent = ueData.moy.toFixed(2);
+                                            element.querySelector('p:nth-child(2) span').textContent = ueData.moy_promo.toFixed(2);
+                                            element.querySelector('p:nth-child(3) span').textContent = ueData.rang;
+                                        }
+                                    });
+
+                                    index++; // Incrémentez l'index pour la prochaine itération
                                 }
-                            });
+                            }
 
-                            index++; // Incrémentez l'index pour la prochaine itération
+                            // Absences
+                            recapAbsences.innerHTML = '';
+
+                            const absences = result.absences;
+                            const total = absences.total_abs; // Correction de la référence à la variable total
+                            const unjustified = absences.total_absI;
+                            const justified = total - unjustified;
+                            const detailled = absences.calendaires;
+
+                            if (total === 0) {
+                                let totalElement = document.createElement('p');
+                                totalElement.textContent = `Aucune absence n'a été trouvée pour ce semestre.`;
+                                recapAbsences.appendChild(totalElement);
+                            } else {
+                                let listElement = document.createElement('ul');
+                                recapAbsences.appendChild(listElement);
+
+                                let justifiedElement = document.createElement('li');
+                                justifiedElement.textContent = `Tu as ${justified} absence(s) justifiée(s)`;
+                                listElement.appendChild(justifiedElement);
+
+                                let unjustifiedElement = document.createElement('li');
+                                unjustifiedElement.textContent = `Tu as ${unjustified} absence(s) injustifiée(s)`;
+                                listElement.appendChild(unjustifiedElement);
+
+                                buildDetailsAbsences(detailled);
+                            }
+                        } catch (error) {
+                            console.error('Error parsing JSON:', error);
+                            console.log('Response text:', xhr.responseText);
                         }
-                    }
-
-                    // Absences
-                    recapAbsences.innerHTML = '';
-
-                    const absences = result.absences;
-                    const total = absences.total_abs; // Correction de la référence à la variable total
-                    const unjustified = absences.total_absI;
-                    const justified = total - unjustified;
-                    const detailled = absences.calendaires;
-
-                    if (total === 0) {
-                        let totalElement = document.createElement('p');
-                        totalElement.textContent = `Aucune absence n'a été trouvée pour ce semestre.`;
-                        recapAbsences.appendChild(totalElement);
                     } else {
-                        let listElement = document.createElement('ul');
-                        recapAbsences.appendChild(listElement);
-
-                        let justifiedElement = document.createElement('li');
-                        justifiedElement.textContent = `Tu as ${justified} absence(s) justifiée(s)`;
-                        listElement.appendChild(justifiedElement);
-
-                        let unjustifiedElement = document.createElement('li');
-                        unjustifiedElement.textContent = `Tu as ${unjustified} absence(s) injustifiée(s)`;
-                        listElement.appendChild(unjustifiedElement);
-
-                        buildDetailsAbsences(detailled);
+                        console.error('HTTP request failed with status:', xhr.status);
                     }
-                } catch (error) {
-                    console.error('Error parsing JSON:', error);
-    console.log('Response text:', xhr.responseText);
                 }
-            } else {
-                console.error('HTTP request failed with status:', xhr.status);
-            }
+            };
+
+            const data = new FormData();
+            data.append('semestre', semestreVal);
+
+            xhr.open('POST', 'absence_get.php', true);
+            xhr.send(data);
         }
-    };
-
-    const data = new FormData();
-    data.append('semestre', semestreVal);
-
-    xhr.open('POST', 'absence_get.php', true);
-    xhr.send(data);
-}
 
 
         semestre.addEventListener('change', loadAbsencesNotes);
-
-</script>
+    </script>
 
 </body>
 

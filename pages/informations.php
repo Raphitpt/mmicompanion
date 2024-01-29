@@ -30,13 +30,13 @@ $informations = $query_informations->fetchAll();
 
 if (isset($_POST['submit'])) {
     $group_info = $_POST['group_info'];
-    if ($group_info=="") {
+    if ($group_info == "") {
         $sql_informations = "SELECT * FROM informations WHERE id_user = :id_user AND user_role = 'prof'";
         $query_informations = $dbh->prepare($sql_informations);
         $query_informations->execute([
             'id_user' => $user['id_user'],
         ]);
-    }else{
+    } else {
         $sql_informations = "SELECT * FROM informations WHERE id_user = :id_user AND user_role = 'prof' AND group_info = :group_info";
         $query_informations = $dbh->prepare($sql_informations);
         $query_informations->execute([
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
         ]);
     }
     $informations_prof = $query_informations->fetchAll();
-} else{
+} else {
     $sql_informations = "SELECT * FROM informations WHERE id_user = :id_user AND user_role = 'prof'";
     $query_informations = $dbh->prepare($sql_informations);
     $query_informations->execute([
@@ -59,6 +59,7 @@ if (isset($_POST['submit'])) {
 
 echo head("MMI Companion | Informations");
 ?>
+
 <body class="body-tuto_agenda">
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
@@ -70,70 +71,70 @@ echo head("MMI Companion | Informations");
                 <h1>Informations</h1>
                 <div></div>
             </div>
-            <?php 
+            <?php
             if (str_contains($user_sql['role'], "chef") || str_contains($user_sql['role'], "admin") || str_contains($user_sql['role'], "prof") || str_contains($user_sql['role'], "BDE")) {
-                ?>
+            ?>
                 <div class="info_title_flextopright-informations">
                     <a href="./informations_add.php">Ajouter</a>
                 </div>
-                <?php
+            <?php
             } ?>
         </div>
-        <div style="height:20px"></div> 
+        <div style="height:20px"></div>
         <div class="container-informations">
-            <?php  
-                foreach ($informations as $information) : 
-                    $name_color = "";
-                    $timestamp = strtotime($information['date']); // Convertit la date en timestamp
-                    $newDate = date("d-m-Y H:i", $timestamp);
-                    $userRole = $information['user_role'];
-                    if (str_contains($information['user_role'], "prof")) {
-                        $name_color = "#5cceff";
-                        $userRole = $information['user'];
-                    } elseif (str_contains($information['user_role'], "chef")) {
-                        $name_color = "#FFA02F";
-                    } elseif (str_contains($information['user_role'], "admin")) {
-                        $name_color = "#FF3333";
-                    } elseif (str_contains($information['user_role'], "BDE")) {
-                        $name_color = "#bca5ff";
-                    } else{
-                        $name_color = "#C882FF";
-                    }
-                    ?>
-                    <div class="item-information">
-                        <div class="item_content_title-information">
-                            <div class="item_content_title_flextop-information">
-                                <h2><?= $information['titre'] ?></h2>
-                            </div>
-                            <div class="item_content_title_flexbottom-information">
-                                <p><?= $newDate ?></p>
-                                <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
-                            </div>
+            <?php
+            foreach ($informations as $information) :
+                $name_color = "";
+                $timestamp = strtotime($information['date']); // Convertit la date en timestamp
+                $newDate = date("d-m-Y H:i", $timestamp);
+                $userRole = $information['user_role'];
+                if (str_contains($information['user_role'], "prof")) {
+                    $name_color = "#5cceff";
+                    $userRole = $information['user'];
+                } elseif (str_contains($information['user_role'], "chef")) {
+                    $name_color = "#FFA02F";
+                } elseif (str_contains($information['user_role'], "admin")) {
+                    $name_color = "#FF3333";
+                } elseif (str_contains($information['user_role'], "BDE")) {
+                    $name_color = "#bca5ff";
+                } else {
+                    $name_color = "#C882FF";
+                }
+            ?>
+                <div class="item-information">
+                    <div class="item_content_title-information">
+                        <div class="item_content_title_flextop-information">
+                            <h2><?= $information['titre'] ?></h2>
                         </div>
-                        <div class="item_content_text-information">
-                            <?php 
-                            echo nl2br($information['content']); 
-                            ?>
+                        <div class="item_content_title_flexbottom-information">
+                            <p><?= $newDate ?></p>
+                            <p style="background-color : <?php echo $name_color ?>"><?= ucwords($userRole) ?></p>
                         </div>
-                        <?php if($information['id_user'] === $user['id_user'] || str_contains($user_sql['role'], "admin")){ ?>
+                    </div>
+                    <div class="item_content_text-information">
+                        <?php
+                        echo nl2br($information['content']);
+                        ?>
+                    </div>
+                    <?php if ($information['id_user'] === $user['id_user'] || str_contains($user_sql['role'], "admin")) { ?>
                         <div class="item_button-informations">
                             <a href='./information_edit.php?id_user=<?php echo $information['id_user'] ?>&id_information=<?php echo $information['id_infos'] ?>'><i class='fi fi-br-pencil blue'></i></a>
                             <a href='./information_delete.php?id_user=<?php echo $information['id_user'] ?>&id_infos=<?php echo $information['id_infos'] ?>' id="delete-trash"><i class='fi fi-br-trash red'></i></a>
                         </div>
-                        <?php } ?>
-                    </div>
-                <?php endforeach; 
+                    <?php } ?>
+                </div>
+            <?php endforeach;
 
             ?>
         </div>
         <div style="height:30px"></div>
 
-        <canvas id="fireworks"></canvas>
 
-      </main>
+
+    </main>
 
     <script src="../assets/js/fireworks.js"></script>
-    <script src="../assets/js/script_all.js?v=1.1"></script> 
+    <script src="../assets/js/script_all.js?v=1.1"></script>
     <script src='../assets/js/tree.min.js'></script>
 
     <script>
@@ -143,7 +144,7 @@ echo head("MMI Companion | Informations");
         const deleteTrash = document.querySelectorAll('#delete-trash');
 
         deleteTrash.forEach(element => {
-            element.addEventListener('click', function(e){
+            element.addEventListener('click', function(e) {
                 e.preventDefault();
                 if (confirm("Voulez-vous vraiment supprimer cette information ?")) {
                     window.location.href = element.getAttribute('href');
@@ -235,34 +236,33 @@ echo head("MMI Companion | Informations");
         //     groupInfo.value="";
         // })
 
-        
+
         window.onload = function() {
-        // Crée un élément <link> pour le CSS
-        let link = document.createElement("link");
-        link.href = "style.css"; // URL de votre fichier CSS
-        link.rel = "stylesheet";
-        link.type = "text/css";
+            // Crée un élément <link> pour le CSS
+            let link = document.createElement("link");
+            link.href = "style.css"; // URL de votre fichier CSS
+            link.rel = "stylesheet";
+            link.type = "text/css";
 
-        // Obtient la référence de la première iframe sur la page
-        let iframe = document.getElementsByTagName("iframe")[0];
+            // Obtient la référence de la première iframe sur la page
+            let iframe = document.getElementsByTagName("iframe")[0];
 
-        // Vérifie que l'iframe existe
-        if (iframe) {
-            // Obtient le document de l'iframe
-            let iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-            
-            // Vérifie si le document de l'iframe est accessible (en raison des politiques de sécurité)
-            if (iframeDocument) {
-            // Ajoute le lien de style au document de l'iframe
-            iframeDocument.head.appendChild(link);
+            // Vérifie que l'iframe existe
+            if (iframe) {
+                // Obtient le document de l'iframe
+                let iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+                // Vérifie si le document de l'iframe est accessible (en raison des politiques de sécurité)
+                if (iframeDocument) {
+                    // Ajoute le lien de style au document de l'iframe
+                    iframeDocument.head.appendChild(link);
+                } else {
+                    console.error("Impossible d'accéder au document de l'iframe.");
+                }
             } else {
-            console.error("Impossible d'accéder au document de l'iframe.");
+                console.log("Aucune iframe trouvée sur la page.");
             }
-        } else {
-            console.log("Aucune iframe trouvée sur la page.");
         }
-        }
-
     </script>
 </body>
 
