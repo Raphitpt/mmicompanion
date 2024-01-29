@@ -3,7 +3,7 @@ session_start();
 require '../../bootstrap.php';
 
 $user = onConnect($dbh);
-if (str_contains($user['role'],'admin') == false && ($user['edu_mail'] != 'raphael.tiphonet@etu.univ-poitiers.fr' || $user['edu_mail'] != 'arnaud.graciet@etu.univ-poitiers.fr' ) ) {
+if (str_contains($user['role'], 'admin') == false && ($user['edu_mail'] != 'raphael.tiphonet@etu.univ-poitiers.fr' || $user['edu_mail'] != 'arnaud.graciet@etu.univ-poitiers.fr')) {
   header('Location: ./../index.php');
   exit;
 }
@@ -16,7 +16,7 @@ $stmt->execute([
 ]);
 $eleve_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$prof_list = "SELECT * FROM personnels LEFT JOIN users ON personnels.nom = users.name AND personnels.pnom = users.pname";
+$prof_list = "SELECT *, personnels.edu_mail FROM personnels LEFT JOIN users ON personnels.nom = users.name AND personnels.pnom = users.pname";
 $stmt = $dbh->prepare($prof_list);
 $stmt->execute();
 $prof_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -101,45 +101,57 @@ $all_etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div style="height:30px"></div>
     <div>
       <h2>Liste des élèves</h2>
-      <p> Nombre d'élèves inscrit en BUT1 : <?php echo count(array_filter($eleve_list, function($eleve) { return strpos($eleve['edu_group'], 'BUT1') !== false; })); ?> / <?php echo count(array_filter($all_etudiants, function($alleleve) { return strpos($alleleve['edu_group'], 'BUT1') !== false; })); ?></p>
-      <p> Nombre d'élèves inscrit en BUT2 : <?php echo count(array_filter($eleve_list, function($eleve) { return strpos($eleve['edu_group'], 'BUT2') !== false; })); ?> / <?php echo count(array_filter($all_etudiants, function($alleleve) { return strpos($alleleve['edu_group'], 'BUT2') !== false; })); ?></p>
-      <p> Nombre d'élèves inscrit en BUT3 : <?php echo count(array_filter($eleve_list, function($eleve) { return strpos($eleve['edu_group'], 'BUT3') !== false; })); ?> / <?php echo count(array_filter($all_etudiants, function($alleleve) { return strpos($alleleve['edu_group'], 'BUT3') !== false; })); ?></p>
+      <p> Nombre d'élèves inscrit en BUT1 : <?php echo count(array_filter($eleve_list, function ($eleve) {
+                                              return strpos($eleve['edu_group'], 'BUT1') !== false;
+                                            })); ?> / <?php echo count(array_filter($all_etudiants, function ($alleleve) {
+                                                        return strpos($alleleve['edu_group'], 'BUT1') !== false;
+                                                      })); ?></p>
+      <p> Nombre d'élèves inscrit en BUT2 : <?php echo count(array_filter($eleve_list, function ($eleve) {
+                                              return strpos($eleve['edu_group'], 'BUT2') !== false;
+                                            })); ?> / <?php echo count(array_filter($all_etudiants, function ($alleleve) {
+                                                        return strpos($alleleve['edu_group'], 'BUT2') !== false;
+                                                      })); ?></p>
+      <p> Nombre d'élèves inscrit en BUT3 : <?php echo count(array_filter($eleve_list, function ($eleve) {
+                                              return strpos($eleve['edu_group'], 'BUT3') !== false;
+                                            })); ?> / <?php echo count(array_filter($all_etudiants, function ($alleleve) {
+                                                        return strpos($alleleve['edu_group'], 'BUT3') !== false;
+                                                      })); ?></p>
       <div class="table-responsive">
-      <table class="table" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
-        <thead style="background-color: #AAAAAA !important;">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col" data-sortable="true">Prénom</th>
-            <th scope="col" data-sortable="true">Nom</th>
-            <th scope="col" data-sortable="true">Mail</th>
-            <th scope="col" data-sortable="true">Groupe</th>
-            <th scope="col">Role</th>
-            <th scope="col">Points</th>
-            <th scope="col" data-sortable="true">Compte actif</th>
-            <th scope="col" data-sortable="true">Dernière connection</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          foreach ($eleve_list as $eleve) {
-            echo '<tr>';
-            echo '<th scope="row">' . $eleve['id_user'] . '</th>';
-            echo '<td>' . $eleve['pname'] . '</td>';
-            echo '<td>' . $eleve['name'] . '</td>';
-            echo '<td>' . $eleve['edu_mail'] . '</td>';
-            echo '<td>' . $eleve['edu_group'] . '</td>';
-            echo '<td>' . $eleve['role'] . '</td>';
-            echo '<td>' . $eleve['score'] . '</td>';
-            echo '<td>' . $eleve['active'] . '</td>';
-            echo '<td>' . $eleve['last_connection'] . '</td>';
-            echo '<td><a href="./eleve/view_eleve.php?id='.$eleve['id_user'].'">Voir</a> <a href="#">Modifier</a> <a href="#">Supprimer</a></td>';
-            echo '</tr>';
-          }
-          
-          ?>
-        </tbody>
-      </table>
+        <table class="table" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
+          <thead style="background-color: #AAAAAA !important;">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" data-sortable="true">Prénom</th>
+              <th scope="col" data-sortable="true">Nom</th>
+              <th scope="col" data-sortable="true">Mail</th>
+              <th scope="col" data-sortable="true">Groupe</th>
+              <th scope="col">Role</th>
+              <th scope="col">Points</th>
+              <th scope="col" data-sortable="true">Compte actif</th>
+              <th scope="col" data-sortable="true">Dernière connection</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($eleve_list as $eleve) {
+              echo '<tr>';
+              echo '<th scope="row">' . $eleve['id_user'] . '</th>';
+              echo '<td>' . $eleve['pname'] . '</td>';
+              echo '<td>' . $eleve['name'] . '</td>';
+              echo '<td>' . $eleve['edu_mail'] . '</td>';
+              echo '<td>' . $eleve['edu_group'] . '</td>';
+              echo '<td>' . $eleve['role'] . '</td>';
+              echo '<td>' . $eleve['score'] . '</td>';
+              echo '<td>' . $eleve['active'] . '</td>';
+              echo '<td>' . $eleve['last_connection'] . '</td>';
+              echo '<td><a href="./eleve/view_eleve.php?id=' . $eleve['id_user'] . '">Voir</a> <a href="#">Modifier</a> <a href="#">Supprimer</a></td>';
+              echo '</tr>';
+            }
+
+            ?>
+          </tbody>
+        </table>
       </div>
     </div>
     <div style="height:30px"></div>
@@ -149,45 +161,47 @@ $all_etudiants = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <button class="btn btn-primary" id="order1">Ajouter un personnel</button>
       </div>
       <div class="table-responsive">
-      <table class="table" data-toolbar=".toolbar" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
-        <thead style="background-color: #AAAAAA !important;">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col" data-sortable="true">Prénom</th>
-            <th scope="col" data-sortable="true">Nom</th>
-            <th scope="col" data-sortable="true">Mail</th>
-            <th scope="col" data-sortable="true">Trigramme</th>
-            <th scope="col">Lien EDT</th>
-            <th scope="col" data-sortable="true">Compte actif</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php 
-          foreach ($prof_list as $prof) {
-            echo '<tr>';
-            echo '<th scope="row">' . $prof['id_pers'] . '</th>';
-            echo '<td>' . $prof['pnom'] . '</td>';
-            echo '<td>' . $prof['nom'] . '</td>';
-            if ($prof['edu_mail'] == null) {
-              echo '<td>Non renseigné</td>';
-            } else {
-              echo '<td>' . $prof['edu_mail'] . '</td>';
+        <table class="table" data-toolbar=".toolbar" data-toggle="table" data-search="true" data-auto-refresh="true" data-pagination="true">
+          <thead style="background-color: #AAAAAA !important;">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col" data-sortable="true">Prénom</th>
+              <th scope="col" data-sortable="true">Nom</th>
+              <th scope="col" data-sortable="true">Mail</th>
+              <th scope="col" data-sortable="true">Trigramme</th>
+              <th scope="col">Lien EDT</th>
+              <th scope="col" data-sortable="true">Compte actif</th>
+              <th scope="col">Identifiants</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            foreach ($prof_list as $prof) {
+              echo '<tr>';
+              echo '<th scope="row">' . $prof['id_pers'] . '</th>';
+              echo '<td>' . $prof['pnom'] . '</td>';
+              echo '<td>' . $prof['nom'] . '</td>';
+              if ($prof['edu_mail'] == null) {
+                echo '<td>Non renseigné</td>';
+              } else {
+                echo '<td>' . $prof['edu_mail'] . '</td>';
+              }
+              echo '<td>' . $prof['trigramme'] . '</td>';
+              echo '<td>' . substr($prof['edt_link'], 0, 30) . '...</td>';
+              if ($prof['active'] == 1) {
+                echo '<td>Oui</td>';
+              } else {
+                echo '<td>Non</td>';
+              }
+              echo '<td><a href="../sendIdProf.php?mail=' . $prof['edu_mail'] . '&pname=' . $prof['pnom'] . '&name=' . $prof['nom'] . '&trigramme=' . $prof['trigramme'] . '">Envoyer les identifiants</a></td>';
+              echo '<td><a href="#">Voir</a> <a href="#">Modifier</a> <a href="#">Supprimer</a></td>';
+              echo '</tr>';
             }
-            echo '<td>' . $prof['trigramme'] . '</td>';
-            echo '<td>' . substr($prof['edt_link'], 0, 30) . '...</td>';
-            if ($prof['active'] == 1) {
-              echo '<td>Oui</td>';
-            } else {
-              echo '<td>Non</td>';
-            }
-            echo '<td><a href="#">Voir</a> <a href="#">Modifier</a> <a href="#">Supprimer</a></td>';
-            echo '</tr>';
-          }
-          
-          ?>
-        </tbody>
-      </table>
+
+            ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
