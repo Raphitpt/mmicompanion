@@ -1,0 +1,30 @@
+{
+    "require": {
+        "firebase/php-jwt": "^6.8",
+        "vlucas/phpdotenv": "^5.5",
+        "minishlink/web-push": "^8.0",
+        "phpmailer/phpmailer": "^6.9",
+        "php-imap/php-imap": "^5.0",
+        "psr-discovery/all": "^1.0",
+        "jms/serializer": "^3.28",
+        "zimbra-api/soap-api": "^2.1",
+        "zytzagoo/smtp-validate-email": "^1.1",
+        "hbattat/verifyemail": "^1.0",
+        "nadar/quill-delta-parser": "^3.4",
+        "sabre/vobject": "^4.5",
+        "ramsey/uuid": "^4.7",
+        "league/oauth2-client": "^2.7",
+        "league/oauth2-google": "^4.0",
+        "johngrogg/ics-parser": "^3.3",
+        "edwinhoksberg/php-fcm": "^1.2",
+        "google/apiclient": "^2.15",
+        "nesbot/carbon": "^2.72",
+        "phpoffice/phpspreadsheet": "^1.29",
+        "mk-j/php_xlsxwriter": "^0.39.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
