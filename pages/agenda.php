@@ -316,7 +316,6 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 </div>
             </div>
 
-            <!-- <canvas id="fireworks"></canvas> -->
 
             <div style="height:20px"></div>
 

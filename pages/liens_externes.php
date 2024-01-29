@@ -101,7 +101,7 @@ echo head("MMI Companion | Liens externes");
 
         <div style="height:30px"></div>
 
-        <canvas id="fireworks"></canvas>
+
     </main>
 
     <script src="../assets/js/script_all.js?v=1.1"></script>

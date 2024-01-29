@@ -103,8 +103,9 @@ https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
 </head>
 HTML_HEAD;
 }
-function findTrigramme($profName, $dbh)
+function findTrigramme($profName)
 {
+    global $dbh;
     $sql_prof = "SELECT nom, pnom, trigramme FROM personnels";
     $stmt_prof = $dbh->prepare($sql_prof);
     $stmt_prof->execute();
@@ -494,6 +495,7 @@ function onConnect($dbh)
 
     if ($stmt->rowCount() == 0) {
         unset($_COOKIE['jwt']);
+        header('Location: ./../pages/login.php');
         exit;
     }
     $cgu_check = "SELECT CGU FROM users WHERE id_user = :id_user";
@@ -1832,23 +1834,25 @@ function generate_password_prof($email, $name, $pname, $trigramme)
     global $dbh;
     $password = randomPassword();
     $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    $pp_profile = 'https://ui-avatars.com/api/?background=56b8d6&color=004a5a&bold=true&name=' . $pname . '+' . $name . '&rounded=true&size=128';
 
-    // $sql_insert = "INSERT INTO users (pname, name, password, edu_mail, adu_group, role, pp_link, active, tuto_agenda) VALUES (:pname, :name, :password, :edu_mail, :edu_group, :role, pp_link, :active)";
-    // $stmt_insert = $dbh->prepare($sql_insert);
-    // $stmt_insert->execute([
-    //     'pname' => $pname,
-    //     'name' => $name,
-    //     'password' => $password_hash,
-    //     'edu_mail' => $email,
-    //     'edu_group' => $trigramme,
-    //     'role' => 'prof',
-    //     'pp_link' => 'https://www.mmi-lepuy.fr/wp-content/uploads/2019/10/Logo-MMI-2019-300x300.png',
-    //     'active' => 1
-    // ]);
+    $sql_insert = "INSERT INTO users (pname, name, password, edu_mail, edu_group, role, pp_link, active, tuto_agenda) VALUES (:pname, :name, :password, :edu_mail, :edu_group, :role, :pp_link, :active, :tuto_agenda)";
+    $stmt_insert = $dbh->prepare($sql_insert);
+    $stmt_insert->execute([
+        'pname' => $pname,
+        'name' => $name,
+        'password' => $password_hash,
+        'edu_mail' => $email,
+        'edu_group' => $trigramme,
+        'role' => 'prof',
+        'pp_link' => $pp_profile,
+        'active' => 1,
+        'tuto_agenda' => 1
+    ]);
 
 
     // set email subjectj
-    $subject = 'Voici vos identifiants pour MMI Companion !';
+    $subject = 'Bienvenue sur votre interface professeur. Voici vos identifiants pour MMI Companion !';
 
     // load HTML content from a file
     $message = file_get_contents('./../idmail.html');
@@ -1884,7 +1888,8 @@ function generate_password_prof($email, $name, $pname, $trigramme)
         //Recipients
         $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
         $mail->addAddress($email, $name);     // Add a recipient
-
+        $mail->addReplyTo('raphael.tiphonet@etu.univ-poitiers.fr', 'Raphaël Tiphonet');
+        $mail->addAttachment('./../assets/pdf/Guide_utilisateur_-_Interface_enseignant.pdf', 'Guide_utilisateur_-_Interface_enseignant.pdf');
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = $subject;

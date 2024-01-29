@@ -139,15 +139,17 @@ echo head('MMI Companion | Informations');
 
         </form>
 
-        <canvas id="fireworks"></canvas>
-        
-      </main>
 
-      <script src="../assets/js/script_all.js?v=1.1"></script> 
-        <script src="../assets/js/fireworks.js"></script>
+
+    </main>
+
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <script src="../assets/js/tree.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+    <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
@@ -173,7 +175,7 @@ echo head('MMI Companion | Informations');
                 ['removeformat'],
                 ['strawpoll'],
                 ['fullscreen'],
-                
+
             ],
         });
 

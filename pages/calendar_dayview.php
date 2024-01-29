@@ -229,7 +229,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
       </div>
 
 
-      <canvas id="fireworks"></canvas>
+
 
     </main>
 

@@ -53,12 +53,11 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_st
         'description' => $description,
         'color' => $color
     ]);
-    if($stmt->rowCount() > 0){
+    if ($stmt->rowCount() > 0) {
         $_SESSION['date'] = $dateStart;
         header('Location: ./calendar_dayview.php');
         exit();
     }
-
 }
 // Fin de la vérification du formulaire
 
@@ -70,7 +69,7 @@ echo head("MMI Companion | Emploi du temps");
     <!-- Menu de navigation -->
     <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
     <!-- Fin du menu de navigation -->
-    
+
     <!-- Corps de la page -->
     <main class="main_all">
         <div style="height:30px"></div>
@@ -135,20 +134,20 @@ echo head("MMI Companion | Emploi du temps");
 
         </form>
 
-        <canvas id="fireworks"></canvas>
 
-      </main>
-      <script src="../assets/js/script_all.js?v=1.1"></script> 
-        <script src="../assets/js/fireworks.js"></script>
+
+    </main>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_calendar-header');
         select_background_profil.classList.add('select_link-header');
-        
+
         const dateStartInput = document.getElementById('date_start');
         const dateEndInput = document.getElementById('date_end');
 
-        function fixLimitDate(dateStartInput, dateEndInput){
+        function fixLimitDate(dateStartInput, dateEndInput) {
             // Obtenez la nouvelle valeur de date de début
             const dateStartValue = new Date(dateStartInput.value);
 

@@ -147,7 +147,7 @@ echo head('MMI Companion | Accueil', $additionalStyles);
                 </div>
                 <div></div>
             </div>
-            <div>
+            <div style="width: 100%;">
                 <a href="./calendar_view.php?
     <?php if (!empty($nextCours['summary'])) : ?>title=<?php echo urlencode($nextCours['summary']) ?>&<?php endif; ?>
     <?php if (!empty($nextCours['location'])) : ?>location=<?php echo urlencode($nextCours['location']) ?>&<?php endif; ?>
