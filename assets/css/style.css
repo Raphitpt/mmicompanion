@@ -4033,6 +4033,11 @@ header {
 .btn_content-menu.hidden {
   visibility: hidden;
 }
+.div_btn_scolarite {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
 
 .btn_content-menu.btn_next {
   right: 0;

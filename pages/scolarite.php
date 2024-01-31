@@ -210,16 +210,18 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                         </div>
 
                     </div>
+                    <div class="div_btn_scolarite">
+                        <div class="btn_content-menu btn_next">
+                            <p>Suivant</p>
+                            <i class="fi fi-br-angle-right"></i>
+                        </div>
 
-                    <div class="btn_content-menu btn_next">
-                        <p>Suivant</p>
-                        <i class="fi fi-br-angle-right"></i>
+                        <div class="btn_content-menu btn_prev">
+                            <i class="fi fi-br-angle-left"></i>
+                            <p>Précédent</p>
+                        </div>
                     </div>
 
-                    <div class="btn_content-menu btn_prev">
-                        <i class="fi fi-br-angle-left"></i>
-                        <p>Précédent</p>
-                    </div>
 
                 </div>
             </div>
