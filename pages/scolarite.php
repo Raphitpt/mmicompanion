@@ -87,6 +87,7 @@ echo head("MMI Companion | Scolarité", $additionalStyles);
                             }
                         } else if (strpos($user_sql['edu_group'], 'BUT3') !== false) {
                             if (date('Y-m-d') >= '2024-02-10') {
+
                                 echo '<option value="s5-2023">3e année - S5</option>';
                                 echo '<option value="s6-2024" selected>3e année - S6</option>';
                             } else {
