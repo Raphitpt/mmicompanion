@@ -174,7 +174,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
     $menuHtml .= '
                 <div class="container_notifications-header">';
 
-    if (empty($notifs)) {
+    if ($notifs[1]['notif_message'] == 0) {
         $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
     }
     foreach ($notifs[0] as $notif) {
