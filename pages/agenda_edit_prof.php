@@ -57,12 +57,11 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
 
     $school_subject = $_POST['school_subject'];
 
-    $sql = "UPDATE agenda SET title = :title, date_finish = :date, type = :type, id_user = :id_user, id_subject = :id_subject, edu_group = :edu_group, content = :content WHERE id_task = :id_task AND id_user = :id_user";
+    $sql = "UPDATE agenda SET title = :title, date_finish = :date, type = :type, id_subject = :id_subject, edu_group = :edu_group, content = :content WHERE id_task = :id_task";
     $stmt = $dbh->prepare($sql);
     $stmt->execute([
         'title' => $title,
         'date' => $date,
-        'id_user' => $user['id_user'],
         'type' => $type,
         'id_subject' => $school_subject,
         'edu_group' => $edu_group,
