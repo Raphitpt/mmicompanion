@@ -50,7 +50,7 @@ function head(string $title = '', string $additionalStyles = ''): string
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="manifest" href="../manifest.webmanifest?v=1.2">
 
-  <link href="../assets/css/style.css?v=2.39" rel="stylesheet">
+  <link href="../assets/css/style.css?v=2.40" rel="stylesheet">
   <link href="../assets/css/responsive.css" rel="stylesheet">
   <link href="../assets/css/style_theme.css?v=1.12" rel="stylesheet">
   <link defer href="
@@ -174,7 +174,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
     $menuHtml .= '
                 <div class="container_notifications-header">';
 
-    if ($notifs[1]['notif_message'] == 0) {
+    if (empty($notifs)) {
         $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
     }
     foreach ($notifs[0] as $notif) {
