@@ -26,7 +26,6 @@ $user_sql = userSQL($dbh, $user);
 if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date']) && !empty($_POST['school_subject'])) {
     $title = $_POST['title'];
     $date = $_POST['date'];
-
     if (isset($_POST['type'])) {
         $type = $_POST['type'];
     } else {
@@ -57,7 +56,12 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
     if ($stmt && $type == "devoir") {
         sendNotification($dbh, 'Agenda', 'Un nouveau devoir a été ajoutée pour le ' . $date, $user_sql['edu_group'], 'Agenda');
     }
-    header('Location: ./agenda.php');
+
+    if (str_contains($user_sql['role'], 'prof')) {
+        header('Location: ./agenda_prof.php');
+    } else {
+        header('Location: ./agenda.php');
+    }
 
     exit();
 }

@@ -188,47 +188,8 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             <div class="swiper-slide">
                                 <div class='item_content-agenda'>
                                     <div class="item_title_content-agenda">
-                                        <?php
-                                        $keys = array_keys($agendaMerged);
-                                        if ($semaine != $keys[0]) {
-                                        ?>
-                                            <div class="btn_content-menu btn_prev_agenda">
-                                                <i class="fi fi-br-angle-left"></i>
-                                                <p>Précédent</p>
-                                            </div>
-                                        <?php
-                                        } else {
-                                        ?>
-                                            <div class="btn_content-menu btn_prev_agenda" style=" visibility: hidden;">
-                                                <i class="fi fi-br-angle-left"></i>
-                                                <p>Précédent</p>
-                                            </div>
-                                        <?php
-                                        }
-                                        ?>
-                                        <div class=" btn_content-menu-week">
-                                            <i class="fi fi-br-book-bookmark"></i>
-                                            <p><?php echo $semaine ?></p>
-                                        </div>
-                                        <?php
-
-                                        if ($semaine != end($keys)) {
-                                        ?>
-                                            <div class="btn_content-menu btn_next_agenda">
-                                                <p>Suivant</p>
-                                                <i class="fi fi-br-angle-right"></i>
-                                            </div>
-                                        <?php
-
-                                        } else {
-                                        ?>
-                                            <div class="btn_content-menu btn_next_agenda" style=" visibility: hidden;">
-                                                <p>Suivant</p>
-                                                <i class="fi fi-br-angle-right"></i>
-                                            </div>
-                                        <?php
-                                        }
-                                        ?>
+                                        <i class="fi fi-br-book-bookmark"></i>
+                                        <p><?php echo $semaine ?></p>
                                     </div>
 
                                     <div class="container_list_content-agenda">
@@ -342,6 +303,16 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                             </div>
                         <?php } ?>
                     </div>
+
+                    <div class="btn_content-menu btn_next_agenda">
+                        <p>Suivant</p>
+                        <i class="fi fi-br-angle-right"></i>
+                    </div>
+                    <div class="btn_content-menu btn_prev_agenda">
+                        <i class="fi fi-br-angle-left"></i>
+                        <p>Précédent</p>
+                    </div>
+
                 </div>
             </div>
 
