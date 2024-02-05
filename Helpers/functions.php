@@ -646,7 +646,6 @@ use Google\Auth\CredentialsLoader;
 use Google\Auth\HttpHandler\HttpHandlerFactory;
 use GuzzleHttp\Client;
 
-
 function sendNotification($dbh, $title, $body, $groups, $subject)
 {
     $projectId = 'mmi-companion';
@@ -665,42 +664,50 @@ function sendNotification($dbh, $title, $body, $groups, $subject)
 
     $groupsArray = explode(',', $groups);
 
+    $query = "SELECT s.*, u.edu_group FROM subscriptions s
+              INNER JOIN users u ON s.id_user = u.id_user
+              WHERE u.edu_group IN (:groups)";
+    $stmt = $dbh->prepare($query);
+    $stmt->execute(['groups' => $groupsArray]);
+
+    $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Regrouper les identifiants par groupe
+    $groupedSubscriptions = [];
+    foreach ($subscriptions as $subscriptionData) {
+        $groupedSubscriptions[$subscriptionData['edu_group']][] = $subscriptionData['token'];
+    }
+
     $notificationSent = false;
 
-    foreach ($groupsArray as $group) {
-        $query = "SELECT s.* FROM subscriptions s
-                  INNER JOIN users u ON s.id_user = u.id_user
-                  WHERE u.edu_group = :group";
-        $stmt = $dbh->prepare($query);
-        $stmt->execute(['group' => trim($group)]);
-
-        $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // Enhance the notification object with our custom options.
-        foreach ($subscriptions as $subscriptionData) {
-            $message = [
-                'message' => [
-                    'token' => $subscriptionData['token'],
-                    'notification' => [
-                        'title' => $title,
-                        'body' => $body,
-                    ],
+    foreach ($groupedSubscriptions as $group => $tokens) {
+        $messages = [];
+        foreach ($tokens as $token) {
+            $messages[] = [
+                'token' => $token,
+                'notification' => [
+                    'title' => $title,
+                    'body' => $body,
                 ],
             ];
-
-            $response = $httpClient->request('POST', $uri, [
-                'headers' => [
-                    'Content-Type' => 'application/json',
-                ],
-                'body' => json_encode($message),
-            ]);
-            if ($response->getStatusCode() == 200) {
-                $notificationSent = true;
-            }
         }
+
+        $batchMessage = ['messages' => $messages];
+
+        $response = $httpClient->request('POST', $uri, [
+            'headers' => [
+                'Content-Type' => 'application/json',
+            ],
+            'body' => json_encode($batchMessage),
+        ]);
+
+        if ($response->getStatusCode() == 200) {
+            $notificationSent = true;
+        }
+
         $sql_increment = "UPDATE users SET notif_message = notif_message + 1 WHERE edu_group = :group";
         $stmt_increment = $dbh->prepare($sql_increment);
-        $stmt_increment->execute(['group' => trim($group)]);
+        $stmt_increment->execute(['group' => $group]);
     }
 
     if ($notificationSent) {
@@ -709,6 +716,7 @@ function sendNotification($dbh, $title, $body, $groups, $subject)
         $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups), 'subject' => $subject]);
     }
 }
+
 function notifsHistory($dbh, $id_user, $edu_group)
 {
     $sql = "

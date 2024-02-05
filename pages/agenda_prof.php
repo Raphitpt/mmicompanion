@@ -150,8 +150,8 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                         </select>
 
                     </div>
-                    <div class="btn_description-agenda">
-                        <button type="submit" class="button_agenda" id="submitBtnAgenda"><i class="fi fi-br-check"></i></button>
+                    <div class="btn_description-agenda" style="display: none;">
+                        <button type=" submit" class="button_agenda" id="submitBtnAgenda"><i class="fi fi-br-check"></i></button>
                     </div>
                 </form>
                 <div class="description_container_content-agenda">
@@ -305,6 +305,18 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
         <script>
             const btnAgenda = document.querySelector('#submitBtnAgenda');
+            const butSelect = document.querySelector('#but');
+            const tpSelect = document.querySelector('#tp');
+            const agendaContainer = document.querySelector('.container_content-agenda');
+
+            butSelect.addEventListener("change", function(e) {
+                e.preventDefault();
+                btnAgenda.click();
+            });
+            tpSelect.addEventListener("change", function(e) {
+                e.preventDefault();
+                btnAgenda.click();
+            });
 
             btnAgenda.addEventListener("click", function(e) {
                 e.preventDefault();

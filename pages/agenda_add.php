@@ -4,6 +4,7 @@
 session_start();
 require "../bootstrap.php";
 
+
 $user = onConnect($dbh);
 
 // La on récupère le cookie que l'on à crée à la connection
@@ -49,7 +50,14 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'edu_group' => $user_sql['edu_group'],
         'content' => $content
     ]);
-    // si la requete sql est bonne
+
+    // // si la requete sql est bonne
+    // if ($stmt && ($type == "eval" || $type == "devoir")) {
+    //     $fiber = new Fiber(function () use ($dbh, $type, $date, $user_sql) {
+    //         sendNotification($dbh, 'Agenda', $type == "eval" ? 'Une nouvelle évaluation a été ajoutée pour le ' . $date : 'Un nouveau devoir a été ajouté pour le ' . $date, $user_sql['edu_group'], 'Agenda');
+    //     });
+    //     $fiber->start();
+    // }
     if ($stmt && $type == "eval") {
         sendNotification($dbh, 'Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $user_sql['edu_group'], 'Agenda');
     }
@@ -57,11 +65,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         sendNotification($dbh, 'Agenda', 'Un nouveau devoir a été ajoutée pour le ' . $date, $user_sql['edu_group'], 'Agenda');
     }
 
-    if (str_contains($user_sql['role'], 'prof')) {
-        header('Location: ./agenda_prof.php');
-    } else {
-        header('Location: ./agenda.php');
-    }
+    header('Location: ./agenda.php');
 
     exit();
 }
