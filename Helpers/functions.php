@@ -250,7 +250,7 @@ function generateBurgerMenuContent($role, $title, $notifs)
     // Ajouter le lien "Agenda" en fonction du rôle
     if ($role == "prof") {
         $menuHtml .= '
-        <a href="./agenda_prof.php?but=BUT1&tp=TP1">
+        <a href="./agenda_prof.php">
             <div class="burger_content_link-header">
                 <i class="fi fi-br-book-bookmark"></i>
                 <p>Agenda</p>
