@@ -53,7 +53,7 @@ if (isset($_POST['submit'])) {
             $message = "Nouvelle information";
             $body = 'Une nouvelle information de ' . $name . ' a été ajoutée !';
             $group = $group_info;
-            sendNotification($message, $body, $group);
+            sendNotification($dbh, 'Informations', $body, $group, 'Informations');
         } else {
             $_SESSION['error'] = "Une erreur est survenue";
         }
@@ -69,9 +69,9 @@ echo head('MMI Companion | Informations');
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Informations') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Informations', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
-    <main class="main-informations">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Ajouter une information</h1>
@@ -139,12 +139,17 @@ echo head('MMI Companion | Informations');
 
         </form>
 
-    <div id="snow-container"></div></main>
 
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+
+    </main>
+
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <script src="../assets/js/tree.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+    <script>
+        window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script> -->
@@ -170,7 +175,7 @@ echo head('MMI Companion | Informations');
                 ['removeformat'],
                 ['strawpoll'],
                 ['fullscreen'],
-                
+
             ],
         });
 

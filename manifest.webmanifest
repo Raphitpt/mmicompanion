@@ -1,5 +1,6 @@
 {
-
+	"id" : "/pages/home.php",
+	
 	"short_name": "MMI Companion",
 
 	"name": "MMI Companion",
@@ -76,11 +77,30 @@
 			"sizes": "320x320",
 			"purpose": "maskable"
 
-		}
+		},
+		{
+
+			"src": "./assets/img/maskable_icon_x512.png",
+
+			"type": "image/png",
+
+			"sizes": "512x512",
+			"purpose": "any maskable"
+
+		},
+		{
+			
+    "src": "./assets/img/mmicompanion.svg",
+				
+				"type": "image/svg+xml",
+				
+    "sizes": "512x512"
+				
+   }
 	],
 
 
-	"start_url": "/pages/calendar.php",
+	"start_url": "/pages/home.php",
 
 	"background_color": "#ffffff",
 
@@ -90,6 +110,6 @@
 
 	"scope": "/",
 
-	"theme_color": "#ffca84"
+	"theme_color": "#B9E0FF"
 
 }

@@ -1,4 +1,3 @@
-<!-- Script pour l'affichage des taches dans l'agenda en fonction de son TP -->
 <?php
 session_start();
 require "../bootstrap.php";
@@ -6,108 +5,13 @@ require "../bootstrap.php";
 // Si la personne ne possède pas le cookie, on la redirige vers la page d'accueil pour se connecter
 $user = onConnect($dbh);
 
-// La on récupère le cookie que l'on à crée à la connection
-// --------------------
-$jwt = $_COOKIE['jwt'];
-$secret_key = $_ENV['SECRET_KEY']; // La variable est une variable d'environnement qui est dans le fichier .env
-$user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
 
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-  'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-// Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
-// --------------------
-$sql_agenda = "SELECT a.*, s.*
-        FROM agenda a 
-        JOIN sch_subject s ON a.id_subject = s.id_subject 
-        WHERE a.id_user = :id_user AND a.type !='eval' AND a.type!='devoir' AND a.date_finish >= CURDATE()
-        ORDER BY a.date_finish ASC, a.title ASC";
-
-$stmt_agenda = $dbh->prepare($sql_agenda);
-$stmt_agenda->execute([
-    'id_user' => $user['id_user']
-]);
-$agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
-// --------------------
-// Fin de la récupération des taches
-
-// Requetes pour récupérer les évaluations de son TP
-// --------------------
-$sql_eval = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'eval' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
-$stmt_eval = $dbh->prepare($sql_eval);
-$stmt_eval->execute([
-    'edu_group' => $user_sql['edu_group']
-]);
-$eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
-// --------------------
-// Fin de la récupération des évaluations
-
-// Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
-$sql_devoir = "SELECT a.*, s.* FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject WHERE a.edu_group = :edu_group AND a.type = 'devoir' AND a.date_finish >= CURDATE() ORDER BY a.date_finish ASC, a.title ASC";
-$stmt_devoir = $dbh->prepare($sql_devoir);
-$stmt_devoir->execute([
-    'edu_group' => $user_sql['edu_group']
-]);
-$devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
-
-$agenda = array_merge($agenda_user, $eval);
-$agenda = array_merge($agenda, $devoir);
-$eval_cont = count($eval);
-$agenda_cont = count($agenda);
-usort($agenda, 'compareDates');
-
-
-
-// Tableaux pour traduire les dates en français
-// --------------------
-$semaine = array(
-    " Dimanche ",
-    " Lundi ",
-    " Mardi ",
-    " Mercredi ",
-    " Jeudi ",
-    " Vendredi ",
-    " Samedi "
-);
-$mois = array(
-    1 => " janvier ",
-    " février ",
-    " mars ",
-    " avril ",
-    " mai ",
-    " juin ",
-    " juillet ",
-    " août ",
-    " septembre ",
-    " octobre ",
-    " novembre ",
-    " décembre "
-);
-// --------------------
-// Fin des tableaux pour traduire les dates en français
-
-// Tableau pour regrouper les éléments par date
-$agendaByDate = [];
-
-
-
-// --------------------
-// Récupérer les couleurs des matières
-
-$sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
-$stmt_color = $dbh->prepare($sql_color);
-$stmt_color->execute();
-$colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
 
 // --------------------
@@ -117,191 +21,381 @@ if (isset($_POST['button-validate'])) {
     $update_user = "UPDATE users SET tuto_agenda = 1 WHERE id_user = :id_user";
     $stmt = $dbh->prepare($update_user);
     $stmt->execute([
-      'id_user' => $user['id_user']
+        'id_user' => $user['id_user']
     ]);
     header('Location: ./agenda_prof.php');
     exit();
-  }
-
+}
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion | Agenda");
+$additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
+echo head("MMI Companion | Agenda", $additionalStyles);
+
 ?>
 <!-- Mise en place du tutoriel -->
 <?php
-  if ($user_sql['tuto_agenda'] == 0) { ?>
-  <body class="body-tuto_agenda">
-    <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+if ($user_sql['tuto_agenda'] == 0) { ?>
 
-    <main class="main_tuto-agenda">
-      <form action="" method="post" class="form-tuto_agenda">
-        <div class="title_tuto-agenda">
-            <img src="./../assets/img/agenda_emoji.png" alt="Emoji d'un livre">
-            <h1>Comment fonctionne l’agenda ?</h1>
-        </div>
-        <p class="p_trait-agenda">Dans chaque TP, un.e étudiant.e est chargé.e d’ajouter les devoirs à l’agenda et de le maintenir à jour pour les autres étudiant.e.s</p>
-        <p>On vous invite à discuter entre vous pour déterminer l’étudiant.e qui sera chargée de mettre à jour l’agenda. 
-        <br>Par la suite, l’étudiant.e volontaire doit nous contacter pour qu’on lui attribue son rôle.</p>
-        <div class="title_content_tuto-agenda">
-            <img src="./../assets/img/hand-pointing_emoji.png" alt="Emoji d'une main qui pointe vers le texte">
-            <h2>Peut-on changer l’étudiant.e ?</h2>
-        </div>
-        <p>OUI ! Et c’est l’objectif. Une fois que l’on a attribué une première fois le rôle, l’étudiant.e verra une option dans la page profil pour transmettre son rôle à un.e autre étudiant.e volontaire.</p>
-        <p><span style="font-weight:700">Petit tips :</span> tu peux ajouter des tâches personnelles que seul toi verra en plus des tâches de l’agenda de ton TP.</p>
-        <div class="container_button_tuto-agenda">
-            <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
-        </div>
-      </form>
-    <div id="snow-container"></div></main>
+    <body class="body-tuto_agenda">
+        <!-- Menu de navigation -->
+        <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
-</body>
-
-<script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
-<script>
-    // Faire apparaître le background dans le menu burger
-    let select_background_profil = document.querySelector('#select_background_agenda-header');
-    select_background_profil.classList.add('select_link-header');
-</script>
-<?php 
-}else{
-
-?>
-
-<body class="body-all">
-    <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
-
-    <!-- Corps de la page -->
-    <main class="main-agenda">
-        <div style="height:30px"></div>
-        <div class="agenda_title-agenda">
-            <div class="agenda_title_flextop-agenda">
-                <div class="title_trait">
-                    <h1>L'agenda</h1>
-                    <div></div>
+        <main class="main_tuto-agenda">
+            <form action="" method="post" class="form-tuto_agenda">
+                <div class="title_tuto-agenda">
+                    <img src="./../assets/img/agenda_emoji.png" alt="Emoji d'un livre">
+                    <h1>Comment fonctionne l’agenda ?</h1>
                 </div>
-            
-      
-        <div class="agenda_title_flextopright-agenda">
-            <button id="ajouter_agenda_prof">Ajouter</button>
-        </div>
-    </div>
+                <p class="p_trait-agenda">Dans chaque TP, un.e étudiant.e est chargé.e d’ajouter les devoirs à l’agenda et de le maintenir à jour pour les autres étudiant.e.s</p>
+                <p>En tant que professeur, vous pouvez sélectionner le BUT et le TP dont vous souhaitez voir l'agenda ainsi que l'étudiant.e qui en responsable.</p>
+                <div class="title_content_tuto-agenda">
+                    <img src="./../assets/img/hand-pointing_emoji.png" alt="Emoji d'une main qui pointe vers le texte">
+                    <h2>Puis-je ajouter des évènements ?</h2>
+                </div>
+                <p>OUI ! Vous avez la possibilité d'ajouter des tâches à faire ou des évaluations pour le BUT entier, pour un TD ou pour un TP. Pour éviter les doublons entre le responsable de l'agenda et vous, on vous invite à discuter avec les étudiant.e.s si vous préférez ajouter vous-mêmes les tâches à faire ou évaluations dans l'agenda.</p>
+                <br>
+                <p><span style="font-weight:700">Détail important :</span> vous avez la possibilité de modifier ou supprimer les tâches et évaluations entrées par les reponsables ce qui est peut-être utile pour changer une date de rendu, une description...</p>
+                <div class="container_button_tuto-agenda">
+                    <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
+                </div>
+            </form>
+        </main>
 
-    <div style="height:20px"></div>
-        
-        <div class="select_but_agenda">
-          <select name="but" id="but">
-            <option value="BUT1">BUT1</option>
-            <option value="BUT2">BUT2</option>
-            <option value="BUT3">BUT3</option>
-          </select>
-          <select name="tp" id="tp">
-            <option value="TP1">TP1</option>
-            <option value="TP2">TP2</option>
-            <option value="TP3">TP3</option>
-            <option value="TP4">TP4</option>
-          </select>
-        </div>
-            
-        <div style="height:15px"></div>
-        
-            <div class="agenda_title_flexbottom-agenda">
-                <?php
-                // Affiche le responsable de l'agenda
-                //   var_dump(viewChef($dbh, "BUT1-TP1"));
-                    echo "<p style='font-weight: bold;' id='responsable'>Responsable : " . viewChef($dbh, "BUT1-TP1") . "</p>";
+    </body>
 
-                ?>
-                <div style="height:15px"></div>
-                <?php
-                // Systeme de compteur de taches non terminées ou terminées
-                // On compte le nombre d'occurences de taches non terminées
-                // Cette variable est aussi utile pour savoir si la tache est checked ou pas
-                // Ca incrémente la valeur si on coche ou pas en js
+    <script src="../assets/js/script_all.js?v=1.1"></script>
 
-                // Gère l'affichage des taches en affichant la date en français qui correspond à la date finale de la tache
-                // Elle ajoute la date en français au tableau $agendaByDate qui repertorie toute les taches
-                foreach ($agenda as $agendas) {
-                    $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
-                    $formattedDate = (new DateTime())->setTimestamp($date)->format('l j F'); // Formate la date
-                    $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)]; // Traduit la date en français
-
-                    // Ajoute l'élément à l'array correspondant à la date
-                    if (!isset($agendaByDate[$formattedDateFr])) {
-                        $agendaByDate[$formattedDateFr] = [];
-                    }
-                    $agendaByDate[$formattedDateFr][] = $agendas;
-                }
-                ?>
-            </div>
-        </div>
-        <div style="height:25px"></div>
-        <div class="agenda_content-agenda">
-        </div>
-    <div id="snow-container"></div></main>
-    <div style="height:20px"></div>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
     <script>
-
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
         select_background_profil.classList.add('select_link-header');
+    </script>
+
+<?php
+} else {
+
+    // Chargé des valeurs par défaut de l'agenda
+    $tp = 'TP1';
+    $but = 'BUT1';
+
+    $edu_group = $but . '-' . $tp;
+
+    $agendaMerged = getAgendaProf($dbh, $user, $edu_group);
+
+    $chefTP = viewChef($dbh, $edu_group);
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' || isset($_GET['but']) || isset($_GET['tp'])) {
+
+        if (isset($_GET['but']) && isset($_GET['tp'])) {
+            $tp = $_GET['tp'];
+            $but = $_GET['but'];
+        } else {
+            $tp = $_POST['tp'];
+            $but = $_POST['but'];
+        }
+
+        $edu_group = $but . '-' . $tp;
+
+        $agendaMerged = getAgendaProf($dbh, $user, $edu_group);
+
+        $chefTP = viewChef($dbh, $edu_group);
+    }
 
 
-        const butSelect = document.getElementById('but');
-        const tpSelect = document.getElementById('tp');
-        const agendaMain = document.querySelector('.agenda_content-agenda');
-        const ajouterAgenda = document.getElementById('ajouter_agenda_prof');
-        
-        // Écouteur d'événement pour charger l'agenda au chargement de la page
-        window.addEventListener('load', loadAgenda);
+    // --------------------
+    // Récupérer les couleurs des matières
 
-        // Fonction pour effectuer la requête XHR en utilisant POST
-        function loadAgenda() {
-            const selectedBut = butSelect.value;
-            const selectedTp = tpSelect.value;
+    $sql_color = "SELECT * FROM sch_ressource INNER JOIN sch_subject ON sch_ressource.name_subject = sch_subject.id_subject";
+    $stmt_color = $dbh->prepare($sql_color);
+    $stmt_color->execute();
+    $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
-            let edu_group = selectedBut + '-' + selectedTp;
+?>
 
-            const xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    const response = JSON.parse(xhr.responseText);
-                    const viewChefValue = response.viewChef;
-                    console.log(viewChefValue);
-                    const agendaHtmlValue = response.agendaHtml;
-                    if (viewChefValue != false){
-                        document.getElementById('responsable').innerHTML = "Responsable : " + viewChefValue;
+    <body class="body-all">
+        <!-- Menu de navigation -->
+        <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
+
+        <!-- Corps de la page -->
+        <main class="main_all">
+            <div style="height:30px"></div>
+            <div class="title-agenda">
+                <div class="title_flextop-agenda">
+                    <div class="title_trait">
+                        <h1>L'agenda</h1>
+                        <div></div>
+                    </div>
+
+                    <div class="title_flextopright-agenda" id="ajouter_agenda_prof">
+                        <a href="./agenda_add_prof.php?but=<?php echo $but ?>&tp=<?php echo $tp ?>">Ajouter</a>
+                    </div>
+                </div>
+            </div>
+
+            <div style="height:25px"></div>
+
+            <div class="description-agenda">
+                <form class="flex_form_description-agenda" action="" method="POST">
+                    <div class="select_description-agenda">
+                        <select name="but" id="but">
+                            <option value="BUT1" <?php echo (isset($_POST['but']) && $_POST['but'] == 'BUT1') || (isset($_GET['but']) && $_GET['but'] == 'BUT1') ? 'selected' : ''; ?>>BUT1</option>
+                            <option value="BUT2" <?php echo (isset($_POST['but']) && $_POST['but'] == 'BUT2') || (isset($_GET['but']) && $_GET['but'] == 'BUT2') ? 'selected' : ''; ?>>BUT2</option>
+                            <option value="BUT3" <?php echo (isset($_POST['but']) && $_POST['but'] == 'BUT3') || (isset($_GET['but']) && $_GET['but'] == 'BUT3') ? 'selected' : ''; ?>>BUT3</option>
+                        </select>
+                        <select name="tp" id="tp">
+                            <option value="TP1" <?php echo (isset($_POST['tp']) && $_POST['tp'] == 'TP1') || (isset($_GET['tp']) && $_GET['tp'] == 'TP1') ? 'selected' : ''; ?>>TP1</option>
+                            <option value="TP2" <?php echo (isset($_POST['tp']) && $_POST['tp'] == 'TP2') || (isset($_GET['tp']) && $_GET['tp'] == 'TP2') ? 'selected' : ''; ?>>TP2</option>
+                            <option value="TP3" <?php echo (isset($_POST['tp']) && $_POST['tp'] == 'TP3') || (isset($_GET['tp']) && $_GET['tp'] == 'TP3') ? 'selected' : ''; ?>>TP3</option>
+                            <option value="TP4" <?php echo (isset($_POST['tp']) && $_POST['tp'] == 'TP4') || (isset($_GET['tp']) && $_GET['tp'] == 'TP4') ? 'selected' : ''; ?>>TP4</option>
+                        </select>
+
+                    </div>
+                    <div class="btn_description-agenda">
+                        <button type="submit" class="button_agenda" id="submitBtnAgenda"><i class="fi fi-br-check"></i></button>
+                    </div>
+                </form>
+                <div class="description_container_content-agenda">
+                    <p>Responsable de l'agenda : <span style="font-weight: 600"><?php echo $chefTP ?></span></p>
+                </div>
+            </div>
+
+            <div style="height:15px"></div>
+
+            <div class="container_content-agenda">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper agenda">
+
+                        <?php
+
+                        // Si il n'y a pas d'évènements dans l'agenda, afficher un message
+                        if (empty($agendaMerged)) { ?>
+
+                            <div class='item_content-agenda'>
+                                <p>Aucune tâche de prévu</p>
+                            </div>
+
+                        <?php } ?>
+
+                        <?php
+                        // Parcours les éléments par date et les affiche
+                        foreach ($agendaMerged as $semaine => $jours) {
+                            if (str_contains($semaine, 'Semaine ' . date("W"))) {
+                                echo "<div class='swiper-slide weekNow'>";
+                            } else {
+                                echo "<div class='swiper-slide'>";
+                            }
+                        ?>
+                            <div class='item_content-agenda'>
+                                <div class="item_title_content-agenda">
+                                    <i class="fi fi-br-book-bookmark"></i>
+                                    <p><?php echo $semaine ?></p>
+                                </div>
+
+                                <div class="container_list_content-agenda">
+                                    <?php
+                                    if (empty($jours)) {
+                                        echo "<p>Aucune tâche de prévu</p>";
+                                    }
+                                    ?>
+                                    <?php
+                                    foreach ($jours as $jour => $agendas) { ?>
+                                        <div class="item_list_content_agenda">
+                                            <?php if (!str_contains($jour, 'Semaine')) { ?>
+                                                <div class="item_title_list_content-agenda">
+                                                    <p><?php echo $jour ?></p>
+                                                    <div></div>
+                                                </div>
+                                            <?php } ?>
+
+
+                                            <div class="container_list-agenda">
+                                                <?php
+                                                foreach ($agendas as $agenda) {
+
+                                                    echo "<div class='item_list-agenda'>";
+                                                    echo "<div class='item_list_flexleft-agenda'>";
+
+                                                    if ($agenda['type'] == "eval") {
+                                                        echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                                    } elseif ($agenda['type'] == "devoir" || $agenda['type'] == "autre") {
+                                                        echo "<i class='fi fi-sr-checkbox'></i>";
+                                                    }
+
+                                                    echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
+                                                    // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                                                    foreach ($colors as $color) {
+
+                                                        if ($color['id_subject'] == $agenda['id_subject']) {
+                                                            echo "<div class='subject_item_list_flexleft-agenda'>";
+                                                            echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
+                                                            if ($agenda['type'] == "eval") {
+                                                                echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
+                                                            } else {
+                                                                echo "<p>" . $agenda['name_subject'] . "</p>";
+                                                            }
+                                                            echo "</div>";
+                                                            break;
+                                                        }
+                                                    };
+                                                    // Affichage du titre de l'event de l'agenda
+                                                    echo "<div class='title_item_list_flexleft-agenda'>";
+                                                    echo "<p>" . $agenda['title'] . "</p>";
+                                                    echo "</div>";
+
+                                                    // Affichage du contenu de l'event de l'agenda
+                                                    echo "<div class='description_item_list_flexleft-agenda'>";
+                                                    if (isset($agenda['content']) && !empty($agenda['content'])) {
+                                                        echo $agenda['content'];
+                                                    }
+                                                    echo "</div>";
+
+                                                    // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
+                                                    echo "<div class='author_item_list_flexleft-agenda'>";
+                                                    if (isset($agenda['role']) && $agenda['role'] == "prof") {
+                                                        echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                                                    }
+                                                    echo "</div>";
+
+                                                    echo "</label>";
+                                                    echo "</div>";
+
+                                                    echo "<div class='item_list_flexright-agenda'>";
+                                                    echo "<div class='menu_dropdown_item_list_flexright-agenda'>";
+                                                    echo "<div class='btn_menu_dropdown_item_list_flexright-agenda'>";
+                                                    echo "<i class='fi fi-sr-menu-dots'></i>";
+                                                    echo "</div>";
+
+                                                    echo "<div class='content_menu_dropdown_item_list_flexright-agenda menu_dropdown_close'>";
+
+                                                    echo "<a href='agenda_edit_prof.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                                                    echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "&but=" . $_GET['but'] . "&tp=" . $_GET['tp'] . "' id='delete-trash'class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
+
+                                                    echo "</div>";
+                                                    echo "</div>";
+                                                    echo "</div>";
+                                                    echo "</div>";
+                                                } ?>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                </div>
+                            </div>
+                    </div>
+                <?php } ?>
+                </div>
+
+                <div class="btn_content-menu btn_next_agenda">
+                    <p>Suivant</p>
+                    <i class="fi fi-br-angle-right"></i>
+                </div>
+                <div class="btn_content-menu btn_prev_agenda">
+                    <i class="fi fi-br-angle-left"></i>
+                    <p>Précédent</p>
+                </div>
+
+            </div>
+            </div>
+
+            <div style="height:20px"></div>
+        </main>
+
+        <script src="../assets/js/script_all.js?v=1.1"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <!-- <script src="../assets/js/fireworks.js"></script> -->
+
+        <script>
+            const btnAgenda = document.querySelector('#submitBtnAgenda');
+
+            btnAgenda.addEventListener("click", function(e) {
+                e.preventDefault();
+                window.location.href = "agenda_prof.php?but=" + document.querySelector('#but').value + "&tp=" + document.querySelector('#tp').value;
+            });
+            // Faire apparaître le background dans le menu burger
+            let select_background_profil = document.querySelector('#select_background_agenda-header');
+            select_background_profil.classList.add('select_link-header');
+
+
+            // --------------------
+
+
+            // Swiper
+            let swiper = new Swiper(".mySwiper", {
+                autoHeight: true,
+                spaceBetween: 30,
+                navigation: {
+                    nextEl: ".btn_next_agenda",
+                    prevEl: ".btn_prev_agenda",
+                },
+            });
+            swiper.slideTo(getSlideIndexByClass('weekNow'));
+
+            function getSlideIndexByClass(className) {
+                let index = 0;
+                $.each($('.swiper-wrapper').children(), function(i, item) {
+                    if ($(item).hasClass(className)) {
+                        index = i;
+                        return false;
                     }
-                    else{
-                        document.getElementById('responsable').innerHTML = "Responsable : Aucun";
-                    };
-                    agendaMain.innerHTML = agendaHtmlValue;
-                }
-            };
-
-            // Préparez les données à envoyer en tant que paramètres POST
-            const data = new FormData();
-            data.append('edu_group', edu_group);
-
-            // Envoyer la requête POST vers agenda.php
-            xhr.open('POST', 'agenda_index.php', true);
-            xhr.send(data);
+                });
+                return index;
             }
-        
-        // Écouteurs d'événements pour les changements d'options
-        butSelect.addEventListener('change', loadAgenda);
-        tpSelect.addEventListener('change', loadAgenda);
 
-        ajouterAgenda.addEventListener('click', function(){
-            window.location.href = "./agenda_add_prof.php?but=" + butSelect.value + "&tp=" + tpSelect.value;
-        });
-            </script>
+            // --------------------
 
-</body>
+            const deleteTrash = document.querySelectorAll('#delete-trash');
+            deleteTrash.forEach(function(trash) {
+                trash.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (confirm("Voulez-vous vraiment supprimer cette tâche ?")) {
+                        window.location.href = this.getAttribute('href');
+                    }
+                });
+            });
 
-<?php 
+            // --------------------
+
+            document.addEventListener("DOMContentLoaded", function() {
+                let dropdowns = document.querySelectorAll(".btn_menu_dropdown_item_list_flexright-agenda");
+
+                dropdowns.forEach(function(dropdown) {
+                    dropdown.addEventListener("click", function(event) {
+                        event.stopPropagation(); // Empêche la propagation de l'événement de clic à la fenêtre
+                        let dropdownContent = dropdown.nextElementSibling;
+                        if (dropdownContent.classList.contains('menu_dropdown_open')) {
+                            toggleDropdown(dropdownContent);
+                        } else {
+                            closeAllDropdowns(); // Ferme toutes les autres divs dropdown avant d'ouvrir celle-ci
+                            toggleDropdown(dropdownContent);
+                        }
+
+                    });
+                });
+
+                // Ferme toutes les divs dropdown lors d'un clic à l'extérieur de celles-ci
+                window.addEventListener("click", function(event) {
+                    closeAllDropdowns();
+                });
+
+                function toggleDropdown(dropdownContent) {
+                    dropdownContent.classList.toggle('menu_dropdown_open');
+                    dropdownContent.classList.toggle('menu_dropdown_close');
+                }
+
+                function closeAllDropdowns() {
+                    dropdowns.forEach(function(dropdown) {
+                        let dropdownContent = dropdown.nextElementSibling;
+                        if (dropdownContent.classList.contains('menu_dropdown_open')) {
+                            dropdownContent.classList.remove('menu_dropdown_open');
+                            dropdownContent.classList.add('menu_dropdown_close');
+                        }
+                    });
+                }
+            });
+        </script>
+
+    </body>
+
+<?php
 }
 ?>
 

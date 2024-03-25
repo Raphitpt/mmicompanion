@@ -1,1 +1,3 @@
-<?php `git pull`;
+<?php 
+`ssh -vT git@github.com`;
+`git pull`;

@@ -15,6 +15,9 @@ setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me
 // Fin de la récupération du cookie
 
 
+$user_sql = userSQL($dbh, $user);
+
+
 // On récupère les données passées en GET
 // --------------------
 $id_user = $_GET['id_user'];
@@ -31,12 +34,6 @@ $task = $stmt_task->fetch(PDO::FETCH_ASSOC);
 
 
 
-$sql_user = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt_user = $dbh->prepare($sql_user);
-$stmt_user->execute([
-    ':id_user' => $user['id_user']
-]);
-$user_sql = $stmt_user->fetch(PDO::FETCH_ASSOC);
 
 
 // On vérifie si le formulaire est rempli et si oui on ajoute la tache dans la base de donnée
@@ -68,7 +65,13 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'id_agenda' => $id_task,
         'content' => $content
     ]);
-    header('Location: ./agenda.php');
+
+    if (str_contains($user_sql['role'], 'prof')) {
+        header('Location: ./agenda_prof.php');
+    } else {
+        header('Location: ./agenda.php');
+    }
+
     exit();
 }
 // --------------------
@@ -112,13 +115,14 @@ echo head("MMI Companion | Agenda");
 
 ?>
 <link rel="stylesheet" href="./../trumbowyg/dist/ui/trumbowyg.min.css">
+
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
-    <main class="main-agenda">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Éditer une tâche</h1>
@@ -127,17 +131,17 @@ echo head("MMI Companion | Agenda");
         <div style="height:25px"></div>
         <div class="agenda-agenda_add">
             <!-- Formualaire d'ajout d'une tache, comme on peut le voir, l'envoi de ce formulaire ajoute 30 points à la personne grâce au code -->
-            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda"> 
+            <form class="form-agenda_add" method="POST" action="" onsubmit="updatePoints(30)" id="formagenda">
 
-                <input type="text" name="title" class="input_title-agenda_add" value="<?php echo $task['title'] ?>" required>
+                <input type="text" name="title" class="input_title-agenda_add" value="<?php echo $task['title'] ?>">
                 <div class="trait_agenda_add"></div>
                 <div class="form_content-informations_add">
-                <label for="content" class="label-agenda_add">
-                    <h2>Ajouter un contenu</h2>
-                </label>
-                <div style="height:5px"></div>
-                <textarea class="form_content_input-informations_add" id="editor"><?php echo $task['content']?></textarea>
-                <input name="content" id="content" type="hidden">
+                    <label for="content" class="label-agenda_add">
+                        <h2>Ajouter un contenu</h2>
+                    </label>
+                    <div style="height:5px"></div>
+                    <textarea class="form_content_input-informations_add" id="editor"><?php echo $task['content'] ?></textarea>
+                    <input name="content" id="content" type="hidden">
                 </div>
                 <label for="date" class="label-agenda_add">
                     <h2>Ajouter une date</h2>
@@ -153,19 +157,18 @@ echo head("MMI Companion | Agenda");
                         <?php } ?>
                     </div>
                     <div id="cocheWeek" class="container_input_week-agenda_add">
-                        <?php if(str_contains($task['date_finish'], "W")) { ?>
-                            <input type="checkbox" id="choosenWeek" name="choosenWeek" checked/>
+                        <?php if (str_contains($task['date_finish'], "W")) { ?>
+                            <input type="checkbox" id="choosenWeek" name="choosenWeek" checked />
                         <?php } else { ?>
-                        <input type="checkbox" id="choosenWeek" name="choosenWeek" />
+                            <input type="checkbox" id="choosenWeek" name="choosenWeek" />
                         <?php } ?>
                         <label for="choosenWeek">Afficher les semaines</label>
                     </div>
                 </div>
-                
 
-                
+
                 <!-- Affiche en fonction du role, certaine options sont cachés pour certaines personnes -->
-                <?php if (str_contains($user_sql['role'], 'chef') || str_contains($user_sql['role'], 'admin')) { ?>
+                <?php if (str_contains($user_sql['role'], 'chef') || str_contains($user_sql['role'], 'admin') || str_contains($user_sql['role'], 'prof')) { ?>
                     <div style="height:15px"></div>
                     <label for="type" class="label-agenda_add">
                         <h2>Type de tâche</h2>
@@ -175,7 +178,7 @@ echo head("MMI Companion | Agenda");
                         <i class="fi fi-br-list"></i>
                         <select name="type" class="input_select-agenda_add input-agenda_add" required>
                             <option value="eval" <?php if (htmlspecialchars($task['type']) == 'eval') echo 'selected'; ?>>Évaluation</option>
-                            <option value="devoir" <?php if (htmlspecialchars($task['type']) == 'devoir') echo 'selected'; ?>>Devoir à rendre</option>
+                            <option value="devoir" <?php if (htmlspecialchars($task['type']) == 'devoir') echo 'selected'; ?>>Tâche à faire</option>
                             <option value="autre" <?php if (htmlspecialchars($task['type']) == 'autre') echo 'selected'; ?>>Autre</option>
                         </select>
                     </div>
@@ -195,24 +198,25 @@ echo head("MMI Companion | Agenda");
                             if ($subjects['name_subject'] != $task['name_subject']) {
                                 echo "<option value='" . $subjects['id_subject'] . "'>" . $subjects['name_subject'] . "</option>";
                             }
-                            
-                        }
-                        ; ?>
+                        }; ?>
                     </select>
                 </div>
-                
+
                 <div style="height:25px"></div>
                 <div class="form_button-agenda">
                     <a role="button" href='./agenda.php'>Annuler</a>
                     <input type="submit" name="submit" value="Valider">
                 </div>
                 <div style="height:20px"></div>
-                
+
             </form>
         </div>
 
-    <div id="snow-container"></div></main>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+
+
+    </main>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <script src="./../trumbowyg/dist/trumbowyg.min.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
@@ -247,7 +251,7 @@ echo head("MMI Companion | Agenda");
                 ['fullscreen']
             ],
         });
-        
+
         $(document).ready(function() {
             $('#formagenda').submit(function(event) {
                 var contenuTexte = $('#editor').trumbowyg('html');
@@ -279,9 +283,8 @@ echo head("MMI Companion | Agenda");
                 dateInput.min = '<?php echo date("Y-m-d"); ?>'; // Rétablissez la valeur min
             }
         });
-
     </script>
-    
+
 </body>
 
 </html>

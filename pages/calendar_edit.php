@@ -6,12 +6,7 @@ $user = onConnect($dbh);
 
 date_default_timezone_set('Europe/Paris');
 
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-  'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
 // Date de début
 $dateActuelle = date("Y-m-d H:i");
@@ -38,7 +33,7 @@ $stmt_event->execute([
 ]);
 $event = $stmt_event->fetch(PDO::FETCH_ASSOC);
 if (!$event) {
-    header('Location: ./calendar.php');
+    header('Location: ./calendar_dayview.php');
     exit();
 }
 
@@ -62,7 +57,7 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date_st
         'description' => $description,
         'color' => $color
     ]);
-    header('Location: ./calendar.php');
+    header('Location: ./calendar_dayview.php');
     exit();
 }
 // Fin de la vérification du formulaire
@@ -73,11 +68,11 @@ echo head("MMI Companion | Emploi du temps");
 
 <body class="body-all">
     <!-- Menu de navigation -->
-    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps') ?>
+    <?php generateBurgerMenuContent($user_sql['role'], 'Emploi du temps', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
     <!-- Fin du menu de navigation -->
     <!-- Corps de la page -->
-    <main class="main-calendar_add">
+    <main class="main_all">
         <div style="height:30px"></div>
         <div class="title_trait">
             <h1>Éditer un évènement</h1>
@@ -91,35 +86,37 @@ echo head("MMI Companion | Emploi du temps");
             <div class="trait_agenda_add"></div>
 
             <div class="content_inputs-calendar_add">
-                    <div class="content_inputs_date-calendar_add">
-                        <label for="date_start" class="label-calendar_add">
-                            <h2>Ajouter une date de début</h2>
-                        </label>
-                        <div style="height:5px"></div>
-                        <div class="container_input_date-calendar_add">
-                            <input type="datetime-local" name="date_start" class="input_date-calendar_add input-calendar_add"
-                                value="<?php echo str_replace(' ', 'T', $event['start'])  ?>" min="<?php echo date("Y-m-d\TH:i") ?>" required>
-                        </div>
+                <div class="content_inputs_date-calendar_add">
+                    <label for="date_start" class="label-calendar_add">
+                        <h2>Ajouter une date de début</h2>
+                    </label>
+                    <div style="height:5px"></div>
+                    <div class="container_input_date-calendar_add">
+                        <input type="datetime-local" name="date_start" class="input_date-calendar_add input-calendar_add" value="<?php echo str_replace(' ', 'T', $event['start'])  ?>" min="<?php echo date("Y-m-d\TH:i") ?>" required>
                     </div>
-                    <div style="height:10px"></div>
-                    <div class="content_inputs_date-calendar_add">
-                        <label for="date_end" class="label-calendar_add">
-                            <h2>Ajouter une date de fin</h2>
-                        </label>
-                        <div style="height:5px"></div>
-                        <div class="container_input_date-calendar_add">
-                            <input type="datetime-local" name="date_end" class="input_date-calendar_add input-calendar_add"
-                                value="<?php echo str_replace(' ', 'T', $event['end']) ?>" min="<?php echo date("Y-m-d\TH:i") ?>" required>
-                        </div>
+                </div>
+                <div style="height:10px"></div>
+                <div class="content_inputs_date-calendar_add">
+                    <label for="date_end" class="label-calendar_add">
+                        <h2>Ajouter une date de fin</h2>
+                    </label>
+                    <div style="height:5px"></div>
+                    <div class="container_input_date-calendar_add">
+                        <input type="datetime-local" name="date_end" class="input_date-calendar_add input-calendar_add" value="<?php echo str_replace(' ', 'T', $event['end']) ?>" min="<?php echo date("Y-m-d\TH:i") ?>" required>
                     </div>
+                </div>
 
                 <div class="trait_agenda_add"></div>
 
-                <textarea name="description" class="input-calendar_add input_textarea-calendar_add" placeholder="Ajouter une description"><?php if(isset($event['description'])){echo $event['description'];}; ?></textarea>
+                <textarea name="description" class="input-calendar_add input_textarea-calendar_add" placeholder="Ajouter une description"><?php if (isset($event['description'])) {
+                                                                                                                                                echo $event['description'];
+                                                                                                                                            }; ?></textarea>
 
                 <div class="trait_agenda_add"></div>
 
-                <input type="text" name="location" class="input-calendar_add" placeholder="Ajouter un lieu" value="<?php if(isset($event['location'])){echo $event['location'];}; ?>">
+                <input type="text" name="location" class="input-calendar_add" placeholder="Ajouter un lieu" value="<?php if (isset($event['location'])) {
+                                                                                                                        echo $event['location'];
+                                                                                                                    }; ?>">
 
                 <div class="trait_agenda_add"></div>
 
@@ -128,13 +125,13 @@ echo head("MMI Companion | Emploi du temps");
                         <h2>Ajouter une couleur</h2>
                     </label>
                     <input type="color" name="color" value="<?= $event['color'] ?>" />
-                    
+
                 </div>
             </div>
 
             <div style="height:25px"></div>
             <div class="form_button-agenda">
-                <a role="button" href='./calendar.php'>Annuler</a>
+                <a role="button" href='./calendar_dayview.php'>Annuler</a>
                 <input type="submit" name="submit" value="Valider">
             </div>
             <div style="height:20px"></div>
@@ -145,8 +142,10 @@ echo head("MMI Companion | Emploi du temps");
         </form>
 
 
-    <div id="snow-container"></div></main>
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+
+    </main>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
+    <script src="../assets/js/fireworks.js"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_calendar-header');
@@ -169,7 +168,6 @@ echo head("MMI Companion | Emploi du temps");
             dateEndInput.min = dateStartValue.toISOString().slice(0, 16);
             dateEndInput.value = dateStartValue.toISOString().slice(0, 16);
         });
-
     </script>
 </body>
 

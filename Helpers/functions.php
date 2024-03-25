@@ -5,8 +5,14 @@
     Fichier : /Helpers/functions.php
  */
 require __DIR__ . '/../vendor/autoload.php';
+$path_maintenance = './../maintenance.txt'; // chemin vers le fichier maintenance.txt
 
+if (file_exists($path_maintenance) && file_get_contents($path_maintenance) != $_SERVER['REMOTE_ADDR']) {
+    header('Location: ./../pages/maintenance.html');
+    exit();
+}
 
+use Carbon\Carbon;
 
 /**
  * Retourne le contenu HTML du bloc d'en tête d'une page.
@@ -17,7 +23,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * @param string title le titre de la page.
  * @return string
  */
-function head(string $title = ''): string
+function head(string $title = '', string $additionalStyles = ''): string
 {
     return  <<<HTML_HEAD
 <!DOCTYPE html>
@@ -34,43 +40,30 @@ function head(string $title = ''): string
 
   gtag('config', 'G-FX70LE2MCM');
 </script>
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyCjTSvi2mReuoaSK9PlbFl-0Hvre04yj8M",
-    authDomain: "mmi-companion.firebaseapp.com",
-    projectId: "mmi-companion",
-    storageBucket: "mmi-companion.appspot.com",
-    messagingSenderId: "995711151734",
-    appId: "1:995711151734:web:7175344e2f03e3665bf957",
-    measurementId: "G-7F3M3RX1WJ"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" type="image/svg" href="../assets/img/mmicompanion_512.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="../assets/css/style.css?v=2.03" rel="stylesheet"">
-  <link href="../assets/css/responsive.css" rel="stylesheet"">
-  <link href="../assets/css/uicons-bold-rounded.css" rel="stylesheet"">
-  <link rel="manifest" href="../manifest.webmanifest" />
-  <script async src="https://unpkg.com/pwacompat" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="../manifest.webmanifest?v=1.2">
+
+  <link href="../assets/css/style.css?v=2.40" rel="stylesheet">
+  <link href="../assets/css/responsive.css" rel="stylesheet">
+  <link href="../assets/css/style_theme.css?v=1.12" rel="stylesheet">
+  <link defer href="
+https://cdn.jsdelivr.net/npm/@flaticon/flaticon-uicons@3.1.0/css/all/all.min.css
+" rel="stylesheet">
+  $additionalStyles
+
   <script src="./../assets/js/jquery-3.7.1.min.js"></script>
+  <script type="module" src="./../assets/js/firebase.js"></script>
+  <script async src="https://unpkg.com/pwacompat@2.0.17/pwacompat.min.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_Max_landscape.png">
 <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" href="../splash_screens/iPhone_14_Pro_landscape.png">
@@ -112,40 +105,17 @@ HTML_HEAD;
 }
 function findTrigramme($profName)
 {
-    $profs = [
-        "Mehrez Hanen" => "HMEH",
-        "Barré Marielle" => "MBA",
-        "Bachir Smail" => "SBA",
-        "Badulescu Cristina" => "CBA",
-        "Calou Bastien" => "BCA",
-        "Calvez Yann" => "YCAL",
-        "Chaulet Bernadette" => "BCH",
-        "Couegnas Carole" => "CCO",
-        "Burn Jean Baptiste" => "JBB",
-        "Daghmi Fathallah" => "FDA",
-        "Domont Éric" => "EDO",
-        "Henry Simon" => "SHE",
-        "Glénison Émilie" => "EGL",
-        "Galonnier Didier" => "DGA",
-        "Delayre Stéphanie" => "SDE",
-        "Gineste Olivier" => "OGI",
-        "Gourceau Carine" => "CGOU",
-        "Hénin Jean Luc" => "JLH",
-        "Henry Yann" => "YHE",
-        "Le folgoc Cyrille" => "CFO",
-        "Louet François" => "FLT",
-        "Bui Quoc Marion" => "MBUI",
-        "Vallade Christophe" => "CVAL",
-        "Scutella Soline" => "SSCU",
-        "Combot Mathilde" => "MCOMB",
-        "Sulaiman Hamid" => "HSUL",
-        "Chapeau Julie" => "JCHA",
-        "Poyrault Matthieu" => "MPOY",
-        "Brunie Julia" => "JBRU",
-        "Cauvin-Doumic Frédérique" => "FCAU",
-        "Hautot Adrian" => "AHAU"
-    ];
+    global $dbh;
+    $sql_prof = "SELECT nom, pnom, trigramme FROM personnels";
+    $stmt_prof = $dbh->prepare($sql_prof);
+    $stmt_prof->execute();
+    $profs_data = $stmt_prof->fetchAll(PDO::FETCH_ASSOC);
 
+    $profs = [];
+
+    foreach ($profs_data as $prof) {
+        $profs[$prof['nom'] . " " . $prof['pnom']] = $prof['trigramme'];
+    }
 
     $search_term = $profName;
 
@@ -171,29 +141,89 @@ function findTrigramme($profName)
 
 
 
-function generateBurgerMenuContent($role, $title)
+function generateBurgerMenuContent($role, $title, $notifs)
 {
+    // $contentNotif = notifsHistory($dbh, $user['id_user'], $user['edu_group']);
 
     $menuHtml = '
     <header>
     <div class="content_header">
         <div class="content_title-header">
-            <div class="burger-header" id="burger-header">
-                <i class="fi fi-br-bars-sort"></i>
-                <img class="img_bonnet_noel-header" src="./../assets/img/bonnet_noel.svg" alt="">
+            <div class="left_content_title-header">
+                <div class="burger-header" id="burger-header">
+                    <i class="fi fi-br-bars-sort"></i>
+                </div>
+                <div style="width:20px"></div>
+                <!--<h1>' . $title . '</h1>-->
+                <div class="title-header">
+                    <h1>' . $title . '</h1>
+                </div>
             </div>
-            <div style="width:20px"></div>
-            <h1>' . $title . '</h1>
-        </div>
-        <img class="img_neige-header" src="./../assets/img/neige.svg" alt="">
-        <img class="img_guirlande-header" src="./../assets/img/guirlande.svg" alt="">
-    </div>
+            <div class="right_content_title-header">
+                <div id="btn_notification" class="btn_notification_right_content_title-header">
+                    <i class="fi fi-sr-bell"></i>';
+    if ($notifs[1]['notif_message'] >= 1) {
+        if ($notifs[1]['notif_message'] >= 10) {
+            $menuHtml .= '<div class="notification-badge">9+</div>';
+        } else {
+            $menuHtml .= '<div class="notification-badge">' . $notifs[1]['notif_message'] . '</div>';
+        }
+    }
+    $menuHtml .= ' </div>';
 
+    $menuHtml .= '
+                <div class="container_notifications-header">';
+
+    if (empty($notifs)) {
+        $menuHtml .= '<p>Vous n\'avez pas de notifications</p>';
+    }
+    foreach ($notifs[0] as $notif) {
+        $timestamp = strtotime($notif['timestamp']);
+        $date = date('d/m H:i', $timestamp);
+
+        if ($notif['subject'] == 'Emploi du temps') {
+            $icon = 'fi fi-br-calendar-lines';
+            $link = './calendar_dayview.php';
+        } else if ($notif['subject'] == 'Agenda') {
+            $icon = 'fi fi-br-book-bookmark';
+            $link = './agenda.php';
+        } else if ($notif['subject'] == 'Informations') {
+            $icon = 'fi fi-br-info';
+            $link = './informations.php';
+        } else if ($notif['subject'] == 'Scolarité') {
+            $icon = 'fi fi-br-book-alt';
+            $link = './scolarite.php';
+        } else {
+            $icon = 'fi fi-br-bell';
+            $link = './home.php';
+        }
+
+        $notificationClass = ($notif['read_status'] == 0) ? 'item_notification-header' : 'item_notification-header notification_read';
+        $badgeNotif = ($notif['read_status'] == 0) ? '<div class="badge_item_notification-header"><div></div></div>' : '';
+
+        $menuHtml .= '
+                    <a href="' . $link . '">
+                        <div class="' . $notificationClass . '">
+                            ' . $badgeNotif . '
+                            <div class="content_item_notification-header">
+                                <div class="title_item_notification-header">
+                                    <i class="' . $icon . '"></i>
+                                    <p>' . $notif['subject'] . ' - <span>' . $date . '</span></p>
+                                    <p style="display:none;" class="id_notif">' . $notif['id_notif'] . '</p>
+                                </div>
+                                <div class="description_item_notification-header">
+                                    <p>' . $notif['body'] . '</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>';
+    }
+    $menuHtml .= '</div>
     <div class="burger_content-header" id="burger_content-header">
         <div style="height:60px"></div>
         <div class="burger_content_title-header">
             <div class="burger_content_titleleft-header">
-                <img src="./../assets/img/mmicompanion_noel.webp" alt="Logo de MMI Comapanion">
+                <img src="./../assets/img/mmicompanion.webp" alt="Logo de MMI Comapanion">
                 <h1>MMI Companion</h1>
             </div>
             <div class="burger_content_titleright-header burger-header" id="close_burger-header">
@@ -201,8 +231,15 @@ function generateBurgerMenuContent($role, $title)
             </div>
         </div>
         <div class="burger_content_content-header">
+            <a href="./home.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-home"></i>
+                    <p>Accueil</p>
+                    <div id="select_background_home-header" class=""></div>
+                </div>
+            </a>
             <div class="burger_content_trait_header"></div>
-            <a href="./calendar.php">
+            <a href="./calendar_dayview.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-calendar-lines"></i>
                     <p>Emploi du temps</p>
@@ -213,7 +250,7 @@ function generateBurgerMenuContent($role, $title)
     // Ajouter le lien "Agenda" en fonction du rôle
     if ($role == "prof") {
         $menuHtml .= '
-        <a href="./agenda_prof.php">
+        <a href="./agenda_prof.php?but=BUT1&tp=TP1">
             <div class="burger_content_link-header">
                 <i class="fi fi-br-book-bookmark"></i>
                 <p>Agenda</p>
@@ -229,25 +266,6 @@ function generateBurgerMenuContent($role, $title)
                 <div id="select_background_agenda-header" class=""></div>
             </div>
         </a>';
-    }
-    if ($role == "prof" || $role == "autre") {
-        $menuHtml .= '
-        <div class="burger_content_trait_header"></div>
-                <div class="burger_content_link-header burger_disabled">
-                    <i class="fi fi-br-book-alt"></i>
-                    <p>Scolarité (bêta)</p>
-                    <div id="select_background_vie_sco-header" class=""></div>
-                </div>';
-    } else {
-        $menuHtml .= '
-        <div class="burger_content_trait_header"></div>
-            <a href="./absences.php">
-                <div class="burger_content_link-header">
-                    <i class="fi fi-br-book-alt"></i>
-                    <p>Scolarité (bêta)</p>
-                    <div id="select_background_vie_sco-header" class=""></div>
-                </div>
-            </a>';
     }
     if ($role == "autre") {
         $menuHtml .= '
@@ -266,12 +284,37 @@ function generateBurgerMenuContent($role, $title)
                 </div>
             </a>';
     }
+    if ($role == "prof" || $role == "autre") {
+        $menuHtml .= '
+                <div class="burger_content_link-header burger_disabled">
+                    <i class="fi fi-br-book-alt"></i>
+                    <p>Scolarité (bêta)</p>
+                    <div id="select_background_vie_sco-header" class=""></div>
+                </div>';
+    } else {
+        $menuHtml .= '
+            <a href="./scolarite.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-book-alt"></i>
+                    <p>Scolarité (bêta)</p>
+                    <div id="select_background_vie_sco-header" class=""></div>
+                </div>
+            </a>';
+    }
     $menuHtml .= '
-            <a href="./outils_supplementaires.php">
+            <div class="burger_content_trait_header"></div>
+            <a href="./menu.php">
+                <div class="burger_content_link-header">
+                    <i class="fi fi-br-restaurant"></i>
+                    <p>Menu du Crousty</p>
+                    <div id="select_background_menu-header" class=""></div>
+                </div>
+            </a>
+            <a href="./liens_externes.php">
                 <div class="burger_content_link-header">
                     <i class="fi fi-br-link-alt"></i>
-                    <p>Outils supplémentaires</p>
-                    <div id="select_background_outils-supplementaires-header" class=""></div>
+                    <p>Liens externes</p>
+                    <div id="select_background_liens_externes-header" class=""></div>
                 </div>
             </a>
             <div class="burger_content_trait_header"></div>
@@ -281,7 +324,25 @@ function generateBurgerMenuContent($role, $title)
                     <p>Mon profil</p>
                     <div id="select_background_profil-header" class=""></div>
                 </div>
-            </a>
+            </a>';
+    if (str_contains($role, 'admin')) {
+        $menuHtml .= ' 
+            <a href="./admin/administration.php">
+            <div class="burger_content_link-header">
+            <i class="fi fi-br-tool-box"></i>
+                <p>Administration</p>
+                <div id="select_background_profil-header" class=""></div>
+            </div>
+        </a>
+        <a href="./calendar_v2.php">
+            <div class="burger_content_link-header">
+            <i class="fi fi-br-tool-box"></i>
+                <p>EDT V2</p>
+                <div id="select_background_profil-header" class=""></div>
+            </div>
+        </a>';
+    }
+    $menuHtml .= '
             <div class="burger_content_trait_header"></div>
             <a href="./logout.php">
                 <div class="burger_content_link-header logout-header">
@@ -405,7 +466,7 @@ function decodeJWT($jwt, $secret_key)
 function onConnect($dbh)
 {
     if (!isset($_COOKIE['jwt'])) {
-        header('Location: ./login.php');
+        header('Location: ./../pages/login.php');
         exit;
     }
 
@@ -416,7 +477,7 @@ function onConnect($dbh)
     // SI le cookie n'a pas le clé session_id, on le supprime et on le redirige vers la connection
     if (!isset($user['session_id'])) {
         unset($_COOKIE['jwt']);
-        header('Location: ./login.php');
+        header('Location: ./../pages/login.php');
         exit;
     }
     // Extrait le session_id du JWT
@@ -434,6 +495,7 @@ function onConnect($dbh)
 
     if ($stmt->rowCount() == 0) {
         unset($_COOKIE['jwt']);
+        header('Location: ./../pages/login.php');
         exit;
     }
     $cgu_check = "SELECT CGU FROM users WHERE id_user = :id_user";
@@ -533,9 +595,11 @@ function onConnect($dbh)
             </div>
             <div class="trait_content_CGU-index"></div>
             <button id="button_CGU-validate" class="button_CGU-index">C'est parti !</button>
+
         </section>
 <?php
     }
+
 
     return $user;
 }
@@ -578,66 +642,132 @@ function getEventCheckedStatus($dbh, $idAgenda, $idUser)
     return $stmt->fetch(PDO::FETCH_COLUMN);
 }
 
-use Minishlink\WebPush\WebPush;
-use Minishlink\WebPush\Subscription;
+use Google\Auth\CredentialsLoader;
+use Google\Auth\HttpHandler\HttpHandlerFactory;
+use GuzzleHttp\Client;
 
-function sendNotification($message, $body, $groups)
+
+function sendNotification($dbh, $title, $body, $groups, $subject)
 {
-    $dbh = new PDO('mysql:host=' . $_ENV['DB_HOST'] . ';dbname=' . $_ENV['DB_NAME'] . '', $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
-    // Assuming you already have a valid $dbh connection to your database
+    $projectId = 'mmi-companion';
+    $apiKey = $_ENV['FCM_API_KEY'];
 
-    $groupsArray = explode(',', $groups); // Split the groups into an array
+    $client = new Google_Client();
+    $client->setApplicationName('MMI Companion');
+    $configJson = file_get_contents('./../mmi-companion-96ff21b60ece.json');
+    $config = json_decode($configJson, true);
+    $client->setAuthConfig($config);
 
-    $auth = array(
-        'VAPID' => array(
-            'subject' => 'mailto:rtiphonet@gmail.com',
-            'publicKey' => $_ENV['VAPID_PUBLIC_KEY'],
-            'privateKey' => $_ENV['VAPID_PRIVATE_KEY'],
-        ),
-    );
+    $client->addScope('https://www.googleapis.com/auth/firebase.messaging');
 
-    $webPush = new WebPush($auth);
+    $httpClient = $client->authorize();
+    $uri = "https://fcm.googleapis.com/v1/projects/$projectId/messages:send";
+
+    $groupsArray = explode(',', $groups);
+
+    $notificationSent = false;
 
     foreach ($groupsArray as $group) {
         $query = "SELECT s.* FROM subscriptions s
                   INNER JOIN users u ON s.id_user = u.id_user
                   WHERE u.edu_group = :group";
         $stmt = $dbh->prepare($query);
-        $stmt->execute(['group' => trim($group)]); // Trim to remove any leading/trailing whitespace
+        $stmt->execute(['group' => trim($group)]);
+
         $subscriptions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+        // Enhance the notification object with our custom options.
         foreach ($subscriptions as $subscriptionData) {
-            $subscription = Subscription::create([
-                'endpoint' => $subscriptionData['endpoint'],
-                'keys' => [
-                    'p256dh' => $subscriptionData['p256dh'],
-                    'auth' => $subscriptionData['auth'],
+            $message = [
+                'message' => [
+                    'token' => $subscriptionData['token'],
+                    'notification' => [
+                        'title' => $title,
+                        'body' => $body,
+                    ],
                 ],
-                // You can add additional properties if needed, e.g., 'contentEncoding', 'expirationTime', etc.
-            ]);
+            ];
 
-            $payload = json_encode([
-                'body' => $body,
-                'title' => $message
+            $response = $httpClient->request('POST', $uri, [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                ],
+                'body' => json_encode($message),
             ]);
-
-            $webPush->queueNotification($subscription, $payload);
+            if ($response->getStatusCode() == 200) {
+                $notificationSent = true;
+            }
         }
+        $sql_increment = "UPDATE users SET notif_message = notif_message + 1 WHERE edu_group = :group";
+        $stmt_increment = $dbh->prepare($sql_increment);
+        $stmt_increment->execute(['group' => trim($group)]);
     }
 
-    $webPush->flush();
-
-    //foreach ($webPush->flush() as $report) {
-    // $endpoint = $report->getRequest()->getUri()->__toString();
-
-    //if ($report->isSuccess()) {
-    //echo "[v] Le message à bien été envoyé à {$endpoint}.\n";
-    //} else {
-    // echo "[x] Le message n'a pas réussi à être envoyé à {$endpoint}: {$report->getReason()}\n";
-    // Handle the failure, remove the subscription from your server, etc.
-    //}
-    //}
+    if ($notificationSent) {
+        $sql_notifs = "INSERT INTO notif_history (title, body, groups, subject) VALUES (:title, :body, :groups, :subject)";
+        $stmt_notifs = $dbh->prepare($sql_notifs);
+        $stmt_notifs->execute(['title' => $title, 'body' => $body, 'groups' => json_encode($groups), 'subject' => $subject]);
+    }
 }
+function notifsHistory($dbh, $id_user, $edu_group)
+{
+    $sql = "
+        SELECT nh.*, 
+               CASE WHEN rn.id_user IS NOT NULL THEN 1 ELSE 0 END AS read_status
+        FROM notif_history nh
+        LEFT JOIN read_notif rn ON nh.id_notif = rn.id_notif AND rn.id_user = :id_user
+        WHERE JSON_CONTAINS(nh.groups, :edu_group)
+        ORDER BY nh.id_notif DESC
+        LIMIT 10
+    ";
+
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['id_user' => $id_user, 'edu_group' => json_encode($edu_group)]);
+
+    $tableauNotifs = array(
+        array(
+            'id_notif' => 4,
+            'title' => 'Vous avez un cours dans 10 minutes !',
+            'groups' => 'BUT2-TP3',
+            'timestamp' => '2024-01-02 10:55:50',
+            'subject' => 'Emploi du temps',
+            'read_status' => 0
+        ),
+        array(
+            'id_notif' => 3,
+            'title' => 'A évaluation a été ajoutée',
+            'groups' => 'BUT2-TP3',
+            'timestamp' => '2024-01-02 10:54:51',
+            'subject' => 'Agenda',
+            'read_status' => 0
+        ),
+        array(
+            'id_notif' => 2,
+            'title' => 'C. Couegnas - Je vous informe que mon pied est en vacances',
+            'groups' => 'BUT2',
+            'timestamp' => '2024-01-02 10:51:58',
+            'subject' => 'Informations',
+            'read_status' => 1
+        )
+    );
+    $nbNotif = countNotif($dbh, $id_user);
+
+    $notif = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return array($notif, $nbNotif);
+}
+
+
+function countNotif($dbh, $id_user)
+{
+    $sql = "SELECT notif_message FROM users WHERE id_user = :id_user";
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute(['id_user' => $id_user]);
+    $count = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $count;
+}
+
+
+
 function viewChef($dbh, $edu_group)
 {
 
@@ -794,9 +924,32 @@ HTML;
 
     // send the email
     $_SESSION['mail_message'] = "";
-    if (mail($email, $subject, nl2br($message), $headers)) {
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = $_ENV['SERVEUR_MAIL'];                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = $_ENV['MAIL_PORT'];                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email);     // Add a recipient
+
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
         $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
-    } else {
+    } catch (Exception $e) {
         $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
         error_log("Error sending activation email to $email");
     }
@@ -828,4 +981,924 @@ function compareDates($a, $b)
     }
 
     return ($dateA < $dateB) ? -1 : 1;
+}
+
+use ICal\ICal;
+
+function nextCours($edu_group)
+{
+    if ($edu_group == "LGTF") {
+        $ical = new ICal('./../other_cal/vcs_combined.vcs', array(
+            'defaultSpan'                 => 2,     // Default value
+            'defaultTimeZone'             => 'UTC',
+            'defaultWeekStart'            => 'MO',  // Default value
+            'disableCharacterReplacement' => false, // Default value
+            'filterDaysAfter'             => null,  // Default value
+            'filterDaysBefore'            => null,  // Default value
+            'httpUserAgent'               => null,  // Default value
+            'skipRecurrence'              => false, // Default value
+        ));
+    } else {
+        $ical = new ICal('./../backup_cal/' . $edu_group . '.ics', array(
+            'defaultSpan'                 => 2,     // Default value
+            'defaultTimeZone'             => 'UTC',
+            'defaultWeekStart'            => 'MO',  // Default value
+            'disableCharacterReplacement' => false, // Default value
+            'filterDaysAfter'             => null,  // Default value
+            'filterDaysBefore'            => null,  // Default value
+            'httpUserAgent'               => null,  // Default value
+            'skipRecurrence'              => false, // Default value
+        ));
+    }
+
+
+
+    $now = new DateTime();
+    $now->setTimezone(new DateTimeZone('Europe/Paris'));
+    $dateNow = $now->format('Y-m-d H:i:s');
+
+    $tomorrow = new DateTime();
+    $tomorrow->setTimezone(new DateTimeZone('Europe/Paris'));
+    $tomorrow->modify('+1 day');
+    $tomorrow = $tomorrow->format('Y-m-d H:i:s');
+
+    $events = $ical->eventsFromRange($dateNow, '2030-01-01 00:00:00');
+    $events = json_decode(json_encode($events), true);
+    usort($events, function ($a, $b) {
+        $timeA = strtotime($a['dtstart_tz']);
+        $timeB = strtotime($b['dtstart_tz']);
+        return $timeA - $timeB;
+    });
+
+    $result = null;
+
+    foreach ($events as $index => $anEvent) {
+        $timezone = new DateTimeZone('Europe/Paris');
+        $debut = new DateTime($anEvent['dtstart'], new DateTimeZone('UTC'));
+        $debut->setTimezone($timezone);
+        $fin = new DateTime($anEvent['dtend'], new DateTimeZone('UTC'));
+        $fin->setTimezone($timezone);
+
+        // $$anEvent = reset($events);
+        if (preg_match('/\b(CM|TDA|TDB|TP[1-4])\b/', $anEvent['description'], $matches)) {
+            $groupe = $matches[1];
+            $anEvent['groupe'] = $groupe;
+        }
+        $anEvent['description'] = preg_replace('/\([^)]*\)/', '', $anEvent['description']);
+        $anEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $anEvent['description']);
+        $anEvent['description'] = trim($anEvent['description']);
+
+        $anEvent['debut'] = $debut->format('H:i');
+        $anEvent['fin'] = $fin->format('H:i');
+        $anEvent['dtstart_tz'] = date("D M d Y H:i:s O (T)", $debut->getTimestamp());
+        $anEvent['dtend_tz'] = date("D M d Y H:i:s O (T)", $fin->getTimestamp());
+        unset($anEvent['uid']);
+        unset($anEvent['dtstamp']);
+        unset($anEvent['created']);
+        unset($anEvent['last_modified']);
+        unset($anEvent['sequence']);
+        unset($anEvent['dtend']);
+        unset($anEvent['duration']);
+        unset($anEvent['status']);
+        unset($anEvent['organizer']);
+        unset($anEvent['transp']);
+        unset($anEvent['attendee']);
+
+        if ($fin->getTimestamp() - 900 > $now->getTimestamp()) {
+            // Événement actuel n'est pas encore terminé
+            $result = $anEvent;
+            break;
+        } elseif ($fin->getTimestamp() - 900 <= $now->getTimestamp() && isset($events[$index + 1])) {
+            // Événement suivant (15 minutes avant la fin de l'actuel)
+            $nextEvent = $events[$index + 1];
+            $nextEventDebut = new DateTime($nextEvent['dtstart'], new DateTimeZone('UTC'));
+            $nextEventDebut->setTimezone($timezone);
+            $nextEventFin = new DateTime($nextEvent['dtend'], new DateTimeZone('UTC'));
+            $nextEventFin->setTimezone($timezone);
+            $nextEvent['debut'] = $nextEventDebut->format('H:i');
+            $nextEvent['fin'] = $nextEventFin->format('H:i');
+            $nextEvent['dtstart_tz'] = date("D M d Y H:i:s O (T)", $nextEventDebut->getTimestamp());
+            $nextEvent['dtend_tz'] = date("D M d Y H:i:s O (T)", $nextEventFin->getTimestamp());
+
+            if (preg_match('/\b(CM|TDA|TDB|TP[1-4])\b/', $nextEvent['description'], $matches)) {
+                $groupe = $matches[1];
+                $nextEvent['groupe'] = $groupe;
+            }
+
+            // $nextEvent = reset($events);
+            $nextEvent['description'] = preg_replace('/\([^)]*\)/', '', $nextEvent['description']);
+            $nextEvent['description'] = preg_replace('/(CM|TDA|TDB|TP1|TP2|TP3|TP4)/', '', $nextEvent['description']);
+            $nextEvent['description'] = trim($nextEvent['description']);
+
+            unset($nextEvent['uid']);
+            unset($nextEvent['dtstamp']);
+            unset($nextEvent['created']);
+            unset($nextEvent['last_modified']);
+            unset($nextEvent['sequence']);
+            unset($nextEvent['dtend']);
+            unset($nextEvent['duration']);
+            unset($nextEvent['status']);
+            unset($nextEvent['organizer']);
+            unset($nextEvent['transp']);
+            unset($nextEvent['attendee']);
+            $result = $nextEvent;
+            break;  // Sortir de la boucle dès que le prochain événement est trouvé
+        }
+    }
+
+    return $result;
+}
+
+function timetable($edu_group, $id_user)
+{
+    $ical = new ICal('./../backup_cal/' . $edu_group . '.ics');
+
+    $events = $ical->events();
+    foreach ($events as $event) {
+        echo "<div>";
+        echo $event->summary;
+        echo $event->location;
+        echo $event->description;
+        echo $event->dtstart;
+        echo $event->dtend;
+        echo "</div>";
+    }
+}
+
+
+function extractDateFromMenu($menuTitle)
+{
+    // Utilisez une expression régulière pour extraire la date du titre du menu
+    preg_match("/(\d{1,2} [a-zéû]+ \d{4})/i", $menuTitle, $matches);
+    if (!empty($matches)) {
+        return $matches[1];
+    } else {
+        return '';
+    }
+}
+
+// function getMenu()
+// {
+//     $menu_url = 'https://www.crous-poitiers.fr/restaurant/r-u-crousty/'; // URL du menu
+
+//     $ch = curl_init();
+//     curl_setopt($ch, CURLOPT_URL, $menu_url);
+//     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+//     $menu_html = curl_exec($ch);
+//     curl_close($ch);
+
+//     // Créez un DOMDocument et chargez le contenu HTML de la page en désactivant la vérification DTD.
+//     $dom = new DOMDocument();
+//     libxml_use_internal_errors(true);
+//     $dom->loadHTML($menu_html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+//     libxml_use_internal_errors(false);
+
+//     // Utilisez XPath pour extraire les sections avec la classe "menu".
+//     $xpath = new DOMXPath($dom);
+//     $menus = $xpath->query("//div[contains(@class, 'menu')]");
+//     // Créez un tableau pour stocker les données des menus par jour.
+//     $menuDataByDay = [];
+
+//     // Parcourez les sections de menu.
+//     foreach ($menus as $menu) {
+//         // Créez un tableau pour stocker les données d'un menu.
+//         $menuInfo = [];
+
+//         // Utilisez XPath pour extraire les informations spécifiques du menu.
+//         $dateNode = $xpath->query(".//time[@class='menu_date_title']", $menu)->item(0);
+//         $date = extractDateFromMenu($dateNode->textContent); // Utilisez la fonction pour extraire la date
+//         $menuInfo['Date'] = $date;
+
+//         // Créez un tableau pour stocker les plats du menu.
+//         $menuInfo['Foods'] = [];
+
+//         // Utilisez XPath pour extraire les plats du menu.
+//         $foods = $xpath->query(".//ul[contains(@class, 'meal_foodies')]//li//ul/li", $menu);
+
+//         // Parcourez les éléments de la liste des plats.
+//         foreach ($foods as $food) {
+//             $menuInfo['Foods'][] = trim($food->textContent);
+//         }
+//         // unset($menuInfo['Foods'][0]);
+//         // unset($menuInfo['Foods'][1]);
+//         // unset($menuInfo['Foods'][2]);
+
+//         // Utilisez la date comme clé pour stocker les données par date.
+//         $menuDataByDay[$menuInfo['Date']][] = $menuInfo;
+//     }
+
+//     return $menuDataByDay;
+// };
+
+function getMenu($file_path)
+{
+    $dom = new DOMDocument();
+    libxml_use_internal_errors(true);
+    $dom->loadHTMLFile($file_path);
+    libxml_use_internal_errors(false);
+
+    $xpath = new DOMXPath($dom);
+    $menus = $xpath->query("//div[contains(@class, 'menu')]");
+    $menuDataByDay = [];
+
+    foreach ($menus as $menu) {
+        $menuInfo = [];
+        $dateNode = $xpath->query(".//time[@class='menu_date_title']", $menu)->item(0);
+        $date = extractDateFromMenu($dateNode->textContent);
+        $menuInfo['Date'] = $date;
+        $menuInfo['Foods'] = [];
+
+        $foods = $xpath->query(".//ul[contains(@class, 'meal_foodies')]//li//ul/li", $menu);
+
+        foreach ($foods as $food) {
+            $menuInfo['Foods'][] = trim($food->textContent);
+        }
+
+        $menuDataByDay[$menuInfo['Date']][] = $menuInfo;
+    }
+
+    return $menuDataByDay;
+}
+
+function getMenuToday()
+{
+    $menuDataByDay = getMenu("./../backup_cal/menu.html");
+
+    // Récupérer le menu du jour
+    $html = "";
+    foreach ($menuDataByDay as $date => $menuInfo) {
+        // Obtenez la date actuelle au format "l j F Y"
+        $currentDate = date('j F Y');
+        // Convvertir le mois en français
+        $currentDate = str_replace(
+            array('January', 'February', 'March', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
+            array('janvier', 'février', 'mars', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'),
+            $currentDate
+        );
+
+        $menu = $menuInfo[0];
+
+        // Si la date du menu correspond à la date actuelle, ajoutez la classe "active"
+        if ($date == $currentDate) {
+            // Construisez le HTML de manière plus lisible
+
+            if ($menu['Foods'] == null) {
+                $html .= "<p>Pas de menu aujourd'hui</p>";
+            } else {
+                $html .= "<ul>";
+                foreach ($menu['Foods'] as $food) {
+                    $html .= "<li>$food</li>";
+                }
+                $html .= "</ul>";
+            }
+        }
+
+        // Si c'est le menu du jour, vous pouvez arrêter la boucle ici
+        if ($date == $currentDate) {
+            break;
+        }
+    }
+
+    return $html;
+}
+
+
+function rgbStringToHex($rgbString)
+{
+    preg_match('/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/', $rgbString, $matches);
+
+    $r = (int)$matches[1];
+    $g = (int)$matches[2];
+    $b = (int)$matches[3];
+
+    return sprintf("#%02x%02x%02x", $r, $g, $b);
+}
+
+function convertirRGB($color)
+{
+    if (preg_match('/^#([0-9a-fA-F]{3}){1,2}$/', $color) === 1) {
+        return $color;
+    } else {
+        return rgbStringToHex($color);
+    }
+}
+
+
+function userSQL($dbh, $user)
+{
+    // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
+    $user_sql = "SELECT * FROM users WHERE id_user = :id_user";
+    $stmt = $dbh->prepare($user_sql);
+    $stmt->execute([
+        'id_user' => $user['id_user']
+    ]);
+    $user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $user_sql;
+}
+
+
+
+function getDaysMonth()
+{
+
+    $daysMonth = array(
+        "semaine" => array(
+            " Dimanche ",
+            " Lundi ",
+            " Mardi ",
+            " Mercredi ",
+            " Jeudi ",
+            " Vendredi ",
+            " Samedi "
+        ),
+        "mois" => array(
+            1 => " janvier ",
+            " février ",
+            " mars ",
+            " avril ",
+            " mai ",
+            " juin ",
+            " juillet ",
+            " août ",
+            " septembre ",
+            " octobre ",
+            " novembre ",
+            " décembre "
+        )
+    );
+    return $daysMonth;
+}
+
+
+
+function formatSemaineScolaire($date = null)
+{
+    if ($date === null) {
+        $date = new DateTime(); // Utiliser la date actuelle si aucune date n'est fournie
+    } else {
+        $date = new DateTime($date);
+    }
+
+    $currentDay = $date->format('N'); // 1 pour lundi, ..., 7 pour dimanche
+
+    // Calculer le début et la fin de la semaine scolaire
+    $startOfWeek = clone $date;
+    $startOfWeek->sub(new DateInterval('P' . ($currentDay - 1) . 'D'));
+    $endOfWeek = clone $startOfWeek;
+    $endOfWeek->add(new DateInterval('P4D')); // Ajouter seulement 4 jours pour obtenir une semaine de 5 jours
+
+    // Si on est après le vendredi, passer à la semaine suivante
+    if ($currentDay > 5) {
+        $startOfWeek->add(new DateInterval('P7D'));
+        $endOfWeek->add(new DateInterval('P7D'));
+    }
+
+    // Formater la chaîne de résultat
+    $formattedStart = $startOfWeek->format('d/m');
+    $formattedEnd = $endOfWeek->format('d/m');
+
+    return "Semaine " . $startOfWeek->format('W') . " (du $formattedStart au $formattedEnd)";
+}
+
+
+
+function getAgenda($dbh, $user, $edu_group)
+{
+
+    // Définition des variables
+    $daysMonth = getDaysMonth();
+    $semaine = $daysMonth['semaine'];
+    $mois = $daysMonth['mois'];
+
+    $year_here = date('o');
+    $week_here = date('W');
+    $current_week_year = $year_here . '-W' . $week_here;
+    $today = new DateTime();
+
+    $eduGroupArray = explode("-", $edu_group);
+    $but = $eduGroupArray[0];
+    $tp = $eduGroupArray[1];
+    $tdGroup = "";
+    $allGroup = "ALL";
+
+    if ($tp == "TP1" || $tp == "TP2") {
+        $tpGroup = "TDA";
+    } else if ($tp == "TP3" || $tp == "TP4") {
+        $tpGroup = "TDB";
+    }
+
+    $tdGroupAll = $but . "-" . $tpGroup;
+    $eduGroupAll = $but . "-" . $allGroup;
+
+    $currentYear = date("Y");
+    $currentWeek = date("W");
+    $currentDate = date('Y-m-d');
+
+    // -----------------
+
+    $sql_common_conditions = "AND (
+        (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
+        OR
+        (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
+    )";
+
+    // Récupération des tâches
+    $sql_agenda = "SELECT a.*, s.*
+        FROM agenda a
+        JOIN sch_subject s ON a.id_subject = s.id_subject
+        WHERE a.id_user = :id_user
+        AND a.type != 'eval'
+        AND a.type != 'devoir'
+        $sql_common_conditions
+        ORDER BY a.title ASC";
+
+    $stmt_agenda = $dbh->prepare($sql_agenda);
+    $stmt_agenda->execute([
+        'id_user' => $user['id_user'],
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d')
+    ]);
+    $agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+
+    // Récupération des évaluations
+    $sql_eval = "SELECT a.*, s.*, u.name, u.pname, u.role 
+        FROM agenda a 
+        JOIN sch_subject s ON a.id_subject = s.id_subject 
+        JOIN users u ON a.id_user = u.id_user 
+        WHERE (a.edu_group = :edu_group OR a.edu_group = :tdGroupAll OR a.edu_group = :eduGroupAll) 
+        AND a.type = 'eval' 
+        $sql_common_conditions
+        ORDER BY a.title ASC";
+
+    $stmt_eval = $dbh->prepare($sql_eval);
+    $stmt_eval->execute([
+        'edu_group' => $edu_group,
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d'),
+        'tdGroupAll' => $tdGroupAll,
+        'eduGroupAll' => $eduGroupAll
+    ]);
+    $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
+
+    // Récupération des devoirs
+    $sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role, e.id_event
+    FROM agenda a 
+    JOIN sch_subject s ON a.id_subject = s.id_subject 
+    LEFT JOIN event_check e ON :id_user = e.id_user AND a.id_task = e.id_event
+    JOIN users u ON a.id_user = u.id_user 
+    WHERE (a.edu_group = :edu_group OR a.edu_group = :tdGroupAll OR a.edu_group = :eduGroupAll) 
+    AND a.type = 'devoir'
+    AND (e.id_user = :id_user OR e.id_user IS NULL) -- Ajout de parenthèses pour une logique claire
+    $sql_common_conditions
+    ORDER BY a.title ASC";
+
+    $stmt_devoir = $dbh->prepare($sql_devoir);
+    $stmt_devoir->execute([
+        'edu_group' => $edu_group,
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d'),
+        'id_user' => $user['id_user'],
+        'tdGroupAll' => $tdGroupAll,
+        'eduGroupAll' => $eduGroupAll
+    ]);
+    $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
+
+
+    // Fusion des tableaux
+    $agendas = array_merge($agenda_user, $eval, $devoir);
+
+
+    usort($agendas, 'compareDates');
+
+    $agendaMerged = [];
+
+    foreach ($agendas as $agenda) {
+        $date = strtotime($agenda['date_finish']); // Convertit la date en timestamp
+
+        // Vérifiez si la date est au format "YYYY-Www"
+        if (preg_match('/^\d{4}-W\d{2}$/', $agenda['date_finish'])) {
+            $week = intval(substr($agenda['date_finish'], -2));
+            $formattedDateFr = "Semaine $week";
+        } else {
+            // Formatez la date en français
+            $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
+
+            // Vérifiez si c'est aujourd'hui
+            if ($agenda['date_finish'] == $currentDate) {
+                $formattedDateFr = "Aujourd'hui";
+            }
+
+            // Vérifiez si c'est demain
+            $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+            if ($agenda['date_finish'] == $tomorrowDate) {
+                $formattedDateFr = "Demain";
+            }
+        }
+
+        // Obtenez la semaine de l'événement
+        $eventWeek = date('W', $date);
+
+
+        // Comparez la semaine actuelle avec la semaine de l'événement
+        if ($eventWeek != $currentWeek) {
+            // Ajoutez les semaines manquantes au tableau
+            for ($missingWeek = $currentWeek + 1; $missingWeek <= $eventWeek; $missingWeek++) {
+                $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
+                $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(4);   // Se termine le vendredi
+                // var_dump($missingWeek);
+                // var_dump($startDate);
+                // var_dump($endDate);
+                $missingWeekStartDate = $startDate->format('d/m');
+                $missingWeekEndDate = $endDate->format('d/m');
+                if ($missingWeek < 10) {
+                    $missingWeek = "0" . $missingWeek;
+                }
+                $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
+                // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
+                $weekLabel = $missingWeekLabel;
+                // Ajoutez la nouvelle entrée dans le tableau
+                $agendaMerged[$weekLabel] = [];
+            }
+            // Mettez à jour la semaine actuelle
+            $currentWeek = $eventWeek;
+        }
+
+        // Calculez la date de début de la semaine
+        $weekStartDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-1"));
+
+        // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
+        $weekLabel = "Semaine {$currentWeek} (du {$weekStartDate} au ";
+
+        // Calculez la date de fin de la semaine (5 jours plus tard)
+        $weekEndDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-5"));
+        $weekLabel .= "{$weekEndDate})";
+
+        // Ajoutez la nouvelle entrée dans le tableau
+        if (!isset($agendaMerged[$weekLabel])) {
+            $agendaMerged[$weekLabel] = [];
+        }
+
+        // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
+        if (!isset($agendaMerged[$weekLabel][$formattedDateFr])) {
+            $agendaMerged[$weekLabel][$formattedDateFr] = [];
+        }
+
+        $agendaMerged[$weekLabel][$formattedDateFr][] = $agenda;
+    }
+
+    return $agendaMerged;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function getAgendaProf($dbh, $user, $edu_group)
+{
+
+    // Définition des variables
+    $daysMonth = getDaysMonth();
+    $semaine = $daysMonth['semaine'];
+    $mois = $daysMonth['mois'];
+
+    $year_here = date('o');
+    $week_here = date('W');
+    $current_week_year = $year_here . '-W' . $week_here;
+    $today = new DateTime();
+
+    $eduGroupArray = explode("-", $edu_group);
+    $but = $eduGroupArray[0];
+    $tp = $eduGroupArray[1];
+    $tdGroup = "";
+    $allGroup = "ALL";
+
+    if ($tp == "TP1" || $tp == "TP2") {
+        $tpGroup = "TDA";
+    } else if ($tp == "TP3" || $tp == "TP4") {
+        $tpGroup = "TDB";
+    }
+
+    $tdGroupAll = $but . "-" . $tpGroup;
+    $eduGroupAll = $but . "-" . $allGroup;
+
+
+    $currentYear = date("Y");
+    $currentWeek = null;
+    $currentDate = date('Y-m-d');
+
+
+    // -----------------
+
+    $sql_common_conditions = "AND (
+        (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
+        OR
+        (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
+    )";
+
+    // Récupération des évaluations
+    $sql_eval = "SELECT a.*, s.*
+        FROM agenda a 
+        JOIN sch_subject s ON a.id_subject = s.id_subject 
+        WHERE (a.edu_group = :edu_group OR a.edu_group = :tdGroupAll OR a.edu_group = :eduGroupAll) 
+        AND a.type = 'eval' 
+        $sql_common_conditions
+        ORDER BY a.title ASC";
+
+    $stmt_eval = $dbh->prepare($sql_eval);
+    $stmt_eval->execute([
+        'edu_group' => $edu_group,
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d'),
+        'tdGroupAll' => $tdGroupAll,
+        'eduGroupAll' => $eduGroupAll
+    ]);
+    $eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
+
+    // Récupération des devoirs
+    $sql_devoir = "SELECT a.*, s.*, e.id_event
+    FROM agenda a 
+    JOIN sch_subject s ON a.id_subject = s.id_subject 
+    LEFT JOIN event_check e ON a.id_user = e.id_user AND a.id_task = e.id_event
+    WHERE (a.edu_group = :edu_group OR a.edu_group = :tdGroupAll OR a.edu_group = :eduGroupAll) 
+    AND a.type = 'devoir'
+    $sql_common_conditions
+    ORDER BY a.title ASC";
+
+    $stmt_devoir = $dbh->prepare($sql_devoir);
+    $stmt_devoir->execute([
+        'edu_group' => $edu_group,
+        'current_week_year' => $current_week_year,
+        'current_date' => $today->format('Y-m-d'),
+        'tdGroupAll' => $tdGroupAll,
+        'eduGroupAll' => $eduGroupAll
+    ]);
+    $devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
+
+
+    // Fusion des tableaux
+    $agendas = array_merge($eval, $devoir);
+
+
+    usort($agendas, 'compareDates');
+
+    $agendaMerged = [];
+
+    foreach ($agendas as $agenda) {
+        $date = strtotime($agenda['date_finish']); // Convertit la date en timestamp
+
+        // Vérifiez si la date est au format "YYYY-Www"
+        if (preg_match('/^\d{4}-W\d{2}$/', $agenda['date_finish'])) {
+            $week = intval(substr($agenda['date_finish'], -2));
+            $formattedDateFr = "Semaine $week";
+        } else {
+            // Formatez la date en français
+            $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
+
+            // Vérifiez si c'est aujourd'hui
+            if ($agenda['date_finish'] == $currentDate) {
+                $formattedDateFr = "Aujourd'hui";
+            }
+
+            // Vérifiez si c'est demain
+            $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
+            if ($agenda['date_finish'] == $tomorrowDate) {
+                $formattedDateFr = "Demain";
+            }
+        }
+
+        // Obtenez la semaine de l'événement
+        $eventWeek = date('W', $date);
+
+        // Comparez la semaine actuelle avec la semaine de l'événement
+        if ($currentWeek !== $eventWeek) {
+            // Ajoutez les semaines manquantes au tableau
+            for ($missingWeek = $currentWeek + 1; $missingWeek < $eventWeek; $missingWeek++) {
+                $startDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(0); // Commence à partir du lundi
+                $endDate = Carbon::now()->isoWeek($missingWeek)->startOfWeek()->addDays(5);   // Se termine le vendredi
+
+                $missingWeekStartDate = $startDate->format('d/m');
+                $missingWeekEndDate = $endDate->format('d/m');
+                if ($missingWeek < 10) {
+                    $missingWeek = "0" . $missingWeek;
+                }
+                $missingWeekLabel = "Semaine {$missingWeek} (du {$missingWeekStartDate} au {$missingWeekEndDate})";
+                $agendaMerged[$missingWeekLabel] = [];
+            }
+
+            // Mettez à jour la semaine actuelle
+            $currentWeek = $eventWeek;
+
+            // Calculez la date de début de la semaine
+            $weekStartDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-1"));
+
+            // Créez une nouvelle entrée dans le tableau avec le format "Semaine xx (du xx/xx au xx/xx)"
+            $weekLabel = "Semaine {$currentWeek} (du {$weekStartDate} au ";
+
+            // Calculez la date de fin de la semaine (5 jours plus tard)
+            $weekEndDate = date('d/m', strtotime("{$currentYear}-W{$currentWeek}-5"));
+            $weekLabel .= "{$weekEndDate})";
+
+            // Ajoutez la nouvelle entrée dans le tableau
+            $agendaMerged[$weekLabel] = [];
+        }
+
+        // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
+        if (!isset($agendaMerged[$weekLabel][$formattedDateFr])) {
+            $agendaMerged[$weekLabel][$formattedDateFr] = [];
+        }
+
+        $agendaMerged[$weekLabel][$formattedDateFr][] = $agenda;
+    }
+
+    return $agendaMerged;
+}
+
+
+
+
+
+
+
+
+
+
+function getUserCahier($dbh, $edu_group)
+{
+    $sql_cahier = "SELECT * FROM etudiants WHERE edu_group = :edu_group ORDER BY nom ASC";
+    $stmt_cahier = $dbh->prepare($sql_cahier);
+    $stmt_cahier->execute([
+        'edu_group' => $edu_group
+    ]);
+    $noms = $stmt_cahier->fetchAll(PDO::FETCH_ASSOC);
+
+    // Initialisation de l'index pour les noms
+    $indexNom = 0;
+
+    // Récupérer le propriétaire du cahier des absences
+    $periodeDebut = "2023-09-04";
+    $periodeFin = "2024-07-01";
+    $vacancesScolaires = ["2023-10-23", "2023-12-25", "2024-01-01", "2024-02-19", "2024-04-22", "2024-04-29"];
+
+    $but = explode("-", $edu_group)[0];
+
+    if ($but == "BUT2") {
+        array_push($vacancesScolaires, "2024-02-26", "2024-03-04", "2024-03-11", "2024-03-18", "2024-03-25", "2024-04-01", "2024-04-08", "2024-04-15");
+    }
+
+
+    // -----------------
+
+    // Si on veut la liste complète des noms par semaine, on peut utiliser ce tableau
+
+    // Création de l'objet DateTime pour la première semaine de septembre
+    $dateDebut = new DateTime($periodeDebut);
+
+    // Création de l'objet DateTime pour la fin de la période
+    $dateFin = new DateTime($periodeFin);
+
+    // Initialisation de l'itérateur de dates avec une période d'une semaine
+    $interval = new DateInterval('P1W');
+    $dates = new DatePeriod($dateDebut, $interval, $dateFin);
+
+    // Parcours de chaque semaine dans la période
+    if ($noms != null) {
+        foreach ($dates as $date) {
+            // Vérification si la semaine est une semaine de vacances scolaires
+            $currentDate = $date->format('Y-m-d');
+            if (!in_array($currentDate, $vacancesScolaires)) {
+                // Ajout du nom correspondant à la semaine
+                $nomsParSemaine[$currentDate] = $noms[$indexNom];
+
+                // Passage au nom suivant dans le tableau
+                $indexNom = ($indexNom + 1) % count($noms);
+            } else {
+                // Si c'est une semaine de vacances, ajouter null comme valeur
+                $nomsParSemaine[$currentDate] = 'null';
+            }
+        }
+    } else {
+        $nomsParSemaine = null;
+    }
+
+
+    // -----------------
+
+    $date = new DateTime;
+
+    $currentDay = $date->format('N'); // 1 pour lundi, ..., 7 pour dimanche
+
+    // Calculer le début et la fin de la semaine scolaire
+    $startOfWeek = clone $date;
+    $startOfWeek->sub(new DateInterval('P' . ($currentDay - 1) . 'D'));
+    $endOfWeek = clone $startOfWeek;
+    $endOfWeek->add(new DateInterval('P4D')); // Ajouter seulement 4 jours pour obtenir une semaine de 5 jours
+
+    // Si on est après le vendredi, passer à la semaine suivante
+    if ($currentDay > 6) {
+        $startOfWeek->add(new DateInterval('P7D'));
+        $endOfWeek->add(new DateInterval('P7D'));
+    }
+
+    // Formater la chaîne de résultat
+    $formattedStart = $startOfWeek->format('Y-m-d');
+
+    $nomActuel = $nomsParSemaine[$formattedStart] ?? 'null'; // Utilisation de l'opérateur null coalescent pour obtenir la valeur ou null si non définie
+
+    return $nomActuel;
+}
+function randomPassword()
+{
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array(); //remember to declare $pass as an array
+    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    for ($i = 0; $i < 10; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); //turn the array into a string
+}
+
+function generate_password_prof($email, $name, $pname, $trigramme)
+{
+    global $dbh;
+    $password = randomPassword();
+    $password_hash = password_hash($password, PASSWORD_DEFAULT);
+    $pp_profile = 'https://ui-avatars.com/api/?background=56b8d6&color=004a5a&bold=true&name=' . $pname . '+' . $name . '&rounded=true&size=128';
+
+    $sql_insert = "INSERT INTO users (pname, name, password, edu_mail, edu_group, role, pp_link, active, tuto_agenda) VALUES (:pname, :name, :password, :edu_mail, :edu_group, :role, :pp_link, :active, :tuto_agenda)";
+    $stmt_insert = $dbh->prepare($sql_insert);
+    $stmt_insert->execute([
+        'pname' => $pname,
+        'name' => $name,
+        'password' => $password_hash,
+        'edu_mail' => $email,
+        'edu_group' => $trigramme,
+        'role' => 'prof',
+        'pp_link' => $pp_profile,
+        'active' => 1,
+        'tuto_agenda' => 1
+    ]);
+
+
+    // set email subjectj
+    $subject = 'Bienvenue sur votre interface professeur. Voici vos identifiants pour MMI Companion !';
+
+    // load HTML content from a file
+    $message = file_get_contents('./../idmail.html');
+
+    $message = str_replace('{{FirstName}}', $pname, $message);
+    $message = str_replace('{{LastName}}', $name, $message);
+    $message = str_replace('{{IdentifiantMail}}', $email, $message);
+    $message = str_replace('{{IdentifiantMdp}}', $password, $message);
+
+
+    $headers  = 'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: MMI Companion <' . SENDER_EMAIL_ADDRESS . '>' . "\r\n" .
+        'Reply-To: ' . SENDER_EMAIL_ADDRESS . "\r\n" .
+        'Content-Type: text/html; charset="utf-8"' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+
+    // send the email
+    $_SESSION['mail_message'] = "";
+    $mail = new PHPMailer(true);
+    try {
+        //Server settings
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                      // Enable verbose debug output
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = $_ENV['SERVEUR_MAIL'];                    // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = $_ENV['MAIL_USERNAME'];                     // SMTP username
+        $mail->Password   = $_ENV['MAIL_PASSWORD'];                               // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->Port       = $_ENV['MAIL_PORT'];                 // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->CharSet = "UTF-8";
+        $mail->Encoding = "base64";
+
+        //Recipients
+        $mail->setFrom(SENDER_EMAIL_ADDRESS, 'MMI Companion');
+        $mail->addAddress($email, $name);     // Add a recipient
+        $mail->addReplyTo('raphael.tiphonet@etu.univ-poitiers.fr', 'Raphaël Tiphonet');
+        $mail->addAttachment('./../assets/pdf/Guide_utilisateur_-_Interface_enseignant.pdf', 'Guide_utilisateur_-_Interface_enseignant.pdf');
+        // Content
+        $mail->isHTML(true);                                  // Set email format to HTML
+        $mail->Subject = $subject;
+        $mail->Body    = $message;
+
+        $mail->send();
+        $_SESSION['mail_message'] = "Le mail vient de t'être envoyé, penses à regarder dans tes spams si besoin.";
+    } catch (Exception $e) {
+        $_SESSION['mail_message'] = "Une erreur vient de survenir lors de l'envoi du mail, réessaye plus tard.";
+        error_log("Error sending activation email to $email");
+    }
 }

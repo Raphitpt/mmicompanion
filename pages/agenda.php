@@ -1,4 +1,3 @@
-<!-- Script pour l'affichage des taches dans l'agenda en fonction de son TP -->
 <?php
 session_start();
 require "../bootstrap.php";
@@ -13,96 +12,26 @@ $user = decodeJWT($jwt, $secret_key);
 setlocale(LC_TIME, 'fr_FR.UTF-8'); // Définit la locale en français mais ne me semble pas fonctionner
 // --------------------
 // Fin de la récupération du cookie
-if ($user['role'] == "prof") {
 
-    header('Location: ./calendar.php');
+
+if ($user['role'] == "prof") {
+    header('Location: ./home.php');
     exit;
 }
 
 // Récupèration des données de l'utilisateur directement en base de données et non pas dans le cookie, ce qui permet d'avoir les données à jour sans deconnection
-$user_sql = "SELECT * FROM users WHERE id_user = :id_user";
-$stmt = $dbh->prepare($user_sql);
-$stmt->execute([
-    'id_user' => $user['id_user']
-]);
-$user_sql = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_sql = userSQL($dbh, $user);
 
-$year_here = date('o'); // Obtenez l'année actuelle au format ISO-8601
-$week_here = date('W'); // Obtenez le numéro de semaine actuel
-// Formatez la date au format "YYYY-Www"
-$current_week_year = $year_here . '-W' . $week_here;
-$today = new DateTime();
-// Requete pour récupérer les taches de l'utilisateur sans recuperer les évaluations, en les triant par date de fin et par ordre alphabétique
-$edu_group_all = substr($user_sql['edu_group'], 0, 4);
+
 // --------------------
-$sql_agenda = "SELECT a.*, s.*
-FROM agenda a
-JOIN sch_subject s ON a.id_subject = s.id_subject
-WHERE a.id_user = :id_user
-  AND a.type != 'eval'
-  AND a.type != 'devoir'
-  AND (
-    (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
-    OR
-    (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
-  )
-ORDER BY a.title ASC;
-";
+// Récupération de l'agenda de l'utilisateur connecté
 
-$stmt_agenda = $dbh->prepare($sql_agenda);
-$stmt_agenda->execute([
-    'id_user' => $user['id_user'],
-    'current_week_year' => $current_week_year,
-    'current_date' => $today->format('Y-m-d')
-]);
-$agenda_user = $stmt_agenda->fetchAll(PDO::FETCH_ASSOC);
+$agendaMerged = getAgenda($dbh, $user, $user_sql['edu_group']);
+
+
+
 // --------------------
-// Fin de la récupération des taches
-
-// Requetes pour récupérer les évaluations de son TP
-// --------------------
-
-$sql_eval = "SELECT a.*, s.*, u.name, u.pname, u.role 
-FROM agenda a 
-JOIN sch_subject s ON a.id_subject = s.id_subject 
-JOIN users u ON a.id_user = u.id_user 
-WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) 
-AND a.type = 'eval' 
-AND (
-    (a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)
-    OR
-    (a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)
-  ) 
-ORDER BY a.title ASC";
-
-
-$stmt_eval = $dbh->prepare($sql_eval);
-$stmt_eval->execute([
-    'edu_group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all,
-    'current_week_year' => $current_week_year,
-    'current_date' => $today->format('Y-m-d')
-]);
-$eval = $stmt_eval->fetchAll(PDO::FETCH_ASSOC);
-// --------------------
-// Fin de la récupération des évaluations
-
-// Fusionne les deux tableaux pour pouvoir les afficher dans l'ordre
-$sql_devoir = "SELECT a.*, s.*, u.name, u.pname, u.role FROM agenda a JOIN sch_subject s ON a.id_subject = s.id_subject JOIN users u ON a.id_user = u.id_user WHERE (a.edu_group = :edu_group OR a.edu_group = :edu_group_all) AND a.type = 'devoir'AND ((a.date_finish LIKE '____-__-__' AND a.date_finish >= :current_date)OR(a.date_finish LIKE '____-W__' AND a.date_finish >= :current_week_year)) ORDER BY a.title ASC";
-$stmt_devoir = $dbh->prepare($sql_devoir);
-$stmt_devoir->execute([
-    'edu_group' => $user_sql['edu_group'],
-    'edu_group_all' => $edu_group_all,
-    'current_week_year' => $current_week_year,
-    'current_date' => $today->format('Y-m-d')
-]);
-$devoir = $stmt_devoir->fetchAll(PDO::FETCH_ASSOC);
-
-$agenda = array_merge($agenda_user, $eval);
-$agenda = array_merge($agenda, $devoir);
-$eval_cont = count($eval);
-$agenda_cont = count($agenda);
-
+// Récupérer le nom du chef de TP de l'utilisateur connecté
 
 $sql_chef = "SELECT pname, name FROM users WHERE edu_group = :edu_group AND role LIKE '%chef%'";
 $stmt_chef = $dbh->prepare($sql_chef);
@@ -110,38 +39,6 @@ $stmt_chef->execute([
     'edu_group' => $user_sql['edu_group']
 ]);
 $chef = $stmt_chef->fetch(PDO::FETCH_ASSOC);
-
-// Tableaux pour traduire les dates en français
-// --------------------
-$semaine = array(
-    " Dimanche ",
-    " Lundi ",
-    " Mardi ",
-    " Mercredi ",
-    " Jeudi ",
-    " Vendredi ",
-    " Samedi "
-);
-$mois = array(
-    1 => " janvier ",
-    " février ",
-    " mars ",
-    " avril ",
-    " mai ",
-    " juin ",
-    " juillet ",
-    " août ",
-    " septembre ",
-    " octobre ",
-    " novembre ",
-    " décembre "
-);
-// --------------------
-// Fin des tableaux pour traduire les dates en français
-
-// Tableau pour regrouper les éléments par date
-$agendaByDate = [];
-
 
 
 // --------------------
@@ -155,6 +52,8 @@ $colors = $stmt_color->fetchAll(PDO::FETCH_ASSOC);
 
 // --------------------
 
+
+
 // On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
 if (isset($_POST['button-validate'])) {
     $update_user = "UPDATE users SET tuto_agenda = 1 WHERE id_user = :id_user";
@@ -166,9 +65,10 @@ if (isset($_POST['button-validate'])) {
     exit();
 }
 
+$additionalStyles = '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />';
 
 // Obligatoire pour afficher la page
-echo head("MMI Companion | Agenda");
+echo head("MMI Companion | Agenda", $additionalStyles);
 ?>
 <!-- Mise en place du tutoriel -->
 <?php
@@ -176,7 +76,7 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
     <body class="body-tuto_agenda">
         <!-- Menu de navigation -->
-        <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+        <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
         <main class="main_tuto-agenda">
             <form action="" method="post" class="form-tuto_agenda">
@@ -198,11 +98,11 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                     <input type="submit" id="button_tuto_agenda-validate" class="button_tuto-agenda" name="button-validate" value="Compris">
                 </div>
             </form>
-        <div id="snow-container"></div></main>
+        </main>
 
     </body>
 
-    <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+    <script src="../assets/js/script_all.js?v=1.1"></script>
     <script>
         // Faire apparaître le background dans le menu burger
         let select_background_profil = document.querySelector('#select_background_agenda-header');
@@ -215,190 +115,255 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
 
     <body class="body-all">
         <!-- Menu de navigation -->
-        <?php generateBurgerMenuContent($user_sql['role'], 'Agenda') ?>
+        <?php generateBurgerMenuContent($user_sql['role'], 'Agenda', notifsHistory($dbh, $user['id_user'], $user['edu_group'])) ?>
 
         <!-- Corps de la page -->
-        <main class="main-agenda">
+        <main class="main_all">
             <div style="height:30px"></div>
-            <div class="agenda_title-agenda">
-                <div class="agenda_title_flextop-agenda">
+            <div class="title-agenda">
+                <div class="title_flextop-agenda">
                     <div class="title_trait">
                         <h1>L'agenda</h1>
                         <div></div>
                     </div>
 
-                    <div class="agenda_title_flextopright-agenda">
+                    <div class="title_flextopright-agenda">
                         <a href="./agenda_add.php">Ajouter</a>
                     </div>
                 </div>
-                <div style="height:15px"></div>
-                <div class="agenda_title_flexbottom-agenda">
-                    <?php
-                    echo "<p style='font-weight: bold;'>Groupe : " . $user_sql['edu_group'] . "</p>";
-                    if (!empty($chef)) {
-                        echo "<p style='font-weight: bold;'>Responsable : " . $chef['pname'] . " " . $chef['name'] . "</p>";
+            </div>
+
+            <div style="height:15px"></div>
+
+            <div class="description-agenda">
+                <div class="description_container_content-agenda">
+                    <p><span style='font-weight: 700;'>Groupe</span> : <?php echo $user_sql['edu_group'] ?></p>
+                    <?php if (!empty($chef)) {
+                        echo "<p><span style='font-weight: 700;'>Responsable</span> : " . $chef['pname'] . " " . $chef['name'] . "</p>";
                     } else {
-                        echo "<p style='font-weight: bold;'>Responsable : Aucun</p>";
+                        echo "<p></span style='font-weight: 700;'>Responsable</span> : Aucun</p>";
                     }
-                    ?>
-                    <div style="height:15px"></div>
-                    <p id='compteTaches'></p>
-                    <?php
-                    // Systeme de compteur de taches non terminées ou terminées
-                    // On compte le nombre d'occurences de taches non terminées
-                    // Cette variable est aussi utile pour savoir si la tache est checked ou pas
-                    // Ca incrémente la valeur si on coche ou pas en js
-
-
-                    if ($eval_cont == 0) {
-                        echo "<p>Aucune évaluation prévue</p>";
-                    } else if ($eval_cont == 1) {
-                        echo "<p>" . $eval_cont . " évaluation prévue</p>";
-                    } else {
-                        echo "<p>" . $eval_cont . " évaluations prévues</p>";
-                    }
-
-                    // Gère l'affichage des taches en affichant la date en français qui correspond à la date finale de la tache
-                    // Elle ajoute la date en français au tableau $agendaByDate qui repertorie toute les taches
-                    // dd($agenda);
-                    $agendaMerged = [];
-
-                    // Obtenez la date d'aujourd'hui au format Y-m-d
-                    $currentDate = date('Y-m-d');
-                    
-                    usort($agenda, 'compareDates');
-                    
-                    foreach ($agenda as $agendas) {
-                        $date = strtotime($agendas['date_finish']); // Convertit la date en timestamp
-                    
-                        if (preg_match('/^\d{4}-W\d{2}$/', $agendas['date_finish'])) {
-                            // Si la date est au format "YYYY-Www", extrayez l'année et le numéro de semaine
-                            $week = intval(substr($agendas['date_finish'], -2));
-                            $formattedDateFr = "Semaine $week";
-                            
-                            // Vérifiez si c'est la semaine actuelle
-                            if ($agendas['date_finish'] == $current_week_year) {
-                                $formattedDateFr = "Cette semaine";
-                            }
-                        } else {
-                            // Si la date n'est pas au format "YYYY-Www", formatez-la en français
-                            $formattedDateFr = $semaine[date('w', $date)] . date('j', $date) . $mois[date('n', $date)];
-                    
-                            // Vérifiez si c'est aujourd'hui
-                            if ($agendas['date_finish'] == $currentDate) {
-                                $formattedDateFr = "Aujourd'hui";
-                            }
-                    
-                            // Vérifiez si c'est demain
-                            $tomorrowDate = date('Y-m-d', strtotime($currentDate . ' +1 day'));
-                            if ($agendas['date_finish'] == $tomorrowDate) {
-                                $formattedDateFr = "Demain";
-                            }
-                        }
-                    
-                        // Utilisez la date formatée en tant que clé pour stocker les éléments dans un tableau unique
-                        if (!isset($agendaMerged[$formattedDateFr])) {
-                            $agendaMerged[$formattedDateFr] = [];
-                        }
-                        $agendaMerged[$formattedDateFr][] = $agendas;
-                    }
-
                     ?>
                 </div>
-            </div>
-            <div style="height:25px"></div>
-            <div class="agenda_content-agenda">
-                <?php
-
-                // Si il n'y a pas d'évènements dans l'agenda, afficher un message
-                if (empty($agendaMerged)) {
-                    echo "<div class='agenda_content_list-agenda'>";
-                    echo "<h2>Aucune tâche de prévu</h2>";
-                    echo "</div>";
-                }
-
-                // Parcours les éléments par date et les affiche
-                foreach ($agendaMerged as $date => $agendas) {
-                    echo "<div class='agenda_content_list-agenda'>";
-                    echo "<h2>$date</h2>";
-                    echo "<div style='height:10px'></div>";
-
-                    foreach ($agendas as $agenda) {
-                        echo "<div class='agenda_content_list_item-agenda'>";
-                        echo "<div class='agenda_content_list_item_flexleft-agenda'>";
-
-                        if ($agenda['type'] == "eval") {
-                            echo "<i class='fi fi-br-comment-info'></i>";
-                        }
-                        if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                            if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
-                                echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
-                            } else {
-                                echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
-                            }
-                        }
-
-                        echo "<div class='agenda_title_content_list_item_flexleft-agenda'>";
-                        if ($agenda['type'] == "eval") {
-                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>[Évaluation] " . $agenda['title'] . "</label>";
-                        }
-
-                        if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
-                            echo "<label for='checkbox-" . $agenda['id_task'] . "' class='title_subject-agenda'>" . $agenda['title'] . "</label>";
-                        }
-                        echo "<div class='agenda_description-agenda'>";
-                        if (isset($agenda['content']) && !empty($agenda['content'])) {
-                            echo "<p class='content'><span>" . $agenda['content'] . "</span></p>";
-                        }
-                        echo "</div>";
-                        echo "<div class='agenda_content_subject-agenda'>";
-
-                        if (isset($agenda['role']) && $agenda['role'] == "prof") {
-                            echo "<p class='name_subject-agenda'>De : <span>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
-                        }
-
-                        foreach ($colors as $color) {
-                            if ($color['id_subject'] == $agenda['id_subject']) {
-                                echo "<p style='background-color:" . $color['color_ressource'] . "'>" . $agenda['name_subject'] . "</p>";
-                                // echo "<div class='circle_subject-agenda' style='background-color:" . $color['color_ressource'] . "'></div>";
-                                break;
-                            }
-                        };
-                        // echo "<div class='circle_subject-agenda' style='background-color:#" . $agenda['color'] . "'></div>";
-                        echo "</div>";
-                        echo "</div>";
-                        echo "</div>";
-                        echo "<div class='agenda_content_list_item_flexright-agenda'>";
-                        // Ne pas afficher la corbeille si l'utilisateur est un étudiant et que c'est une évaluation
-                        if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'eleve')) {
-                            echo "<i class='fi fi-br-trash red' hidden></i>";
-                        } elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
-                            echo "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'id='delete-trash'><i class='fi fi-br-trash red'></i></a>";
+                <!-- <div class="container_numbers_description-agenda">
+                    <div class="item_number_description-agenda">
+                        <i class="fi fi-sr-checkbox"></i>
+                        <p id='compteTaches'></p>
+                    </div>
+                    <div class="item_number_description-agenda">
+                        <i class="fi fi-sr-square-exclamation"></i>
+                        <?php
+                        if ($eval_cont == 0) {
+                            echo "<p>Aucune évaluation prévue</p>";
+                        } else if ($eval_cont == 1) {
+                            echo "<p>" . $eval_cont . " évaluation prévue</p>";
                         } else {
-                            echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'><i class='fi fi-br-pencil blue'></i></a><a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'id='delete-trash'><i class='fi fi-br-trash red'></i></a>";
+                            echo "<p>" . $eval_cont . " évaluations prévues</p>";
                         }
-
-                        echo "</div>";
-                        echo "</div>";
-                        echo "<div style='height:10px'></div>";
-                    }
-
-                    echo "</div>";
-                }
-                ?>
+                        ?>
+                    </div>
+                </div> -->
             </div>
-            <div style="height:20px"></div>
-        <div id="snow-container"></div></main>
 
-        <script src="../assets/js/menu-navigation.js?v=1.1"></script><script src="../assets/js/snow.js"></script>
+            <div style="height:25px"></div>
+
+            <div class="container_content-agenda">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper agenda">
+
+                        <?php
+
+                        // Si il n'y a pas d'évènements dans l'agenda, afficher un message
+                        if (empty($agendaMerged)) { ?>
+
+                            <div class='item_content-agenda'>
+                                <p>Aucune tâche de prévu</p>
+                            </div>
+
+                        <?php } ?>
+
+                        <?php
+                        // Parcours les éléments par date et les affiche
+                        foreach ($agendaMerged as $semaine => $jours) { ?>
+                            <div class="swiper-slide">
+                                <div class='item_content-agenda'>
+                                    <div class="item_title_content-agenda">
+                                        <i class="fi fi-br-book-bookmark"></i>
+                                        <p><?php echo $semaine ?></p>
+                                    </div>
+
+                                    <div class="container_list_content-agenda">
+                                        <?php
+                                        if (empty($jours)) {
+                                            echo "<p>Aucune tâche de prévu</p>";
+                                        }
+                                        ?>
+                                        <?php
+                                        foreach ($jours as $jour => $agendas) { ?>
+                                            <div class="item_list_content_agenda">
+                                                <?php if (!str_contains($jour, 'Semaine')) { ?>
+                                                    <div class="item_title_list_content-agenda">
+                                                        <p><?php echo $jour ?></p>
+                                                        <div></div>
+                                                    </div>
+                                                <?php } ?>
+
+
+                                                <div class="container_list-agenda">
+                                                    <?php
+                                                    foreach ($agendas as $agenda) {
+                                                        echo "<div class='item_list-agenda'>";
+                                                        echo "<div class='item_list_flexleft-agenda'>";
+
+                                                        if ($agenda['type'] == "eval") {
+                                                            echo "<i class='fi fi-sr-square-exclamation'></i>";
+                                                        }
+                                                        // Affichage de la coche ou de l'indication rouge si c'est une évaluation
+                                                        if ($agenda['type'] == "devoir" or $agenda['type'] == "autre") {
+                                                            if (getEventCheckedStatus($dbh, $agenda['id_task'], $user['id_user']) == 1) {
+                                                                echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' data-idAgenda='" . $agenda['id_task'] . "'' checked>";
+                                                            } else {
+                                                                echo "<input type='checkbox' name='checkbox' class='checkbox' id='checkbox-" . $agenda['id_task'] . "' onclick='updatePoints(10)' data-idAgenda='" . $agenda['id_task'] . "''>";
+                                                            }
+                                                        }
+
+                                                        echo "<label for='checkbox-" . $agenda['id_task'] . "' class='content_item_list_flexleft-agenda'>";
+                                                        // Affichage de la matière de l'event de l'agenda et la couleur associée ainsi que évaluation devant
+                                                        foreach ($colors as $color) {
+
+                                                            if ($color['id_subject'] == $agenda['id_subject']) {
+                                                                echo "<div class='subject_item_list_flexleft-agenda'>";
+                                                                echo "<div style='background-color:" . $color['color_ressource'] . "'></div>";
+                                                                if ($agenda['type'] == "eval") {
+                                                                    echo "<p><span style='font-weight:600'>[Évaluation]</span> " . $agenda['name_subject'] . "</p>";
+                                                                } else {
+                                                                    echo "<p>" . $agenda['name_subject'] . "</p>";
+                                                                }
+                                                                echo "</div>";
+                                                                break;
+                                                            }
+                                                        };
+                                                        // Affichage du titre de l'event de l'agenda
+                                                        echo "<div class='title_item_list_flexleft-agenda'>";
+                                                        echo "<p>" . $agenda['title'] . "</p>";
+                                                        echo "</div>";
+
+                                                        // Affichage du contenu de l'event de l'agenda
+                                                        echo "<div class='description_item_list_flexleft-agenda'>";
+                                                        if (isset($agenda['content']) && !empty($agenda['content'])) {
+                                                            echo $agenda['content'];
+                                                        }
+                                                        echo "</div>";
+
+                                                        // Affichage du nom du professeur qui a ajouté l'event de l'agenda, si il y a
+                                                        echo "<div class='author_item_list_flexleft-agenda'>";
+                                                        if (isset($agenda['role']) && $agenda['role'] == "prof") {
+                                                            echo "<p class='name_subject-agenda'>De : <span style='font-weight:600'>" . substr($agenda['pname'], 0, 1) . '. ' . $agenda['name'] . "</span></p></br>";
+                                                        }
+                                                        echo "</div>";
+
+                                                        echo "</label>";
+                                                        echo "</div>";
+
+                                                        echo "<div class='item_list_flexright-agenda'>";
+                                                        echo "<div class='menu_dropdown_item_list_flexright-agenda'>";
+                                                        echo "<div class='btn_menu_dropdown_item_list_flexright-agenda'>";
+
+                                                        if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'eleve')) {
+                                                            echo "";
+                                                        } else {
+                                                            echo "<i class='fi fi-sr-menu-dots'></i>";
+                                                        }
+
+                                                        echo "</div>";
+
+                                                        echo "<div class='content_menu_dropdown_item_list_flexright-agenda menu_dropdown_close'>";
+
+                                                        // Condition pour afficher le bouton edit et delete en fonction du role de l'utilisateur
+                                                        if (($agenda['type'] == "eval" || $agenda['type'] == "devoir") && str_contains($user_sql['role'], 'eleve')) {
+                                                            echo "<i class='fi fi-br-trash red' hidden></i>";
+                                                        } elseif ($user_sql['role'] == "admin" || $user_sql['role'] == "chef") {
+                                                            echo "<a href='agenda_edit.php?id_user=" . $agenda['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                                                            echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash' class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
+                                                        } else {
+                                                            echo "<a href='agenda_edit.php?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "'class='blue'><i class='fi fi-br-pencil blue'></i>Éditer</a>";
+                                                            echo "<a href='agenda_del.php/?id_user=" . $user['id_user'] . "&id_task=" . $agenda['id_task'] . "' id='delete-trash'class='red'><i class='fi fi-br-trash red'></i>Supprimer</a>";
+                                                        }
+
+                                                        echo "</div>";
+                                                        echo "</div>";
+                                                        echo "</div>";
+                                                        echo "</div>";
+                                                    } ?>
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+
+                    <div class="btn_content-menu btn_next_agenda">
+                        <p>Suivant</p>
+                        <i class="fi fi-br-angle-right"></i>
+                    </div>
+                    <div class="btn_content-menu btn_prev_agenda">
+                        <i class="fi fi-br-angle-left"></i>
+                        <p>Précédent</p>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div style="height:20px"></div>
+
+        </main>
+
+        <script src="../assets/js/script_all.js?v=1.1"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <!-- <script src="../assets/js/fireworks.js"></script> -->
 
 
         <script>
+            function getWeekNumber() {
+                let today = new Date();
+                let dayOfYear = (today.getDate() - 1) + (function leapYear(year) {
+                    return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+                })(today.getFullYear()) ? 1 : 0;
+                let weekNumber = Math.ceil((dayOfYear + today.getDay() + 1) / 7);
+
+                return weekNumber;
+            }
+
+            let currentWeek = getWeekNumber();
+            let week = currentWeek - 1;
+            // Swiper
+            let swiper = new Swiper(".mySwiper", {
+                autoHeight: true,
+                initialSlide: week < 0 ? 0 : week,
+                spaceBetween: 30,
+                navigation: {
+                    nextEl: ".btn_next_agenda",
+                    prevEl: ".btn_prev_agenda",
+                },
+            });
+
+            // console.log(week);
+            // console.log(currentWeek);
+            swiper.slideTo(week < 0 ? 0 : week, 0);
+            // swiper.slideTo(week, 0, false);
+
             // Faire apparaître le background dans le menu burger
             let select_background_profil = document.querySelector('#select_background_agenda-header');
             select_background_profil.classList.add('select_link-header');
-            const deleteTrash = document.querySelectorAll('#delete-trash');
 
+
+
+            // --------------------------------
+
+            const deleteTrash = document.querySelectorAll('#delete-trash');
             deleteTrash.forEach(function(trash) {
                 trash.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -408,42 +373,14 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                 });
             });
 
-            // Fonction pour mettre à jour le compteur de tâches
 
-            const resultParagraph = document.getElementById('compteTaches');
+
+            // --------------------------------
+
+
             let checkboxes = document.querySelectorAll(".checkbox");
 
-            function countChecked() {
-                let count = 0;
-
-                checkboxes.forEach(checkbox => {
-                    if (!checkbox.checked) {
-                        count++;
-                    }
-                });
-                if (count === 0) {
-                    resultParagraph.textContent = `Aucune tâche à faire`;
-                } else if (count === 1) {
-                    resultParagraph.textContent = `${count} tâche à faire`;
-                } else {
-                    resultParagraph.textContent = `${count} tâches à faire`;
-                }
-            }
-
-
-            window.addEventListener("DOMContentLoaded", function() {
-
-                const resultParagraph = document.getElementById('compteTaches');
-                let checkboxes = document.querySelectorAll(".checkbox");
-                checkboxes.forEach(checkbox => {
-                    checkbox.addEventListener('change', countChecked);
-
-                    // Vérification initiale de l'état de la case à cocher
-                    handleCheckboxChange.call(checkbox); // Appel de la fonction avec la case à cocher comme contexte
-                });
-
-                // Appel initial pour afficher le nombre de tâches au chargement de la page
-                countChecked();
+            document.addEventListener("DOMContentLoaded", function() {
                 checkboxes.forEach(function(checkbox) {
                     // Ici on fait un requete au fichier coche_agenda.php pour mettre à jour la base de donnée lors d'une coche ou décoche
                     checkbox.addEventListener("change", function() {
@@ -459,31 +396,68 @@ if ($user_sql['tuto_agenda'] == 0) { ?>
                                 console.log(xhr.responseText);
                             }
                         };
-                        xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>));
+                        xhr.send("idAgenda=" + encodeURIComponent(idAgenda) + "&checked=" + encodeURIComponent(checkedValue) + "&id_user=" + encodeURIComponent(<?php echo $user['id_user']; ?>) + "&load=" + encodeURIComponent(false));
                     });
                 });
             });
 
+
+            // --------------------------------
+
+
+
+
+
+            // --------------------------------
+
+            document.addEventListener("DOMContentLoaded", function() {
+                let dropdowns = document.querySelectorAll(".btn_menu_dropdown_item_list_flexright-agenda");
+
+                dropdowns.forEach(function(dropdown) {
+                    dropdown.addEventListener("click", function(event) {
+                        event.stopPropagation(); // Empêche la propagation de l'événement de clic à la fenêtre
+                        let dropdownContent = dropdown.nextElementSibling;
+                        if (dropdownContent.classList.contains('menu_dropdown_open')) {
+                            toggleDropdown(dropdownContent);
+                        } else {
+                            closeAllDropdowns(); // Ferme toutes les autres divs dropdown avant d'ouvrir celle-ci
+                            toggleDropdown(dropdownContent);
+                        }
+
+                    });
+                });
+
+                // Ferme toutes les divs dropdown lors d'un clic à l'extérieur de celles-ci
+                window.addEventListener("click", function(event) {
+                    closeAllDropdowns();
+                });
+
+                function toggleDropdown(dropdownContent) {
+                    dropdownContent.classList.toggle('menu_dropdown_open');
+                    dropdownContent.classList.toggle('menu_dropdown_close');
+                }
+
+                function closeAllDropdowns() {
+                    dropdowns.forEach(function(dropdown) {
+                        let dropdownContent = dropdown.nextElementSibling;
+                        if (dropdownContent.classList.contains('menu_dropdown_open')) {
+                            dropdownContent.classList.remove('menu_dropdown_open');
+                            dropdownContent.classList.add('menu_dropdown_close');
+                        }
+                    });
+                }
+            });
+
+
+
+
+
+
+            // --------------------------------
+
+
             // Vérification que la case à cocher est cochée ou non
             // Si le case est cochée, on barre le nom de la tâche et inversement
-
-            function handleCheckboxChange() {
-                let checkbox = this;
-                let heading = checkbox.parentNode.querySelector(".title_subject-agenda");
-                let subject_agenda = checkbox.parentNode.querySelector(".agenda_content_subject-agenda");
-                let content = checkbox.parentNode.querySelector(".agenda_description-agenda");
-
-                if (checkbox.checked) {
-                    heading.style.textDecoration = "line-through";
-                    subject_agenda.style.opacity = "0.5";
-                    content.style.display = "none";
-
-                } else {
-                    heading.style.textDecoration = "none";
-                    subject_agenda.style.opacity = "1";
-                    content.style.display = "block";
-                }
-            }
 
             window.addEventListener("DOMContentLoaded", function() {
                 let checkboxes = document.querySelectorAll(".checkbox");
