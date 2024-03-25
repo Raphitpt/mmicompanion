@@ -46,12 +46,12 @@ if (isset($_POST['submit']) && !empty($_POST['title']) && !empty($_POST['date'])
         'content' => $content
 
     ]);
-    if ($stmt && $type == "eval") {
-        sendNotification($dbh, 'Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $edu_group, 'Agenda');
-    }
-    if ($stmt && $type == "devoir") {
-        sendNotification($dbh, 'Agenda', 'Un nouveau devoir a été ajoutée pour le ' . $date, $edu_group, 'Agenda');
-    }
+    // if ($stmt && $type == "eval") {
+    //     sendNotification($dbh, 'Agenda', 'Une nouvelle évaluation a été ajoutée pour le ' . $date, $edu_group, 'Agenda');
+    // }
+    // if ($stmt && $type == "devoir") {
+    //     sendNotification($dbh, 'Agenda', 'Un nouveau devoir a été ajoutée pour le ' . $date, $edu_group, 'Agenda');
+    // }
 
     header('Location: ./agenda_prof.php?but=' . $_POST['but'] . '&tp=' . $_POST['tp']);
     exit();
