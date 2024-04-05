@@ -98,14 +98,14 @@ function findProf($profName){
                         $eventEnd = $event->DTEND->getDateTime();
 
                         // Ajoutez 2 heures à l'heure de début et de fin
-                        $eventStart = $eventStart->add(new DateInterval('PT1H'));
-                        $eventEnd = $eventEnd->add(new DateInterval('PT1H'));
+                        //$eventStart = $eventStart->add(new DateInterval('PT1H'));
+                       // $eventEnd = $eventEnd->add(new DateInterval('PT1H'));
 
                         // Gestion du changement d'heure (heure d'été / heure d'hiver)
-                        if (date('I', $eventStart->getTimestamp())) {
-                            $eventStart->modify('+1 hour');
-                            $eventEnd->modify('+1 hour');
-                        }
+                        //if (date('I', $eventStart->getTimestamp())) {
+                         //   $eventStart->modify('+1 hour');
+                        //    $eventEnd->modify('+1 hour');
+                        //}
 
                         // Vérifiez si l'événement est dans la plage de dates spécifiée
                         if ($eventStart >= $startDateTime && $eventEnd <= $endDateTime) {
