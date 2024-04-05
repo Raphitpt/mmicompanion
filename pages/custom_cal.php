@@ -1,6 +1,6 @@
 <?php
 require './../bootstrap.php'; // Incluez le fichier autoload de la bibliothèque Sabre\VObject
-
+date_default_timezone_set('Europe/Paris');
 // Récupérez les paramètres "start" et "end" de la requête GET
 $start = isset($_GET['start']) ? $_GET['start'] : null;
 $end = isset($_GET['end']) ? $_GET['end'] : null;
@@ -98,11 +98,14 @@ function findProf($profName){
                         $eventEnd = $event->DTEND->getDateTime();
 
                         // Ajoutez 2 heures à l'heure de début et de fin
-                        $eventStart = $eventStart->add(new DateInterval('PT2H'));
-                        $eventEnd = $eventEnd->add(new DateInterval('PT2H'));
+                        $eventStart = $eventStart->add(new DateInterval('PT1H'));
+                        $eventEnd = $eventEnd->add(new DateInterval('PT1H'));
 
-                        // Accédez à la description
-                        $descriptionObject = $event->DESCRIPTION;
+                        // Gestion du changement d'heure (heure d'été / heure d'hiver)
+                        if (date('I', $eventStart->getTimestamp())) {
+                            $eventStart->modify('+1 hour');
+                            $eventEnd->modify('+1 hour');
+                        }
 
                         // Vérifiez si l'événement est dans la plage de dates spécifiée
                         if ($eventStart >= $startDateTime && $eventEnd <= $endDateTime) {
