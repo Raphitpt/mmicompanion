@@ -1,6 +1,6 @@
 <?php
 require './../bootstrap.php'; // Incluez le fichier autoload de la bibliothèque Sabre\VObject
-date_default_timezone_set('Europe/Paris');
+
 // Récupérez les paramètres "start" et "end" de la requête GET
 $start = isset($_GET['start']) ? $_GET['start'] : null;
 $end = isset($_GET['end']) ? $_GET['end'] : null;
