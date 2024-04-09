@@ -106,8 +106,7 @@ if ($start !== null && $end !== null) {
 
                         // Vérifiez si l'événement est dans la plage de dates spécifiée
                         if ($eventStart >= $startDateTime && $eventEnd <= $endDateTime) {
-                            var_dump($eventStart);
-                            var_dump($eventEnd);
+
                             // Accédez aux objets FlatText pour title et location
                             $titleObject = $event->SUMMARY;
                             $locationObject = $event->LOCATION;
