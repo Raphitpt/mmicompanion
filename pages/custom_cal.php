@@ -98,7 +98,8 @@ if ($start !== null && $end !== null) {
                     foreach ($vcalendar->VEVENT as $event) {
                         $eventStart = $event->DTSTART->getDateTime();
                         $eventEnd = $event->DTEND->getDateTime();
-                        dd($eventStart);
+                        var_dump($eventStart);
+                        var_dump($eventEnd);
                         // Ajoutez 2 heures à l'heure de début et de fin
                         $eventStart = $eventStart->add(new DateInterval('PT1H'));
                         $eventEnd = $eventEnd->add(new DateInterval('PT1H'));
