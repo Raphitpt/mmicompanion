@@ -91,20 +91,21 @@ if ($start !== null && $end !== null) {
             // Essayez de parser le contenu VCS en utilisant Sabre\VObject
             try {
                 $vcalendar = Sabre\VObject\Reader::read($vcsContent);
-
+                $parisTimeZone = new DateTimeZone('Europe/Paris');
                 if ($vcalendar->VEVENT) {
                     // Convertissez les événements en un tableau JSON
                     $events = [];
                     foreach ($vcalendar->VEVENT as $event) {
-                        $eventStart = $event->DTSTART->getDateTime();
-                        $eventEnd = $event->DTEND->getDateTime();
+                        // Convert event start time to Paris timezone
+                        $eventStart = $event->DTSTART->getDateTime()->setTimezone($parisTimeZone);
+                        // Convert event end time to Paris timezone
+                        $eventEnd = $event->DTEND->getDateTime()->setTimezone($parisTimeZone);
 
 
                         $descriptionObject = $event->DESCRIPTION;
 
                         // Vérifiez si l'événement est dans la plage de dates spécifiée
                         if ($eventStart >= $startDateTime && $eventEnd <= $endDateTime) {
-                            echo $eventStart->format(\DateTime::W3C);
                             var_dump($eventStart);
                             var_dump($eventEnd);
                             // Accédez aux objets FlatText pour title et location
