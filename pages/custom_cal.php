@@ -50,38 +50,38 @@ if ($start !== null && $end !== null) {
         }
         return "#000000"; // Couleur par défaut
     };
-function findProf($profName){
-    $prof = [
-        "GARRI002" => "GARRIGOU",
-        "PERRI001" => "PERRIERE",
-        "PERER001" => "PEREIRA",
-        "GARDE001" => "GARDERE",
-        "KAHN001" => "KHAN",
-        "RABUS001" => "RABUSSIER",
-        "DUNET001" => "DUNET",
-        "BLANC001" => "BLANC",
-        "ROYGI001" => "ROY",
-        "SARRA002" => "SARRAUTE",
-        "BENEJ001" => "BENEJAT",
-        "LELONG01" => "LELONG",
-        "CRONI001" => "CRONIER",
-        "GOREC001" => "GORECKI",
-        "GONZA001" => "GONZALVEZ",
-        "RAVON001" => "RAVON",
-        "KLAJA" => "KLAJA",
-        "BARIO001" => "BARIOULET",
-        "ZERGU001" => "ZERGUINI",
-        "DIAKI001" => "DIAKITE"
-    ];
-    $search_term = $profName;
-    foreach ($prof as $profCode => $profName) {
-        if (stripos($profCode, $search_term) !== false) {
-            return $profName;
+    function findProf($profName)
+    {
+        $prof = [
+            "GARRI002" => "GARRIGOU",
+            "PERRI001" => "PERRIERE",
+            "PERER001" => "PEREIRA",
+            "GARDE001" => "GARDERE",
+            "KAHN001" => "KHAN",
+            "RABUS001" => "RABUSSIER",
+            "DUNET001" => "DUNET",
+            "BLANC001" => "BLANC",
+            "ROYGI001" => "ROY",
+            "SARRA002" => "SARRAUTE",
+            "BENEJ001" => "BENEJAT",
+            "LELONG01" => "LELONG",
+            "CRONI001" => "CRONIER",
+            "GOREC001" => "GORECKI",
+            "GONZA001" => "GONZALVEZ",
+            "RAVON001" => "RAVON",
+            "KLAJA" => "KLAJA",
+            "BARIO001" => "BARIOULET",
+            "ZERGU001" => "ZERGUINI",
+            "DIAKI001" => "DIAKITE"
+        ];
+        $search_term = $profName;
+        foreach ($prof as $profCode => $profName) {
+            if (stripos($profCode, $search_term) !== false) {
+                return $profName;
+            }
         }
-    }
-    return "";
-
-};
+        return "";
+    };
     if (file_exists($vcsFile)) {
         $vcsContent = file_get_contents($vcsFile);
 
@@ -103,9 +103,10 @@ function findProf($profName){
 
                         // Gestion du changement d'heure (heure d'été / heure d'hiver)
                         //if (date('I', $eventStart->getTimestamp())) {
-                         //   $eventStart->modify('+1 hour');
+                        //   $eventStart->modify('+1 hour');
                         //    $eventEnd->modify('+1 hour');
                         //}
+                        $descriptionObject = $event->DESCRIPTION;
 
                         // Vérifiez si l'événement est dans la plage de dates spécifiée
                         if ($eventStart >= $startDateTime && $eventEnd <= $endDateTime) {
@@ -116,7 +117,7 @@ function findProf($profName){
                             // Obtenez les valeurs à partir des objets FlatText
                             $title = $titleObject->getValue();
                             $location = $locationObject->getValue();
-                            
+
                             // Extraire la partie de la description entre les ":" après "Spe:" et "\"
                             $description = $descriptionObject->getValue();
 
