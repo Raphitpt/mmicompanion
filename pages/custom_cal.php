@@ -5,6 +5,8 @@ require './../bootstrap.php'; // Incluez le fichier autoload de la bibliothèque
 $start = isset($_GET['start']) ? $_GET['start'] : null;
 $end = isset($_GET['end']) ? $_GET['end'] : null;
 
+date_default_timezone_set('Europe/Paris');
+
 if ($start !== null && $end !== null) {
     // Convertissez les paramètres "start" et "end" en objets DateTime
     $startDateTime = new DateTime($start);
@@ -102,10 +104,11 @@ if ($start !== null && $end !== null) {
                         $eventEnd = $eventEnd->add(new DateInterval('PT1H'));
 
                         // Gestion du changement d'heure (heure d'été / heure d'hiver)
-                        //if (date('I', $eventStart->getTimestamp())) {
-                        //   $eventStart->modify('+1 hour');
-                        //    $eventEnd->modify('+1 hour');
-                        //}
+                        if (date('I', $eventStart->getTimestamp())) {
+                            $eventStart->modify('+1 hour');
+                            $eventEnd->modify('+1 hour');
+                        }
+
                         $descriptionObject = $event->DESCRIPTION;
 
                         // Vérifiez si l'événement est dans la plage de dates spécifiée
