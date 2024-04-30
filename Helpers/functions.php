@@ -1735,12 +1735,6 @@ function getAgendaProf($dbh, $user, $edu_group)
 
 
 
-
-
-
-
-
-
 function getUserCahier($dbh, $edu_group)
 {
     $sql_cahier = "SELECT * FROM etudiants WHERE edu_group = :edu_group ORDER BY nom ASC";
@@ -1756,7 +1750,7 @@ function getUserCahier($dbh, $edu_group)
     // Récupérer le propriétaire du cahier des absences
     $periodeDebut = "2023-09-04";
     $periodeFin = "2024-07-01";
-    $vacancesScolaires = ["2023-10-23", "2023-12-25", "2024-01-01", "2024-02-19", "2024-04-22", "2024-04-29"];
+    $vacancesScolaires = ["2023-10-23", "2023-12-25", "2024-01-01", "2024-02-19", "2024-04-22"];
 
     $but = explode("-", $edu_group)[0];
 
