@@ -1748,12 +1748,12 @@ function getUserCahier($dbh, $edu_group)
     // Récupérer le propriétaire du cahier des absences
     $periodeDebut = "2023-09-04";
     $periodeFin = "2024-07-01";
-    $vacancesScolaires = ["2023-10-23", "2023-12-25", "2024-01-01", "2024-02-19", "2024-04-22", "2024-04-29"];
+    $vacancesScolaires = ["2023-10-23", "2023-12-25", "2024-01-01", "2024-02-19", "2024-04-15", "2024-04-22"];
 
     $but = explode("-", $edu_group)[0];
 
     if ($but == "BUT2") {
-        array_push($vacancesScolaires, "2024-02-26", "2024-03-04", "2024-03-11", "2024-03-18", "2024-03-25", "2024-04-01", "2024-04-08", "2024-04-15");
+        array_push($vacancesScolaires, "2024-02-26", "2024-03-04", "2024-03-11", "2024-03-18", "2024-03-25", "2024-04-01", "2024-04-08");
     }
 
 
