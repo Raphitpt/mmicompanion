@@ -461,9 +461,11 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
           }
+          if (eventComment && calendar.view.type === 'timeGridWeek') {
+            eventContent += '<div class="fc-comment" style="font-size:0.52rem; color:#BB0000; background-color:#fff">' + eventComment + '</div>';
+          }
           if (eventComment && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-comment" style="font-size:0.8rem; color:#BB0000; background-color:#fff">' + eventComment + '</div>';
-            console.log(eventComment);
           } else if (eventHour && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-time" style="font-size:0.8rem">' + eventHour + '</div>';
           }
