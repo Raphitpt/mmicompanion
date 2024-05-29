@@ -428,6 +428,8 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           let eventTitle = arg.event.title;
           let eventLocation = arg.event.extendedProps.location;
           let eventDescription = arg.event.extendedProps.description;
+          let eventComment = arg.event.extendedProps.organizer;
+          console.log(arg.event);
           let eventHour = arg.timeText;
           let eventDescriptionModifie = eventDescription.replace(/\([^)]*\)/g, '');
           let test = eventDescriptionModifie.replace(/(CM|TDA|TDB|TP1|TP2|TP3|TP4) /g, '$1<br>');
@@ -459,7 +461,10 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
           } else if (eventLocation && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-location" style="font-size:0.8rem">' + eventLocation + '</div>';
           }
-          if (eventHour && calendar.view.type === 'timeGridDay') {
+          if (eventComment && calendar.view.type === 'timeGridDay') {
+            eventContent += '<div class="fc-comment" style="font-size:0.8rem; color:#BB0000; background-color:#fff">' + eventComment + '</div>';
+            console.log(eventComment);
+          } else if (eventHour && calendar.view.type === 'timeGridDay') {
             eventContent += '<div class="fc-time" style="font-size:0.8rem">' + eventHour + '</div>';
           }
           if (duration >= 1800000 && duration <= 4500000) {

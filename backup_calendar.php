@@ -24,11 +24,13 @@ foreach ($but_data as $but) {
         $icalDataS1 = preg_replace('/END:VCALENDAR/', '', $icalDataS1);
         $icalDataS2 = preg_replace('/BEGIN:VCALENDAR[\s\S]+?CALSCALE:GREGORIAN/', '', $icalDataS2);
 
-
         // Combinez les données iCal
         $combinedData = $icalDataS1 . $icalDataS2;
 
-        // Enregistrez les données combinées dans un fichier
+        // Ajouter le commentaire "prof absent" aux événements concernés
+        $combinedData = addProfAbsentComment($combinedData);
+
+        // Enregistrez les données combinées et mises à jour dans un fichier
         $backupFileName = $group . '.ics';
         file_put_contents($backupDir . $backupFileName, $combinedData);
 
@@ -37,4 +39,35 @@ foreach ($but_data as $but) {
         echo "Erreur lors du téléchargement du fichier iCal pour le groupe $group\n";
     }
 }
-?>
+
+/**
+ * Ajoute le commentaire "prof absent" aux événements de Carole Couegnas entre le 27 mai 2024 et le 7 juin 2024.
+ *
+ * @param string $icalData Les données iCal combinées.
+ * @return string Les données iCal mises à jour.
+ */
+function addProfAbsentComment($icalData)
+{
+    $events = explode("BEGIN:VEVENT", $icalData);
+    $updatedEvents = [];
+    $start_date = strtotime('2024-05-27');
+    $end_date = strtotime('2024-06-07');
+
+    foreach ($events as $event) {
+        if (strpos($event, "COUEGNAS CAROLE") !== false) {
+            // Extraire la date de début de l'événement
+            preg_match('/DTSTART:(\d+T\d+Z)/', $event, $matches);
+            if ($matches) {
+                $eventDate = strtotime($matches[1]);
+                if ($eventDate >= $start_date && $eventDate <= $end_date) {
+                    // Ajouter le commentaire "prof absent" avant END:VEVENT
+                    $event = str_replace("END:VEVENT", "ORGANIZER:Prof absent\nEND:VEVENT", $event);
+                }
+            }
+        }
+        $updatedEvents[] = $event;
+    }
+
+    // Recombine les événements mis à jour
+    return implode("BEGIN:VEVENT", $updatedEvents);
+}
