@@ -304,6 +304,7 @@ if ($user_sql['edu_group'] == 'undefined' || $user_sql['edu_group'] == '') { ?>
             dow: [1, 2, 3, 4, 5]
           }, // Pause Repas chaque jour de la semaine
         ],
+        lazyFetching: false,
         views: {
           timeGridWeek: {
             type: 'timeGrid',
