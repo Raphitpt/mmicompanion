@@ -96,6 +96,20 @@ $additionalStyles = (str_contains($user_sql['role'], 'prof'))
     ? '<link async rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />'
     : '';
 
+// On récupère les données du formulaire du tutoriel pour ajouter l'année et le tp de l'utilisateur à la base de données
+if (isset($_POST['annee']) && isset($_POST['tp'])) {
+  $annee = $_POST['annee'];
+  $tp = $_POST['tp'];
+  $update_user = "UPDATE users SET edu_group = :edu_group WHERE id_user = :id_user";
+  $stmt = $dbh->prepare($update_user);
+  $stmt->execute([
+    'edu_group' => $annee . "-" . $tp,
+    'id_user' => $user['id_user']
+  ]);
+  header('Location: ./calendar_dayview.php');
+  exit();
+}
+
 echo head('MMI Companion | Accueil', $additionalStyles);
 
 ?>
